@@ -1,0 +1,10 @@
+interface:
+  display_name: Evidence Paper Reader
+  short_description: Reader-side paper audit for evidence and overreach
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
