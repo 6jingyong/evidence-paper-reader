@@ -61,7 +61,12 @@ The current contract is intentionally stricter than a prose-only prompt:
 ├── README.md
 ├── tests/
 │   ├── fixtures/
-│   │   └── resnet-smoke-audit.md
+│   │   ├── ablationbench-audit.md
+│   │   ├── air-quality-cfd-audit.md
+│   │   ├── hea-aluminum-audit.md
+│   │   ├── hyaluronic-hydrogel-audit.md
+│   │   ├── resnet-smoke-audit.md
+│   │   └── social-hyperconnection-audit.md
 │   ├── test_contract.py
 │   └── validate_audit.py
 └── evidence-paper-reader/
@@ -76,13 +81,13 @@ The current contract is intentionally stricter than a prose-only prompt:
 
 ## Contract tests
 
-The repository includes a zero-dependency Python validator and regression tests. The smoke fixture is a reader-side audit of **Deep Residual Learning for Image Recognition** (He et al., 2015/2016), chosen because it exercises benchmark evidence, method claims, mechanistic interpretation, generality overreach, and source-location tracking.
+The repository includes a zero-dependency Python validator and a cross-domain real-paper regression suite. The fixtures are intentionally heterogeneous so the skill is tested against different evidence chains rather than a single model-paper style.
 
 Run locally with:
 
 ```bash
 python -m unittest discover -s tests -v
-python tests/validate_audit.py tests/fixtures/resnet-smoke-audit.md
+for audit in tests/fixtures/*-audit.md; do python tests/validate_audit.py "$audit"; done
 ```
 
 The tests verify, among other things, that:
@@ -93,9 +98,23 @@ The tests verify, among other things, that:
 - unknown evidence labels are rejected
 - `literature citation` cannot be labeled `paper-local`
 - `external citation` or `mixed` provenance requires a named external dependency
-- the real-paper smoke fixture satisfies the contract
+- every real-paper regression fixture satisfies the contract
+- cross-section consistency and validation-independence rules remain present
 
 GitHub Actions runs the same checks on pushes and pull requests.
+
+### Current real-paper regression matrix
+
+| Fixture | Domain | Paper | Main stress case |
+| --- | --- | --- | --- |
+| `resnet-smoke-audit.md` | information science / ML | *Deep Residual Learning for Image Recognition* | benchmark evidence, mechanism vs performance, generality |
+| `ablationbench-audit.md` | information science / AI-for-science | *AblationBench: Evaluating Automated Planning of Ablations in Empirical AI Research* | benchmark construction, human baseline, model-specific generalization |
+| `hyaluronic-hydrogel-audit.md` | biomaterials / cell biology | *Hydrogels with Ultrasound-Treated Hyaluronic Acid Regulate CD44-Mediated Angiogenic Potential of Human Vascular Endothelial Cells In Vitro* | paper-local intervention evidence vs imported signaling mechanism |
+| `hea-aluminum-audit.md` | materials science | *Effect of Al Content on Microstructure and Mechanical Properties of CoCrFeNiMn High-Entropy Alloy* | abstract/conclusion vs reported values; phase/mechanism overreach |
+| `air-quality-cfd-audit.md` | environment / air quality | *Integrating Cost-Effective Measurements and CFD Modeling for Accurate Air Quality Assessment* | calibration target reused for evaluation; validation independence |
+| `social-hyperconnection-audit.md` | social survey | *How Screen Time and Social Media Hyperconnection Have Harmed Adolescents’ Relational and Psychological Well-Being since the COVID-19 Pandemic* | repeated cross-sectional association vs causal wording |
+
+These fixtures are not gold-standard peer reviews. They are contract regressions: each preserves a specific evidence-chain failure mode that the skill should continue to notice as its instructions evolve.
 
 ## Install
 
