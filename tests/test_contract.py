@@ -180,7 +180,8 @@ class SkillContractTests(unittest.TestCase):
     def test_validation_independence_is_preserved_in_layered_refs(self):
         self.assertIn("Validation independence", self.topology)
         self.assertIn("non-independent validation", self.pollution)
-        self.assertIn("fit to target", self.topology)
+        self.assertIn("fitting target", self.topology)
+        self.assertIn("Independent accuracy/generalization requires evidence", self.topology)
 
     def test_historical_topology_rules_are_explicit(self):
         for label in [
@@ -271,11 +272,12 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("Domain knowledge boundary", self.core)
         self.assertIn("Do not keep all optional references in context", self.router)
         for ref in [
-            "references/statistical-traps.md",
-            "references/measurement-traps.md",
-            "references/study-design-traps.md",
+            "statistical-traps.md",
+            "measurement-traps.md",
+            "study-design-traps.md",
         ]:
             self.assertIn(ref, self.skill)
+            self.assertIn(ref, self.router)
 
     def test_statistical_traps_cover_high_value_inference_failures(self):
         for phrase in [
