@@ -9,6 +9,7 @@ SCRIPTS = SKILL_DIR / "scripts"
 SKILL = SKILL_DIR / "SKILL.md"
 EVIDENCE_TYPES = REFS / "evidence-types.md"
 CORE_CONTRACT = REFS / "core-contract.md"
+EVIDENCE_VIABILITY = REFS / "evidence-viability.md"
 OUTPUT_CONTRACT = REFS / "output-contract.md"
 AUDIT_LEDGER_FORMAT = REFS / "audit-ledger-format.md"
 METHOD_ROUTER = REFS / "method-router.md"
@@ -64,6 +65,7 @@ class SkillContractTests(unittest.TestCase):
         cls.skill = SKILL.read_text(encoding="utf-8")
         cls.evidence = EVIDENCE_TYPES.read_text(encoding="utf-8")
         cls.core = CORE_CONTRACT.read_text(encoding="utf-8")
+        cls.viability_ref = EVIDENCE_VIABILITY.read_text(encoding="utf-8")
         cls.output = OUTPUT_CONTRACT.read_text(encoding="utf-8")
         cls.ledger_format = AUDIT_LEDGER_FORMAT.read_text(encoding="utf-8")
         cls.router = METHOD_ROUTER.read_text(encoding="utf-8")
@@ -85,6 +87,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertLessEqual(len(self.skill.splitlines()), 180)
         for ref in [
             "references/core-contract.md",
+            "references/evidence-viability.md",
             "references/output-contract.md",
             "references/audit-ledger-format.md",
             "references/evidence-types.md",
@@ -108,6 +111,7 @@ class SkillContractTests(unittest.TestCase):
         for status in ["in scope", "partially in scope", "out of scope"]:
             self.assertIn(status, self.core)
         for phrase in [
+            "Evidence viability before claims",
             "Evidence nodes",
             "Claim dependencies",
             "Evidence provenance",
@@ -119,8 +123,25 @@ class SkillContractTests(unittest.TestCase):
         ]:
             self.assertIn(phrase, self.core)
 
+    def test_evidence_viability_gate_is_explicit_and_non_prestige_based(self):
+        for phrase in [
+            "auditable",
+            "partially auditable",
+            "non-auditable",
+            "self-referential-construct",
+            "promotional-asymmetry",
+            "New terminology is not a problem by itself.",
+            "Commercial or proprietary work is not automatically non-auditable.",
+            "The gate is about whether the evidence chain can be reconstructed",
+        ]:
+            self.assertIn(phrase, self.viability_ref)
+        self.assertIn("evidence viability:", self.output)
+        self.assertIn("viability flags:", self.output)
+        self.assertIn("evidence-viability.md", self.skill)
+        self.assertIn("evidence-viability.md", self.router)
+
     def test_router_separates_mandatory_and_optional_context(self):
-        for ref in ["core-contract.md", "evidence-types.md", "audit-ledger-format.md", "output-contract.md"]:
+        for ref in ["core-contract.md", "evidence-viability.md", "evidence-types.md", "audit-ledger-format.md", "output-contract.md"]:
             self.assertIn(ref, self.router)
         for ref in [
             "figure-and-table-traps.md",
@@ -164,6 +185,8 @@ class SkillContractTests(unittest.TestCase):
     def test_renderer_turns_structured_ledger_into_valid_markdown(self):
         ledger = {
             "scope_status": "in scope",
+            "evidence_viability": "auditable",
+            "viability_flags": [],
             "paper_type": "computational benchmark study",
             "reader_conclusion": "The paper supports a bounded performance claim but not a broad mechanism claim.",
             "claims": [
@@ -236,6 +259,8 @@ class SkillContractTests(unittest.TestCase):
         }
         self.assertEqual(render_audit.validate_ledger(ledger), [])
         markdown = render_audit.render(ledger)
+        self.assertIn("- evidence viability: auditable", markdown)
+        self.assertIn("- viability flags: none", markdown)
         self.assertIn("### claim 1", markdown)
         self.assertIn("- evidence nodes: E1 + E2", markdown)
         self.assertIn("- upstream claims: C1", markdown)
