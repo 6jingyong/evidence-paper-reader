@@ -104,8 +104,12 @@ class StabilityRunnerTests(unittest.TestCase):
         self.assertIn("Run exactly this one review in a fresh model context.", prompt)
         self.assertIn("ST01: example evidence", prompt)
         self.assertIn('"selected_claim_ids"', prompt)
-        self.assertNotIn("forbidden_claims", prompt.lower())
-        self.assertNotIn("required_claims", prompt.lower())
+        contract = prompt.split("## Review packet", 1)[0]
+        self.assertNotIn('"K1"', contract)
+        self.assertNotIn('"K2"', contract)
+        self.assertNotIn('"K5"', contract)
+        self.assertNotIn("forbidden_claims", contract.lower())
+        self.assertNotIn("required_claims", contract.lower())
 
     def test_run_job_executes_one_external_reviewer_and_validates_json(self):
         with tempfile.TemporaryDirectory() as td:
