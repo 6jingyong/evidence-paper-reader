@@ -33,6 +33,7 @@ The strongest paper-local result is that, in 21 participants rating selected pai
 ### claim 1
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: abstract, categorical/parametric fMRI analyses, Figure 2, and activation tables
 - support level: sufficient
 - reason: Participants rated stimuli on a beauty scale and the fMRI analyses report overlapping mOFC activation and parametric relation with declared beauty intensity. The claim stays at the level of the measured ratings and neural signal.
@@ -41,6 +42,7 @@ The strongest paper-local result is that, in 21 participants rating selected pai
 ### claim 2
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: conjunction analysis and mOFC visual-versus-musical overlap results
 - support level: sufficient
 - reason: The within-study conjunction directly supports a common mOFC locus across the two tested modalities. It does not require equating that locus with beauty as a complete construct.
@@ -49,6 +51,7 @@ The strongest paper-local result is that, in 21 participants rating selected pai
 ### claim 3
 - evidence type: direct experiment + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: abstract conclusion and Discussion section "Toward a brain-based definition of beauty"
 - support level: partial
 - reason: The data support a cross-modal correlate of subject-reported beauty in two stimulus classes, but "faculty of beauty" reifies the operational proxy into a broader construct. A 1-9 self-rating and BOLD correlate do not by themselves exhaust aesthetic beauty, its cultural variation, or all relevant neural processes.
@@ -57,6 +60,7 @@ The strongest paper-local result is that, in 21 participants rating selected pai
 ### claim 4
 - evidence type: author interpretation
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: abstract statement that the faculty can be activated by at least two sources and probably by other sources as well
 - support level: insufficient
 - reason: Only visual paintings and musical excerpts were tested. Generalization to other aesthetic domains, moral beauty, performance, architecture, literature, or other cultures is not directly demonstrated.
