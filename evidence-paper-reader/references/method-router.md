@@ -2,7 +2,7 @@
 
 Use this file to decide which optional references to load.
 
-The router is deliberately conservative: a cue means "inspect this module", not "a flaw exists".
+The lexical router produces candidates, not final routes. A cue means "consider this module", not "a flaw exists".
 
 Always load:
 - `core-contract.md`
@@ -26,6 +26,19 @@ Use `evidence-inventory-format.md` + `scripts/evidence_inventory.py` when retrie
 
 Do not trigger the inventory path merely because the article has many pages. It should reduce ambiguity or active-context load.
 
+
+## Semantic confirmation pass
+
+After core claims are available:
+1. run or inspect the lexical candidate router
+2. apply `semantic-router-card.md` to each decision-critical claim
+3. merge both layers with `scripts/merge_route.py`
+
+Semantic `required` can add a module missed by keywords.
+Semantic `not_required` can remove an incidental lexical hit.
+Semantic `unclear` preserves a lexical hit until checked.
+
+This claim-level pass is mandatory when optional routing matters. It is intentionally much smaller than loading every methodology reference.
 
 ## Route table
 
@@ -134,13 +147,14 @@ Do not report a trap cue as a flaw until the mitigation check is complete.
 Flash path is a context-loading strategy, not a reduced-quality mode.
 
 1. read the paper once for scope and evidence viability; extract claims only after the viability gate
-2. create a minimal cue list
-3. load every module matched by decision-critical claims
-4. audit claims one at a time
-5. re-run routing if a later claim exposes a new cue
-6. apply false-positive guards after every trap module
-7. render the structured ledger with `scripts/render_audit.py` when available
-8. validate the complete output with `scripts/validate_audit.py`
+2. generate lexical route candidates
+3. confirm routes claim-by-claim with `semantic-router-card.md` and merge them
+4. load every module in the merged route
+5. audit claims one at a time
+6. re-run routing if a later claim exposes a new cue
+7. apply false-positive guards after every trap module
+8. render the structured ledger with `scripts/render_audit.py` when available
+9. validate the complete output with `scripts/validate_audit.py`
 
 Flash path does not permit fewer claims, missing fields, skipped routed modules, abstract-only support judgments, or weaker evidence standards.
 
