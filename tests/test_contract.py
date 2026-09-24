@@ -10,6 +10,10 @@ RESNET_FIXTURE = ROOT / "tests" / "fixtures" / "resnet-smoke-audit.md"
 FIXTURES = sorted((ROOT / "tests" / "fixtures").glob("*-audit.md"))
 POLLUTION = ROOT / "evidence-paper-reader" / "references" / "pollution-patterns.md"
 TOPOLOGY = ROOT / "evidence-paper-reader" / "references" / "evidence-topology.md"
+DEPENDENCE_REF = ROOT / "evidence-paper-reader" / "references" / "evidence-dependence.md"
+ECHINACEA_FIXTURE = ROOT / "tests" / "fixtures" / "historical-echinacea-2010-audit.md"
+AKT_FIXTURE = ROOT / "tests" / "fixtures" / "historical-akt-inos-2010-audit.md"
+BMD_REPLICATION_FIXTURE = ROOT / "tests" / "fixtures" / "historical-bmd-gwas-replication-2010-audit.md"
 
 spec = importlib.util.spec_from_file_location("validate_audit", ROOT / "tests" / "validate_audit.py")
 validate_audit = importlib.util.module_from_spec(spec)
@@ -25,6 +29,7 @@ class SkillContractTests(unittest.TestCase):
         cls.follow_up = FOLLOW_UP.read_text(encoding="utf-8")
         cls.pollution = POLLUTION.read_text(encoding="utf-8")
         cls.topology = TOPOLOGY.read_text(encoding="utf-8")
+        cls.dependence_ref = DEPENDENCE_REF.read_text(encoding="utf-8")
         cls.allowed = validate_audit.evidence_labels(cls.evidence)
 
     def test_fixed_output_sections_are_unique_and_ordered(self):
@@ -53,7 +58,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("Do not guess a DOI from memory.", self.follow_up)
 
     def test_all_real_paper_fixtures_satisfy_contract(self):
-        self.assertGreaterEqual(len(FIXTURES), 14)
+        self.assertGreaterEqual(len(FIXTURES), 15)
         for fixture in FIXTURES:
             with self.subTest(fixture=fixture.name):
                 errors = validate_audit.validate(fixture.read_text(encoding="utf-8"), self.allowed)
@@ -94,6 +99,36 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("### Empirical aesthetics and human-subject arts research", self.skill)
         self.assertIn("Do not translate `not statistically significant`", self.skill)
         self.assertIn("operational proxy", self.skill)
+
+    def test_evidence_dependence_and_triangulation_are_explicit(self):
+        for label in [
+            "single-source",
+            "shared-source convergence",
+            "partially independent convergence",
+            "independent convergence",
+            "unclear",
+        ]:
+            self.assertIn(label, validate_audit.DEPENDENCE)
+            self.assertIn(label, self.dependence_ref)
+        self.assertIn("pseudo-triangulation", self.pollution)
+        self.assertIn("evidence dependence:", self.skill)
+
+    def test_real_fixtures_distinguish_shared_partial_and_independent_convergence(self):
+        echinacea = ECHINACEA_FIXTURE.read_text(encoding="utf-8")
+        akt = AKT_FIXTURE.read_text(encoding="utf-8")
+        bmd = BMD_REPLICATION_FIXTURE.read_text(encoding="utf-8")
+        self.assertIn("- evidence dependence: shared-source convergence", echinacea)
+        self.assertIn("- evidence dependence: partially independent convergence", akt)
+        self.assertIn("- evidence dependence: independent convergence", bmd)
+
+    def test_validator_rejects_unknown_evidence_dependence(self):
+        text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
+            "- evidence dependence: single-source",
+            "- evidence dependence: many confirmations",
+            1,
+        )
+        errors = validate_audit.validate(text, self.allowed)
+        self.assertTrue(any("invalid evidence dependence" in error for error in errors), errors)
 
     def test_validator_rejects_unknown_evidence_label(self):
         text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
