@@ -53,7 +53,7 @@ The current contract is intentionally stricter than a prose-only prompt:
 - evidence-dependence checks that distinguish single-source evidence, shared-source corroboration, partial triangulation, and materially independent convergence
 - stable evidence-node IDs that make cross-claim evidence reuse and claim stacking visible
 - explicit claim-to-claim dependencies that carry upstream uncertainty forward
-- bounded methodological knowledge for figure/table interpretation without embedding domain conclusions
+- bounded methodological knowledge for figures/tables, statistical inference, measurement, and study design without embedding domain conclusions
 - empirical finance, clinical/biomedical, and empirical-aesthetics coverage when the paper has a traceable evidence chain
 
 ## Repository layout
@@ -96,6 +96,9 @@ The current contract is intentionally stricter than a prose-only prompt:
         ├── evidence-topology.md
         ├── figure-and-table-traps.md
         ├── follow-up-boundaries.md
+        ├── measurement-traps.md
+        ├── statistical-traps.md
+        ├── study-design-traps.md
         └── pollution-patterns.md
 ```
 
@@ -130,6 +133,7 @@ The tests verify, among other things, that:
 - every support block declares upstream claim dependencies
 - forward/self dependencies are rejected and uncertainty cannot disappear without new evidence
 - figure/table interpretation traps remain present as bounded methodological knowledge
+- statistical, measurement, and study-design trap references remain modular and explicitly bounded from domain-fact priors
 
 GitHub Actions runs the same checks on pushes and pull requests.
 
@@ -143,9 +147,15 @@ The validator implements a conservative propagation rule. If a downstream claim 
 
 The skill intentionally avoids embedding field conclusions such as expected material properties, treatment efficacy, or market behavior. It does include portable reading knowledge that changes how evidence should be interpreted.
 
-`figure-and-table-traps.md` covers decision-critical issues such as truncated or log axes, dual y-axes, denominator drift, relative versus absolute change, row-wise heatmap normalization, Simpson's paradox, smoothing and cumulative curves, SD/SEM/CI ambiguity, technical versus biological replication, representative images, pseudocolor and contrast, adjusted versus unadjusted tables, missing-data denominators, and multiple-testing displays.
+`figure-and-table-traps.md` covers decision-critical visual and tabular interpretation.
 
-These are not automatic flaw labels. The reader applies only the traps relevant to a core claim and states what comparison is or is not justified.
+`statistical-traps.md` covers effect size versus significance, multiplicity and selection, optional stopping, regression to the mean, subgroup interactions, covariate adjustment, model-form assumptions, dependence, missing data, Bayesian interpretation, and robustness.
+
+`measurement-traps.md` covers reliability versus validity, calibration/drift, detection limits, ceiling/floor effects, batch effects, assay specificity, measurement error, composite measures, surrogate endpoints, image-derived quantities, sensor context, coding reliability, and preprocessing.
+
+`study-design-traps.md` covers the unit of assignment, randomization/blinding, uncontrolled pre/post designs, historical controls, attrition/survivorship, case-control sampling, immortal time, crossover/clustered designs, quasi-experimental identification, mediation, benchmark leakage, and temporal leakage.
+
+These are not automatic flaw labels. The reader routes only the modules relevant to a core claim and states what the design or measurement does and does not justify. Domain facts remain external to the skill unless the user separately asks for literature context.
 
 ### Claim-evidence links and evidence reuse
 
