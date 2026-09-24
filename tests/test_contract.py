@@ -12,6 +12,8 @@ POLLUTION = ROOT / "evidence-paper-reader" / "references" / "pollution-patterns.
 TOPOLOGY = ROOT / "evidence-paper-reader" / "references" / "evidence-topology.md"
 DEPENDENCE_REF = ROOT / "evidence-paper-reader" / "references" / "evidence-dependence.md"
 CLAIM_LINKS_REF = ROOT / "evidence-paper-reader" / "references" / "claim-evidence-links.md"
+CLAIM_DEPENDENCIES_REF = ROOT / "evidence-paper-reader" / "references" / "claim-dependencies.md"
+FIGURE_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "figure-and-table-traps.md"
 ECHINACEA_FIXTURE = ROOT / "tests" / "fixtures" / "historical-echinacea-2010-audit.md"
 AKT_FIXTURE = ROOT / "tests" / "fixtures" / "historical-akt-inos-2010-audit.md"
 BMD_REPLICATION_FIXTURE = ROOT / "tests" / "fixtures" / "historical-bmd-gwas-replication-2010-audit.md"
@@ -33,6 +35,8 @@ class SkillContractTests(unittest.TestCase):
         cls.topology = TOPOLOGY.read_text(encoding="utf-8")
         cls.dependence_ref = DEPENDENCE_REF.read_text(encoding="utf-8")
         cls.claim_links_ref = CLAIM_LINKS_REF.read_text(encoding="utf-8")
+        cls.claim_dependencies_ref = CLAIM_DEPENDENCIES_REF.read_text(encoding="utf-8")
+        cls.figure_traps_ref = FIGURE_TRAPS_REF.read_text(encoding="utf-8")
         cls.allowed = validate_audit.evidence_labels(cls.evidence)
 
     def test_fixed_output_sections_are_unique_and_ordered(self):
@@ -136,6 +140,47 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("- support level: sufficient", text)
         self.assertIn("- support level: partial", text)
         self.assertIn("- support level: insufficient", text)
+
+    def test_claim_dependencies_and_uncertainty_propagation_are_explicit(self):
+        self.assertIn("Uncertainty propagation", self.claim_dependencies_ref)
+        self.assertIn("inference-chain laundering", self.claim_dependencies_ref)
+        self.assertIn("upstream claims:", self.skill)
+        self.assertIn("inference-chain laundering", self.pollution)
+
+    def test_validator_rejects_forward_claim_dependency(self):
+        text = BEAUTY_FIXTURE.read_text(encoding="utf-8").replace(
+            "- upstream claims: none",
+            "- upstream claims: C2",
+            1,
+        )
+        errors = validate_audit.validate(text, self.allowed)
+        self.assertTrue(any("must reference earlier claims only" in error for error in errors), errors)
+
+    def test_validator_propagates_uncertainty_without_new_evidence(self):
+        text = BEAUTY_FIXTURE.read_text(encoding="utf-8").replace(
+            "- support level: insufficient",
+            "- support level: sufficient",
+            1,
+        )
+        errors = validate_audit.validate(text, self.allowed)
+        self.assertTrue(
+            any("downstream claim cannot be sufficient" in error for error in errors),
+            errors,
+        )
+
+    def test_figure_and_table_world_knowledge_is_bounded_and_explicit(self):
+        for phrase in [
+            "Truncated baseline",
+            "Dual y-axes",
+            "Denominator drift",
+            "Simpson's paradox",
+            "Error-bar identity",
+            "Representative image",
+            "Adjusted versus unadjusted estimates",
+        ]:
+            self.assertIn(phrase, self.figure_traps_ref)
+        self.assertIn("Treat figures and tables as evidence objects", self.skill)
+        self.assertIn("visual impression overreach", self.pollution)
 
     def test_validator_rejects_malformed_evidence_nodes(self):
         text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
