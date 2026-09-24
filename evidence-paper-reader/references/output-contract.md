@@ -9,6 +9,8 @@ Use this exact top-level section order.
 ## 1. reader conclusion
 Start with:
 - `scope status: in scope | partially in scope | out of scope`
+- `evidence viability: auditable | partially auditable | non-auditable`
+- `viability flags: none | <one or more controlled flags from evidence-viability.md>`
 - `paper type: ...`
 
 Then write 3 to 6 sentences covering:
@@ -18,7 +20,7 @@ Then write 3 to 6 sentences covering:
 
 ## 2. core claims
 
-For in-scope and partially in-scope papers, list 3 to 5 sequential claims.
+For `auditable` material, list 3 to 5 sequential claims. For `partially auditable` material, list only the 1 to 5 claims whose evidence chain can actually be reconstructed.
 
 ### claim 1
 - content: ...
@@ -27,7 +29,7 @@ For in-scope and partially in-scope papers, list 3 to 5 sequential claims.
 
 Repeat sequentially.
 
-For an out-of-scope paper, use:
+For an out-of-scope or `non-auditable` source, use:
 `not applicable — <reason>`
 
 ## 3. evidence and support
@@ -45,7 +47,7 @@ Use the same claim numbers as section 2.
 - reason: ...
 - external dependency: none | <cited work title; DOI only if verified/available; why it matters>
 
-For an out-of-scope paper, use:
+For an out-of-scope or `non-auditable` source, use:
 `not applicable — <reason>`
 
 ## 4. what is usable
