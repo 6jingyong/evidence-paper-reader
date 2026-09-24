@@ -14,6 +14,8 @@ Use these labels to describe where a paper's narrative goes beyond its evidence.
 - **correlation to causation jump**: associational evidence is narrated as causal support
 - **case to general law jump**: one or a few cases are narrated as if they establish a wider rule
 - **material to strong explanation jump**: documents, interviews, or field records are narrated as if they settle a stronger mechanism claim than they actually do
+- **internal inconsistency**: the abstract, results, figures/tables, discussion, or conclusion give incompatible values, trends, phase assignments, sample descriptions, or causal statements; expose the mismatch instead of silently selecting the favorable version
+- **non-independent validation**: calibration, tuning, selection, judging, or optimization uses a target or proxy that is then reused as the main evaluation target, so improved agreement demonstrates fit to that target but not independent external accuracy or generalization
 
 ## Usage rule
 Use the label only after you state the concrete mismatch in plain language.
