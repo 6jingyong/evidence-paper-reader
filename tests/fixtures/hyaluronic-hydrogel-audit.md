@@ -33,6 +33,7 @@ The strongest evidence is the paper-local chain from ultrasound-degraded hyaluro
 ### claim 1
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: material-characterization methods and Figure 2
 - support level: sufficient
 - reason: The paper directly characterizes ultrasound-treated HA-Ph and reports molecular-weight changes while subsequently forming and testing the corresponding hydrogels. This supports the bounded material-processing claim.
@@ -41,6 +42,7 @@ The strongest evidence is the paper-local chain from ultrasound-degraded hyaluro
 ### claim 2
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: cell-morphology and network-formation results, especially Figures 4 and 5
 - support level: sufficient
 - reason: The paper reports a substantially larger cell aspect ratio under HA-Ph-30 and visible network-like structures in the 2 percent HA-Ph-30 condition. These are direct measurements and observations within the tested in-vitro setup.
@@ -49,6 +51,7 @@ The strongest evidence is the paper-local chain from ultrasound-degraded hyaluro
 ### claim 3
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: CD44-blocking experiment and PI3K-expression results, especially Figures 5-7
 - support level: sufficient
 - reason: Blocking CD44 suppresses the network-like structure and reduces the associated PI3K signal relative to the unblocked HA-Ph-30 condition. This supports CD44 involvement in the tested response, although it does not establish that CD44 is the only relevant receptor or pathway.
@@ -57,6 +60,7 @@ The strongest evidence is the paper-local chain from ultrasound-degraded hyaluro
 ### claim 4
 - evidence type: direct experiment + literature citation + author interpretation
 - evidence provenance: mixed
+- evidence dependence: unclear
 - source location: signaling-pathway discussion around Figure 7 and cited hyaluronan angiogenesis literature
 - support level: partial
 - reason: The current paper measures CD44 and PI3K-related changes, but parts of the downstream causal chain are inferred from prior literature rather than directly measured here. HIF-1 does not show a significant difference, and RHAMM is not tested, so the full pathway narrative is more specific than the paper-local evidence.
