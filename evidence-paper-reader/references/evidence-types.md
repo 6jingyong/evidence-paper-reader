@@ -3,10 +3,11 @@
 Use only these evidence labels unless the user explicitly requests a looser reading.
 
 ## Core labels
-- **direct experiment**: a measured experiment or directly observed intervention reported by the paper
-- **numerical simulation**: a modeled or simulated result, including computational experiments whose realism depends on assumptions or boundary conditions
+- **direct experiment**: a measured physical, laboratory, field, or directly observed intervention reported by the paper; do not use this label merely because a model or algorithm was run on a benchmark
+- **computational benchmark**: an empirical evaluation of software, models, algorithms, or computational methods on datasets or tasks, including benchmark comparisons and ablations; this is not `numerical simulation` unless the computation is simulating a target system or phenomenon
+- **numerical simulation**: a modeled or simulated result whose relevance depends on assumptions, boundary conditions, or a computational representation of a target system or phenomenon
 - **theoretical derivation**: a formal derivation or analytic argument presented as support
-- **statistical analysis**: an empirical statistical result, including regressions, estimates, or descriptive statistical findings
+- **statistical analysis**: an empirical statistical result, including regressions, estimates, hypothesis tests, uncertainty intervals, or descriptive statistical findings
 - **single-case illustration**: one or a few examples used to demonstrate possibility, not broad regularity
 - **archival material**: archived documents, historical records, institutional records, or curated documentary evidence
 - **survey record**: structured survey evidence, including questionnaire-based data collection
@@ -18,7 +19,9 @@ Use only these evidence labels unless the user explicitly requests a looser read
 
 ## Application notes
 - When a claim depends on more than one evidence type, list the dominant type first and mention the secondary type.
+- Do not collapse computational benchmark into direct experiment.
+- Do not collapse computational benchmark into numerical simulation.
 - Do not collapse simulation into direct experiment.
-- Do not collapse author interpretation into evidence.
-- Do not treat literature citation as direct support if the current paper does not reproduce or directly verify the cited mechanism.
+- Do not collapse author interpretation into evidence demonstrated by the current paper.
+- Do not treat literature citation as paper-local support if the current paper does not reproduce or directly verify the cited mechanism/result.
 - For social science material, distinguish clearly between source material and the author's theoretical interpretation.
