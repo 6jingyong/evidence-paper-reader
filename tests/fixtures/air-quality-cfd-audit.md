@@ -33,6 +33,7 @@ The paper provides useful evidence that its CFD setup reproduces the tested 24-h
 ### claim 1
 - evidence type: numerical simulation + field observation + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: CFD validation results comparing modeled wind and PM10 with the two reference monitoring stations
 - support level: sufficient
 - reason: The paper reports wind correlation around 0.87 with average deviation around 7 percent and PM10 correlations around 0.96 and 0.86, together with additional model-performance metrics. This directly supports useful agreement for the tested period and stations, not universal model accuracy.
@@ -41,6 +42,7 @@ The paper provides useful evidence that its CFD setup reproduces the tested 24-h
 ### claim 2
 - evidence type: statistical analysis + numerical simulation + field observation
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: low-cost-sensor calibration results before and after linear correction using modeled concentrations as targets
 - support level: sufficient
 - reason: The reported pre/post deviations directly establish much closer agreement with the CFD-derived calibration target after fitting. The bounded claim is about target agreement, not independent truth.
@@ -49,6 +51,7 @@ The paper provides useful evidence that its CFD setup reproduces the tested 24-h
 ### claim 3
 - evidence type: statistical analysis + numerical simulation + field observation + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: calibration-results interpretation and claims about improved sensor accuracy
 - support level: partial
 - reason: The calibrated readings are shown to agree much better with the same CFD-derived concentrations used to fit the calibration. That is non-independent validation. Comparisons with the reference stations provide some external context, but the design does not make the dramatic 1-3 percent post-calibration target error an independent estimate of real-world sensor accuracy.
@@ -57,6 +60,7 @@ The paper provides useful evidence that its CFD setup reproduces the tested 24-h
 ### claim 4
 - evidence type: numerical simulation + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: discussion and conclusion on missing-data reconstruction and optimized sensor deployment
 - support level: partial
 - reason: The demonstrated workflow makes these applications plausible, but the paper tests a limited spatial domain and representative 24-hour case rather than repeated deployments across weather, season, source-pattern, and sensor-placement conditions.
