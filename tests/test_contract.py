@@ -6,7 +6,9 @@ ROOT = Path(__file__).parents[1]
 SKILL = ROOT / "evidence-paper-reader" / "SKILL.md"
 EVIDENCE_TYPES = ROOT / "evidence-paper-reader" / "references" / "evidence-types.md"
 FOLLOW_UP = ROOT / "evidence-paper-reader" / "references" / "follow-up-boundaries.md"
-FIXTURE = ROOT / "tests" / "fixtures" / "resnet-smoke-audit.md"
+RESNET_FIXTURE = ROOT / "tests" / "fixtures" / "resnet-smoke-audit.md"
+FIXTURES = sorted((ROOT / "tests" / "fixtures").glob("*-audit.md"))
+POLLUTION = ROOT / "evidence-paper-reader" / "references" / "pollution-patterns.md"
 
 spec = importlib.util.spec_from_file_location("validate_audit", ROOT / "tests" / "validate_audit.py")
 validate_audit = importlib.util.module_from_spec(spec)
@@ -20,6 +22,7 @@ class SkillContractTests(unittest.TestCase):
         cls.skill = SKILL.read_text(encoding="utf-8")
         cls.evidence = EVIDENCE_TYPES.read_text(encoding="utf-8")
         cls.follow_up = FOLLOW_UP.read_text(encoding="utf-8")
+        cls.pollution = POLLUTION.read_text(encoding="utf-8")
         cls.allowed = validate_audit.evidence_labels(cls.evidence)
 
     def test_fixed_output_sections_are_unique_and_ordered(self):
@@ -47,12 +50,25 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("mixed", self.follow_up)
         self.assertIn("Do not guess a DOI from memory.", self.follow_up)
 
-    def test_real_paper_smoke_fixture_satisfies_contract(self):
-        errors = validate_audit.validate(FIXTURE.read_text(encoding="utf-8"), self.allowed)
-        self.assertEqual(errors, [])
+    def test_all_real_paper_fixtures_satisfy_contract(self):
+        self.assertGreaterEqual(len(FIXTURES), 6)
+        for fixture in FIXTURES:
+            with self.subTest(fixture=fixture.name):
+                errors = validate_audit.validate(fixture.read_text(encoding="utf-8"), self.allowed)
+                self.assertEqual(errors, [])
+
+    def test_cross_section_consistency_rule_is_explicit(self):
+        self.assertIn("cross-section consistency scan", self.skill)
+        self.assertIn("internal inconsistency", self.pollution)
+        self.assertIn("Do not let summary prose override", self.skill)
+
+    def test_validation_independence_rule_is_explicit(self):
+        self.assertIn("Check whether validation is independent", self.skill)
+        self.assertIn("non-independent validation", self.pollution)
+        self.assertIn("fit to target", self.skill)
 
     def test_validator_rejects_unknown_evidence_label(self):
-        text = FIXTURE.read_text(encoding="utf-8").replace(
+        text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
             "- evidence type: computational benchmark",
             "- evidence type: benchmark experiment",
             1,
