@@ -11,9 +11,11 @@ FIXTURES = sorted((ROOT / "tests" / "fixtures").glob("*-audit.md"))
 POLLUTION = ROOT / "evidence-paper-reader" / "references" / "pollution-patterns.md"
 TOPOLOGY = ROOT / "evidence-paper-reader" / "references" / "evidence-topology.md"
 DEPENDENCE_REF = ROOT / "evidence-paper-reader" / "references" / "evidence-dependence.md"
+CLAIM_LINKS_REF = ROOT / "evidence-paper-reader" / "references" / "claim-evidence-links.md"
 ECHINACEA_FIXTURE = ROOT / "tests" / "fixtures" / "historical-echinacea-2010-audit.md"
 AKT_FIXTURE = ROOT / "tests" / "fixtures" / "historical-akt-inos-2010-audit.md"
 BMD_REPLICATION_FIXTURE = ROOT / "tests" / "fixtures" / "historical-bmd-gwas-replication-2010-audit.md"
+BEAUTY_FIXTURE = ROOT / "tests" / "fixtures" / "historical-brain-beauty-2011-audit.md"
 
 spec = importlib.util.spec_from_file_location("validate_audit", ROOT / "tests" / "validate_audit.py")
 validate_audit = importlib.util.module_from_spec(spec)
@@ -30,6 +32,7 @@ class SkillContractTests(unittest.TestCase):
         cls.pollution = POLLUTION.read_text(encoding="utf-8")
         cls.topology = TOPOLOGY.read_text(encoding="utf-8")
         cls.dependence_ref = DEPENDENCE_REF.read_text(encoding="utf-8")
+        cls.claim_links_ref = CLAIM_LINKS_REF.read_text(encoding="utf-8")
         cls.allowed = validate_audit.evidence_labels(cls.evidence)
 
     def test_fixed_output_sections_are_unique_and_ordered(self):
@@ -120,6 +123,40 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("- evidence dependence: shared-source convergence", echinacea)
         self.assertIn("- evidence dependence: partially independent convergence", akt)
         self.assertIn("- evidence dependence: independent convergence", bmd)
+
+    def test_claim_evidence_links_and_reuse_are_explicit(self):
+        self.assertIn("Stable identity rule", self.claim_links_ref)
+        self.assertIn("Claim stacking", self.claim_links_ref)
+        self.assertIn("claim stacking / evidence double-spending", self.pollution)
+        self.assertIn("evidence nodes:", self.skill)
+
+    def test_brain_beauty_fixture_exposes_evidence_reuse_across_claims(self):
+        text = BEAUTY_FIXTURE.read_text(encoding="utf-8")
+        self.assertGreaterEqual(text.count("- evidence nodes: E1 + E2"), 4)
+        self.assertIn("- support level: sufficient", text)
+        self.assertIn("- support level: partial", text)
+        self.assertIn("- support level: insufficient", text)
+
+    def test_validator_rejects_malformed_evidence_nodes(self):
+        text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
+            "- evidence nodes: E1",
+            "- evidence nodes: Figure4",
+            1,
+        )
+        errors = validate_audit.validate(text, self.allowed)
+        self.assertTrue(any("invalid evidence nodes" in error for error in errors), errors)
+
+    def test_validator_requires_two_nodes_for_convergence(self):
+        text = BMD_REPLICATION_FIXTURE.read_text(encoding="utf-8").replace(
+            "- evidence nodes: E1 + E2",
+            "- evidence nodes: E1",
+            1,
+        )
+        errors = validate_audit.validate(text, self.allowed)
+        self.assertTrue(
+            any("convergence dependence requires at least two evidence nodes" in error for error in errors),
+            errors,
+        )
 
     def test_validator_rejects_unknown_evidence_dependence(self):
         text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
