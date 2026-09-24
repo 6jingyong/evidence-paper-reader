@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: benchmark-heavy method paper
 
 The most durable value is the controlled comparison between plain and residual networks and the resulting optimization/performance evidence. The paper shows convincing benchmark evidence that residual connections help the tested deep convolutional networks optimize and that increased depth can improve accuracy within the tested ResNet families. The mechanistic story that residual learning works because the learned residual functions are closer to zero is weaker than the performance evidence and should be downweighted. The broad claim that the residual principle is generic beyond the demonstrated vision tasks is not established here. The paper is mainly useful as a method and result reference.
