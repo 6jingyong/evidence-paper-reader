@@ -6,6 +6,7 @@ The router is deliberately conservative: a cue means "inspect this module", not 
 
 Always load:
 - `core-contract.md`
+- `evidence-viability.md`
 - `evidence-types.md`
 
 Output interface:
@@ -120,7 +121,7 @@ Do not report a trap cue as a flaw until the mitigation check is complete.
 
 Flash path is a context-loading strategy, not a reduced-quality mode.
 
-1. read the paper once for scope and 3–5 claims
+1. read the paper once for scope and evidence viability; extract claims only after the viability gate
 2. create a minimal cue list
 3. load every module matched by decision-critical claims
 4. audit claims one at a time
