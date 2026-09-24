@@ -33,6 +33,7 @@ The strongest results are descriptive and associational: the nationally represen
 ### claim 1
 - evidence type: survey record + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: sample description and prevalence results comparing the 2019 and 2022 nationally representative samples
 - support level: sufficient
 - reason: The paper directly reports two large independently sampled national surveys and the increase from 23.1 to 39.4 percent under its stated hyperconnection definition. This supports the population estimate within the survey design.
@@ -41,6 +42,7 @@ The strongest results are descriptive and associational: the nationally represen
 ### claim 2
 - evidence type: survey record + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: 2022 multivariable regression results for negative psychological states
 - support level: sufficient
 - reason: The regression directly reports an association of about 1.4-fold higher odds for hyperconnected adolescents of both genders after the model's included adjustments. This is sufficient for an association claim, not a causal effect.
@@ -49,6 +51,7 @@ The strongest results are descriptive and associational: the nationally represen
 ### claim 3
 - evidence type: survey record + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: title, regression results, and discussion language interpreting hyperconnection as harmful
 - support level: insufficient
 - reason: Cross-sectional exposure and outcome measurements do not establish temporal direction or rule out residual confounding and reverse causation. The data support association, while "harmed" is a causal upgrade beyond the design.
@@ -57,6 +60,7 @@ The strongest results are descriptive and associational: the nationally represen
 ### claim 4
 - evidence type: survey record + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: 2019-versus-2022 comparison and discussion attributing the change to the pandemic period
 - support level: partial
 - reason: The increase occurred across the pandemic interval and is consistent with a pandemic-related explanation, but the two waves are independent cross-sectional samples and the design does not isolate the pandemic from other secular changes. A weaker temporal-coincidence claim is supported; direct causation is not.
