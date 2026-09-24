@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: in-vitro biomaterials and cell-response paper
 
 The strongest evidence is the paper-local chain from ultrasound-degraded hyaluronic-acid hydrogel characterization to endothelial-cell morphology, network formation, CD44 blocking, and PI3K-expression measurements. Those experiments support a bounded claim that the tested HA-Ph-30 condition changes the behavior of the HUEhT-1 endothelial cells and that CD44 participates in that response. The paper is less able to establish a complete downstream angiogenic mechanism: parts of the proposed signaling story are imported from prior literature, HIF-1 does not significantly change, and the authors themselves note that another hyaluronan receptor, RHAMM, was not examined. Translation from one in-vitro endothelial model to tissue-engineering or in-vivo angiogenesis should therefore be downweighted. The paper is mainly useful as a method and result reference.
