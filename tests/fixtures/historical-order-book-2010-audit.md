@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: empirical market-microstructure and econometric paper
 
 The most robust result is a strong short-horizon linear association between order-flow imbalance (OFI) and mid-price changes in one month of TAQ data for 50 randomly selected S&P 500 stocks, with average reported R-squared around 65 percent. The stronger language that price changes are "driven" by OFI needs qualification because OFI itself includes contributions from price-changing order-book events, creating mechanical coupling between predictor and outcome; the paper explicitly acknowledges a possible tautology. Importantly, a robustness exercise that removes price-changing events reduces but does not eliminate the fit, with R-squared still in roughly the 35-60 percent range, so the relation is not wholly mechanical. Claims of broad stability should remain bounded by the one-month U.S. large-cap sample. The paper is mainly useful as an empirical market-microstructure result and model-design reference.
