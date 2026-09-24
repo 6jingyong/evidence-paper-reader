@@ -16,40 +16,39 @@ SUPPORT = {"sufficient", "partial", "insufficient", "unclear"}
 DOWNWEIGHT = set(DOWNWEIGHT_ORDER)
 
 
-def load_responses(path: Path) -> dict[tuple[str, str], dict]:
+def load_responses(path: Path) -> dict[str, dict]:
     found = {}
     for file in sorted(path.glob("*.json")):
         data = json.loads(file.read_text(encoding="utf-8"))
-        found[(data["case_id"], data["condition"])] = data
+        found[data["packet_id"]] = data
     return found
 
 
 def validate_response(data: dict) -> list[str]:
     errors = []
-    case_id = data.get("case_id", "<unknown>")
-    condition = data.get("condition")
-    if condition not in {"hidden", "visible"}:
-        errors.append(f"{case_id}: invalid condition")
+    packet_id = data.get("packet_id", "<unknown>")
+    if not isinstance(packet_id, str) or not packet_id.startswith("P-"):
+        errors.append("invalid packet_id")
     if data.get("scope_status") not in SCOPE:
-        errors.append(f"{case_id}/{condition}: invalid scope status")
+        errors.append(f"{packet_id}: invalid scope status")
     anchors = data.get("anchors")
     if not isinstance(anchors, list) or len(anchors) != 3:
-        errors.append(f"{case_id}/{condition}: expected exactly 3 anchors")
+        errors.append(f"{packet_id}: expected exactly 3 anchors")
         return errors
     ids = [x.get("id") for x in anchors]
     if ids != ["A1", "A2", "A3"]:
-        errors.append(f"{case_id}/{condition}: anchors must be A1,A2,A3 in order")
+        errors.append(f"{packet_id}: anchors must be A1,A2,A3 in order")
     for a in anchors:
         if a.get("support_level") not in SUPPORT:
-            errors.append(f"{case_id}/{condition}/{a.get('id')}: invalid support")
+            errors.append(f"{packet_id}/{a.get('id')}: invalid support")
         if a.get("downweight") not in DOWNWEIGHT:
-            errors.append(f"{case_id}/{condition}/{a.get('id')}: invalid downweight")
+            errors.append(f"{packet_id}/{a.get('id')}: invalid downweight")
         if not isinstance(a.get("follow_up_required"), bool):
-            errors.append(f"{case_id}/{condition}/{a.get('id')}: follow_up_required must be boolean")
+            errors.append(f"{packet_id}/{a.get('id')}: follow_up_required must be boolean")
         if not isinstance(a.get("reason"), str) or not a["reason"].strip():
-            errors.append(f"{case_id}/{condition}/{a.get('id')}: reason required")
+            errors.append(f"{packet_id}/{a.get('id')}: reason required")
     if not isinstance(data.get("requested_follow_up"), list):
-        errors.append(f"{case_id}/{condition}: requested_follow_up must be a list")
+        errors.append(f"{packet_id}: requested_follow_up must be a list")
     return errors
 
 
@@ -62,7 +61,7 @@ def support_direction(hidden: str, visible: str) -> str:
     return "visible_more_permissive" if delta > 0 else "visible_more_skeptical"
 
 
-def score(responses: dict[tuple[str, str], dict], expectations: dict) -> dict:
+def score(responses: dict[str, dict], expectations: dict, manifest: list[dict]) -> dict:
     pair_rows = []
     direction_counts = Counter()
     scope_flips = 0
@@ -73,10 +72,16 @@ def score(responses: dict[tuple[str, str], dict], expectations: dict) -> dict:
     expectation_hits = Counter()
 
     exp_by_case = {x["case_id"]: x for x in expectations["cases"]}
+    manifest_by_case = {}
+    for row in manifest:
+        manifest_by_case.setdefault(row["case_id"], {})[row["condition"]] = row
+
+    group_rows = {"flagship_high_attention": [], "low_attention_nontraditional": []}
 
     for case_id in sorted(exp_by_case):
-        h = responses[(case_id, "hidden")]
-        v = responses[(case_id, "visible")]
+        pair = manifest_by_case[case_id]
+        h = responses[pair["hidden"]["packet_id"]]
+        v = responses[pair["visible"]["packet_id"]]
         if h["scope_status"] != v["scope_status"]:
             scope_flips += 1
 
@@ -110,6 +115,17 @@ def score(responses: dict[tuple[str, str], dict], expectations: dict) -> dict:
                 "reference_support": expected,
             })
 
+        attention = pair["visible"]["attention"]
+        group_key = (
+            "flagship_high_attention"
+            if "flagship/high-attention" in attention
+            else "low_attention_nontraditional"
+        )
+        group_rows[group_key].append({
+            "case_id": case_id,
+            "anchors": anchor_rows,
+        })
+
         pair_rows.append({
             "case_id": case_id,
             "scope_hidden": h["scope_status"],
@@ -120,6 +136,20 @@ def score(responses: dict[tuple[str, str], dict], expectations: dict) -> dict:
             "anchors": anchor_rows,
         })
 
+    group_effects = {}
+    for group, rows in group_rows.items():
+        directions = Counter(
+            anchor["support_direction"]
+            for row in rows
+            for anchor in row["anchors"]
+        )
+        group_effects[group] = {
+            "pair_count": len(rows),
+            "support_directions": dict(directions),
+            "visible_more_permissive": directions["visible_more_permissive"],
+            "visible_more_skeptical": directions["visible_more_skeptical"],
+        }
+
     return {
         "pair_count": len(pair_rows),
         "anchor_count": total_anchors,
@@ -128,6 +158,7 @@ def score(responses: dict[tuple[str, str], dict], expectations: dict) -> dict:
         "scope_flips": scope_flips,
         "net_followup_delta_visible_minus_hidden": followup_delta_total,
         "net_downweight_delta_visible_minus_hidden": downweight_delta_total,
+        "group_effects": group_effects,
         "reference_accuracy": {
             "hidden": expectation_hits["hidden_True"] / total_anchors if total_anchors else None,
             "visible": expectation_hits["visible_True"] / total_anchors if total_anchors else None,
@@ -140,6 +171,11 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("responses", type=Path)
     parser.add_argument(
+        "--manifest",
+        type=Path,
+        default=ROOT / "packets" / "manifest.json",
+    )
+    parser.add_argument(
         "--expectations",
         type=Path,
         default=ROOT / "reference_expectations.json",
@@ -149,21 +185,30 @@ def main() -> int:
 
     responses = load_responses(args.responses)
     expectations = json.loads(args.expectations.read_text(encoding="utf-8"))
+    manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
+    manifest_by_case = {}
+    for row in manifest:
+        manifest_by_case.setdefault(row["case_id"], {})[row["condition"]] = row
 
     errors = []
     for case in expectations["cases"]:
+        pair = manifest_by_case.get(case["case_id"], {})
         for condition in ["hidden", "visible"]:
-            key = (case["case_id"], condition)
-            if key not in responses:
-                errors.append(f"missing response: {case['case_id']}/{condition}")
+            row = pair.get(condition)
+            if row is None:
+                errors.append(f"missing manifest row: {case['case_id']}/{condition}")
+                continue
+            packet_id = row["packet_id"]
+            if packet_id not in responses:
+                errors.append(f"missing response: {packet_id}")
             else:
-                errors.extend(validate_response(responses[key]))
+                errors.extend(validate_response(responses[packet_id]))
     if errors:
         for error in errors:
             print(f"FAIL: {error}")
         return 1
 
-    result = score(responses, expectations)
+    result = score(responses, expectations, manifest)
     if args.json:
         print(json.dumps(result, indent=2, ensure_ascii=False))
     else:
@@ -179,6 +224,7 @@ def main() -> int:
             "net visible-hidden downweight delta: "
             f"{result['net_downweight_delta_visible_minus_hidden']}"
         )
+        print(f"group effects: {result['group_effects']}")
         print(f"reference accuracy: {result['reference_accuracy']}")
     return 0
 
