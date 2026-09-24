@@ -9,6 +9,7 @@ FOLLOW_UP = ROOT / "evidence-paper-reader" / "references" / "follow-up-boundarie
 RESNET_FIXTURE = ROOT / "tests" / "fixtures" / "resnet-smoke-audit.md"
 FIXTURES = sorted((ROOT / "tests" / "fixtures").glob("*-audit.md"))
 POLLUTION = ROOT / "evidence-paper-reader" / "references" / "pollution-patterns.md"
+TOPOLOGY = ROOT / "evidence-paper-reader" / "references" / "evidence-topology.md"
 
 spec = importlib.util.spec_from_file_location("validate_audit", ROOT / "tests" / "validate_audit.py")
 validate_audit = importlib.util.module_from_spec(spec)
@@ -23,6 +24,7 @@ class SkillContractTests(unittest.TestCase):
         cls.evidence = EVIDENCE_TYPES.read_text(encoding="utf-8")
         cls.follow_up = FOLLOW_UP.read_text(encoding="utf-8")
         cls.pollution = POLLUTION.read_text(encoding="utf-8")
+        cls.topology = TOPOLOGY.read_text(encoding="utf-8")
         cls.allowed = validate_audit.evidence_labels(cls.evidence)
 
     def test_fixed_output_sections_are_unique_and_ordered(self):
@@ -51,7 +53,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("Do not guess a DOI from memory.", self.follow_up)
 
     def test_all_real_paper_fixtures_satisfy_contract(self):
-        self.assertGreaterEqual(len(FIXTURES), 6)
+        self.assertGreaterEqual(len(FIXTURES), 14)
         for fixture in FIXTURES:
             with self.subTest(fixture=fixture.name):
                 errors = validate_audit.validate(fixture.read_text(encoding="utf-8"), self.allowed)
@@ -66,6 +68,32 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("Check whether validation is independent", self.skill)
         self.assertIn("non-independent validation", self.pollution)
         self.assertIn("fit to target", self.skill)
+
+
+    def test_historical_topology_rules_are_explicit(self):
+        for label in [
+            "mechanical coupling",
+            "null-result overreach",
+            "proxy reification",
+            "selection-conditioned evidence",
+        ]:
+            self.assertIn(label, self.pollution)
+        for heading in [
+            "## 1. Mechanical coupling",
+            "## 3. Selection-conditioned evidence",
+            "## 4. Null-result boundary",
+            "## 5. Proxy-to-construct boundary",
+        ]:
+            self.assertIn(heading, self.topology)
+
+    def test_finance_medicine_and_empirical_arts_are_covered(self):
+        self.assertIn("administrative or transactional record", self.allowed)
+        self.assertIn("intervention", validate_audit.CLAIM_TYPES)
+        self.assertIn("### Finance, econometrics, and market-microstructure papers", self.skill)
+        self.assertIn("### Clinical and biomedical empirical papers", self.skill)
+        self.assertIn("### Empirical aesthetics and human-subject arts research", self.skill)
+        self.assertIn("Do not translate \`not statistically significant\`", self.skill)
+        self.assertIn("operational proxy", self.skill)
 
     def test_validator_rejects_unknown_evidence_label(self):
         text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
