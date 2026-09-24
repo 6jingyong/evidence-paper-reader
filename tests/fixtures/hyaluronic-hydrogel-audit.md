@@ -33,6 +33,7 @@ The strongest evidence is the paper-local chain from ultrasound-degraded hyaluro
 ### claim 1
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1
 - evidence dependence: single-source
 - source location: material-characterization methods and Figure 2
 - support level: sufficient
@@ -42,6 +43,7 @@ The strongest evidence is the paper-local chain from ultrasound-degraded hyaluro
 ### claim 2
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E2 + E3
 - evidence dependence: shared-source convergence
 - source location: cell-morphology and network-formation results, especially Figures 4 and 5
 - support level: sufficient
@@ -51,6 +53,7 @@ The strongest evidence is the paper-local chain from ultrasound-degraded hyaluro
 ### claim 3
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E4 + E5
 - evidence dependence: partially independent convergence
 - source location: CD44-blocking experiment and PI3K-expression results, especially Figures 5-7
 - support level: sufficient
@@ -60,6 +63,7 @@ The strongest evidence is the paper-local chain from ultrasound-degraded hyaluro
 ### claim 4
 - evidence type: direct experiment + literature citation + author interpretation
 - evidence provenance: mixed
+- evidence nodes: E4 + E6
 - evidence dependence: unclear
 - source location: signaling-pathway discussion around Figure 7 and cited hyaluronan angiogenesis literature
 - support level: partial
