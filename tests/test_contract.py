@@ -92,7 +92,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("### Finance, econometrics, and market-microstructure papers", self.skill)
         self.assertIn("### Clinical and biomedical empirical papers", self.skill)
         self.assertIn("### Empirical aesthetics and human-subject arts research", self.skill)
-        self.assertIn("Do not translate \`not statistically significant\`", self.skill)
+        self.assertIn("Do not translate `not statistically significant`", self.skill)
         self.assertIn("operational proxy", self.skill)
 
     def test_validator_rejects_unknown_evidence_label(self):
