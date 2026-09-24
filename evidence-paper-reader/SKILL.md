@@ -18,16 +18,17 @@ Default output language follows the user's input language. If the paper is in En
 2. Make a scope decision before substantive judgment and record one status: `in scope`, `partially in scope`, or `out of scope`.
 3. Identify the paper type and adjust attention accordingly.
 4. Extract the core claims before judging them.
-5. Bind each core claim to controlled evidence labels, evidence provenance, a source location, and an evidence-dependence class.
-6. Distinguish how many evidence units exist from how many figures, metrics, or analyses are shown; assess whether apparent convergence is single-source, shared-source, partially independent, independently convergent, or unclear.
-7. Judge whether evidence strength matches conclusion strength.
-8. Run a cross-section consistency scan: compare abstract, results, displayed figures/tables, discussion, and conclusion for the same quantitative trend, phase assignment, sample description, or causal statement.
-9. Check validation independence: ask whether the evaluation reuses a calibration target, tuning set, judge, proxy, or other signal that was already used to optimize the reported method.
-10. Check evidence topology: look for mechanical coupling between predictor and outcome, selected/filtered analysis subsets, and operational proxies that are being treated as the broader construct itself.
-11. For null or negative findings, inspect uncertainty bounds before accepting claims of no effect, equivalence, safety, or practical irrelevance.
-12. Separate usable content from analysis that should be downweighted.
-13. Resolve citation dependencies: distinguish support shown in the current paper from support delegated to cited work.
-14. Produce the fixed reader-side output template.
+5. Bind each core claim to controlled evidence labels, evidence provenance, evidence-node IDs, a source location, and an evidence-dependence class.
+6. Keep evidence-node identity stable across claims so the same result cannot silently become multiple confirmations.
+7. Distinguish how many evidence nodes are shown from how independent their underlying sources are; assess whether apparent convergence is single-source, shared-source, partially independent, independently convergent, or unclear.
+8. Judge whether evidence strength matches conclusion strength.
+9. Run a cross-section consistency scan: compare abstract, results, displayed figures/tables, discussion, and conclusion for the same quantitative trend, phase assignment, sample description, or causal statement.
+10. Check validation independence: ask whether the evaluation reuses a calibration target, tuning set, judge, proxy, or other signal that was already used to optimize the reported method.
+11. Check evidence topology: look for mechanical coupling between predictor and outcome, selected/filtered analysis subsets, and operational proxies that are being treated as the broader construct itself.
+12. For null or negative findings, inspect uncertainty bounds before accepting claims of no effect, equivalence, safety, or practical irrelevance.
+13. Separate usable content from analysis that should be downweighted.
+14. Resolve citation dependencies: distinguish support shown in the current paper from support delegated to cited work.
+15. Produce the fixed reader-side output template.
 
 ## Scope decision
 
@@ -70,7 +71,10 @@ If the paper is out of scope, preserve the seven-section output skeleton so down
 - Use only the evidence labels defined in `references/evidence-types.md` unless the user explicitly requests a looser reading.
 - Every support judgment must identify evidence provenance as `paper-local`, `external citation`, or `mixed`.
 - Every support judgment must identify evidence dependence as `single-source`, `shared-source convergence`, `partially independent convergence`, `independent convergence`, or `unclear`.
+- Every support judgment must list stable local evidence-node IDs such as `E1` or `E1 + E2`. Reuse the same ID across claims when the same result, analysis, experiment, or imported evidence item is being reused.
 - Do not count figures, outcomes, statistical specifications, technical repeats, random seeds, or multiple assays on the same underlying source as independent replication merely because they are numerous or use different evidence types.
+- Do not rename the same evidence result with a new node ID under a different claim. Reuse is legitimate, but evidentiary weight is not cloned by reuse.
+- When the same evidence node supports progressively broader claims, identify the narrow claim it directly establishes and downweight any added mechanism, causality, or generality that lacks additional direct evidence.
 - A literature citation is not paper-local evidence. Do not upgrade a current-paper support judgment merely because the paper cites prior work.
 - Every evidence item must include a traceable source location when available: section, figure, table, appendix/supplement, or page. If no precise location is available, write `location unavailable`; never fabricate one.
 - Do not claim to know the contents of a cited work unless that work is actually available to inspect.
@@ -107,10 +111,11 @@ Every major claim must be tied to one or more evidence types. Use the controlled
 
 For each evidence item, also record:
 - evidence provenance: `paper-local`, `external citation`, or `mixed`
+- evidence nodes: stable local IDs such as `E1` or `E1 + E2`
 - evidence dependence: `single-source`, `shared-source convergence`, `partially independent convergence`, `independent convergence`, or `unclear`
 - source location: the most precise available section/figure/table/appendix/page locator
 
-Use `references/evidence-dependence.md` to distinguish technical repetition, shared-source corroboration, partial triangulation, and materially independent convergence.
+Use `references/evidence-dependence.md` to distinguish technical repetition, shared-source corroboration, partial triangulation, and materially independent convergence. Use `references/claim-evidence-links.md` to keep evidence-node identity stable across claims and detect claim stacking.
 
 ### 3. Judge support mismatch, not just amount of material
 The central question is whether the evidence is strong enough for the level of conclusion being drawn.
@@ -121,31 +126,34 @@ A support level applies to the claim as written, not to a narrower claim you sil
 - `insufficient`: the available evidence does not establish the stated claim
 - `unclear`: available material is too incomplete or ambiguous to judge
 
-### 4. Evaluate dependence and triangulation
+### 4. Track evidence reuse across claims
+Treat the paper as a bipartite claim-evidence graph: claim numbers are one side, evidence-node IDs are the other. The same evidence node may legitimately support several claims, but it must keep the same ID. Ask what the evidence directly establishes and whether broader claims add mechanism, causality, scale, or generality without adding new direct evidence. This pattern is claim stacking or evidence double-spending. Follow `references/claim-evidence-links.md`.
+
+### 5. Evaluate dependence and triangulation
 When several results appear to support one claim, identify their evidence units and shared dependencies before treating them as convergence. Two endpoints from the same randomized cohort are shared-source convergence, not independent replication. Pharmacologic and genetic perturbations in the same biological system may be partially independent. Separate independently recruited cohorts or independently collected replications can qualify as independent convergence when their main error structures are materially separate. Follow `references/evidence-dependence.md`.
 
-### 5. Separate result from interpretation
+### 6. Separate result from interpretation
 Treat displayed results, reported statistics, demonstrated procedures, and documented materials separately from the author's explanation of what they mean.
 
-### 6. Preserve uncertainty
+### 7. Preserve uncertainty
 When field knowledge, missing appendices, missing cited theory, or absent procedural detail blocks a judgment, say so directly.
 
-### 7. Keep external dependencies external
+### 8. Keep external dependencies external
 If a core claim relies structurally on a cited work, name that dependency in the claim's support entry. The current paper may accurately report the cited result, but until the cited work is inspected, that imported support remains an external dependency rather than verified paper-local evidence. Follow `references/follow-up-boundaries.md`.
 
-### 8. Check internal consistency before finalizing
+### 9. Check internal consistency before finalizing
 For each core claim, compare the strongest direct evidence with every place the paper restates that claim, especially the abstract and conclusion. If one section says a quantity rises continuously while the reported values do not, or if the conclusion names a phase/mechanism not directly established in the results, report the contradiction explicitly. Prefer the most direct, precisely located paper-local evidence for the bounded result; lower support for the broader narrative claim rather than choosing whichever wording is more favorable.
 
-### 9. Check whether validation is independent
+### 10. Check whether validation is independent
 Distinguish `fit to target` from `validated against an independent target`. If a model, sensor, calibration, scoring rule, or agent is optimized against a target and then evaluated mainly by agreement with that same target, the result can support successful fitting but cannot by itself establish external accuracy or generalization. Look for independent held-out measurements, stations, datasets, annotators, or other genuinely separate validation evidence before upgrading the broader claim.
 
-### 10. Check evidence topology and construction
+### 11. Check evidence topology and construction
 Ask whether the variables and analysis population are independent enough for the claimed interpretation.
 - If predictor and outcome share mechanically coupled components, report what part of the fit may be structural and look for a decoupled robustness analysis.
 - If results are calculated after filtering, attrition, complete-case restriction, validity thresholds, or selection of an optimal configuration, record that conditioning and do not silently generalize to excluded cases.
 - If the paper operationalizes an abstract construct through a proxy, distinguish `evidence about the proxy` from `evidence about the construct`. Strong measurement of a proxy does not by itself prove that the proxy exhausts the construct.
 
-### 11. Interpret null results through effect bounds
+### 12. Interpret null results through effect bounds
 A non-significant test answers a different question from equivalence or absence of a meaningful effect. For intervention, clinical, policy, or performance claims, inspect the confidence/credible interval and any declared meaningful-effect threshold. If the interval still contains effects that would matter under the paper's own framing, support a claim such as `no statistically detected difference`, but downweight a stronger `no meaningful effect` conclusion.
 
 ## Paper-type emphasis
@@ -231,6 +239,7 @@ For every claim in section 2, use the same claim number and this structure:
 ### claim 1
 - evidence type: <one or more controlled labels from references/evidence-types.md>
 - evidence provenance: paper-local | external citation | mixed
+- evidence nodes: E1 | E1 + E2 | ...
 - evidence dependence: single-source | shared-source convergence | partially independent convergence | independent convergence | unclear
 - source location: <section/figure/table/appendix/page or location unavailable>
 - support level: sufficient | partial | insufficient | unclear
@@ -294,3 +303,4 @@ Use these bundled references when needed:
 - `references/follow-up-boundaries.md` for reproducibility limits, evidence provenance, cited dependencies, and DOI handling
 - `references/evidence-topology.md` for mechanical coupling, validation independence, selection conditioning, null-result boundaries, proxy/construct separation, internal consistency, and scale transfer
 - `references/evidence-dependence.md` for evidence units, shared-source corroboration, partial triangulation, independent convergence, and replication boundaries
+- `references/claim-evidence-links.md` for stable evidence-node IDs, claim stacking, evidence reuse, and direct-support boundaries
