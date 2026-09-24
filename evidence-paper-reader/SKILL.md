@@ -107,16 +107,35 @@ Methodological world knowledge may interpret evidence, but must not replace it w
 
 For medical papers, audit design and evidence only; do not convert the audit into patient-specific treatment advice or an independent standard-of-care recommendation.
 
-## Weak-model mode
+## Flash path
 
-When context or model capability is limited:
+Flash path is a staged-loading strategy for keeping context focused. It does not lower the audit standard.
 
+In Flash path:
 1. keep only `core-contract.md`, `output-contract.md`, and `evidence-types.md` loaded initially
-2. extract claims first
+2. extract the full 3–5 core claims before support judgment
 3. run or consult the router
-4. load at most the modules that match decision-critical claims
+4. load every optional module that a decision-critical claim actually requires
 5. audit one claim at a time
-6. run `tests/validate_audit.py` on the finished audit when a Python runtime is available
+6. re-route if a later claim exposes a new methodological cue
+7. render the complete output contract
+8. run `tests/validate_audit.py` on the finished audit when a Python runtime is available
+
+Flash path must not:
+- reduce the required claim count
+- omit required output fields
+- skip a routed module because it is inconvenient
+- lower the evidence/support standard
+- skip false-positive guards after a trap module is triggered
+- stop after abstract-only reading when a decision-critical result/method section is available
+
+Automatically switch to Full path when any of these occurs:
+- three or more primary methodological modules are needed
+- a core claim depends structurally on an external cited work
+- direct results conflict materially across abstract/results/figures/tables/conclusion
+- multiple studies, cohorts, datasets, sites, or experiments require a non-trivial dependence map
+- a decision-critical claim remains `unclear` after its targeted module check
+- the user asks for a comprehensive/deep audit
 
 If the paper is long, prioritize:
 - abstract/conclusion for claim extraction
@@ -124,7 +143,11 @@ If the paper is long, prioritize:
 - methods needed to interpret those claims
 - cited work only when structurally necessary
 
-Do not spend context on irrelevant sections merely to be exhaustive.
+Flash means less irrelevant context, not less work.
+
+## Full path
+
+Full path keeps the same output contract but allows broader simultaneous module loading, second-pass cross-claim checks, and deeper external-dependency inspection. Use it whenever Flash escalation criteria are met.
 
 ## Optional deep references
 
