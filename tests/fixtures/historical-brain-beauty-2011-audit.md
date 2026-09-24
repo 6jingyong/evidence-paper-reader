@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: empirical aesthetics and fMRI human-subject study
 
 The strongest paper-local result is that, in 21 participants rating selected paintings and musical excerpts, activity in medial orbitofrontal cortex (mOFC) overlaps across visually and musically rated beauty and scales with declared beauty intensity. That supports a neural correlate of the study's operationalized beauty ratings across two modalities. It does not by itself establish a universal or modality-independent "faculty of beauty" as an ontological construct, still less justify extension to unspecified other sources of beauty. The inference also depends on subject-specific self-ratings and includes small-volume correction based on an a priori region from prior work, which is legitimate hypothesis-driven analysis but narrows what the result establishes. The paper is mainly useful as an empirical neuroaesthetics result and as a stress case for proxy-to-construct reasoning.
