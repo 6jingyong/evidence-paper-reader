@@ -286,7 +286,7 @@ Five non-core benchmark suites live under `benchmarks/`:
 - `metadata-halo-12/`: paired anonymous A/B packets with identical scientific content and metadata hidden vs visible; designed for isolated-context causal testing of prestige/attention halo.
 - `claim-selection-12/`: tests the pre-audit stage—core-claim recall, distractor selection, evidence-viability decisions, and especially silent narrowing of strong author claims into safer claims before support judgment.
 - `router-adversarial-24/`: 12 semantic-only routing cases plus 12 lexical decoys; measures required-module recall, irrelevant keyword suppression, inventory routing, and lexical+semantic merge behavior.
-- `stability-crossdomain-8/`: eight real-paper domains × five isolated repeats; separates repeated-run stability from reference correctness across viability, claim selection, routing, inventory choice, and support.
+- `stability-crossdomain-8/`: eight real-paper domains × five isolated repeats; separates repeated-run stability from reference correctness across viability, claim selection, routing, inventory choice, and support. It also includes a runner-neutral batch executor for one-packet-per-process fresh-context runs.
 
 The second benchmark must be run in fresh independent model contexts. The development conversation itself is contaminated by knowing the pair mapping and reference expectations, so repository setup is not reported as a model result.
 
@@ -361,6 +361,7 @@ Generate the 40-job matrix with:
 
 ```bash
 python benchmarks/stability-crossdomain-8/generate_runs.py
+python benchmarks/stability-crossdomain-8/run_reviewer.py --command './review_one.sh {packet} {output}'
 ```
 
 Then run each packet in a fresh context with the same model/configuration, save responses by packet ID, and score:
