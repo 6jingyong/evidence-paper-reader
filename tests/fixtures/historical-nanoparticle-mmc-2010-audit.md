@@ -33,6 +33,7 @@ The paper directly demonstrates that selected nanoparticle additions can improve
 ### claim 1
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: Table 1, Figure 5, Table 2, and the mechanical/tribological results section
 - support level: sufficient
 - reason: Multiple tested formulations show higher hardness, bending strength, or lower wear than their relevant matrix controls. The claim is deliberately scoped to selected concentrations and properties.
@@ -41,6 +42,7 @@ The paper directly demonstrates that selected nanoparticle additions can improve
 ### claim 2
 - evidence type: direct experiment + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: Tables 1-2 and the discussion of optimal nanoparticle concentration
 - support level: insufficient
 - reason: The tables contain counterexamples in which larger nanoparticle additions increase porosity and sharply worsen bending or wear performance. Improvement is selection-conditioned on matrix, additive, concentration, and property, so a general monotonic benefit is not supported.
@@ -49,6 +51,7 @@ The paper directly demonstrates that selected nanoparticle additions can improve
 ### claim 3
 - evidence type: direct experiment + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: porosity/hardness discussion around Figure 5 and the concentration-dependent bending/wear results
 - support level: partial
 - reason: The observed rise in porosity at larger additions and the non-monotonic property curves are consistent with a strengthening-versus-agglomeration/porosity tradeoff. The mechanism is plausible and tied to measured trends, but the causal contribution of each microstructural factor is not independently isolated.
@@ -57,6 +60,7 @@ The paper directly demonstrates that selected nanoparticle additions can improve
 ### claim 4
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: cutting-tool application results and conclusion
 - support level: sufficient
 - reason: The paper reports the tested designed binder producing roughly four times the tool service life without reduced cutting speed. This is direct application evidence for that tool/binder configuration.
