@@ -1,6 +1,6 @@
 ---
 name: evidence-paper-reader
-description: read evidence-driven research papers using a reader-side framework that separates claims, evidence types, support strength, usable value, and analysis pollution. use when a user wants to know what in a paper is actually trustworthy, what is only partially supported, what is methodologically reusable, or what should be downweighted. suitable for experimental natural science papers, benchmark or ablation-heavy method papers, simulation or computational papers, quantitative social science papers, and empirical social science papers with clear evidence chains such as surveys, interviews, archives, field notes, or content analysis. not for pure mathematics, highly clinical papers, or primarily normative or interpretive theory papers.
+description: read evidence-driven research papers using a reader-side framework that separates claims, evidence types, support strength, usable value, and analysis pollution. use when a user wants to know what in a paper is actually trustworthy, what is only partially supported, what is methodologically reusable, or what should be downweighted. suitable for experimental natural science papers, benchmark or ablation-heavy method papers, simulation or computational papers, quantitative finance and econometrics, clinical and biomedical empirical papers with traceable evidence chains, quantitative social science papers, empirical aesthetics or human-subject arts research, and empirical social science papers with clear evidence chains such as surveys, interviews, archives, field notes, or content analysis. not for pure mathematics, patient-specific clinical decision making, or primarily normative or interpretive theory papers without a traceable evidence chain.
 license: MIT
 ---
 
@@ -22,9 +22,11 @@ Default output language follows the user's input language. If the paper is in En
 6. Judge whether evidence strength matches conclusion strength.
 7. Run a cross-section consistency scan: compare abstract, results, displayed figures/tables, discussion, and conclusion for the same quantitative trend, phase assignment, sample description, or causal statement.
 8. Check validation independence: ask whether the evaluation reuses a calibration target, tuning set, judge, proxy, or other signal that was already used to optimize the reported method.
-9. Separate usable content from analysis that should be downweighted.
-10. Resolve citation dependencies: distinguish support shown in the current paper from support delegated to cited work.
-11. Produce the fixed reader-side output template.
+9. Check evidence topology: look for mechanical coupling between predictor and outcome, selected/filtered analysis subsets, and operational proxies that are being treated as the broader construct itself.
+10. For null or negative findings, inspect uncertainty bounds before accepting claims of no effect, equivalence, safety, or practical irrelevance.
+11. Separate usable content from analysis that should be downweighted.
+12. Resolve citation dependencies: distinguish support shown in the current paper from support delegated to cited work.
+13. Produce the fixed reader-side output template.
 
 ## Scope decision
 
@@ -40,11 +42,15 @@ Default in-scope categories:
 - benchmark or ablation-heavy method papers
 - simulation or computational papers
 - quantitative social science papers
+- quantitative finance, econometrics, and market-microstructure papers with traceable empirical records
+- clinical trials, diagnostic studies, and observational medical papers when the task is evidence-chain auditing rather than patient-specific treatment advice
+- empirical aesthetics, neuroaesthetics, reception studies, and other arts/humanities papers when their central claims rely on traceable empirical evidence
 - empirical social science papers with clear evidence chains, including surveys, interviews, archives, field notes, and content analysis
 
 Default out-of-scope categories:
 - pure mathematics
-- highly clinical papers
+- patient-specific clinical decision or treatment-recommendation tasks that require applying evidence to an individual rather than auditing a paper
+- clinical guideline or standard-of-care judgments that depend on a wider evidence base than the paper under inspection
 - papers centered on normative argument, pure theory exposition, or heavily interpretive analysis without a clear evidence chain
 
 If the paper is partially in scope, continue but explicitly mark which claims or sections can only receive weak judgment.
@@ -69,6 +75,11 @@ If the paper is out of scope, preserve the seven-section output skeleton so down
 - When the abstract, conclusion, discussion, and displayed results conflict, expose the conflict. Do not silently reconcile incompatible numbers, trends, phase labels, sample descriptions, or causal statements.
 - Do not let summary prose override more direct paper-local evidence such as reported measurements, tables, figures, or explicitly documented procedures.
 - Do not treat agreement with a calibration or tuning target as independent validation of real-world accuracy or generalization when that same target helped fit the method.
+- If a predictor, exposure, score, or explanatory variable mechanically contains or is defined by events that also change the outcome, state the coupling and do not interpret the raw association or R-squared as independent explanatory strength.
+- Do not translate `not statistically significant` into `no effect`, `equivalent`, `safe`, or `clinically irrelevant`. Inspect confidence/credible intervals, power or precision, and any pre-specified equivalence or non-inferiority margin.
+- Keep an operational proxy separate from the broader construct it represents. A rating, biomarker, neural correlate, benchmark score, or survey scale can support claims about that measure without automatically establishing the full construct.
+- When evidence is filtered, complete-case, thresholded, configuration-selected, or reported at an optimal setting, keep the claim scoped to the retained subset or condition unless the paper separately supports broader operation.
+- For medical papers, audit the reported design, outcomes, uncertainty, and causal reach; do not turn the paper audit into patient-specific medical advice or a standard-of-care recommendation.
 
 ## Core judgment rules
 
@@ -81,6 +92,7 @@ Use these claim types:
 - mechanistic
 - performance
 - generality
+- intervention
 
 `conclusion strength` describes the reach of the paper's claim, not confidence in your judgment:
 - `weak`: local/descriptive claim with limited extrapolation
@@ -118,6 +130,15 @@ For each core claim, compare the strongest direct evidence with every place the 
 ### 8. Check whether validation is independent
 Distinguish `fit to target` from `validated against an independent target`. If a model, sensor, calibration, scoring rule, or agent is optimized against a target and then evaluated mainly by agreement with that same target, the result can support successful fitting but cannot by itself establish external accuracy or generalization. Look for independent held-out measurements, stations, datasets, annotators, or other genuinely separate validation evidence before upgrading the broader claim.
 
+### 9. Check evidence topology and construction
+Ask whether the variables and analysis population are independent enough for the claimed interpretation.
+- If predictor and outcome share mechanically coupled components, report what part of the fit may be structural and look for a decoupled robustness analysis.
+- If results are calculated after filtering, attrition, complete-case restriction, validity thresholds, or selection of an optimal configuration, record that conditioning and do not silently generalize to excluded cases.
+- If the paper operationalizes an abstract construct through a proxy, distinguish `evidence about the proxy` from `evidence about the construct`. Strong measurement of a proxy does not by itself prove that the proxy exhausts the construct.
+
+### 10. Interpret null results through effect bounds
+A non-significant test answers a different question from equivalence or absence of a meaningful effect. For intervention, clinical, policy, or performance claims, inspect the confidence/credible interval and any declared meaningful-effect threshold. If the interval still contains effects that would matter under the paper's own framing, support a claim such as `no statistically detected difference`, but downweight a stronger `no meaningful effect` conclusion.
+
 ## Paper-type emphasis
 
 ### Experimental, benchmark, or simulation papers
@@ -130,6 +151,30 @@ Prioritize:
 - whether the useful value lies mostly in results, methods, or setup rather than in interpretation
 
 For machine-learning, software, or algorithm papers, use `computational benchmark` for dataset/task evaluations and ablations. Do not relabel benchmark results as `numerical simulation` unless the computation is actually simulating a target system or phenomenon.
+
+### Finance, econometrics, and market-microstructure papers
+Prioritize:
+- whether explanatory variables are mechanically coupled to price, return, volume, accounting, or other outcome definitions
+- whether contemporaneous regression language such as `drives`, `impact`, or `explains` exceeds the temporal and identification structure
+- whether robustness survives a construction that removes mechanically outcome-changing components
+- whether evidence from one market regime, month, asset universe, or liquidity condition is generalized too broadly
+
+### Clinical and biomedical empirical papers
+Prioritize:
+- randomization, control condition, blinding, attrition, outcome specification, and whether analyses match the pre-specified comparison when reported
+- effect sizes and uncertainty intervals, not p-values alone
+- whether a non-significant finding is being upgraded to equivalence or no clinically meaningful effect
+- whether subgroup, per-protocol, or complete-case findings are being generalized to the full trial population
+- whether mechanistic biomarkers are being treated as substitutes for patient-relevant outcomes
+
+This skill can audit the evidence chain of a clinical paper. It must not convert that audit into patient-specific treatment advice or an independent standard-of-care verdict.
+
+### Empirical aesthetics and human-subject arts research
+Prioritize:
+- how abstract constructs such as beauty, preference, meaning, style, creativity, or aesthetic value are operationalized
+- whether self-ratings, neural signals, behavioral tasks, or coded judgments are being treated as the construct itself
+- whether limited stimulus sets, cultures, modalities, or participant samples are generalized into universal aesthetic claims
+- whether prior-defined regions, categories, or coding schemes materially constrain what the analysis can discover
 
 ### Quantitative social science papers
 Prioritize:
@@ -166,7 +211,7 @@ For `in scope` and `partially in scope` papers, list 3 to 5 core claims using th
 
 ### claim 1
 - content: ...
-- claim type: observational | methodological | mechanistic | performance | generality
+- claim type: observational | methodological | mechanistic | performance | generality | intervention
 - conclusion strength: weak | medium | strong
 
 Repeat sequentially as needed. For an `out of scope` paper, use `not applicable — <reason>` instead of inventing claims.
