@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: cell-signaling intervention paper
 
 The strongest evidence is the repeated primary-hepatocyte perturbation chain showing that cytokines plus dbcAMP increase Akt phosphorylation and that PI3K/Ras inhibition or dominant-negative Akt partially reverses dbcAMP-associated suppression of iNOS/NO. The MAPK p44/42 independence claim is also supported by direct perturbations in which pathway inhibition or constitutive activation does not reproduce or remove the iNOS effect. The broader wording that Akt is the mechanism should still be read as partial mediation rather than a fully mapped causal pathway because the reversals are partial and the discussion explicitly says the specific downstream mechanism has not been defined. The paper is mainly useful as a mechanistic experiment reference.
