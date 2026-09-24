@@ -68,7 +68,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("fit to target", self.skill)
 
     def test_validator_rejects_unknown_evidence_label(self):
-        text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
+        text = RESNET_RESNET_FIXTURE.read_text(encoding="utf-8").replace(
             "- evidence type: computational benchmark",
             "- evidence type: benchmark experiment",
             1,
@@ -77,7 +77,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertTrue(any("unknown evidence label" in error for error in errors), errors)
 
     def test_validator_rejects_external_provenance_without_dependency(self):
-        text = FIXTURE.read_text(encoding="utf-8").replace(
+        text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
             "- evidence provenance: paper-local",
             "- evidence provenance: external citation",
             1,
@@ -86,7 +86,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertTrue(any("requires a named external dependency" in error for error in errors), errors)
 
     def test_validator_rejects_literature_citation_as_paper_local(self):
-        text = FIXTURE.read_text(encoding="utf-8").replace(
+        text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
             "- evidence type: computational benchmark",
             "- evidence type: literature citation",
             1,
@@ -95,7 +95,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertTrue(any("cannot be labeled paper-local" in error for error in errors), errors)
 
     def test_validator_rejects_section_reordering(self):
-        text = FIXTURE.read_text(encoding="utf-8")
+        text = RESNET_FIXTURE.read_text(encoding="utf-8")
         a = text.index("## 4. what is usable")
         b = text.index("## 5. what to downweight")
         c = text.index("## 6. value breakdown")
