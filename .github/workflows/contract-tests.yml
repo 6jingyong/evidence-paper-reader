@@ -19,5 +19,5 @@ jobs:
         run: |
           for audit in tests/fixtures/*-audit.md; do
             echo "Validating $audit"
-            python tests/validate_audit.py "$audit"
+            python evidence-paper-reader/scripts/validate_audit.py "$audit"
           done
