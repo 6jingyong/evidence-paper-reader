@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: nationally representative cross-sectional social survey
 
 The paper strongly supports a descriptive association between more television viewing and a cluster of less healthy eating behaviors in the 2009-2010 U.S. school sample. It also provides useful effect-modification and television-snacking analyses, but those do not convert the design into a causal study. The paper itself is mostly disciplined and uses "associated with" in its conclusion; a reader-side audit should preserve that restraint rather than upgrading the findings into claims that television exposure causes the dietary behaviors. The paper is mainly useful as a population-association result and survey-design reference.
