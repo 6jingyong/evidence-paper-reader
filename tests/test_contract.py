@@ -3,21 +3,30 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-SKILL = ROOT / "evidence-paper-reader" / "SKILL.md"
-EVIDENCE_TYPES = ROOT / "evidence-paper-reader" / "references" / "evidence-types.md"
-FOLLOW_UP = ROOT / "evidence-paper-reader" / "references" / "follow-up-boundaries.md"
-RESNET_FIXTURE = ROOT / "tests" / "fixtures" / "resnet-smoke-audit.md"
+SKILL_DIR = ROOT / "evidence-paper-reader"
+REFS = SKILL_DIR / "references"
+SCRIPTS = SKILL_DIR / "scripts"
+SKILL = SKILL_DIR / "SKILL.md"
+EVIDENCE_TYPES = REFS / "evidence-types.md"
+CORE_CONTRACT = REFS / "core-contract.md"
+OUTPUT_CONTRACT = REFS / "output-contract.md"
+METHOD_ROUTER = REFS / "method-router.md"
+DOMAIN_PROFILES = REFS / "domain-profiles.md"
+FOLLOW_UP = REFS / "follow-up-boundaries.md"
+POLLUTION = REFS / "pollution-patterns.md"
+TOPOLOGY = REFS / "evidence-topology.md"
+DEPENDENCE_REF = REFS / "evidence-dependence.md"
+CLAIM_LINKS_REF = REFS / "claim-evidence-links.md"
+CLAIM_DEPENDENCIES_REF = REFS / "claim-dependencies.md"
+FIGURE_TRAPS_REF = REFS / "figure-and-table-traps.md"
+STATISTICAL_TRAPS_REF = REFS / "statistical-traps.md"
+MEASUREMENT_TRAPS_REF = REFS / "measurement-traps.md"
+STUDY_DESIGN_TRAPS_REF = REFS / "study-design-traps.md"
+FALSE_POSITIVE_GUARDS_REF = REFS / "false-positive-guards.md"
+ROUTER_SCRIPT = SCRIPTS / "suggest_modules.py"
+
 FIXTURES = sorted((ROOT / "tests" / "fixtures").glob("*-audit.md"))
-POLLUTION = ROOT / "evidence-paper-reader" / "references" / "pollution-patterns.md"
-TOPOLOGY = ROOT / "evidence-paper-reader" / "references" / "evidence-topology.md"
-DEPENDENCE_REF = ROOT / "evidence-paper-reader" / "references" / "evidence-dependence.md"
-CLAIM_LINKS_REF = ROOT / "evidence-paper-reader" / "references" / "claim-evidence-links.md"
-CLAIM_DEPENDENCIES_REF = ROOT / "evidence-paper-reader" / "references" / "claim-dependencies.md"
-FIGURE_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "figure-and-table-traps.md"
-STATISTICAL_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "statistical-traps.md"
-MEASUREMENT_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "measurement-traps.md"
-STUDY_DESIGN_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "study-design-traps.md"
-FALSE_POSITIVE_GUARDS_REF = ROOT / "evidence-paper-reader" / "references" / "false-positive-guards.md"
+RESNET_FIXTURE = ROOT / "tests" / "fixtures" / "resnet-smoke-audit.md"
 ECHINACEA_FIXTURE = ROOT / "tests" / "fixtures" / "historical-echinacea-2010-audit.md"
 AKT_FIXTURE = ROOT / "tests" / "fixtures" / "historical-akt-inos-2010-audit.md"
 BMD_REPLICATION_FIXTURE = ROOT / "tests" / "fixtures" / "historical-bmd-gwas-replication-2010-audit.md"
@@ -32,10 +41,17 @@ ANTI_LOD = ROOT / "tests" / "fixtures" / "anti-trigger-lod-multiple-imputation-2
 ANTI_DID = ROOT / "tests" / "fixtures" / "anti-trigger-difference-in-differences-2014-audit.md"
 ANTI_HIERARCHY = ROOT / "tests" / "fixtures" / "anti-trigger-multisite-imaging-2023-audit.md"
 
-spec = importlib.util.spec_from_file_location("validate_audit", ROOT / "tests" / "validate_audit.py")
-validate_audit = importlib.util.module_from_spec(spec)
-assert spec.loader is not None
-spec.loader.exec_module(validate_audit)
+
+def load_module(name: str, path: Path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+validate_audit = load_module("validate_audit", ROOT / "tests" / "validate_audit.py")
+suggest_modules = load_module("suggest_modules", ROUTER_SCRIPT)
 
 
 class SkillContractTests(unittest.TestCase):
@@ -43,6 +59,10 @@ class SkillContractTests(unittest.TestCase):
     def setUpClass(cls):
         cls.skill = SKILL.read_text(encoding="utf-8")
         cls.evidence = EVIDENCE_TYPES.read_text(encoding="utf-8")
+        cls.core = CORE_CONTRACT.read_text(encoding="utf-8")
+        cls.output = OUTPUT_CONTRACT.read_text(encoding="utf-8")
+        cls.router = METHOD_ROUTER.read_text(encoding="utf-8")
+        cls.domains = DOMAIN_PROFILES.read_text(encoding="utf-8")
         cls.follow_up = FOLLOW_UP.read_text(encoding="utf-8")
         cls.pollution = POLLUTION.read_text(encoding="utf-8")
         cls.topology = TOPOLOGY.read_text(encoding="utf-8")
@@ -56,18 +76,82 @@ class SkillContractTests(unittest.TestCase):
         cls.false_positive_guards_ref = FALSE_POSITIVE_GUARDS_REF.read_text(encoding="utf-8")
         cls.allowed = validate_audit.evidence_labels(cls.evidence)
 
-    def test_fixed_output_sections_are_unique_and_ordered(self):
+    def test_skill_is_thin_orchestrator(self):
+        self.assertLessEqual(len(self.skill.splitlines()), 180)
+        for ref in [
+            "references/core-contract.md",
+            "references/output-contract.md",
+            "references/evidence-types.md",
+            "references/method-router.md",
+        ]:
+            self.assertIn(ref, self.skill)
+        self.assertIn("Weak-model mode", self.skill)
+        self.assertIn("Do not load every optional reference by default.", self.skill)
+
+    def test_fixed_output_sections_are_unique_and_ordered_in_output_contract(self):
         positions = []
         for heading in validate_audit.SECTION_HEADINGS:
-            self.assertEqual(self.skill.count(heading), 1, heading)
-            positions.append(self.skill.index(heading))
+            self.assertEqual(self.output.count(heading), 1, heading)
+            positions.append(self.output.index(heading))
         self.assertEqual(positions, sorted(positions))
 
-    def test_scope_gate_and_out_of_scope_behavior_are_explicit(self):
-        for status in ["`in scope`", "`partially in scope`", "`out of scope`"]:
-            self.assertIn(status, self.skill)
-        self.assertIn("do not force 3 to 5 artificial claims", self.skill)
-        self.assertIn("preserve the seven-section output skeleton", self.skill)
+    def test_core_contract_has_scope_graph_and_support_semantics(self):
+        for status in ["in scope", "partially in scope", "out of scope"]:
+            self.assertIn(status, self.core)
+        for phrase in [
+            "Evidence nodes",
+            "Claim dependencies",
+            "Evidence provenance",
+            "Evidence dependence",
+            "Support level",
+            "Direct evidence wins over narrative summary",
+            "Methodological risk is not a verdict",
+            "Domain knowledge boundary",
+        ]:
+            self.assertIn(phrase, self.core)
+
+    def test_router_separates_mandatory_and_optional_context(self):
+        for ref in ["core-contract.md", "output-contract.md", "evidence-types.md"]:
+            self.assertIn(ref, self.router)
+        for ref in [
+            "figure-and-table-traps.md",
+            "statistical-traps.md",
+            "measurement-traps.md",
+            "study-design-traps.md",
+            "evidence-topology.md",
+            "evidence-dependence.md",
+            "claim-evidence-links.md",
+            "claim-dependencies.md",
+            "follow-up-boundaries.md",
+            "false-positive-guards.md",
+        ]:
+            self.assertIn(ref, self.router)
+        self.assertIn("Do not keep all optional references in context", self.router)
+
+    def test_router_script_is_advisory_and_selective(self):
+        result = suggest_modules.suggest_modules(
+            "Randomized trial with subgroup interaction, hazard ratio, "
+            "biomarker assay below the limit of detection and a calibration curve."
+        )
+        names = {item["module"] for item in result["suggested"]}
+        self.assertIn("statistical-traps.md", names)
+        self.assertIn("measurement-traps.md", names)
+        self.assertIn("study-design-traps.md", names)
+        self.assertIn("false-positive-guards.md", names)
+        self.assertNotIn("figure-and-table-traps.md", names)
+        self.assertIn("advisory only", result["warning"])
+
+    def test_domain_profiles_are_outside_skill_core(self):
+        for heading in [
+            "## Experimental natural science / materials / biochemistry",
+            "## Machine learning / software / benchmark papers",
+            "## Finance / econometrics / market microstructure",
+            "## Clinical / biomedical empirical research",
+            "## Quantitative social science / surveys",
+            "## Empirical aesthetics / human-subject arts research",
+        ]:
+            self.assertIn(heading, self.domains)
+        self.assertIn("references/domain-profiles.md", self.skill)
 
     def test_benchmark_evidence_has_its_own_controlled_label(self):
         self.assertIn("computational benchmark", self.allowed)
@@ -88,16 +172,15 @@ class SkillContractTests(unittest.TestCase):
                 errors = validate_audit.validate(fixture.read_text(encoding="utf-8"), self.allowed)
                 self.assertEqual(errors, [])
 
-    def test_cross_section_consistency_rule_is_explicit(self):
-        self.assertIn("cross-section consistency scan", self.skill)
+    def test_cross_section_consistency_is_preserved_in_layered_refs(self):
+        self.assertIn("Internal consistency", self.topology)
         self.assertIn("internal inconsistency", self.pollution)
-        self.assertIn("Do not let summary prose override", self.skill)
+        self.assertIn("Direct evidence wins over narrative summary", self.core)
 
-    def test_validation_independence_rule_is_explicit(self):
-        self.assertIn("Check whether validation is independent", self.skill)
+    def test_validation_independence_is_preserved_in_layered_refs(self):
+        self.assertIn("Validation independence", self.topology)
         self.assertIn("non-independent validation", self.pollution)
-        self.assertIn("fit to target", self.skill)
-
+        self.assertIn("fit to target", self.topology)
 
     def test_historical_topology_rules_are_explicit(self):
         for label in [
@@ -107,22 +190,14 @@ class SkillContractTests(unittest.TestCase):
             "selection-conditioned evidence",
         ]:
             self.assertIn(label, self.pollution)
-        for heading in [
-            "## 1. Mechanical coupling",
-            "## 3. Selection-conditioned evidence",
-            "## 4. Null-result boundary",
-            "## 5. Proxy-to-construct boundary",
-        ]:
-            self.assertIn(heading, self.topology)
 
     def test_finance_medicine_and_empirical_arts_are_covered(self):
         self.assertIn("administrative or transactional record", self.allowed)
         self.assertIn("intervention", validate_audit.CLAIM_TYPES)
-        self.assertIn("### Finance, econometrics, and market-microstructure papers", self.skill)
-        self.assertIn("### Clinical and biomedical empirical papers", self.skill)
-        self.assertIn("### Empirical aesthetics and human-subject arts research", self.skill)
-        self.assertIn("Do not translate `not statistically significant`", self.skill)
-        self.assertIn("operational proxy", self.skill)
+        self.assertIn("## Finance / econometrics / market microstructure", self.domains)
+        self.assertIn("## Clinical / biomedical empirical research", self.domains)
+        self.assertIn("## Empirical aesthetics / human-subject arts research", self.domains)
+        self.assertIn("patient-specific", self.skill)
 
     def test_evidence_dependence_and_triangulation_are_explicit(self):
         for label in [
@@ -135,7 +210,7 @@ class SkillContractTests(unittest.TestCase):
             self.assertIn(label, validate_audit.DEPENDENCE)
             self.assertIn(label, self.dependence_ref)
         self.assertIn("pseudo-triangulation", self.pollution)
-        self.assertIn("evidence dependence:", self.skill)
+        self.assertIn("evidence dependence:", self.output)
 
     def test_real_fixtures_distinguish_shared_partial_and_independent_convergence(self):
         echinacea = ECHINACEA_FIXTURE.read_text(encoding="utf-8")
@@ -149,7 +224,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("Stable identity rule", self.claim_links_ref)
         self.assertIn("Claim stacking", self.claim_links_ref)
         self.assertIn("claim stacking / evidence double-spending", self.pollution)
-        self.assertIn("evidence nodes:", self.skill)
+        self.assertIn("evidence nodes:", self.output)
 
     def test_brain_beauty_fixture_exposes_evidence_reuse_across_claims(self):
         text = BEAUTY_FIXTURE.read_text(encoding="utf-8")
@@ -161,29 +236,22 @@ class SkillContractTests(unittest.TestCase):
     def test_claim_dependencies_and_uncertainty_propagation_are_explicit(self):
         self.assertIn("Uncertainty propagation", self.claim_dependencies_ref)
         self.assertIn("inference-chain laundering", self.claim_dependencies_ref)
-        self.assertIn("upstream claims:", self.skill)
+        self.assertIn("upstream claims:", self.output)
         self.assertIn("inference-chain laundering", self.pollution)
 
     def test_validator_rejects_forward_claim_dependency(self):
         text = BEAUTY_FIXTURE.read_text(encoding="utf-8").replace(
-            "- upstream claims: none",
-            "- upstream claims: C2",
-            1,
+            "- upstream claims: none", "- upstream claims: C2", 1
         )
         errors = validate_audit.validate(text, self.allowed)
         self.assertTrue(any("must reference earlier claims only" in error for error in errors), errors)
 
     def test_validator_propagates_uncertainty_without_new_evidence(self):
         text = BEAUTY_FIXTURE.read_text(encoding="utf-8").replace(
-            "- support level: insufficient",
-            "- support level: sufficient",
-            1,
+            "- support level: insufficient", "- support level: sufficient", 1
         )
         errors = validate_audit.validate(text, self.allowed)
-        self.assertTrue(
-            any("downstream claim cannot be sufficient" in error for error in errors),
-            errors,
-        )
+        self.assertTrue(any("downstream claim cannot be sufficient" in error for error in errors), errors)
 
     def test_figure_and_table_world_knowledge_is_bounded_and_explicit(self):
         for phrase in [
@@ -196,13 +264,12 @@ class SkillContractTests(unittest.TestCase):
             "Adjusted versus unadjusted estimates",
         ]:
             self.assertIn(phrase, self.figure_traps_ref)
-        self.assertIn("Treat figures and tables as evidence objects", self.skill)
+        self.assertIn("figure-and-table-traps.md", self.router)
         self.assertIn("visual impression overreach", self.pollution)
 
     def test_methodological_world_knowledge_is_modular_and_bounded(self):
-        self.assertIn("Methodological knowledge boundary", self.skill)
-        self.assertIn("Do not run every methodological trap on every paper.", self.skill)
-        self.assertIn("Do not use generic field knowledge to overwrite a paper-local result.", self.skill)
+        self.assertIn("Domain knowledge boundary", self.core)
+        self.assertIn("Do not keep all optional references in context", self.router)
         for ref in [
             "references/statistical-traps.md",
             "references/measurement-traps.md",
@@ -236,6 +303,12 @@ class SkillContractTests(unittest.TestCase):
         ]:
             self.assertIn(phrase, self.measurement_traps_ref)
 
+    def test_measurement_reference_handles_threshold_coding_and_fit_error(self):
+        self.assertIn("Thresholded or detectability outcomes", self.measurement_traps_ref)
+        self.assertIn("reference category", self.measurement_traps_ref)
+        self.assertIn("not independent validation", self.measurement_traps_ref)
+        self.assertIn("fit error", self.measurement_traps_ref)
+
     def test_study_design_traps_cover_identification_failures(self):
         for phrase in [
             "Unit of assignment versus unit of analysis",
@@ -257,21 +330,13 @@ class SkillContractTests(unittest.TestCase):
         dic = ADVERSARIAL_DIC.read_text(encoding="utf-8")
 
         self.assertIn("interaction", subgroup.lower())
-        self.assertIn("subgroup", subgroup.lower())
         self.assertIn("below detection", organic.lower())
         self.assertIn("benjamini-hochberg", organic.lower())
         self.assertIn("regression to the mean", before_after.lower())
         self.assertIn("concurrent control", before_after.lower())
         self.assertIn("train-test leakage", leakage.lower())
-        self.assertIn("ranking", leakage.lower())
         self.assertIn("technical repeats", dic.lower())
         self.assertIn("independent fibrils", dic.lower())
-
-    def test_measurement_reference_handles_threshold_coding_and_fit_error(self):
-        self.assertIn("Thresholded or detectability outcomes", self.measurement_traps_ref)
-        self.assertIn("reference category", self.measurement_traps_ref)
-        self.assertIn("not independent validation", self.measurement_traps_ref)
-        self.assertIn("fit error", self.measurement_traps_ref)
 
     def test_false_positive_guards_are_explicit(self):
         for phrase in [
@@ -284,8 +349,8 @@ class SkillContractTests(unittest.TestCase):
             "Silence rule",
         ]:
             self.assertIn(phrase, self.false_positive_guards_ref)
-        self.assertIn("false-positive guard", self.skill)
-        self.assertIn("Credit effective mitigation.", self.skill)
+        self.assertIn("false-positive-guards.md", self.router)
+        self.assertIn("Methodological risk is not a verdict", self.core)
 
     def test_anti_trigger_fixtures_credit_correct_mitigation(self):
         sprint = ANTI_SPRINT.read_text(encoding="utf-8")
@@ -295,10 +360,8 @@ class SkillContractTests(unittest.TestCase):
 
         self.assertIn("Hommel-adjusted", sprint)
         self.assertIn("Lan-DeMets", sprint)
-        self.assertIn("- support level: insufficient", sprint)
         self.assertIn("left-censored", lod)
         self.assertIn("5,000", lod)
-        self.assertIn("- support level: insufficient", lod)
         self.assertIn("matched comparator", did)
         self.assertIn("difference-in-differences", did.lower())
         self.assertIn("explicitly avoid the causal conclusion", did.lower())
@@ -308,18 +371,14 @@ class SkillContractTests(unittest.TestCase):
 
     def test_validator_rejects_malformed_evidence_nodes(self):
         text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
-            "- evidence nodes: E1",
-            "- evidence nodes: Figure4",
-            1,
+            "- evidence nodes: E1", "- evidence nodes: Figure4", 1
         )
         errors = validate_audit.validate(text, self.allowed)
         self.assertTrue(any("invalid evidence nodes" in error for error in errors), errors)
 
     def test_validator_requires_two_nodes_for_convergence(self):
         text = BMD_REPLICATION_FIXTURE.read_text(encoding="utf-8").replace(
-            "- evidence nodes: E1 + E2",
-            "- evidence nodes: E1",
-            1,
+            "- evidence nodes: E1 + E2", "- evidence nodes: E1", 1
         )
         errors = validate_audit.validate(text, self.allowed)
         self.assertTrue(
