@@ -34,6 +34,7 @@ The paper provides direct controlled-source evidence for the accuracy of VRPM an
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
 - evidence nodes: E1
+- upstream claims: none
 - evidence dependence: single-source
 - source location: Results section 3.1.1, Figure 3, and Table 1
 - support level: sufficient
@@ -44,6 +45,7 @@ The paper provides direct controlled-source evidence for the accuracy of VRPM an
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
 - evidence nodes: E2
+- upstream claims: none
 - evidence dependence: single-source
 - source location: bLS single-source results and Table 1
 - support level: sufficient
@@ -54,6 +56,7 @@ The paper provides direct controlled-source evidence for the accuracy of VRPM an
 - evidence type: direct experiment + author interpretation
 - evidence provenance: paper-local
 - evidence nodes: E1 + E2 + E3
+- upstream claims: C1 + C2
 - evidence dependence: partially independent convergence
 - source location: abstract and conclusion
 - support level: partial
@@ -64,6 +67,7 @@ The paper provides direct controlled-source evidence for the accuracy of VRPM an
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
 - evidence nodes: E4 + E5
+- upstream claims: C2
 - evidence dependence: partially independent convergence
 - source location: point-concentration and dual-source configuration results
 - support level: sufficient
