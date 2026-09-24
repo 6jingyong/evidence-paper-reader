@@ -17,7 +17,7 @@ SECTION_HEADINGS = [
     "## 7. uncertainty and follow-up",
 ]
 
-CLAIM_TYPES = {"observational", "methodological", "mechanistic", "performance", "generality"}
+CLAIM_TYPES = {"observational", "methodological", "mechanistic", "performance", "generality", "intervention"}
 CONCLUSION_STRENGTHS = {"weak", "medium", "strong"}
 SUPPORT_LEVELS = {"sufficient", "partial", "insufficient", "unclear"}
 PROVENANCE = {"paper-local", "external citation", "mixed"}
