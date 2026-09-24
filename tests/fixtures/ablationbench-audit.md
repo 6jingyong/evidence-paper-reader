@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: benchmark and human-evaluation paper
 
 The most reusable contribution is the benchmark construction and the measured gap between automated ablation planning and the ablations authors actually performed. The current version reports 83 AuthorAblation instances and 350 ReviewerAblation instances, with the best system recovering only a limited fraction of author ablations. A small human baseline also shows that expert researchers outperform GPT-5.4 on the selected subset, which is useful evidence that the benchmark is not already saturated. The broad statement that one-step chain-of-thought planning is intrinsically superior to agentic planning should be kept narrower than the paper's rhetoric because GPT-5.4 is approximately tied across the two planner forms and model-specific results vary. The paper is mainly useful as a benchmark, evaluation design, and empirical result reference.
