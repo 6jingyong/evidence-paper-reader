@@ -25,6 +25,7 @@ DEPENDENCE = {"single-source", "shared-source convergence", "partially independe
 VALUE_LEVELS = {"high", "medium", "low", "unclear"}
 SCOPE_STATUSES = {"in scope", "partially in scope", "out of scope"}
 EVIDENCE_NODES_PATTERN = re.compile(r"^E[1-9]\d*(?: \+ E[1-9]\d*)*$")
+UPSTREAM_CLAIMS_PATTERN = re.compile(r"^C[1-9]\d*(?: \+ C[1-9]\d*)*$")
 VALUE_FIELDS = [
     "result value",
     "method value",
@@ -111,6 +112,7 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
         provenances = _field_values(support, "evidence provenance")
         dependence = _field_values(support, "evidence dependence")
         evidence_nodes = _field_values(support, "evidence nodes")
+        upstream_claims = _field_values(support, "upstream claims")
         locations = _field_values(support, "source location")
         dependencies = _field_values(support, "external dependency")
         evidence_values = _field_values(support, "evidence type")
@@ -120,6 +122,7 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
             ("evidence provenance", provenances),
             ("evidence dependence", dependence),
             ("evidence nodes", evidence_nodes),
+            ("upstream claims", upstream_claims),
             ("source location", locations),
             ("support level", support_levels),
             ("reason", reasons),
@@ -142,6 +145,25 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
                 errors.append(f"duplicate evidence node within one support block: {value}")
             parsed_nodes.append(nodes)
 
+        parsed_upstream = []
+        for index, value in enumerate(upstream_claims, start=1):
+            if value == "none":
+                parsed_upstream.append([])
+                continue
+            if not UPSTREAM_CLAIMS_PATTERN.fullmatch(value):
+                errors.append(f"invalid upstream claims: {value}")
+                parsed_upstream.append([])
+                continue
+            refs = value.split(" + ")
+            if len(refs) != len(set(refs)):
+                errors.append(f"duplicate upstream claim within one support block: {value}")
+            numbers = [int(ref[1:]) for ref in refs]
+            if any(number >= index for number in numbers):
+                errors.append(
+                    f"claim {index}: upstream claims must reference earlier claims only"
+                )
+            parsed_upstream.append(numbers)
+
         for value in dependence:
             if value not in DEPENDENCE:
                 errors.append(f"invalid evidence dependence: {value}")
@@ -154,6 +176,26 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
                 } and len(nodes) < 2:
                     errors.append(
                         f"claim {index}: convergence dependence requires at least two evidence nodes"
+                    )
+
+        if (
+            len(parsed_upstream) == len(parsed_nodes) == len(support_levels) == len(claim_headers)
+        ):
+            for index, (upstream, nodes, level) in enumerate(
+                zip(parsed_upstream, parsed_nodes, support_levels), start=1
+            ):
+                if not upstream or level != "sufficient":
+                    continue
+                upstream_nodes = set()
+                upstream_levels = []
+                for ref in upstream:
+                    upstream_nodes.update(parsed_nodes[ref - 1])
+                    upstream_levels.append(support_levels[ref - 1])
+                if set(nodes).issubset(upstream_nodes) and any(
+                    upstream_level != "sufficient" for upstream_level in upstream_levels
+                ):
+                    errors.append(
+                        f"claim {index}: downstream claim cannot be sufficient when it adds no new evidence and a required upstream claim is not sufficient"
                     )
 
         for value in support_levels:
