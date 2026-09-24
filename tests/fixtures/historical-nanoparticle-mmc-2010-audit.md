@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: experimental powder-metallurgy and tribology paper
 
 The paper directly demonstrates that selected nanoparticle additions can improve hardness, bending strength, and wear performance in particular Co- and Fe-based matrix/formulation combinations, and it reports a four-fold tool-life improvement for a designed binder. The broadest "nanoparticles improve the material" reading should be downweighted because performance is strongly concentration- and matrix-dependent: excessive additions increase porosity and some formulations perform much worse than the unreinforced material. The abstract's several "up to" maxima should therefore be read as best observed outcomes across heterogeneous conditions, not as a single universal improvement profile. The paper is mainly useful as an experimental result and formulation-design reference.
