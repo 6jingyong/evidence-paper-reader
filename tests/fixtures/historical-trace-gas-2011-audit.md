@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: controlled environmental field-method evaluation
 
 The paper provides direct controlled-source evidence for the accuracy of VRPM and bLS emission-estimation methods under several source and sensor configurations. The strongest bLS single-source result, about 0.98 ± 0.24 relative accuracy, is useful but explicitly depends on filtering and sensor/source geometry; it should not be read as unconditional field accuracy. The study also contains important negative/configuration evidence: vertical point concentrations can perform poorly, VRPM loses data under unfavorable wind geometry, and adding more paths does not necessarily improve dual-source VRPM performance. The broad conclusion that bLS has significant potential for distributed agricultural systems is plausible but remains a generalization from synthetic sources and limited field conditions. The paper is mainly useful as a method-validation result reference.
