@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: censored-data statistical method paper with simulation and environmental-health application
 
 The paper should not be downweighted merely because many laboratory measurements fall below the limit of detection. It explicitly treats those observations as left-censored rather than exact zeros or exact LOD/2 values, builds a bivariate likelihood that includes censoring and missingness, and evaluates the resulting estimators over 5,000 simulated samples across multiple censoring levels, correlations, and sample sizes. The simulations also expose the method's limits: bias increases for small samples with heavy censoring, so the correct conclusion is not that multiple imputation solves every non-detect problem. The paper is mainly useful as a methodological reference and as an anti-trigger example showing that non-detects are a modeling problem rather than automatic evidence failure.
