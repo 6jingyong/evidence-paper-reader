@@ -9,6 +9,8 @@ The ledger is an intermediate representation. It contains semantic judgments but
 ```json
 {
   "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
   "paper_type": "randomized controlled trial",
   "reader_conclusion": "The paper directly supports ...",
   "claims": [
@@ -49,13 +51,14 @@ The ledger is an intermediate representation. It contains semantic judgments but
 }
 ```
 
-In-scope and partially in-scope ledgers require 3–5 claims.
+`auditable` ledgers require 3–5 claims. `partially auditable` ledgers require 1–5 reconstructable claims. `non-auditable` ledgers use an empty claims list.
 
 The renderer assigns claim numbers from list order. Do not put claim numbers in claim content.
 
 ## Structured fields
 
 Use arrays for:
+- `viability_flags`
 - `evidence_type`
 - `evidence_nodes`
 - `upstream_claims`
@@ -70,11 +73,12 @@ The renderer converts these to:
 
 This removes formatting bookkeeping from the model.
 
-## Out-of-scope ledger
+## Non-auditable or out-of-scope ledger
 
-For `out of scope`:
+For `non-auditable` or `out of scope`:
 - use an empty `claims` list
 - provide `not_applicable_reason`
+- for `non-auditable`, provide at least one controlled `viability_flags` value
 - keep `usable`, `downweight`, `value_breakdown`, and `uncertainty_and_follow_up`
 - use `unclear` value levels when a value category cannot be meaningfully judged
 
@@ -115,7 +119,8 @@ The renderer handles:
 - field order
 - evidence-node formatting
 - upstream-claim formatting
-- out-of-scope placeholders
+- out-of-scope/non-auditable placeholders
+- evidence-viability and viability-flag formatting
 - value-breakdown ordering
 
 The model still handles:
