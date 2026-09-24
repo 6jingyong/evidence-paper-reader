@@ -104,6 +104,7 @@ def suggest_modules(text: str) -> dict:
     return {
         "always_load": [
             "core-contract.md",
+            "evidence-viability.md",
             "evidence-types.md",
             "audit-ledger-format.md",
         ],
