@@ -282,3 +282,4 @@ Use these bundled references when needed:
 - `references/evidence-types.md` for allowed evidence labels and how to apply them
 - `references/pollution-patterns.md` for common overreach and contamination patterns
 - `references/follow-up-boundaries.md` for reproducibility limits, evidence provenance, cited dependencies, and DOI handling
+- `references/evidence-topology.md` for mechanical coupling, validation independence, selection conditioning, null-result boundaries, proxy/construct separation, internal consistency, and scale transfer
