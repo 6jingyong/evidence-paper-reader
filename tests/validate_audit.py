@@ -24,7 +24,7 @@ PROVENANCE = {"paper-local", "external citation", "mixed"}
 DEPENDENCE = {"single-source", "shared-source convergence", "partially independent convergence", "independent convergence", "unclear"}
 VALUE_LEVELS = {"high", "medium", "low", "unclear"}
 SCOPE_STATUSES = {"in scope", "partially in scope", "out of scope"}
-EVIDENCE_NODES_PATTERN = re.compile(r"^E[1-9]\\d*(?: \\+ E[1-9]\\d*)*$")
+EVIDENCE_NODES_PATTERN = re.compile(r"^E[1-9]\d*(?: \+ E[1-9]\d*)*$")
 VALUE_FIELDS = [
     "result value",
     "method value",
