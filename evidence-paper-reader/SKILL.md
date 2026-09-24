@@ -20,9 +20,11 @@ Default output language follows the user's input language. If the paper is in En
 4. Extract the core claims before judging them.
 5. Bind each core claim to controlled evidence labels, evidence provenance, and a source location.
 6. Judge whether evidence strength matches conclusion strength.
-7. Separate usable content from analysis that should be downweighted.
-8. Resolve citation dependencies: distinguish support shown in the current paper from support delegated to cited work.
-9. Produce the fixed reader-side output template.
+7. Run a cross-section consistency scan: compare abstract, results, displayed figures/tables, discussion, and conclusion for the same quantitative trend, phase assignment, sample description, or causal statement.
+8. Check validation independence: ask whether the evaluation reuses a calibration target, tuning set, judge, proxy, or other signal that was already used to optimize the reported method.
+9. Separate usable content from analysis that should be downweighted.
+10. Resolve citation dependencies: distinguish support shown in the current paper from support delegated to cited work.
+11. Produce the fixed reader-side output template.
 
 ## Scope decision
 
@@ -64,6 +66,9 @@ If the paper is out of scope, preserve the seven-section output skeleton so down
 - Every evidence item must include a traceable source location when available: section, figure, table, appendix/supplement, or page. If no precise location is available, write `location unavailable`; never fabricate one.
 - Do not claim to know the contents of a cited work unless that work is actually available to inspect.
 - Do not guess DOIs from memory.
+- When the abstract, conclusion, discussion, and displayed results conflict, expose the conflict. Do not silently reconcile incompatible numbers, trends, phase labels, sample descriptions, or causal statements.
+- Do not let summary prose override more direct paper-local evidence such as reported measurements, tables, figures, or explicitly documented procedures.
+- Do not treat agreement with a calibration or tuning target as independent validation of real-world accuracy or generalization when that same target helped fit the method.
 
 ## Core judgment rules
 
@@ -107,6 +112,12 @@ When field knowledge, missing appendices, missing cited theory, or absent proced
 ### 6. Keep external dependencies external
 If a core claim relies structurally on a cited work, name that dependency in the claim's support entry. The current paper may accurately report the cited result, but until the cited work is inspected, that imported support remains an external dependency rather than verified paper-local evidence. Follow `references/follow-up-boundaries.md`.
 
+### 7. Check internal consistency before finalizing
+For each core claim, compare the strongest direct evidence with every place the paper restates that claim, especially the abstract and conclusion. If one section says a quantity rises continuously while the reported values do not, or if the conclusion names a phase/mechanism not directly established in the results, report the contradiction explicitly. Prefer the most direct, precisely located paper-local evidence for the bounded result; lower support for the broader narrative claim rather than choosing whichever wording is more favorable.
+
+### 8. Check whether validation is independent
+Distinguish `fit to target` from `validated against an independent target`. If a model, sensor, calibration, scoring rule, or agent is optimized against a target and then evaluated mainly by agreement with that same target, the result can support successful fitting but cannot by itself establish external accuracy or generalization. Look for independent held-out measurements, stations, datasets, annotators, or other genuinely separate validation evidence before upgrading the broader claim.
+
 ## Paper-type emphasis
 
 ### Experimental, benchmark, or simulation papers
@@ -114,6 +125,8 @@ Prioritize:
 - whether shown results actually support the stated mechanism or generality claim
 - whether simulations are being used to overclaim real-world validity
 - whether baselines or comparisons appear fair enough to sustain a performance claim
+- whether calibration/tuning and validation are genuinely independent when accuracy or generalization is claimed
+- whether the abstract/conclusion accurately restate the displayed quantitative and phase/structure results
 - whether the useful value lies mostly in results, methods, or setup rather than in interpretation
 
 For machine-learning, software, or algorithm papers, use `computational benchmark` for dataset/task evaluations and ablations. Do not relabel benchmark results as `numerical simulation` unless the computation is actually simulating a target system or phenomenon.
@@ -121,7 +134,7 @@ For machine-learning, software, or algorithm papers, use `computational benchmar
 ### Quantitative social science papers
 Prioritize:
 - whether inference scope matches the sample and design
-- whether correlation is being stretched into causation
+- whether correlation is being stretched into causation, especially when titles or conclusions use verbs such as `caused`, `harmed`, or `improved` for cross-sectional or otherwise non-causal designs
 - whether robustness or sensitivity claims are doing real support work or only rhetorical work
 - whether the paper's usable value lies more in the data/result layer than in the explanatory layer
 
