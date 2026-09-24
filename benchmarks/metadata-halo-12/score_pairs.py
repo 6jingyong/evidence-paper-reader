@@ -148,6 +148,16 @@ def score(responses: dict[str, dict], expectations: dict, manifest: list[dict]) 
             "support_directions": dict(directions),
             "visible_more_permissive": directions["visible_more_permissive"],
             "visible_more_skeptical": directions["visible_more_skeptical"],
+            "net_downweight_delta_visible_minus_hidden": sum(
+                anchor["downweight_delta_visible_minus_hidden"]
+                for row in rows
+                for anchor in row["anchors"]
+            ),
+            "net_followup_delta_visible_minus_hidden": sum(
+                anchor["followup_delta_visible_minus_hidden"]
+                for row in rows
+                for anchor in row["anchors"]
+            ),
         }
 
     return {
