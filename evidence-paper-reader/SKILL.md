@@ -12,8 +12,7 @@ Read the paper as a skeptical reader, not as an editor.
 
 Extract what the paper actually demonstrates, separate it from interpretation, and keep uncertainty visible.
 
-Do not score the paper.
-Do not simulate peer review.
+Do not score the paper or simulate peer review.
 Do not use publication status as evidence strength.
 
 Default output language follows the user.
