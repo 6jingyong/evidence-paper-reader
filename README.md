@@ -280,12 +280,13 @@ The helper searches for cheap lexical cues and proposes candidate references. It
 
 ## Benchmarks
 
-Four non-core benchmark suites live under `benchmarks/`:
+Five non-core benchmark suites live under `benchmarks/`:
 
 - `tiered-source-40/`: 10 domains × 4 source/attention tiers; checks whether bounded evidence judgments can remain distinct from source prestige.
 - `metadata-halo-12/`: paired anonymous A/B packets with identical scientific content and metadata hidden vs visible; designed for isolated-context causal testing of prestige/attention halo.
 - `claim-selection-12/`: tests the pre-audit stage—core-claim recall, distractor selection, evidence-viability decisions, and especially silent narrowing of strong author claims into safer claims before support judgment.
 - `router-adversarial-24/`: 12 semantic-only routing cases plus 12 lexical decoys; measures required-module recall, irrelevant keyword suppression, inventory routing, and lexical+semantic merge behavior.
+- `stability-crossdomain-8/`: eight real-paper domains × five isolated repeats; separates repeated-run stability from reference correctness across viability, claim selection, routing, inventory choice, and support.
 
 The second benchmark must be run in fresh independent model contexts. The development conversation itself is contaminated by knowing the pair mapping and reference expectations, so repository setup is not reported as a model result.
 
@@ -332,8 +333,43 @@ The tests verify, among other things, that:
 - claim-selection benchmark tests required-claim recall, forbidden selections, silent narrowing, viability accuracy, and claim-count discipline
 - evidence-inventory tests prevent duplicate result promotion, cross-result E-node merges, repeated R promotion, invisible claim-retrieval gaps, and false independent convergence over shared U units
 - router-adversarial tests require a perfect semantic route to recover keyword-hidden modules and suppress incidental lexical decoys without weakening conservative `unclear` behavior
+- cross-domain stability tests verify 8 unique domains × 5 repeats, separate optional-claim omission from support error, and make single-run drift visible at the layer where it occurs
 
 GitHub Actions runs the same checks on pushes and pull requests.
+
+### Cross-domain repeated-run stability
+
+One-shot correctness is not enough for a reusable skill. The `stability-crossdomain-8` benchmark repeats the same compact real-paper review five times in isolated contexts across eight domains:
+
+- clinical cardiology
+- materials science
+- machine learning
+- environmental modeling
+- social science
+- financial market microstructure
+- ecology
+- electrocatalysis
+
+The scorer reports two different families of metrics:
+
+- **stability**: pairwise agreement/Jaccard for viability, claim selection, routing, inventory choice, and support vectors
+- **reference correctness**: viability accuracy, required-claim recall, forbidden-claim selection rate, required-module recall, unallowed-module rate, inventory accuracy, and support accuracy
+
+This distinction matters because a model can be perfectly consistent and still be consistently wrong.
+
+Generate the 40-job matrix with:
+
+```bash
+python benchmarks/stability-crossdomain-8/generate_runs.py
+```
+
+Then run each packet in a fresh context with the same model/configuration, save responses by packet ID, and score:
+
+```bash
+python benchmarks/stability-crossdomain-8/score_repeats.py responses/
+```
+
+The current development conversation knows the benchmark references, so it is not a valid isolated reviewer for those repeated runs.
 
 ### Evidence viability gate
 
