@@ -14,18 +14,24 @@ Default output language follows the user's input language. If the paper is in En
 
 ## Workflow
 
-1. Determine whether the paper is evidence-driven and within scope.
-2. Identify the paper type and adjust attention accordingly.
-3. Extract the core claims before judging them.
-4. Assign an evidence type to each core claim.
-5. Judge whether evidence strength matches conclusion strength.
-6. Separate usable content from analysis that should be downweighted.
-7. Produce the fixed reader-side output template.
-8. If critical support comes from external cited work, surface the cited paper name and DOI when available so the user can follow up.
+1. Inventory the material actually available: main text, figures/tables, appendices or supplements, references, data/code links, and any missing pieces.
+2. Make a scope decision before substantive judgment and record one status: `in scope`, `partially in scope`, or `out of scope`.
+3. Identify the paper type and adjust attention accordingly.
+4. Extract the core claims before judging them.
+5. Bind each core claim to controlled evidence labels, evidence provenance, and a source location.
+6. Judge whether evidence strength matches conclusion strength.
+7. Separate usable content from analysis that should be downweighted.
+8. Resolve citation dependencies: distinguish support shown in the current paper from support delegated to cited work.
+9. Produce the fixed reader-side output template.
 
 ## Scope decision
 
 Treat the paper as in scope only if it is primarily evidence-driven and has a traceable evidence chain.
+
+Use exactly one scope status:
+- `in scope`: the central claims can be audited from evidence reported or directly documented by the paper
+- `partially in scope`: some central claims have traceable evidence, while other major parts are normative, interpretive, theoretical, clinical, or blocked by missing material
+- `out of scope`: the paper's central contribution cannot be meaningfully audited with this evidence-chain framework
 
 Default in-scope categories:
 - experimental natural science papers
@@ -39,7 +45,9 @@ Default out-of-scope categories:
 - highly clinical papers
 - papers centered on normative argument, pure theory exposition, or heavily interpretive analysis without a clear evidence chain
 
-If the paper is partially in scope, continue but explicitly mark which parts can only receive weak judgment.
+If the paper is partially in scope, continue but explicitly mark which claims or sections can only receive weak judgment.
+
+If the paper is out of scope, preserve the seven-section output skeleton so downstream use remains predictable, but do not force 3 to 5 artificial claims. In sections 2 through 6, use `not applicable` where the framework would create false precision, and explain the scope blocker in section 1 and section 7.
 
 ## Hard rules
 
@@ -50,7 +58,12 @@ If the paper is partially in scope, continue but explicitly mark which parts can
 - Do not write vague praise or vague dismissal.
 - Do not state that a result is false merely because support is insufficient.
 - Do not claim reproducibility success or failure. Only judge whether reproducibility-relevant information appears sufficiently reported.
-- Quote or locate sections, figures, tables, appendices, or cited works when available. If precise location is unavailable, do not fabricate it.
+- Use only the evidence labels defined in `references/evidence-types.md` unless the user explicitly requests a looser reading.
+- Every support judgment must identify evidence provenance as `paper-local`, `external citation`, or `mixed`.
+- A literature citation is not paper-local evidence. Do not upgrade a current-paper support judgment merely because the paper cites prior work.
+- Every evidence item must include a traceable source location when available: section, figure, table, appendix/supplement, or page. If no precise location is available, write `location unavailable`; never fabricate one.
+- Do not claim to know the contents of a cited work unless that work is actually available to inspect.
+- Do not guess DOIs from memory.
 
 ## Core judgment rules
 
@@ -64,17 +77,35 @@ Use these claim types:
 - performance
 - generality
 
+`conclusion strength` describes the reach of the paper's claim, not confidence in your judgment:
+- `weak`: local/descriptive claim with limited extrapolation
+- `medium`: comparative, explanatory, or bounded generalization claim
+- `strong`: broad causal, mechanistic, or generality claim that reaches well beyond the immediate observation
+
 ### 2. Bind each claim to an evidence type
 Every major claim must be tied to one or more evidence types. Use the controlled labels from `references/evidence-types.md`.
 
+For each evidence item, also record:
+- evidence provenance: `paper-local`, `external citation`, or `mixed`
+- source location: the most precise available section/figure/table/appendix/page locator
+
 ### 3. Judge support mismatch, not just amount of material
 The central question is whether the evidence is strong enough for the level of conclusion being drawn.
+
+A support level applies to the claim as written, not to a narrower claim you silently substitute:
+- `sufficient`: the shown evidence supports the claim at approximately the stated scope
+- `partial`: a narrower or qualified version is supported, but the stated claim reaches farther
+- `insufficient`: the available evidence does not establish the stated claim
+- `unclear`: available material is too incomplete or ambiguous to judge
 
 ### 4. Separate result from interpretation
 Treat displayed results, reported statistics, demonstrated procedures, and documented materials separately from the author's explanation of what they mean.
 
 ### 5. Preserve uncertainty
 When field knowledge, missing appendices, missing cited theory, or absent procedural detail blocks a judgment, say so directly.
+
+### 6. Keep external dependencies external
+If a core claim relies structurally on a cited work, name that dependency in the claim's support entry. The current paper may accurately report the cited result, but until the cited work is inspected, that imported support remains an external dependency rather than verified paper-local evidence. Follow `references/follow-up-boundaries.md`.
 
 ## Paper-type emphasis
 
@@ -84,6 +115,8 @@ Prioritize:
 - whether simulations are being used to overclaim real-world validity
 - whether baselines or comparisons appear fair enough to sustain a performance claim
 - whether the useful value lies mostly in results, methods, or setup rather than in interpretation
+
+For machine-learning, software, or algorithm papers, use `computational benchmark` for dataset/task evaluations and ablations. Do not relabel benchmark results as `numerical simulation` unless the computation is actually simulating a target system or phenomenon.
 
 ### Quantitative social science papers
 Prioritize:
@@ -101,56 +134,83 @@ Prioritize:
 
 ## Output template
 
-Always use this exact section order.
+Always use this exact section order and field names. Do not insert extra top-level sections.
 
 # reader-side paper audit
 
 ## 1. reader conclusion
-Write 3 to 6 sentences covering:
+Start with:
+- `scope status: in scope | partially in scope | out of scope`
+- `paper type: ...`
+
+Then write 3 to 6 sentences covering:
 - what is most worth keeping from the paper
 - what should be downweighted first
 - whether the paper is mainly useful as result reference, method reference, inspiration, or low-priority material
 
 ## 2. core claims
-List 3 to 5 core claims. For each claim include:
-- content
-- claim type
-- conclusion strength: weak, medium, or strong
+For `in scope` and `partially in scope` papers, list 3 to 5 core claims using this structure:
+
+### claim 1
+- content: ...
+- claim type: observational | methodological | mechanistic | performance | generality
+- conclusion strength: weak | medium | strong
+
+Repeat sequentially as needed. For an `out of scope` paper, use `not applicable — <reason>` instead of inventing claims.
 
 ## 3. evidence and support
-For each core claim include:
-- evidence type
-- support level: sufficient, partial, insufficient, or unclear
-- main reason for that judgment
+For every claim in section 2, use the same claim number and this structure:
+
+### claim 1
+- evidence type: <one or more controlled labels from references/evidence-types.md>
+- evidence provenance: paper-local | external citation | mixed
+- source location: <section/figure/table/appendix/page or location unavailable>
+- support level: sufficient | partial | insufficient | unclear
+- reason: ...
+- external dependency: none | <cited work title; DOI if verified/available; why it matters>
+
+If multiple evidence items support one claim, keep them within the same claim block and make their locations explicit. For an `out of scope` paper, use `not applicable — <reason>`.
 
 ## 4. what is usable
-Split into:
-- usable results
-- usable methods or design
-- usable materials or documentation
+Use these exact subheadings:
 
-Only include content that the paper itself actually demonstrates, reports, or documents.
+### usable results
+
+### usable methods or design
+
+### usable materials or documentation
+
+Only include content that the paper itself actually demonstrates, reports, or documents. If the paper is out of scope, use `not applicable` where appropriate.
 
 ## 5. what to downweight
-Split into:
-- worth noticing but should be downweighted
-- should be treated cautiously or ignored
+Use these exact subheadings:
 
-Use concrete reasons, not tone judgments.
+### worth noticing but should be downweighted
+
+### should be treated cautiously or ignored
+
+Use concrete reasons, not tone judgments. If the paper is out of scope, use `not applicable` where appropriate.
 
 ## 6. value breakdown
-Give one line each for:
-- result value
-- method value
-- theory or insight value
-- research design value
-- material or documentation value
+Give exactly one line each:
+- result value: high | medium | low | unclear
+- method value: high | medium | low | unclear
+- theory or insight value: high | medium | low | unclear
+- research design value: high | medium | low | unclear
+- material or documentation value: high | medium | low | unclear
 
-Use only: high, medium, low, or unclear.
+For an out-of-scope paper, `unclear` is usually preferable to invented low/high judgments.
 
 ## 7. uncertainty and follow-up
-List the most important unresolved limits on judgment.
-If a cited external paper appears structurally necessary to evaluate a core theory or mechanism claim, provide the cited work's title and DOI when available, and say that the user may want to read or upload it next.
+List the most important unresolved limits on judgment, including missing appendices/supplements/data/code when they matter.
+
+If a cited external paper appears structurally necessary to evaluate a core theory or mechanism claim:
+1. provide the cited work's title
+2. provide its DOI only when present in the inspected material or verified through an authoritative metadata lookup
+3. state why the dependency matters
+4. say that the user may want to read or upload it next
+
+If no structurally necessary external dependency was found, say so rather than manufacturing one.
 
 ## Writing discipline
 
@@ -163,4 +223,4 @@ If a cited external paper appears structurally necessary to evaluate a core theo
 Use these bundled references when needed:
 - `references/evidence-types.md` for allowed evidence labels and how to apply them
 - `references/pollution-patterns.md` for common overreach and contamination patterns
-- `references/follow-up-boundaries.md` for how to discuss reproducibility limits, cited dependencies, and uncertainty without overclaiming
+- `references/follow-up-boundaries.md` for reproducibility limits, evidence provenance, cited dependencies, and DOI handling
