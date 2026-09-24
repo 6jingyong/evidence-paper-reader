@@ -29,6 +29,8 @@ Check:
 
 A good calibration curve does not by itself establish accuracy in new matrices, instruments, operators, or environments.
 
+Accuracy estimated from residuals or errors on the same specimens used to fit a calibration relation is not independent validation. Distinguish `fit error`, `cross-validated error`, and error on a separately acquired validation set.
+
 ## Limit of detection and quantification
 
 Values near or below LOD/LOQ can be censored, substituted, truncated, or highly uncertain.
@@ -39,6 +41,9 @@ Check:
 - whether group differences depend on values near the detection limit
 
 Replacing all non-detects with zero, LOD/2, or another constant can change distributions and model estimates.
+
+### Thresholded or detectability outcomes
+When a continuous assay is converted into `detected / not detected`, `above / below threshold`, or a similar binary variable, check the coding and reference category before interpreting an odds ratio or coefficient. A statement about `odds of detection` can reverse meaning if the fitted event is actually `below LOD`.
 
 ## Saturation, ceiling, and floor effects
 
