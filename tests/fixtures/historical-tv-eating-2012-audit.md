@@ -33,6 +33,7 @@ The paper strongly supports a descriptive association between more television vi
 ### claim 1
 - evidence type: survey record + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: shared-source convergence
 - source location: abstract results, multivariable models, and the main association tables
 - support level: sufficient
@@ -42,6 +43,7 @@ The paper strongly supports a descriptive association between more television vi
 ### claim 2
 - evidence type: survey record + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1 + E3
 - evidence dependence: shared-source convergence
 - source location: models comparing estimates before and after adjustment for television snacking
 - support level: partial
@@ -51,6 +53,7 @@ The paper strongly supports a descriptive association between more television vi
 ### claim 3
 - evidence type: survey record + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E4 + E5
 - evidence dependence: shared-source convergence
 - source location: interaction analyses and the figure reporting age/race-stratified adjusted odds ratios
 - support level: sufficient
@@ -60,6 +63,7 @@ The paper strongly supports a descriptive association between more television vi
 ### claim 4
 - evidence type: survey record + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: shared-source convergence
 - source location: study design and discussion of possible mechanisms
 - support level: insufficient
