@@ -228,6 +228,15 @@ python evidence-paper-reader/scripts/suggest_modules.py paper.txt --json
 
 The helper searches for methodological cues, suggests references to inspect, and recommends Flash or Full based on route complexity. It never declares a bias or flaw; the model must verify the actual inference and any mitigation. Flash eligibility never relaxes the audit contract.
 
+## Benchmarks
+
+Two non-core benchmark suites live under `benchmarks/`:
+
+- `tiered-source-40/`: 10 domains × 4 source/attention tiers; checks whether bounded evidence judgments can remain distinct from source prestige.
+- `metadata-halo-12/`: paired anonymous A/B packets with identical scientific content and metadata hidden vs visible; designed for isolated-context causal testing of prestige/attention halo.
+
+The second benchmark must be run in fresh independent model contexts. The development conversation itself is contaminated by knowing the pair mapping and reference expectations, so repository setup is not reported as a model result.
+
 ## Contract tests
 
 The repository includes a zero-dependency Python validator and a cross-domain real-paper regression suite. The fixtures are intentionally heterogeneous so the skill is tested against different evidence chains rather than a single model-paper style.
