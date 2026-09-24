@@ -23,7 +23,7 @@ def render_prompt(
         "",
         "Run exactly this one review in a fresh model context.",
         "",
-        "Use the installed Evidence Paper Reader skill. Do not use, seek, or infer any private benchmark reference expectations.",
+        "Use the installed Evidence Paper Reader skill. Do not use any private answer key, reference block, or scorer output.",
         "Judge the candidate claims as written. Do not silently narrow a strong source claim into a safer replacement.",
         "Return JSON only and match the supplied response format exactly.",
         "",
