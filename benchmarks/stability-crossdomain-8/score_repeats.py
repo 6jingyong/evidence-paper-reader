@@ -12,6 +12,17 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 SUPPORT = {"sufficient", "partial", "insufficient", "unclear"}
 VIABILITY = {"auditable", "partially auditable", "non-auditable"}
+ALLOWED_MODULES = {
+    "figure-and-table-traps.md",
+    "statistical-traps.md",
+    "measurement-traps.md",
+    "study-design-traps.md",
+    "evidence-topology.md",
+    "evidence-dependence.md",
+    "claim-evidence-links.md",
+    "claim-dependencies.md",
+    "follow-up-boundaries.md",
+}
 
 
 def jaccard(a: set[str], b: set[str]) -> float:
@@ -48,6 +59,13 @@ def validate_response(data: dict, case: dict) -> list[str]:
         selected = []
     if len(selected) != len(set(selected)):
         errors.append("selected_claim_ids contain duplicates")
+    viability = data.get("evidence_viability")
+    if viability == "auditable" and not (3 <= len(selected) <= 5):
+        errors.append("auditable response must select 3 to 5 claims")
+    if viability == "partially auditable" and not (1 <= len(selected) <= 5):
+        errors.append("partially auditable response must select 1 to 5 claims")
+    if viability == "non-auditable" and selected:
+        errors.append("non-auditable response must select zero claims")
 
     modules = data.get("modules")
     if not isinstance(modules, list) or not all(isinstance(x, str) for x in modules):
@@ -55,6 +73,9 @@ def validate_response(data: dict, case: dict) -> list[str]:
         modules = []
     if len(modules) != len(set(modules)):
         errors.append("modules contain duplicates")
+    unknown_modules = [x for x in modules if x not in ALLOWED_MODULES]
+    if unknown_modules:
+        errors.append("unknown module(s): " + ", ".join(unknown_modules))
 
     if not isinstance(data.get("use_evidence_inventory"), bool):
         errors.append("use_evidence_inventory must be boolean")
