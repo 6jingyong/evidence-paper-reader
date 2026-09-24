@@ -68,7 +68,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("fit to target", self.skill)
 
     def test_validator_rejects_unknown_evidence_label(self):
-        text = RESNET_RESNET_FIXTURE.read_text(encoding="utf-8").replace(
+        text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
             "- evidence type: computational benchmark",
             "- evidence type: benchmark experiment",
             1,
