@@ -28,6 +28,7 @@ The paper-local evidence strongly supports a bounded claim that LIBLINEAR reache
 ### claim 1
 - evidence type: computational benchmark
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: Section 4 and Figure 1, news20 and rcv1 testing-accuracy-versus-training-time comparisons
 - support level: sufficient
 - reason: The paper directly compares LIBLINEAR with Pegasos and SVMperf on two large sparse datasets after parameter selection and shows rapid approach to competitive testing accuracy. This supports the claim for those displayed tasks and settings.
@@ -36,6 +37,7 @@ The paper-local evidence strongly supports a bounded claim that LIBLINEAR reache
 ### claim 2
 - evidence type: computational benchmark + literature citation
 - evidence provenance: mixed
+- evidence dependence: unclear
 - source location: abstract, introductory efficiency example, Section 4, and Section 5
 - support level: partial
 - reason: The two displayed datasets and the rcv1 timing example support efficiency in important large sparse cases, but the paper explicitly says full comparison details are omitted and points readers to companion work. The broad class-level claim therefore relies materially on evidence outside this four-page paper.
@@ -44,6 +46,7 @@ The paper-local evidence strongly supports a bounded claim that LIBLINEAR reache
 ### claim 3
 - evidence type: literature citation
 - evidence provenance: external citation
+- evidence dependence: unclear
 - source location: Section 5 conclusion, which attributes broader experiments, analysis, and theoretical properties to Lin et al. (2008), Hsieh et al. (2008), and Keerthi et al. (2008)
 - support level: unclear
 - reason: The current paper reports that those cited works establish the broader performance and theoretical claims, but it does not reproduce enough of their analysis to independently judge them here.
