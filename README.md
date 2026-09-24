@@ -52,6 +52,8 @@ The current contract is intentionally stricter than a prose-only prompt:
 - evidence-topology checks for mechanical coupling, null-result interpretation, proxy/construct separation, selection-conditioned evidence, and scale transfer
 - evidence-dependence checks that distinguish single-source evidence, shared-source corroboration, partial triangulation, and materially independent convergence
 - stable evidence-node IDs that make cross-claim evidence reuse and claim stacking visible
+- explicit claim-to-claim dependencies that carry upstream uncertainty forward
+- bounded methodological knowledge for figure/table interpretation without embedding domain conclusions
 - empirical finance, clinical/biomedical, and empirical-aesthetics coverage when the paper has a traceable evidence chain
 
 ## Repository layout
@@ -87,10 +89,12 @@ The current contract is intentionally stricter than a prose-only prompt:
     ├── agents/
     │   └── openai.yaml
     └── references/
+        ├── claim-dependencies.md
         ├── claim-evidence-links.md
         ├── evidence-dependence.md
         ├── evidence-types.md
         ├── evidence-topology.md
+        ├── figure-and-table-traps.md
         ├── follow-up-boundaries.md
         └── pollution-patterns.md
 ```
@@ -123,8 +127,25 @@ The tests verify, among other things, that:
 - every support block carries machine-checkable evidence-node IDs
 - convergence labels require at least two evidence nodes
 - claim-stacking regressions preserve evidence reuse instead of renaming the same result
+- every support block declares upstream claim dependencies
+- forward/self dependencies are rejected and uncertainty cannot disappear without new evidence
+- figure/table interpretation traps remain present as bounded methodological knowledge
 
 GitHub Actions runs the same checks on pushes and pull requests.
+
+### Claim dependencies and uncertainty propagation
+
+Claims can depend on earlier claims as premises. Each support block therefore declares `upstream claims: none` or earlier IDs such as `C1 + C2`. Claims are ordered as a DAG: later claims may depend on earlier ones, never the reverse.
+
+The validator implements a conservative propagation rule. If a downstream claim adds no evidence nodes beyond its required upstream claims, and any required upstream claim is not `sufficient`, the downstream claim cannot become `sufficient` merely by restatement. New direct evidence can still change the judgment.
+
+### Bounded methodological world knowledge
+
+The skill intentionally avoids embedding field conclusions such as expected material properties, treatment efficacy, or market behavior. It does include portable reading knowledge that changes how evidence should be interpreted.
+
+`figure-and-table-traps.md` covers decision-critical issues such as truncated or log axes, dual y-axes, denominator drift, relative versus absolute change, row-wise heatmap normalization, Simpson's paradox, smoothing and cumulative curves, SD/SEM/CI ambiguity, technical versus biological replication, representative images, pseudocolor and contrast, adjusted versus unadjusted tables, missing-data denominators, and multiple-testing displays.
+
+These are not automatic flaw labels. The reader applies only the traps relevant to a core claim and states what comparison is or is not justified.
 
 ### Claim-evidence links and evidence reuse
 
