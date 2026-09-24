@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Suggest optional Evidence Paper Reader modules from plain paper text.
 
-This is an advisory lexical router for weaker models. It does not decide that a
-methodological flaw exists. Every suggestion must be verified semantically.
+This is an advisory lexical router for staged Flash-path execution. It does not
+decide that a methodological flaw exists. Every suggestion must be verified
+semantically, and complex routes escalate to Full path rather than skipping work.
 """
 
 from __future__ import annotations
@@ -12,12 +13,19 @@ import json
 import re
 from pathlib import Path
 
+PRIMARY_METHOD_MODULES = {
+    "figure-and-table-traps.md",
+    "statistical-traps.md",
+    "measurement-traps.md",
+    "study-design-traps.md",
+    "evidence-topology.md",
+}
+
 MODULES = {
     "figure-and-table-traps.md": [
         r"\bfigure\b", r"\btable\b", r"heat\s*map", r"error bars?",
-        r"\bsem\b", r"standard deviation", r"confidence interval",
-        r"log(?:arithmic)? scale", r"normaliz", r"z[- ]?score",
-        r"representative (?:image|micrograph|field)",
+        r"\bsem\b", r"standard deviation", r"log(?:arithmic)? scale",
+        r"normaliz", r"z[- ]?score", r"representative (?:image|micrograph|field)",
     ],
     "statistical-traps.md": [
         r"\bp\s*[=<>]", r"confidence interval", r"credible interval",
@@ -71,11 +79,27 @@ def suggest_modules(text: str) -> dict:
                 "cues": sorted(set(hits))[:8],
             })
 
+    primary_count = sum(
+        1 for item in suggestions if item["module"] in PRIMARY_METHOD_MODULES
+    )
+
     if suggestions:
         suggestions.append({
             "module": "false-positive-guards.md",
             "cues": ["mandatory after any trap/module cue"],
         })
+
+    recommended_path = "full" if primary_count >= 3 else "flash"
+    if recommended_path == "full":
+        path_reason = (
+            f"{primary_count} primary methodological modules triggered; "
+            "Full path required by escalation rule."
+        )
+    else:
+        path_reason = (
+            f"{primary_count} primary methodological modules triggered; "
+            "Flash path remains eligible, subject to semantic escalation checks."
+        )
 
     return {
         "always_load": [
@@ -84,8 +108,12 @@ def suggest_modules(text: str) -> dict:
             "evidence-types.md",
         ],
         "suggested": suggestions,
+        "primary_module_count": primary_count,
+        "recommended_path": recommended_path,
+        "path_reason": path_reason,
         "warning": (
             "Lexical cues are advisory only. A cue triggers inspection, not a flaw. "
+            "Flash path changes context loading only; it never lowers the audit contract. "
             "Verify the inference and mitigation before downweighting."
         ),
     }
@@ -101,6 +129,8 @@ def main() -> int:
     if args.json:
         print(json.dumps(result, indent=2, ensure_ascii=False))
     else:
+        print(f"Recommended path: {result['recommended_path'].upper()}")
+        print(result["path_reason"])
         print("Always load:")
         for module in result["always_load"]:
             print(f"- {module}")
