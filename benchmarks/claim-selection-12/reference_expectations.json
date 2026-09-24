@@ -65,7 +65,9 @@
         "K1",
         "K2"
       ],
-      "optional": [],
+      "optional": [
+        "K5"
+      ],
       "forbidden": [
         "K3",
         "K4",
