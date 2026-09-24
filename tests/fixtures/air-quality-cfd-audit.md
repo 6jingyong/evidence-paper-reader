@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: environmental modeling and sensor-calibration paper
 
 The paper provides useful evidence that its CFD setup reproduces the tested 24-hour urban wind and PM10 patterns reasonably well against the available reference stations. It also directly shows that a linear calibration can make the low-cost sensor readings much closer to the CFD-derived concentration targets. The strongest claim that should be downweighted is that this calibration result by itself demonstrates improved real-world sensor accuracy: the CFD output is used as the calibration target, so post-calibration agreement with that same target is not independent validation. Broader claims about filling monitoring gaps or optimizing sensor placement are plausible applications but are not demonstrated across multiple days, weather regimes, or independent deployment sites. The paper is mainly useful as a modeling/calibration method reference and as a case study in validation independence.
