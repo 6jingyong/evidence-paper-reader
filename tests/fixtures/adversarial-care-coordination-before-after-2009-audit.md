@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: uncontrolled before-after health-services evaluation
 
 The paper documents a substantial decline in hospital use after enrollment in an integrated care-coordination service and converts those changes into large estimated savings. Those observed pre/post differences are real administrative-record findings, but causal attribution to the service is much weaker because there is no concurrent control group and clients are selected from an unusually high-utilization population. Regression to the mean, changing health status, secular trends, and selection can therefore generate part of the apparent reduction even if the service has no causal effect. The paper itself acknowledges the lack of a control group, which is an important limitation, but its strong cost-effectiveness conclusion still exceeds what the before-after design uniquely identifies. The paper is mainly useful as an adversarial design example showing how a large, economically impressive effect can remain causally uncertain.
