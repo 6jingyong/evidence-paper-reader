@@ -1,0 +1,383 @@
+{
+  "benchmark_id": "claim-selection-12-v1",
+  "seed": 20260924,
+  "cases": [
+    {
+      "case_id": "CS01",
+      "domain": "social survey",
+      "source_packet": [
+        "The abstract states that screen time and social-media hyperconnection have harmed adolescents' relational and psychological well-being since the COVID-19 pandemic.",
+        "The empirical design uses repeated cross-sectional survey data rather than randomized exposure or longitudinal within-person assignment.",
+        "The results report associations between screen/social-media measures and relational or psychological outcomes."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "Greater screen time and social-media hyperconnection were associated with worse relational or psychological outcomes in the surveyed adolescents."
+        },
+        {
+          "id": "K2",
+          "text": "Screen time and social-media hyperconnection harmed adolescent relational and psychological well-being since the pandemic."
+        },
+        {
+          "id": "K3",
+          "text": "Reducing social-media exposure would improve an individual adolescent's mental health."
+        },
+        {
+          "id": "K4",
+          "text": "The pandemic itself caused the observed relationship between screen use and well-being."
+        },
+        {
+          "id": "K5",
+          "text": "The study is a repeated cross-sectional survey."
+        }
+      ]
+    },
+    {
+      "case_id": "CS02",
+      "domain": "materials science",
+      "source_packet": [
+        "The paper reports Al-content-dependent microstructure and mechanical properties in a CoCrFeNiMn-based high-entropy alloy series.",
+        "The reported hardness values are approximately 199.8, 196.8, 197.6, and 210.1 HV across increasing Al content.",
+        "The paper's summary language states that hardness continuously increases with Al content.",
+        "Yield strength rises from about 281.9 to 358.1 MPa while elongation falls from about 0.52 to 0.12."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "Al addition changes the alloy microstructure and phase constitution."
+        },
+        {
+          "id": "K2",
+          "text": "Hardness continuously increases with increasing Al content."
+        },
+        {
+          "id": "K3",
+          "text": "Yield strength increases while elongation decreases across the reported composition series."
+        },
+        {
+          "id": "K4",
+          "text": "Every measured mechanical property improves monotonically with Al addition."
+        },
+        {
+          "id": "K5",
+          "text": "Hardness is roughly flat at lower Al contents and rises mainly at the highest reported composition."
+        }
+      ]
+    },
+    {
+      "case_id": "CS03",
+      "domain": "clinical trial",
+      "source_packet": [
+        "A randomized trial compares echinacea with control for treatment of the common cold.",
+        "Differences in illness duration and severity do not reach conventional statistical significance.",
+        "The article discusses whether the observed estimates are compatible with a clinically meaningful treatment effect rather than establishing formal equivalence."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "The randomized comparison did not show a statistically significant reduction in the main illness-duration or severity outcomes."
+        },
+        {
+          "id": "K2",
+          "text": "The trial proves that echinacea has exactly no treatment effect."
+        },
+        {
+          "id": "K3",
+          "text": "The trial's estimates and uncertainty bound how large a treatment effect remains plausible."
+        },
+        {
+          "id": "K4",
+          "text": "The trial formally demonstrates equivalence between echinacea and control."
+        },
+        {
+          "id": "K5",
+          "text": "Randomization provides a direct treatment comparison within the enrolled population."
+        }
+      ]
+    },
+    {
+      "case_id": "CS04",
+      "domain": "empirical aesthetics",
+      "source_packet": [
+        "Participants rated the beauty of visual artworks and musical excerpts while neural activity was measured.",
+        "Medial orbitofrontal cortex activity covaried with self-reported beauty ratings across the tested modalities.",
+        "The paper develops a broader interpretation involving a possible brain-based faculty or common neural correlate of beauty."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "mOFC activity covaries with self-rated beauty for the tested visual and musical stimuli."
+        },
+        {
+          "id": "K2",
+          "text": "The mOFC result supports a general brain-based faculty of beauty."
+        },
+        {
+          "id": "K3",
+          "text": "All forms of aesthetic experience share the same neural mechanism."
+        },
+        {
+          "id": "K4",
+          "text": "The study establishes that mOFC activity causes the subjective experience of beauty."
+        },
+        {
+          "id": "K5",
+          "text": "mOFC activity is associated with beauty ratings in the tested tasks."
+        }
+      ]
+    },
+    {
+      "case_id": "CS05",
+      "domain": "machine learning",
+      "source_packet": [
+        "The paper introduces deep residual networks with identity shortcut connections.",
+        "Across ImageNet and CIFAR benchmarks, deeper residual networks train more successfully and achieve stronger performance than comparable plain networks.",
+        "The paper argues that residual formulation eases optimization and addresses the degradation problem observed when plain networks become deeper."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "Residual networks improve optimization and benchmark performance relative to comparable plain networks in the reported experiments."
+        },
+        {
+          "id": "K2",
+          "text": "Identity shortcuts and residual formulation make very deep networks easier to optimize."
+        },
+        {
+          "id": "K3",
+          "text": "Residual networks solve the vanishing-gradient problem in general."
+        },
+        {
+          "id": "K4",
+          "text": "Residual architectures are universally superior to all non-residual architectures."
+        },
+        {
+          "id": "K5",
+          "text": "The paper evaluates ImageNet and CIFAR benchmark tasks."
+        }
+      ]
+    },
+    {
+      "case_id": "CS06",
+      "domain": "environmental sensing / CFD",
+      "source_packet": [
+        "The study combines cost-effective air-quality measurements with CFD modeling to reconstruct local pollutant fields.",
+        "Sensor measurements are used in model calibration/tuning and are also central to the reported agreement used to support model accuracy.",
+        "The paper presents the combined approach as an accurate assessment method for the studied environment."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "The combined measurement-plus-CFD workflow can reproduce local pollutant patterns in the studied deployment."
+        },
+        {
+          "id": "K2",
+          "text": "Agreement with the sensor measurements demonstrates independent external validation of model accuracy."
+        },
+        {
+          "id": "K3",
+          "text": "The approach is established as accurate across different buildings, cities, and sensor deployments."
+        },
+        {
+          "id": "K4",
+          "text": "Sensor observations are used in both calibration and evaluation of the reported model agreement."
+        },
+        {
+          "id": "K5",
+          "text": "The paper uses CFD."
+        }
+      ]
+    },
+    {
+      "case_id": "CS07",
+      "domain": "health services",
+      "source_packet": [
+        "A care-coordination service enrolls clients with high prior hospital utilization.",
+        "Hospital bed-days and emergency attendance decline after enrollment.",
+        "The paper converts the pre/post decline into estimated bed-days prevented and economic savings.",
+        "There is no concurrent control group in the main before/after comparison."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "Hospital utilization was lower after clients entered the service than in the preceding observation period."
+        },
+        {
+          "id": "K2",
+          "text": "The service prevented approximately the reported number of hospital bed-days."
+        },
+        {
+          "id": "K3",
+          "text": "The service is highly cost-effective because it caused the observed utilization reduction."
+        },
+        {
+          "id": "K4",
+          "text": "The service is associated with a decline in utilization after enrollment."
+        },
+        {
+          "id": "K5",
+          "text": "The absence of a concurrent control group is a design limitation."
+        }
+      ]
+    },
+    {
+      "case_id": "CS08",
+      "domain": "medical genetics",
+      "source_packet": [
+        "A GWAS in 1,524 premenopausal European-American women identifies CATSPERB variants associated with femoral-neck BMD.",
+        "A separate sample of 669 premenopausal African-American women is used for replication.",
+        "One highlighted variant, rs1285635, shows replication at P=.003, while the broad set of discovery signals does not all replicate.",
+        "The article discusses several potentially novel loci."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "The discovery cohort identifies CATSPERB-region variants associated with femoral-neck BMD."
+        },
+        {
+          "id": "K2",
+          "text": "At least one highlighted CATSPERB signal replicates in an independently sampled African-American cohort."
+        },
+        {
+          "id": "K3",
+          "text": "Several novel BMD loci are independently replicated across ancestries."
+        },
+        {
+          "id": "K4",
+          "text": "The discovery p-values establish modern genome-wide significance for all highlighted variants."
+        },
+        {
+          "id": "K5",
+          "text": "The replication evidence is concentrated more narrowly than the full discovery claim set."
+        }
+      ]
+    },
+    {
+      "case_id": "CS09",
+      "domain": "product technology",
+      "source_packet": [
+        "A product brief claims dramatically higher accuracy and efficiency for a named system.",
+        "It shows selected success screenshots and a few product-specific metrics.",
+        "The sample definition, test protocol, named comparator, failure cases, and selection rule for the displayed examples are not disclosed."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "The product is more accurate than competing systems."
+        },
+        {
+          "id": "K2",
+          "text": "The product is more efficient than competing systems."
+        },
+        {
+          "id": "K3",
+          "text": "The displayed demonstrations show that the system can succeed on at least some selected examples."
+        },
+        {
+          "id": "K4",
+          "text": "The product's superiority is established across ordinary operating conditions."
+        },
+        {
+          "id": "K5",
+          "text": "The brief describes intended product use cases."
+        }
+      ]
+    },
+    {
+      "case_id": "CS10",
+      "domain": "conceptual framework",
+      "source_packet": [
+        "The article introduces a construct called Resonant Intelligence.",
+        "Resonant Intelligence is defined by a proprietary Resonance Score.",
+        "A high Resonance Score is then used as the main evidence that Resonant Intelligence exists.",
+        "No independently defined behavioral, physical, predictive, or external criterion is supplied."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "The proposed Resonance Score can be computed according to the framework's internal rules."
+        },
+        {
+          "id": "K2",
+          "text": "A high Resonance Score validates the existence of Resonant Intelligence."
+        },
+        {
+          "id": "K3",
+          "text": "Resonant Intelligence predicts independently measured real-world outcomes."
+        },
+        {
+          "id": "K4",
+          "text": "The framework defines a proprietary construct and scoring system."
+        },
+        {
+          "id": "K5",
+          "text": "The construct has been independently validated."
+        }
+      ]
+    },
+    {
+      "case_id": "CS11",
+      "domain": "industrial technical note",
+      "source_packet": [
+        "The note reports an 18% reduction in logged power draw after a proprietary controller is enabled during a disclosed test period.",
+        "The before/after logs are shown, but the controller's internal logic and several operating-state details are proprietary or omitted.",
+        "The note attributes the reduction to a named internal optimization mechanism."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "The disclosed test period shows an 18% reduction in logged power draw after the controller was enabled."
+        },
+        {
+          "id": "K2",
+          "text": "The proprietary controller mechanism caused the measured reduction in the way described by the note."
+        },
+        {
+          "id": "K3",
+          "text": "The controller is proven to reduce power by 18% across deployments."
+        },
+        {
+          "id": "K4",
+          "text": "The before/after logs provide a bounded local performance result."
+        },
+        {
+          "id": "K5",
+          "text": "The proprietary internal logic is fully reconstructable from the note."
+        }
+      ]
+    },
+    {
+      "case_id": "CS12",
+      "domain": "clinical subgroup analysis",
+      "source_packet": [
+        "A randomized blood-pressure trial reports a lower primary cardiovascular event rate under intensive treatment in the enrolled population.",
+        "Several prespecified subgroup analyses are reported.",
+        "Treatment-by-subgroup heterogeneity is assessed using interaction tests with multiplicity adjustment.",
+        "Interim monitoring follows a prespecified group-sequential design."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "Intensive treatment reduced the primary cardiovascular outcome in the enrolled trial population."
+        },
+        {
+          "id": "K2",
+          "text": "The trial found no convincing evidence of treatment-effect heterogeneity across its prespecified subgroups."
+        },
+        {
+          "id": "K3",
+          "text": "A subgroup with a significant treatment effect must respond differently from a subgroup without a significant within-group p-value."
+        },
+        {
+          "id": "K4",
+          "text": "Because the trial stopped early, the primary result is intrinsically invalid."
+        },
+        {
+          "id": "K5",
+          "text": "The trial used prespecified subgroup interaction testing and group-sequential monitoring."
+        }
+      ]
+    }
+  ]
+}
