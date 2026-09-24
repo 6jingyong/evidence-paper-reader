@@ -33,6 +33,7 @@ The paper's strongest evidence is the two-stage association result for CATSPERB:
 ### claim 1
 - evidence type: statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1
 - evidence dependence: single-source
 - source location: abstract and discovery GWAS results for 1524 premenopausal European-American women
 - support level: sufficient
@@ -42,6 +43,7 @@ The paper's strongest evidence is the two-stage association result for CATSPERB:
 ### claim 2
 - evidence type: statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: independent convergence
 - source location: abstract and replication analysis of the top discovery SNPs in 669 premenopausal African-American women
 - support level: sufficient
@@ -51,6 +53,7 @@ The paper's strongest evidence is the two-stage association result for CATSPERB:
 ### claim 3
 - evidence type: statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: partially independent convergence
 - source location: discovery and replication results plus the conclusion
 - support level: partial
@@ -60,6 +63,7 @@ The paper's strongest evidence is the two-stage association result for CATSPERB:
 ### claim 4
 - evidence type: statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: independent convergence
 - source location: study design, discovery cohort description, and African-American replication cohort analysis
 - support level: sufficient
