@@ -17,6 +17,7 @@ FIGURE_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "figure-and-t
 STATISTICAL_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "statistical-traps.md"
 MEASUREMENT_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "measurement-traps.md"
 STUDY_DESIGN_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "study-design-traps.md"
+FALSE_POSITIVE_GUARDS_REF = ROOT / "evidence-paper-reader" / "references" / "false-positive-guards.md"
 ECHINACEA_FIXTURE = ROOT / "tests" / "fixtures" / "historical-echinacea-2010-audit.md"
 AKT_FIXTURE = ROOT / "tests" / "fixtures" / "historical-akt-inos-2010-audit.md"
 BMD_REPLICATION_FIXTURE = ROOT / "tests" / "fixtures" / "historical-bmd-gwas-replication-2010-audit.md"
@@ -26,6 +27,10 @@ ADVERSARIAL_ORGANIC = ROOT / "tests" / "fixtures" / "adversarial-organic-diet-bi
 ADVERSARIAL_BEFORE_AFTER = ROOT / "tests" / "fixtures" / "adversarial-care-coordination-before-after-2009-audit.md"
 ADVERSARIAL_LEAKAGE = ROOT / "tests" / "fixtures" / "adversarial-train-test-leakage-2022-audit.md"
 ADVERSARIAL_DIC = ROOT / "tests" / "fixtures" / "adversarial-collagen-dic-2021-audit.md"
+ANTI_SPRINT = ROOT / "tests" / "fixtures" / "anti-trigger-sprint-2015-audit.md"
+ANTI_LOD = ROOT / "tests" / "fixtures" / "anti-trigger-lod-multiple-imputation-2011-audit.md"
+ANTI_DID = ROOT / "tests" / "fixtures" / "anti-trigger-difference-in-differences-2014-audit.md"
+ANTI_HIERARCHY = ROOT / "tests" / "fixtures" / "anti-trigger-multisite-imaging-2023-audit.md"
 
 spec = importlib.util.spec_from_file_location("validate_audit", ROOT / "tests" / "validate_audit.py")
 validate_audit = importlib.util.module_from_spec(spec)
@@ -48,6 +53,7 @@ class SkillContractTests(unittest.TestCase):
         cls.statistical_traps_ref = STATISTICAL_TRAPS_REF.read_text(encoding="utf-8")
         cls.measurement_traps_ref = MEASUREMENT_TRAPS_REF.read_text(encoding="utf-8")
         cls.study_design_traps_ref = STUDY_DESIGN_TRAPS_REF.read_text(encoding="utf-8")
+        cls.false_positive_guards_ref = FALSE_POSITIVE_GUARDS_REF.read_text(encoding="utf-8")
         cls.allowed = validate_audit.evidence_labels(cls.evidence)
 
     def test_fixed_output_sections_are_unique_and_ordered(self):
@@ -76,7 +82,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("Do not guess a DOI from memory.", self.follow_up)
 
     def test_all_real_paper_fixtures_satisfy_contract(self):
-        self.assertGreaterEqual(len(FIXTURES), 20)
+        self.assertGreaterEqual(len(FIXTURES), 24)
         for fixture in FIXTURES:
             with self.subTest(fixture=fixture.name):
                 errors = validate_audit.validate(fixture.read_text(encoding="utf-8"), self.allowed)
@@ -266,6 +272,39 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("reference category", self.measurement_traps_ref)
         self.assertIn("not independent validation", self.measurement_traps_ref)
         self.assertIn("fit error", self.measurement_traps_ref)
+
+    def test_false_positive_guards_are_explicit(self):
+        for phrase in [
+            "A trap cue is a question to investigate, not a verdict.",
+            "Multiple subgroups are not automatically p-hacking",
+            "Interim analyses are not automatically optional stopping",
+            "Non-detects are not automatically unusable data",
+            "Technical repeats are not automatically pseudo-replication",
+            "Before-after is not automatically uncontrolled",
+            "Silence rule",
+        ]:
+            self.assertIn(phrase, self.false_positive_guards_ref)
+        self.assertIn("false-positive guard", self.skill)
+        self.assertIn("Credit effective mitigation.", self.skill)
+
+    def test_anti_trigger_fixtures_credit_correct_mitigation(self):
+        sprint = ANTI_SPRINT.read_text(encoding="utf-8")
+        lod = ANTI_LOD.read_text(encoding="utf-8")
+        did = ANTI_DID.read_text(encoding="utf-8")
+        hierarchy = ANTI_HIERARCHY.read_text(encoding="utf-8")
+
+        self.assertIn("Hommel-adjusted", sprint)
+        self.assertIn("Lan-DeMets", sprint)
+        self.assertIn("- support level: insufficient", sprint)
+        self.assertIn("left-censored", lod)
+        self.assertIn("5,000", lod)
+        self.assertIn("- support level: insufficient", lod)
+        self.assertIn("matched comparator", did)
+        self.assertIn("difference-in-differences", did.lower())
+        self.assertIn("cannot necessarily be attributed", did.lower())
+        self.assertIn("mixed-effects", hierarchy.lower())
+        self.assertIn("nested", hierarchy.lower())
+        self.assertIn("Do not flag pseudo-replication", hierarchy)
 
     def test_validator_rejects_malformed_evidence_nodes(self):
         text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
