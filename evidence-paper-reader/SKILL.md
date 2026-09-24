@@ -51,7 +51,7 @@ For each final E-node, record evidence type, provenance, upstream claims, eviden
 Use the same E-node whenever the same underlying result is reused.
 
 ### Phase C — route only needed checks
-Use `method-router.md` or the advisory router script.
+Use `suggest_modules.py` for lexical candidates, confirm each core claim with `semantic-router-card.md`, then merge with `merge_route.py`.
 
 Typical optional modules:
 - figures/tables → `figure-and-table-traps.md`
@@ -117,8 +117,8 @@ Flash path is a staged-loading strategy for keeping context focused. It does not
 In Flash path:
 1. keep only `core-contract.md`, `evidence-viability.md`, `evidence-types.md`, and the active output interface (`audit-ledger-format.md` with renderer, otherwise `output-contract.md`) loaded initially
 2. run the viability gate before claim extraction; do not force the full claim count for partially or non-auditable material
-3. run or consult the router
-4. load every optional module that a decision-critical claim actually requires
+3. run lexical routing, semantic confirmation, and route merge
+4. load every optional module in the merged route
 5. audit one claim at a time
 6. re-route if a later claim exposes a new methodological cue
 7. render the complete audit with `scripts/render_audit.py` when available
