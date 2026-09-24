@@ -33,6 +33,7 @@ The trial directly supports a narrow conclusion that the blinded echinacea-versu
 ### claim 1
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: primary Results section comparing blinded echinacea with blinded placebo
 - support level: sufficient
 - reason: Among 719 enrolled participants, the blinded comparison showed a 28-point severity difference with a 95 percent confidence interval from -69 to 13 and p=0.089, and a 0.53-day duration difference with a 95 percent confidence interval from -1.25 to 0.19 and p=0.075. The claim is only that conventional significance was not reached.
@@ -41,6 +42,7 @@ The trial directly supports a narrow conclusion that the blinded echinacea-versu
 ### claim 2
 - evidence type: direct experiment + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: primary outcome confidence intervals, limitations, and discussion
 - support level: insufficient
 - reason: Non-significance is not an equivalence result. The confidence intervals still include benefits that the study discusses as potentially clinically relevant, and the stated limitation is insufficient precision for small but important effects.
@@ -49,6 +51,7 @@ The trial directly supports a narrow conclusion that the blinded echinacea-versu
 ### claim 3
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: blinded group point estimates, confidence intervals, and discussion
 - support level: sufficient
 - reason: Both main point estimates trend toward shorter/lower illness burden with blinded echinacea, while their intervals cross no difference. This supports uncertainty compatible with benefit, not proof of benefit.
@@ -57,6 +60,7 @@ The trial directly supports a narrow conclusion that the blinded echinacea-versu
 ### claim 4
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: interleukin-8 and neutrophil secondary outcomes
 - support level: insufficient
 - reason: The reported inflammatory-marker differences were also not statistically significant. A positive biomarker-effect claim is not supported by these measurements.
