@@ -390,9 +390,9 @@
       "tier_reason": "Ordinary modern CHI methods paper with empirical and simulation results.",
       "access": "abstract/metadata plus public author copies may be available",
       "modules": [
-        "computational benchmark",
         "study-design-traps.md",
-        "statistical-traps.md"
+        "statistical-traps.md",
+        "evidence-topology.md"
       ],
       "narrow_claim_support": "sufficient",
       "broad_claim_support": "partial",
