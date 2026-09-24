@@ -104,7 +104,8 @@ class StabilityRunnerTests(unittest.TestCase):
         self.assertIn("Run exactly this one review in a fresh model context.", prompt)
         self.assertIn("ST01: example evidence", prompt)
         self.assertIn('"selected_claim_ids"', prompt)
-        self.assertNotIn("reference expectations", prompt.lower())
+        self.assertNotIn("forbidden_claims", prompt.lower())
+        self.assertNotIn("required_claims", prompt.lower())
 
     def test_run_job_executes_one_external_reviewer_and_validates_json(self):
         with tempfile.TemporaryDirectory() as td:
