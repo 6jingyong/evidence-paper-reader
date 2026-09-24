@@ -29,6 +29,7 @@ The paper-local evidence strongly supports a bounded claim that LIBLINEAR reache
 - evidence type: computational benchmark
 - evidence provenance: paper-local
 - evidence nodes: E1 + E2
+- upstream claims: none
 - evidence dependence: partially independent convergence
 - source location: Section 4 and Figure 1, news20 and rcv1 testing-accuracy-versus-training-time comparisons
 - support level: sufficient
@@ -39,6 +40,7 @@ The paper-local evidence strongly supports a bounded claim that LIBLINEAR reache
 - evidence type: computational benchmark + literature citation
 - evidence provenance: mixed
 - evidence nodes: E1 + E2 + E3
+- upstream claims: C1
 - evidence dependence: unclear
 - source location: abstract, introductory efficiency example, Section 4, and Section 5
 - support level: partial
@@ -49,6 +51,7 @@ The paper-local evidence strongly supports a bounded claim that LIBLINEAR reache
 - evidence type: literature citation
 - evidence provenance: external citation
 - evidence nodes: E3
+- upstream claims: C2
 - evidence dependence: unclear
 - source location: Section 5 conclusion, which attributes broader experiments, analysis, and theoretical properties to Lin et al. (2008), Hsieh et al. (2008), and Keerthi et al. (2008)
 - support level: unclear
