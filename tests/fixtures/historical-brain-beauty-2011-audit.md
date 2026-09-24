@@ -33,6 +33,7 @@ The strongest paper-local result is that, in 21 participants rating selected pai
 ### claim 1
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: shared-source convergence
 - source location: abstract, categorical/parametric fMRI analyses, Figure 2, and activation tables
 - support level: sufficient
@@ -42,6 +43,7 @@ The strongest paper-local result is that, in 21 participants rating selected pai
 ### claim 2
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: shared-source convergence
 - source location: conjunction analysis and mOFC visual-versus-musical overlap results
 - support level: sufficient
@@ -51,6 +53,7 @@ The strongest paper-local result is that, in 21 participants rating selected pai
 ### claim 3
 - evidence type: direct experiment + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: shared-source convergence
 - source location: abstract conclusion and Discussion section "Toward a brain-based definition of beauty"
 - support level: partial
@@ -60,6 +63,7 @@ The strongest paper-local result is that, in 21 participants rating selected pai
 ### claim 4
 - evidence type: author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: shared-source convergence
 - source location: abstract statement that the faculty can be activated by at least two sources and probably by other sources as well
 - support level: insufficient
