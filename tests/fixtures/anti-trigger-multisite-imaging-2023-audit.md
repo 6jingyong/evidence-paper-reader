@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: multisite hierarchical reproducibility and imaging-method study
 
 The study contains very large numbers of cells, time points, and technical replicates, but it should not be accused of pseudo-replication merely because the raw row count is large. The experimental design explicitly nests technical replicates inside independent experiments, persons, and laboratories, and the analysis uses a linear mixed-effects model to estimate variance components at those levels. This structure reveals rather than hides dependence: laboratory-to-laboratory variability is the largest technical component, while technical-repeat variability is smaller. Batch-effect correction then improves separation of perturbation effects across laboratories, but that correction should not be generalized into a claim that all imaging studies become reproducible after normalization. The paper is mainly useful as a measurement/dependence reference and as an anti-trigger example of technical repeats handled at their proper hierarchical level.
