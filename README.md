@@ -51,6 +51,7 @@ The current contract is intentionally stricter than a prose-only prompt:
 - DOI handling that forbids guessing from memory
 - evidence-topology checks for mechanical coupling, null-result interpretation, proxy/construct separation, selection-conditioned evidence, and scale transfer
 - evidence-dependence checks that distinguish single-source evidence, shared-source corroboration, partial triangulation, and materially independent convergence
+- stable evidence-node IDs that make cross-claim evidence reuse and claim stacking visible
 - empirical finance, clinical/biomedical, and empirical-aesthetics coverage when the paper has a traceable evidence chain
 
 ## Repository layout
@@ -86,6 +87,7 @@ The current contract is intentionally stricter than a prose-only prompt:
     ├── agents/
     │   └── openai.yaml
     └── references/
+        ├── claim-evidence-links.md
         ├── evidence-dependence.md
         ├── evidence-types.md
         ├── evidence-topology.md
@@ -118,8 +120,17 @@ The tests verify, among other things, that:
 - intervention claims and administrative/transactional evidence stay valid controlled labels
 - every support block carries a controlled evidence-dependence class
 - real fixtures preserve examples of shared-source, partially independent, and independent convergence
+- every support block carries machine-checkable evidence-node IDs
+- convergence labels require at least two evidence nodes
+- claim-stacking regressions preserve evidence reuse instead of renaming the same result
 
 GitHub Actions runs the same checks on pushes and pull requests.
+
+### Claim-evidence links and evidence reuse
+
+Every support block now lists stable local evidence-node IDs such as `E1` or `E1 + E2`. The same result keeps the same ID when it is reused across claims. This exposes a common failure mode: one result is directly valid for a narrow claim, then reused for a stronger mechanism or generality claim without any new direct evidence.
+
+The 2011 brain-beauty fixture is a regression example: the same mOFC/self-rating evidence nodes are reused across the observational cross-modal result, the broader "faculty of beauty" interpretation, and the even broader generalization to other sources of beauty. The nodes stay fixed while support moves from sufficient to partial or insufficient. Reuse is allowed; duplicated evidentiary weight is not.
 
 ### Evidence dependence and triangulation
 
