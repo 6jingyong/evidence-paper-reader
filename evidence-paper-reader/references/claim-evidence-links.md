@@ -25,6 +25,25 @@ Examples:
 
 Evidence nodes are not assumed to be independent. Independence is handled separately by `evidence dependence`.
 
+## Evidence inventory bridge
+
+For long or structurally complex papers, use `evidence-inventory-format.md` before assigning final E nodes.
+
+The identities are intentionally different:
+
+- R = a locatable source record
+- G = same underlying result across repeated presentations
+- U = shared evidence-generating unit
+- E = deduplicated audit evidence node
+
+A result repeated in abstract, prose, figure, and table may create several R records but should keep one G key and normally promote to one E node.
+
+Distinct results from the same participants/dataset/specimens should use different G keys but the same U key. They may become different E nodes while remaining shared-source evidence.
+
+Independent replication should use a different U key only when the source-generating basis is materially independent.
+
+The inventory script can catch duplicate promotion and some false-independence claims, but it cannot decide semantic identity by itself.
+
 ## Stable identity rule
 
 Use the same evidence-node ID whenever the same underlying result is reused across claims.
