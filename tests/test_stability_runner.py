@@ -1,14 +1,15 @@
 import importlib.util
 import json
 import os
-import stat
 import tempfile
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-SCRIPT = ROOT / "benchmarks" / "stability-crossdomain-8" / "run_reviewer.py"
-GENERATOR = ROOT / "benchmarks" / "stability-crossdomain-8" / "generate_runs.py"
+BENCH = ROOT / "benchmarks" / "stability-crossdomain-8"
+SCRIPT = BENCH / "run_reviewer.py"
+PROMPT_SCRIPT = BENCH / "prepare_review.py"
+GENERATOR = BENCH / "generate_runs.py"
 
 
 def load_module(name: str, path: Path):
@@ -21,15 +22,17 @@ def load_module(name: str, path: Path):
 
 runner = load_module("stability_runner", SCRIPT)
 generate = load_module("stability_generator", GENERATOR)
+prepare = load_module("stability_prepare", PROMPT_SCRIPT)
 
 
 class StabilityRunnerTests(unittest.TestCase):
     def test_command_substitution_is_argument_safe(self):
         job = {"packet_id":"SR-TEST", "case_id":"ST01", "repeat":3}
         command = runner.command_for(
-            "python reviewer.py {packet} {output} --case {case_id} --repeat {repeat}",
+            "python reviewer.py {packet} {prompt} {output} --case {case_id} --repeat {repeat}",
             job,
             Path("/tmp/paper with spaces.md"),
+            Path("/tmp/prompt file.md"),
             Path("/tmp/out file.json"),
         )
         self.assertEqual(
@@ -38,6 +41,7 @@ class StabilityRunnerTests(unittest.TestCase):
                 "python",
                 "reviewer.py",
                 "/tmp/paper with spaces.md",
+                "/tmp/prompt file.md",
                 "/tmp/out file.json",
                 "--case",
                 "ST01",
@@ -94,21 +98,32 @@ class StabilityRunnerTests(unittest.TestCase):
             with self.assertRaises(json.JSONDecodeError):
                 runner.validate_json_output(path, {"case_id":"ST01"})
 
+    def test_prepare_prompt_contains_packet_and_response_contract(self):
+        packet = "# packet\n\n- ST01: example evidence\n"
+        prompt = prepare.render_prompt(packet, "/tmp/SR-TEST.md")
+        self.assertIn("Run exactly this one review in a fresh model context.", prompt)
+        self.assertIn("ST01: example evidence", prompt)
+        self.assertIn('"selected_claim_ids"', prompt)
+        self.assertNotIn("reference expectations", prompt.lower())
+
     def test_run_job_executes_one_external_reviewer_and_validates_json(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             packet_dir = root / "packets"
             response_dir = root / "responses"
+            prompt_dir = root / "prompts"
             packet_dir.mkdir()
             response_dir.mkdir()
+            prompt_dir.mkdir()
             packet = packet_dir / "SR-TEST123.md"
             packet.write_text("# packet\n", encoding="utf-8")
 
             reviewer = root / "reviewer.py"
             reviewer.write_text(
                 "import json, pathlib, sys\n"
-                "packet=pathlib.Path(sys.argv[1])\n"
+                "prompt=pathlib.Path(sys.argv[1])\n"
                 "output=pathlib.Path(sys.argv[2])\n"
+                "assert prompt.exists()\n"
                 "output.write_text(json.dumps({"
                 "'case_id':'ST01',"
                 "'evidence_viability':'auditable',"
@@ -134,13 +149,15 @@ class StabilityRunnerTests(unittest.TestCase):
                 job,
                 packet_dir,
                 response_dir,
-                f"{os.environ.get('PYTHON', 'python3')} {reviewer} {{packet}} {{output}}",
+                f"{os.environ.get('PYTHON', 'python3')} {reviewer} {{prompt}} {{output}}",
                 30,
                 {},
                 False,
+                prompt_dir=prompt_dir,
             )
             self.assertEqual(result["status"], "completed")
             self.assertTrue((response_dir / "SR-TEST123.json").exists())
+            self.assertTrue((prompt_dir / "SR-TEST123.md").exists())
             data = json.loads((response_dir / "SR-TEST123.json").read_text(encoding="utf-8"))
             self.assertEqual(data["case_id"], "ST01")
 
