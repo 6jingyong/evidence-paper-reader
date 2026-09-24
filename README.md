@@ -49,6 +49,8 @@ The current contract is intentionally stricter than a prose-only prompt:
 - explicit source locations for support judgments
 - explicit separation of paper-local evidence from imported citation support
 - DOI handling that forbids guessing from memory
+- evidence-topology checks for mechanical coupling, null-result interpretation, proxy/construct separation, selection-conditioned evidence, and scale transfer
+- empirical finance, clinical/biomedical, and empirical-aesthetics coverage when the paper has a traceable evidence chain
 
 ## Repository layout
 
@@ -62,6 +64,14 @@ The current contract is intentionally stricter than a prose-only prompt:
 ├── tests/
 │   ├── fixtures/
 │   │   ├── ablationbench-audit.md
+│   │   ├── historical-akt-inos-2010-audit.md
+│   │   ├── historical-brain-beauty-2011-audit.md
+│   │   ├── historical-echinacea-2010-audit.md
+│   │   ├── historical-liblinear-2008-audit.md
+│   │   ├── historical-nanoparticle-mmc-2010-audit.md
+│   │   ├── historical-order-book-2010-audit.md
+│   │   ├── historical-trace-gas-2011-audit.md
+│   │   ├── historical-tv-eating-2012-audit.md
 │   │   ├── air-quality-cfd-audit.md
 │   │   ├── hea-aluminum-audit.md
 │   │   ├── hyaluronic-hydrogel-audit.md
@@ -75,6 +85,7 @@ The current contract is intentionally stricter than a prose-only prompt:
     │   └── openai.yaml
     └── references/
         ├── evidence-types.md
+        ├── evidence-topology.md
         ├── follow-up-boundaries.md
         └── pollution-patterns.md
 ```
@@ -100,6 +111,8 @@ The tests verify, among other things, that:
 - `external citation` or `mixed` provenance requires a named external dependency
 - every real-paper regression fixture satisfies the contract
 - cross-section consistency and validation-independence rules remain present
+- historical regression rules for mechanical coupling, null results, proxy reification, and selection-conditioned evidence remain present
+- intervention claims and administrative/transactional evidence stay valid controlled labels
 
 GitHub Actions runs the same checks on pushes and pull requests.
 
@@ -113,6 +126,21 @@ GitHub Actions runs the same checks on pushes and pull requests.
 | `hea-aluminum-audit.md` | materials science | *Effect of Al Content on Microstructure and Mechanical Properties of CoCrFeNiMn High-Entropy Alloy* | abstract/conclusion vs reported values; phase/mechanism overreach |
 | `air-quality-cfd-audit.md` | environment / air quality | *Integrating Cost-Effective Measurements and CFD Modeling for Accurate Air Quality Assessment* | calibration target reused for evaluation; validation independence |
 | `social-hyperconnection-audit.md` | social survey | *How Screen Time and Social Media Hyperconnection Have Harmed Adolescents’ Relational and Psychological Well-Being since the COVID-19 Pandemic* | repeated cross-sectional association vs causal wording |
+
+### Historical regression wave: papers from 2008-2012
+
+The second regression wave deliberately samples papers around 2010, when reporting conventions, online supplements, preregistration norms, and field-specific validation practices differed from current papers.
+
+| Fixture | Year | Domain | Paper | Main stress case |
+| --- | ---: | --- | --- | --- |
+| `historical-liblinear-2008-audit.md` | 2008 | information science | *LIBLINEAR: A Library for Large Linear Classification* | short paper delegates broad benchmark/theory claims to companion citations |
+| `historical-akt-inos-2010-audit.md` | 2010 | biochemistry | *Akt-Mediated Signaling...Suppresses Hepatocyte iNOS...* | partial pathway reversal vs complete-mechanism wording |
+| `historical-nanoparticle-mmc-2010-audit.md` | 2010 | materials | *Improved Mechanical and Tribological Properties of Metal-Matrix Composites...* | best/optimal formulations vs unfavorable concentrations; selection-conditioned evidence |
+| `historical-trace-gas-2011-audit.md` | 2011 | environment | *Measuring Trace Gas Emission from Multi-Distributed Sources...* | filtered valid observations and configuration-dependent accuracy |
+| `historical-tv-eating-2012-audit.md` | 2012 (2009-10 data) | social survey | *Associations of Television Viewing With Eating Behaviors...* | association, effect modification, and non-causal mediation language |
+| `historical-order-book-2010-audit.md` | 2010 | finance | *The Price Impact of Order Book Events* | predictor/outcome mechanical coupling and one-regime generalization |
+| `historical-echinacea-2010-audit.md` | 2010 | medicine | *Echinacea for Treating the Common Cold: A Randomized Trial* | non-significance vs equivalence/no meaningful effect |
+| `historical-brain-beauty-2011-audit.md` | 2011 | empirical aesthetics | *Toward A Brain-Based Theory of Beauty* | measured rating/neural correlate vs broader construct and universality |
 
 These fixtures are not gold-standard peer reviews. They are contract regressions: each preserves a specific evidence-chain failure mode that the skill should continue to notice as its instructions evolve.
 
