@@ -130,6 +130,9 @@ def suggest_modules(text: str) -> dict:
         "use_evidence_inventory": use_evidence_inventory,
         "inventory_with": "evidence_inventory.py" if use_evidence_inventory else None,
         "inventory_reasons": inventory_reasons,
+        "semantic_router_required": True,
+        "semantic_router_card": "semantic-router-card.md",
+        "merge_with": "merge_route.py",
         "render_with": "render_audit.py",
         "validate_with": "validate_audit.py",
         "suggested": suggestions,
@@ -137,7 +140,7 @@ def suggest_modules(text: str) -> dict:
         "recommended_path": recommended_path,
         "path_reason": path_reason,
         "warning": (
-            "Lexical cues are advisory only. A cue triggers inspection, not a flaw. "
+            "Lexical cues are candidate routes only. Confirm them claim-by-claim with semantic-router-card.md. "
             "Flash path changes context loading only; it never lowers the audit contract. "
             "Verify the inference and mitigation before downweighting."
         ),
@@ -162,6 +165,7 @@ def main() -> int:
         if result["inventory_reasons"]:
             print("Inventory reasons: " + "; ".join(result["inventory_reasons"]))
         print(result["path_reason"])
+        print("Semantic route confirmation: required via semantic-router-card.md + merge_route.py")
         print("Always load:")
         for module in result["always_load"]:
             print(f"- {module}")
