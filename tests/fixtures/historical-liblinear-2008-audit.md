@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: software and computational-benchmark paper
 
 The paper-local evidence strongly supports a bounded claim that LIBLINEAR reaches competitive test accuracy quickly on the two displayed large sparse text-classification datasets, news20 and rcv1. The short JMLR paper is much weaker as stand-alone evidence for the broader statement that the package is generally efficient across large sparse problems because it explicitly omits full comparison details and delegates broader experiments and theoretical properties to cited companion papers. That delegation should remain visible rather than being absorbed into the current paper's evidence. The paper is mainly useful as a software/method reference and a compact benchmark report.
