@@ -1,5 +1,7 @@
 import importlib.util
 import json
+import os
+import stat
 import tempfile
 import unittest
 from pathlib import Path
@@ -91,6 +93,80 @@ class StabilityRunnerTests(unittest.TestCase):
             path.write_text("not-json", encoding="utf-8")
             with self.assertRaises(json.JSONDecodeError):
                 runner.validate_json_output(path, {"case_id":"ST01"})
+
+    def test_run_job_executes_one_external_reviewer_and_validates_json(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            packet_dir = root / "packets"
+            response_dir = root / "responses"
+            packet_dir.mkdir()
+            response_dir.mkdir()
+            packet = packet_dir / "SR-TEST123.md"
+            packet.write_text("# packet\n", encoding="utf-8")
+
+            reviewer = root / "reviewer.py"
+            reviewer.write_text(
+                "import json, pathlib, sys\n"
+                "packet=pathlib.Path(sys.argv[1])\n"
+                "output=pathlib.Path(sys.argv[2])\n"
+                "output.write_text(json.dumps({"
+                "'case_id':'ST01',"
+                "'evidence_viability':'auditable',"
+                "'selected_claim_ids':['K1','K2','K5'],"
+                "'modules':['study-design-traps.md'],"
+                "'use_evidence_inventory':False,"
+                "'support':["
+                "{'claim_id':'K1','support_level':'sufficient'},"
+                "{'claim_id':'K2','support_level':'sufficient'},"
+                "{'claim_id':'K5','support_level':'sufficient'}"
+                "]"
+                "}), encoding='utf-8')\n",
+                encoding="utf-8",
+            )
+
+            job = {
+                "packet_id": "SR-TEST123",
+                "case_id": "ST01",
+                "repeat": 1,
+                "domain": "clinical cardiology",
+            }
+            result = runner.run_job(
+                job,
+                packet_dir,
+                response_dir,
+                f"{os.environ.get('PYTHON', 'python3')} {reviewer} {{packet}} {{output}}",
+                30,
+                {},
+                False,
+            )
+            self.assertEqual(result["status"], "completed")
+            self.assertTrue((response_dir / "SR-TEST123.json").exists())
+            data = json.loads((response_dir / "SR-TEST123.json").read_text(encoding="utf-8"))
+            self.assertEqual(data["case_id"], "ST01")
+
+    def test_run_job_surfaces_nonzero_reviewer_exit(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            packet_dir = root / "packets"
+            response_dir = root / "responses"
+            packet_dir.mkdir()
+            response_dir.mkdir()
+            packet = packet_dir / "SR-BAD.md"
+            packet.write_text("# packet\n", encoding="utf-8")
+            reviewer = root / "reviewer.py"
+            reviewer.write_text("raise SystemExit(7)\n", encoding="utf-8")
+
+            result = runner.run_job(
+                {"packet_id":"SR-BAD","case_id":"ST01","repeat":1},
+                packet_dir,
+                response_dir,
+                f"python3 {reviewer} {{packet}} {{output}}",
+                30,
+                {},
+                False,
+            )
+            self.assertEqual(result["status"], "failed")
+            self.assertIn("runner exited with 7", result["error"])
 
 
 if __name__ == "__main__":
