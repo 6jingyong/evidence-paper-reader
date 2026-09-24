@@ -24,13 +24,14 @@ Default output language follows the user's input language. If the paper is in En
 8. Distinguish how many evidence nodes are shown from how independent their underlying sources are; assess whether apparent convergence is single-source, shared-source, partially independent, independently convergent, or unclear.
 9. Judge whether evidence strength matches conclusion strength.
 10. Independently inspect decision-critical figures and tables: reconstruct axes, units, transforms, denominators, uncertainty, sample size, filtering, smoothing, and whether the visual shows raw data, summaries, fitted values, or selected examples.
-11. Run a cross-section consistency scan: compare abstract, results, displayed figures/tables, discussion, and conclusion for the same quantitative trend, phase assignment, sample description, or causal statement.
-12. Check validation independence: ask whether the evaluation reuses a calibration target, tuning set, judge, proxy, or other signal that was already used to optimize the reported method.
-13. Check evidence topology: look for mechanical coupling between predictor and outcome, selected/filtered analysis subsets, and operational proxies that are being treated as the broader construct itself.
-14. For null or negative findings, inspect uncertainty bounds before accepting claims of no effect, equivalence, safety, or practical irrelevance.
-15. Separate usable content from analysis that should be downweighted.
-16. Resolve citation dependencies: distinguish support shown in the current paper from support delegated to cited work.
-17. Produce the fixed reader-side output template.
+11. Route only the relevant methodological checks: statistical interpretation when inference/modeling carries the claim, measurement checks when the claim depends on an instrument/assay/score/proxy, and study-design checks when assignment, sampling, timing, or dataset splitting carries identification.
+12. Run a cross-section consistency scan: compare abstract, results, displayed figures/tables, discussion, and conclusion for the same quantitative trend, phase assignment, sample description, or causal statement.
+13. Check validation independence: ask whether the evaluation reuses a calibration target, tuning set, judge, proxy, or other signal that was already used to optimize the reported method.
+14. Check evidence topology: look for mechanical coupling between predictor and outcome, selected/filtered analysis subsets, and operational proxies that are being treated as the broader construct itself.
+15. For null or negative findings, inspect uncertainty bounds before accepting claims of no effect, equivalence, safety, or practical irrelevance.
+16. Separate usable content from analysis that should be downweighted.
+17. Resolve citation dependencies: distinguish support shown in the current paper from support delegated to cited work.
+18. Produce the fixed reader-side output template.
 
 ## Scope decision
 
@@ -93,6 +94,25 @@ If the paper is out of scope, preserve the seven-section output skeleton so down
 - For medical papers, audit the reported design, outcomes, uncertainty, and causal reach; do not turn the paper audit into patient-specific medical advice or a standard-of-care recommendation.
 - Treat figures and tables as evidence objects, not illustrations. Before using a visual impression, identify scale, units, axis range, denominator, normalization, uncertainty/error-bar meaning, sample size, filtering, smoothing, binning, and selection when they matter.
 - Do not infer deception from a visual choice alone. State only what comparison the visual does or does not justify.
+- Use methodological world knowledge only to interpret the paper's evidence chain. Do not inject expected domain results, normal ranges, treatment effects, material properties, market behavior, or other field facts as substitutes for inspected evidence.
+- Do not run every methodological trap on every paper. Trigger a check only when it can materially change a core claim's support judgment.
+- A p-value is not an effect size or practical-importance measure. A result that is significant in one subgroup and non-significant in another does not by itself establish a subgroup difference.
+- Distinguish measurement precision/repeatability from calibration accuracy and construct validity. A precise proxy is not automatically a valid measure of the broader target.
+- Match inference to design. More observations do not create more independent assignments, and observational/pre-post/historical-control designs do not become causal merely through statistical adjustment.
+
+## Methodological knowledge boundary
+
+The bundled trap references are portable scientific-reading knowledge, not a domain-fact database.
+
+Use them as conditional interpreters:
+- use `references/statistical-traps.md` when a core claim depends on statistical inference, model specification, repeated testing, subgroups, or uncertainty estimation
+- use `references/measurement-traps.md` when a core claim depends on an assay, sensor, score, rating, image-derived quantity, surrogate, calibration, or preprocessing-defined measurement
+- use `references/study-design-traps.md` when a core claim depends on assignment, sampling, attrition, timing, cluster structure, quasi-experimental identification, or train/validation/test separation
+- use `references/figure-and-table-traps.md` when a displayed figure or table materially supports the claim
+
+Do not convert these references into a generic checklist. A trap matters only when it changes what the evidence can establish. If the relevant information is not reported, mark the uncertainty rather than assuming the trap occurred.
+
+Do not use generic field knowledge to overwrite a paper-local result. If external scientific context is needed to judge plausibility, expected magnitude, or current consensus, treat that as a separate literature-search task rather than silently embedding it in the paper audit.
 
 ## Core judgment rules
 
@@ -145,28 +165,36 @@ When several results appear to support one claim, identify their evidence units 
 ### 7. Inspect figures and tables as evidence
 For each decision-critical visual, reconstruct what is encoded before trusting the apparent pattern. Check axis limits and transformations, denominators and normalization, error-bar identity, sample size, aggregation, smoothing/binning, selected ranges or best runs, image contrast/scale bars, and adjusted versus unadjusted table estimates as relevant. Compare the visual with its caption and the surrounding prose. Follow `references/figure-and-table-traps.md`.
 
-### 8. Separate result from interpretation
+### 8. Route statistical, measurement, and design checks
+Apply only the relevant methodological reference:
+- statistics: effect size versus significance, multiplicity/selection, subgroup interactions, regression to the mean, covariate adjustment, model form, dependence, missing data, and robustness
+- measurement: reliability versus validity, calibration/drift, LOD/LOQ, ceiling/floor effects, batch effects, specificity, measurement error, composites, surrogates, image-derived quantities, and preprocessing
+- study design: unit of assignment, randomization/blinding, pre/post controls, attrition/survivorship, case-control sampling, time alignment, clusters/sites, quasi-experiments, mediation, benchmark leakage, and temporal leakage
+
+These checks bound interpretation; they do not supply missing paper-local evidence.
+
+### 9. Separate result from interpretation
 Treat displayed results, reported statistics, demonstrated procedures, and documented materials separately from the author's explanation of what they mean.
 
-### 9. Preserve uncertainty
+### 10. Preserve uncertainty
 When field knowledge, missing appendices, missing cited theory, or absent procedural detail blocks a judgment, say so directly.
 
-### 10. Keep external dependencies external
+### 11. Keep external dependencies external
 If a core claim relies structurally on a cited work, name that dependency in the claim's support entry. The current paper may accurately report the cited result, but until the cited work is inspected, that imported support remains an external dependency rather than verified paper-local evidence. Follow `references/follow-up-boundaries.md`.
 
-### 11. Check internal consistency before finalizing
+### 12. Check internal consistency before finalizing
 For each core claim, compare the strongest direct evidence with every place the paper restates that claim, especially the abstract and conclusion. If one section says a quantity rises continuously while the reported values do not, or if the conclusion names a phase/mechanism not directly established in the results, report the contradiction explicitly. Prefer the most direct, precisely located paper-local evidence for the bounded result; lower support for the broader narrative claim rather than choosing whichever wording is more favorable.
 
-### 12. Check whether validation is independent
+### 13. Check whether validation is independent
 Distinguish `fit to target` from `validated against an independent target`. If a model, sensor, calibration, scoring rule, or agent is optimized against a target and then evaluated mainly by agreement with that same target, the result can support successful fitting but cannot by itself establish external accuracy or generalization. Look for independent held-out measurements, stations, datasets, annotators, or other genuinely separate validation evidence before upgrading the broader claim.
 
-### 13. Check evidence topology and construction
+### 14. Check evidence topology and construction
 Ask whether the variables and analysis population are independent enough for the claimed interpretation.
 - If predictor and outcome share mechanically coupled components, report what part of the fit may be structural and look for a decoupled robustness analysis.
 - If results are calculated after filtering, attrition, complete-case restriction, validity thresholds, or selection of an optimal configuration, record that conditioning and do not silently generalize to excluded cases.
 - If the paper operationalizes an abstract construct through a proxy, distinguish `evidence about the proxy` from `evidence about the construct`. Strong measurement of a proxy does not by itself prove that the proxy exhausts the construct.
 
-### 14. Interpret null results through effect bounds
+### 15. Interpret null results through effect bounds
 A non-significant test answers a different question from equivalence or absence of a meaningful effect. For intervention, clinical, policy, or performance claims, inspect the confidence/credible interval and any declared meaningful-effect threshold. If the interval still contains effects that would matter under the paper's own framing, support a claim such as `no statistically detected difference`, but downweight a stronger `no meaningful effect` conclusion.
 
 ## Paper-type emphasis
@@ -320,3 +348,6 @@ Use these bundled references when needed:
 - `references/claim-evidence-links.md` for stable evidence-node IDs, claim stacking, evidence reuse, and direct-support boundaries
 - `references/claim-dependencies.md` for claim-to-claim prerequisites, inference-chain laundering, and uncertainty propagation
 - `references/figure-and-table-traps.md` for axes, transformations, denominators, uncertainty, aggregation, selection, image comparison, and table-reading traps
+- `references/statistical-traps.md` for effect-size/significance boundaries, multiplicity, subgroup inference, model specification, dependence, missing data, and robustness
+- `references/measurement-traps.md` for calibration, validity, detection limits, saturation, batch effects, measurement error, surrogates, and preprocessing
+- `references/study-design-traps.md` for assignment/sampling units, controls, attrition, time alignment, quasi-experiments, clustering, mediation, benchmark leakage, and temporal leakage
