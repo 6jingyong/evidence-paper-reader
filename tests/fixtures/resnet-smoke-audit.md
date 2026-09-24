@@ -34,6 +34,7 @@ The most durable value is the controlled comparison between plain and residual n
 - evidence type: computational benchmark
 - evidence provenance: paper-local
 - evidence nodes: E1
+- upstream claims: none
 - evidence dependence: single-source
 - source location: Figure 4 and Table 2; ImageNet experiments, paper page 5
 - support level: sufficient
@@ -44,6 +45,7 @@ The most durable value is the controlled comparison between plain and residual n
 - evidence type: computational benchmark
 - evidence provenance: paper-local
 - evidence nodes: E2 + E3
+- upstream claims: C1
 - evidence dependence: partially independent convergence
 - source location: Tables 3-6 and Figure 6; ImageNet and CIFAR-10 experiments, paper pages 6-8
 - support level: sufficient
@@ -54,6 +56,7 @@ The most durable value is the controlled comparison between plain and residual n
 - evidence type: computational benchmark + author interpretation
 - evidence provenance: paper-local
 - evidence nodes: E1 + E4
+- upstream claims: C1
 - evidence dependence: shared-source convergence
 - source location: Section 3.1 and Figure 7; paper pages 3 and 8
 - support level: partial
@@ -64,6 +67,7 @@ The most durable value is the controlled comparison between plain and residual n
 - evidence type: computational benchmark + author interpretation
 - evidence provenance: paper-local
 - evidence nodes: E2 + E5
+- upstream claims: C1 + C2
 - evidence dependence: partially independent convergence
 - source location: Section 4.3 and Tables 7-8; paper page 8, plus the generality statement near the end of the introduction
 - support level: insufficient
