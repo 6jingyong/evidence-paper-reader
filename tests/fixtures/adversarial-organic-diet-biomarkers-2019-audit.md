@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: cluster-randomized crossover biomarker intervention trial
 
 The trial gives fairly strong evidence that the organic-diet period reduced measured pesticide-exposure biomarkers, especially 3-PBA and detectability of 6-CN, but physiological-benefit claims require much more restraint. Seventy-two percent of neonicotinoid measurements were non-detectable, the paper therefore modeled 6-CN mainly as detectable versus non-detectable, and other below-LOD values were handled by ROS or LOD/2 rules. The trial also tests many outcomes and parameters, although it explicitly applies Benjamini-Hochberg correction to 58 regression parameters. Most importantly, the organic period changed not only pesticide provenance but also calories, fruit/vegetable provision, and likely participant behavior, so oxidative-stress and BMI changes cannot be uniquely attributed to organic status. The paper is mainly useful as a good example of a real intervention whose exposure result is stronger than its downstream physiological interpretation.
