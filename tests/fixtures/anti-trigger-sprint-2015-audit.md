@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: randomized controlled clinical trial with prespecified subgroup and interim analyses
 
 The trial directly supports lower rates of its primary cardiovascular composite outcome under intensive systolic-blood-pressure treatment in the enrolled high-risk population without diabetes, while also showing higher rates of several treatment-related adverse events. The presence of multiple prespecified subgroup analyses and repeated interim looks should not be treated as automatic p-hacking or optional stopping: subgroup heterogeneity was assessed with interaction tests using Hommel-adjusted p-values, and interim monitoring used a prespecified Lan-DeMets group-sequential design with O'Brien-Fleming-type boundaries. Those safeguards do not make every secondary result equally confirmatory, but they directly address the specific false-positive risks they were designed for. The paper is mainly useful as a strong intervention result and as an anti-trigger example for subgroup and sequential-analysis skepticism.
