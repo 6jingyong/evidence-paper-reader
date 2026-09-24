@@ -104,9 +104,11 @@ def suggest_modules(text: str) -> dict:
     return {
         "always_load": [
             "core-contract.md",
-            "output-contract.md",
             "evidence-types.md",
+            "audit-ledger-format.md",
         ],
+        "render_with": "render_audit.py",
+        "validate_with": "validate_audit.py",
         "suggested": suggestions,
         "primary_module_count": primary_count,
         "recommended_path": recommended_path,
