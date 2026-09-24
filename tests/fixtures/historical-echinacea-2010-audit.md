@@ -33,6 +33,7 @@ The trial directly supports a narrow conclusion that the blinded echinacea-versu
 ### claim 1
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: shared-source convergence
 - source location: primary Results section comparing blinded echinacea with blinded placebo
 - support level: sufficient
@@ -42,6 +43,7 @@ The trial directly supports a narrow conclusion that the blinded echinacea-versu
 ### claim 2
 - evidence type: direct experiment + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: shared-source convergence
 - source location: primary outcome confidence intervals, limitations, and discussion
 - support level: insufficient
@@ -51,6 +53,7 @@ The trial directly supports a narrow conclusion that the blinded echinacea-versu
 ### claim 3
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: shared-source convergence
 - source location: blinded group point estimates, confidence intervals, and discussion
 - support level: sufficient
@@ -60,6 +63,7 @@ The trial directly supports a narrow conclusion that the blinded echinacea-versu
 ### claim 4
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E3 + E4
 - evidence dependence: shared-source convergence
 - source location: interleukin-8 and neutrophil secondary outcomes
 - support level: insufficient
