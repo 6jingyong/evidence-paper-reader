@@ -33,6 +33,7 @@ The most reusable contribution is the benchmark construction and the measured ga
 ### claim 1
 - evidence type: computational benchmark
 - evidence provenance: paper-local
+- evidence nodes: E1
 - evidence dependence: single-source
 - source location: benchmark construction and dataset sections; AuthorAblation and ReviewerAblation dataset statistics in the current arXiv version
 - support level: sufficient
@@ -42,6 +43,7 @@ The most reusable contribution is the benchmark construction and the measured ga
 ### claim 2
 - evidence type: computational benchmark
 - evidence provenance: paper-local
+- evidence nodes: E2 + E3
 - evidence dependence: shared-source convergence
 - source location: main planner-results table and results discussion in the current arXiv version
 - support level: sufficient
@@ -51,6 +53,7 @@ The most reusable contribution is the benchmark construction and the measured ga
 ### claim 3
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E4 + E5
 - evidence dependence: partially independent convergence
 - source location: human-baseline subsection; ten participants each evaluated one selected paper, with human F1@5 about 0.66 versus about 0.43 for GPT-5.4 on the same subset
 - support level: sufficient
@@ -60,6 +63,7 @@ The most reusable contribution is the benchmark construction and the measured ga
 ### claim 4
 - evidence type: computational benchmark + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E2 + E3
 - evidence dependence: shared-source convergence
 - source location: planner comparison table and discussion comparing LM-Planner with Agent-Planner
 - support level: partial
