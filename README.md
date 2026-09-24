@@ -4,6 +4,7 @@ An open-source **Agent Skill** for **ChatGPT**, **Codex**, and other tools that 
 
 This skill reads **evidence-driven research papers** from the **reader's** point of view. Instead of praising prose or imitating editorial peer review, it separates:
 
+- evidence viability (`auditable`, `partially auditable`, or `non-auditable`)
 - core claims
 - evidence types
 - support strength
@@ -45,6 +46,7 @@ The current contract is intentionally stricter than a prose-only prompt:
 
 - fixed top-level output sections and field names
 - explicit scope status: `in scope`, `partially in scope`, or `out of scope`
+- a separate evidence-viability gate that can stop evidence-shaped but non-auditable material before the model invents a full claim audit
 - controlled evidence labels, including a distinct `computational benchmark` label for benchmark/ablation-heavy ML and software papers
 - explicit source locations for support judgments
 - explicit separation of paper-local evidence from imported citation support
@@ -69,6 +71,7 @@ It should stay small enough to read in full.
 ### Layer 1 — core contract
 Every audit loads:
 - `references/core-contract.md`
+- `references/evidence-viability.md`
 - `references/evidence-types.md`
 
 For the output interface:
@@ -108,15 +111,15 @@ The validator cannot replace scientific judgment; it removes bookkeeping and con
 Flash path is the staged-loading route. It keeps context small without reducing the work required.
 
 1. Read `SKILL.md`.
-2. Load `core-contract.md`, `evidence-types.md`, and `audit-ledger-format.md` when the renderer is available.
-3. Extract scope and the full 3–5 core claims.
+2. Load `core-contract.md`, `evidence-viability.md`, `evidence-types.md`, and `audit-ledger-format.md` when the renderer is available.
+3. Decide scope and evidence viability before claim extraction. Auditable material gets 3–5 claims; partially auditable material gets only the 1–5 reconstructable claims; non-auditable material does not manufacture claims.
 4. Run or consult the router.
 5. Load every matched module required by decision-critical claims.
 6. Audit one claim at a time and re-route when new cues appear.
 7. Fill the structured audit ledger and render it with `render_audit.py`.
 8. Run the packaged `validate_audit.py`.
 
-Flash path never permits fewer claims, missing fields, skipped routed modules, weaker support standards, or abstract-only support judgments.
+Flash path never permits fewer claims for material classified `auditable`, missing fields, skipped routed modules, weaker support standards, or abstract-only support judgments.
 
 ### Full path
 
@@ -167,7 +170,12 @@ The important distinction is execution strategy, not quality level: **Flash mean
 │   │   ├── hyaluronic-hydrogel-audit.md
 │   │   ├── resnet-smoke-audit.md
 │   │   └── social-hyperconnection-audit.md
+│   ├── viability-fixtures/
+│   │   ├── synthetic-partially-auditable-tech-note-audit.md
+│   │   ├── synthetic-promotional-brief-audit.md
+│   │   └── synthetic-self-referential-framework-audit.md
 │   ├── test_contract.py
+│   ├── test_evidence_viability.py
 │   └── validate_audit.py
 └── evidence-paper-reader/
     ├── SKILL.md
@@ -185,6 +193,7 @@ The important distinction is execution strategy, not quality level: **Flash mean
         ├── domain-profiles.md
         ├── evidence-dependence.md
         ├── evidence-types.md
+        ├── evidence-viability.md
         ├── evidence-topology.md
         ├── false-positive-guards.md
         ├── figure-and-table-traps.md
@@ -256,7 +265,7 @@ The tests verify, among other things, that:
 - the advisory router suggests relevant modules without treating lexical cues as findings
 
 - the seven output sections are present exactly once and in order
-- in-scope audits contain 3-5 sequential core claims
+- `auditable` audits contain 3–5 claims, `partially auditable` audits contain only 1–5 reconstructable claims, and `non-auditable` audits do not manufacture claim blocks
 - claim/support fields use controlled values
 - unknown evidence labels are rejected
 - `literature citation` cannot be labeled `paper-local`
@@ -278,6 +287,40 @@ The tests verify, among other things, that:
 - anti-trigger fixtures verify that correctly mitigated subgroup, interim-analysis, LOD, pre/post, and technical-repeat cues do not cause automatic downweighting
 
 GitHub Actions runs the same checks on pushes and pull requests.
+
+### Evidence viability gate
+
+Before claim extraction, the skill asks whether the source exposes a reconstructable evidence chain.
+
+This is separate from topical scope. A source can be technically relevant and still be `non-auditable`.
+
+Controlled states:
+
+- `auditable`: central claims can be mapped to inspectable methods/results; run the normal 3–5 claim audit.
+- `partially auditable`: only part of the central evidence chain is reconstructable; audit only the 1–5 claims that can actually be supported or bounded.
+- `non-auditable`: the central evidence chain is not exposed; do not force a conventional claim audit.
+
+Decision-critical flags include:
+
+- critical method/result omission
+- missing comparator
+- selected-success-only presentation
+- self-referential constructs
+- circular validation
+- demo-only evidence
+- proprietary black boxes
+- dominant external dependencies
+- promotional evidence asymmetry
+
+This is not a prestige filter. A blog, preprint, vendor white paper, or tiny pilot can be auditable. A polished or prestigious article can be non-auditable for a specific central claim.
+
+The gate also separates unfamiliar terminology from circular terminology. A newly invented construct is acceptable when it is operationalized and tested against independent observations or predictions. It becomes a viability problem when the construct is defined by an author-created score and that same score is then used as the main proof that the construct exists.
+
+Three synthetic regression fixtures protect the boundary:
+
+- promotional technical brief with missing methods/comparator and selected demonstrations → `non-auditable`
+- self-referential conceptual framework → `non-auditable`
+- industrial note with a real logged performance result but proprietary mechanism → `partially auditable`
 
 ### Claim dependencies and uncertainty propagation
 
