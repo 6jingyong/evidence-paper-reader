@@ -37,7 +37,7 @@ The skill produces a fixed **reader-side paper audit** that emphasizes:
 6. value breakdown
 7. uncertainty and follow-up
 
-Each major claim is tied to a controlled evidence type, evidence provenance (`paper-local`, `external citation`, or `mixed`), a traceable source location, and a bounded support judgment. This prevents an external citation from silently becoming evidence demonstrated by the current paper.
+Each major claim is tied to a controlled evidence type, evidence provenance (`paper-local`, `external citation`, or `mixed`), evidence dependence, a traceable source location, and a bounded support judgment. This prevents an external citation from silently becoming evidence demonstrated by the current paper.
 
 ## Evidence contract
 
@@ -50,6 +50,7 @@ The current contract is intentionally stricter than a prose-only prompt:
 - explicit separation of paper-local evidence from imported citation support
 - DOI handling that forbids guessing from memory
 - evidence-topology checks for mechanical coupling, null-result interpretation, proxy/construct separation, selection-conditioned evidence, and scale transfer
+- evidence-dependence checks that distinguish single-source evidence, shared-source corroboration, partial triangulation, and materially independent convergence
 - empirical finance, clinical/biomedical, and empirical-aesthetics coverage when the paper has a traceable evidence chain
 
 ## Repository layout
@@ -66,6 +67,7 @@ The current contract is intentionally stricter than a prose-only prompt:
 │   │   ├── ablationbench-audit.md
 │   │   ├── historical-akt-inos-2010-audit.md
 │   │   ├── historical-brain-beauty-2011-audit.md
+│   │   ├── historical-bmd-gwas-replication-2010-audit.md
 │   │   ├── historical-echinacea-2010-audit.md
 │   │   ├── historical-liblinear-2008-audit.md
 │   │   ├── historical-nanoparticle-mmc-2010-audit.md
@@ -84,6 +86,7 @@ The current contract is intentionally stricter than a prose-only prompt:
     ├── agents/
     │   └── openai.yaml
     └── references/
+        ├── evidence-dependence.md
         ├── evidence-types.md
         ├── evidence-topology.md
         ├── follow-up-boundaries.md
@@ -113,8 +116,22 @@ The tests verify, among other things, that:
 - cross-section consistency and validation-independence rules remain present
 - historical regression rules for mechanical coupling, null results, proxy reification, and selection-conditioned evidence remain present
 - intervention claims and administrative/transactional evidence stay valid controlled labels
+- every support block carries a controlled evidence-dependence class
+- real fixtures preserve examples of shared-source, partially independent, and independent convergence
 
 GitHub Actions runs the same checks on pushes and pull requests.
+
+### Evidence dependence and triangulation
+
+The audit does not count every figure, endpoint, assay, or model as a separate confirmation. Each core claim now receives one dependence class:
+
+- `single-source`
+- `shared-source convergence`
+- `partially independent convergence`
+- `independent convergence`
+- `unclear`
+
+For example, two outcomes from the same randomized cohort are shared-source convergence, while the CATSPERB BMD association in the 2010 GWAS fixture receives independent-convergence status only because the supporting signal appears in a separately sampled replication cohort. Different evidence types do not automatically imply independence.
 
 ### Current real-paper regression matrix
 
@@ -141,6 +158,7 @@ The second regression wave deliberately samples papers around 2010, when reporti
 | `historical-order-book-2010-audit.md` | 2010 | finance | *The Price Impact of Order Book Events* | predictor/outcome mechanical coupling and one-regime generalization |
 | `historical-echinacea-2010-audit.md` | 2010 | medicine | *Echinacea for Treating the Common Cold: A Randomized Trial* | non-significance vs equivalence/no meaningful effect |
 | `historical-brain-beauty-2011-audit.md` | 2011 | empirical aesthetics | *Toward A Brain-Based Theory of Beauty* | measured rating/neural correlate vs broader construct and universality |
+| `historical-bmd-gwas-replication-2010-audit.md` | 2010 | medical genetics | *Genome-Wide Association Study of Bone Mineral Density in Premenopausal European-American Women and Replication in African-American Women* | discovery cohort vs materially independent replication cohort |
 
 These fixtures are not gold-standard peer reviews. They are contract regressions: each preserves a specific evidence-chain failure mode that the skill should continue to notice as its instructions evolve.
 
