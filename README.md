@@ -59,10 +59,10 @@ The current contract is intentionally stricter than a prose-only prompt:
 
 ## Layered architecture
 
-The skill is intentionally split so weaker models do not need every rule in context at once.
+The skill is intentionally split so execution can keep context focused without changing the audit standard.
 
 ### Layer 0 — thin orchestrator
-`SKILL.md` contains only the stable workflow, mandatory boundaries, load order, and weak-model mode.
+`SKILL.md` contains only the stable workflow, mandatory boundaries, load order, and guarded Flash/Full execution paths.
 
 It should stay small enough to read in full.
 
@@ -100,18 +100,34 @@ The regression suite tests semantic boundaries with historical, adversarial, and
 
 The validator cannot replace scientific judgment; it removes bookkeeping and consistency work from the model.
 
-### Recommended weak-model workflow
+### Flash path
+
+Flash path is the staged-loading route. It keeps context small without reducing the work required.
 
 1. Read `SKILL.md`.
 2. Load only the three Layer-1 references.
-3. Extract scope and 3–5 core claims.
+3. Extract scope and the full 3–5 core claims.
 4. Run or consult the router.
-5. Load only matched optional modules.
-6. Audit one claim at a time.
-7. Render using `output-contract.md`.
+5. Load every matched module required by decision-critical claims.
+6. Audit one claim at a time and re-route when new cues appear.
+7. Render the complete `output-contract.md`.
 8. Run `validate_audit.py`.
 
-This keeps context focused and makes the skill usable on models that cannot reliably hold the entire methodology library at once.
+Flash path never permits fewer claims, missing fields, skipped routed modules, weaker support standards, or abstract-only support judgments.
+
+### Full path
+
+Full path uses the same evidence and output contracts, but permits broader simultaneous module loading, a second cross-claim pass, and deeper dependency inspection.
+
+Flash automatically escalates to Full when:
+- three or more primary methodology modules are required
+- a core claim structurally depends on an external cited work
+- direct paper-local evidence materially conflicts across sections
+- multiple studies/cohorts/datasets/sites/experiments require a non-trivial dependence map
+- a decision-critical claim remains `unclear` after targeted checking
+- the user requests a comprehensive/deep audit
+
+The important distinction is execution strategy, not quality level: **Flash means less irrelevant context, not less work.**
 
 ## Repository layout
 
@@ -184,7 +200,7 @@ python evidence-paper-reader/scripts/suggest_modules.py paper.txt
 python evidence-paper-reader/scripts/suggest_modules.py paper.txt --json
 ```
 
-The helper only searches for methodological cues and suggests references to inspect. It never declares a bias or flaw; the model must verify the actual inference and any mitigation.
+The helper searches for methodological cues, suggests references to inspect, and recommends Flash or Full based on route complexity. It never declares a bias or flaw; the model must verify the actual inference and any mitigation. Flash eligibility never relaxes the audit contract.
 
 ## Contract tests
 
