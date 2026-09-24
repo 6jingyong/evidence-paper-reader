@@ -139,9 +139,16 @@ def case_metrics(case: dict, runs: list[dict]) -> dict:
         support_map = {x["claim_id"]: x["support_level"] for x in run["support"]}
         vector = tuple(support_map.get(cid, "not_selected") for cid in all_support_ids)
         support_vectors.append(vector)
-        for cid, expected in reference_support.items():
+        scored_support_ids = set(ref["required_claims"]) | (
+            set(ref["optional_claims"]) & set(run["selected_claim_ids"])
+        )
+        for cid in scored_support_ids:
+            if cid not in reference_support:
+                continue
             support_accuracy_total += 1
-            support_accuracy_hits += int(support_map.get(cid, "not_selected") == expected)
+            support_accuracy_hits += int(
+                support_map.get(cid, "not_selected") == reference_support[cid]
+            )
 
     claim_modes = Counter(tuple(sorted(s)) for s in selected_sets)
     route_modes = Counter(tuple(sorted(s)) for s in module_sets)
