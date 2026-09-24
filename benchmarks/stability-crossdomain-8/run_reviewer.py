@@ -12,9 +12,11 @@ import sys
 import time
 from pathlib import Path
 
+PROMPT_SCRIPT = Path(__file__).parent / "prepare_review.py"
 
 PLACEHOLDERS = {
     "{packet}",
+    "{prompt}",
     "{output}",
     "{packet_id}",
     "{case_id}",
@@ -33,10 +35,17 @@ def load_matrix(path: Path) -> list[dict]:
     return data
 
 
-def command_for(template: str, job: dict, packet: Path, output: Path) -> list[str]:
+def command_for(
+    template: str,
+    job: dict,
+    packet: Path,
+    prompt: Path,
+    output: Path,
+) -> list[str]:
     tokens = shlex.split(template)
     values = {
         "{packet}": str(packet),
+        "{prompt}": str(prompt),
         "{output}": str(output),
         "{packet_id}": job["packet_id"],
         "{case_id}": job["case_id"],
@@ -63,6 +72,31 @@ def validate_json_output(path: Path, job: dict) -> None:
         raise ValueError(f"response missing fields: {sorted(missing)}")
 
 
+def build_prompt(
+    packet: Path,
+    prompt: Path,
+    *,
+    include_skill: bool,
+) -> None:
+    try:
+        spec = __import__(
+            "importlib.util"
+        ).util.spec_from_file_location("epr_prepare_prompt", PROMPT_SCRIPT)
+        module = __import__("importlib.util").util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(module)
+    except (OSError, ImportError, AttributeError) as exc:
+        raise RuntimeError(f"cannot load prompt builder: {exc}") from exc
+
+    rendered = module.render_prompt(
+        packet.read_text(encoding="utf-8"),
+        str(packet),
+        include_skill=include_skill,
+    )
+    prompt.parent.mkdir(parents=True, exist_ok=True)
+    prompt.write_text(rendered, encoding="utf-8")
+
+
 def run_job(
     job: dict,
     packet_dir: Path,
@@ -71,9 +105,14 @@ def run_job(
     timeout: int,
     env_extra: dict[str, str],
     dry_run: bool,
+    *,
+    prompt_dir: Path | None = None,
+    include_skill: bool = False,
 ) -> dict:
     packet = packet_dir / f"{job['packet_id']}.md"
     output = response_dir / f"{job['packet_id']}.json"
+    prompt_root = prompt_dir or response_dir.parent / "prompts"
+    prompt = prompt_root / f"{job['packet_id']}.md"
     started = time.time()
 
     if not packet.exists():
@@ -83,12 +122,22 @@ def run_job(
             "error": f"missing packet: {packet}",
         }
 
-    command = command_for(command_template, job, packet, output)
+    try:
+        build_prompt(packet, prompt, include_skill=include_skill)
+    except (OSError, RuntimeError, UnicodeError) as exc:
+        return {
+            **job,
+            "status": "failed",
+            "error": str(exc),
+        }
+
+    command = command_for(command_template, job, packet, prompt, output)
     result = {
         **job,
         "status": "dry_run" if dry_run else "running",
         "command": command,
         "packet": str(packet),
+        "prompt": str(prompt),
         "output": str(output),
     }
 
@@ -102,6 +151,7 @@ def run_job(
         "EPR_CASE_ID": job["case_id"],
         "EPR_REPEAT": str(job["repeat"]),
         "EPR_PACKET_PATH": str(packet),
+        "EPR_PROMPT_PATH": str(prompt),
         "EPR_OUTPUT_PATH": str(output),
     })
 
@@ -156,11 +206,12 @@ def main() -> int:
     parser.add_argument("--matrix", type=Path, default=Path(__file__).parent / "runs" / "run_matrix.json")
     parser.add_argument("--packet-dir", type=Path, default=Path(__file__).parent / "runs" / "packets")
     parser.add_argument("--response-dir", type=Path, default=Path(__file__).parent / "runs" / "responses")
+    parser.add_argument("--prompt-dir", type=Path, default=Path(__file__).parent / "runs" / "prompts")
     parser.add_argument(
         "--command",
         required=True,
         help=(
-            "External isolated reviewer command. Supports {packet}, {output}, "
+            "External isolated reviewer command. Supports {packet}, {prompt}, {output}, "
             "{packet_id}, {case_id}, {repeat} placeholders."
         ),
     )
@@ -168,6 +219,7 @@ def main() -> int:
     parser.add_argument("--limit", type=int)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--env", action="append", default=[])
+    parser.add_argument("--include-skill", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--status-file", type=Path)
     args = parser.parse_args()
@@ -176,6 +228,7 @@ def main() -> int:
     if args.limit is not None:
         jobs = jobs[: args.limit]
     args.response_dir.mkdir(parents=True, exist_ok=True)
+    args.prompt_dir.mkdir(parents=True, exist_ok=True)
 
     env_extra = parse_env(args.env)
     selected = []
@@ -201,6 +254,8 @@ def main() -> int:
             args.timeout,
             env_extra,
             args.dry_run,
+            prompt_dir=args.prompt_dir,
+            include_skill=args.include_skill,
         )
         selected.append(row)
         status = row["status"]
