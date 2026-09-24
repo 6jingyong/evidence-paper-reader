@@ -171,8 +171,11 @@ class SkillContractTests(unittest.TestCase):
         self.assertNotIn("figure-and-table-traps.md", names)
         self.assertEqual(complex_result["recommended_path"], "full")
         self.assertGreaterEqual(complex_result["primary_module_count"], 3)
-        self.assertIn("advisory only", complex_result["warning"])
+        self.assertIn("candidate routes only", complex_result["warning"])
+        self.assertIn("semantic-router-card.md", complex_result["warning"])
         self.assertIn("never lowers the audit contract", complex_result["warning"])
+        self.assertTrue(complex_result["semantic_router_required"])
+        self.assertEqual(complex_result["merge_with"], "merge_route.py")
 
         flash_result = suggest_modules.suggest_modules(
             "Randomized trial reporting a hazard ratio for the primary outcome."
