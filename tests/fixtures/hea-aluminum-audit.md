@@ -33,6 +33,7 @@ The most reliable content is the measured phase evolution, tensile-property tabl
 ### claim 1
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: XRD results and phase-evolution discussion in the microstructure results section
 - support level: sufficient
 - reason: The reported XRD sequence changes from FCC at 0 and 0.5 percent Al to FCC with a weak BCC contribution at 1.0 percent and a stronger FCC+BCC mixture at 2.5 percent. This supports a bounded trend toward more BCC character, not a demonstrated complete transformation to single-phase BCC within the tested range.
@@ -41,6 +42,7 @@ The most reliable content is the measured phase evolution, tensile-property tabl
 ### claim 2
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: tensile-property results table and mechanical-properties discussion
 - support level: sufficient
 - reason: Yield strength rises from about 281.9 MPa at 0 percent Al to about 358.1 MPa at 2.5 percent Al, while elongation falls from about 0.52 to about 0.12. The direction of these two trends is directly supported by the reported measurements even though ultimate tensile strength is non-monotonic.
@@ -49,6 +51,7 @@ The most reliable content is the measured phase evolution, tensile-property tabl
 ### claim 3
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: hardness measurements in the mechanical-properties results, compared with the abstract and conclusion wording
 - support level: insufficient
 - reason: The reported hardness values are about 199.8, 196.8, 197.6, and 210.1 HV as Al rises from 0 to 2.5 percent. The first addition decreases hardness and the next value only partially recovers, so the paper's own numbers contradict a continuous-increase claim.
@@ -57,6 +60,7 @@ The most reliable content is the measured phase evolution, tensile-property tabl
 ### claim 4
 - evidence type: direct experiment + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: abstract, microstructure interpretation, and mechanical-properties discussion
 - support level: partial
 - reason: The observed phase evolution and mechanical changes are consistent with an Al-induced brittle secondary phase contributing to embrittlement, but the reported XRD result is described primarily as FCC+BCC and does not by itself uniquely establish ordered B2/NiAl as the dominant causal mechanism. The mechanistic wording is therefore stronger than the directly identified evidence.
