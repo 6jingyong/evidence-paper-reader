@@ -33,6 +33,7 @@ The paper strongly supports a descriptive association between more television vi
 ### claim 1
 - evidence type: survey record + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: abstract results, multivariable models, and the main association tables
 - support level: sufficient
 - reason: The nationally sampled cross-sectional data directly report adjusted odds ratios, including approximately 0.92 for fruit, 0.95 for vegetables, 1.18 for candy, 1.14 for fast food, and 1.06 for breakfast skipping per reported television-viewing increment.
@@ -41,6 +42,7 @@ The paper strongly supports a descriptive association between more television vi
 ### claim 2
 - evidence type: survey record + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: models comparing estimates before and after adjustment for television snacking
 - support level: partial
 - reason: Adjustment for television snacking moderately attenuates some associations but leaves others essentially unchanged. This supports a statistical contribution by the snacking measure, not a demonstrated causal mediation pathway in cross-sectional data.
@@ -49,6 +51,7 @@ The paper strongly supports a descriptive association between more television vi
 ### claim 3
 - evidence type: survey record + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: interaction analyses and the figure reporting age/race-stratified adjusted odds ratios
 - support level: sufficient
 - reason: The paper directly reports statistically different associations across specified age and race/ethnicity groups for several outcomes. This is bounded to the measured interactions in the survey.
@@ -57,6 +60,7 @@ The paper strongly supports a descriptive association between more television vi
 ### claim 4
 - evidence type: survey record + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: study design and discussion of possible mechanisms
 - support level: insufficient
 - reason: Exposure and eating behaviors were measured in a cross-sectional survey, so temporal ordering, residual confounding, and reverse association remain unresolved. The paper's own conclusion appropriately uses association language rather than establishing causation.
