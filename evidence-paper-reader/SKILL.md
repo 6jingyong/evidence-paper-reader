@@ -20,10 +20,13 @@ Default output language follows the user.
 
 ## Load order
 
-Always load these three references:
+Always load:
 1. `references/core-contract.md`
-2. `references/output-contract.md`
-3. `references/evidence-types.md`
+2. `references/evidence-types.md`
+
+For output:
+- when Python can run, load `references/audit-ledger-format.md` and use `scripts/render_audit.py`
+- otherwise load `references/output-contract.md` and render manually
 
 Then route optional references using:
 - `references/method-router.md`
@@ -86,7 +89,12 @@ Do not treat repeated analyses of the same source as independent replication.
 Do not let abstract/conclusion prose override more direct paper-local results.
 
 ### Phase E — render
-Use `output-contract.md` exactly.
+Prefer the structured renderer when available:
+1. fill the audit ledger defined in `audit-ledger-format.md`
+2. run `scripts/render_audit.py`
+3. run `scripts/validate_audit.py` on the rendered Markdown
+
+If scripts cannot run, use `output-contract.md` exactly.
 
 For out-of-scope papers, keep the seven-section skeleton and use `not applicable` where appropriate.
 
@@ -112,14 +120,14 @@ For medical papers, audit design and evidence only; do not convert the audit int
 Flash path is a staged-loading strategy for keeping context focused. It does not lower the audit standard.
 
 In Flash path:
-1. keep only `core-contract.md`, `output-contract.md`, and `evidence-types.md` loaded initially
+1. keep only `core-contract.md`, `evidence-types.md`, and the active output interface (`audit-ledger-format.md` with renderer, otherwise `output-contract.md`) loaded initially
 2. extract the full 3–5 core claims before support judgment
 3. run or consult the router
 4. load every optional module that a decision-critical claim actually requires
 5. audit one claim at a time
 6. re-route if a later claim exposes a new methodological cue
-7. render the complete output contract
-8. run `tests/validate_audit.py` on the finished audit when a Python runtime is available
+7. render the complete audit with `scripts/render_audit.py` when available
+8. run `scripts/validate_audit.py` on the finished audit when a Python runtime is available
 
 Flash path must not:
 - reduce the required claim count
@@ -161,8 +169,9 @@ Use these only when the compact contract is not enough:
 
 ## Validation
 
-The zero-dependency validator checks the mechanical contract:
-`python tests/validate_audit.py <audit.md>`
+The renderer and validator own the mechanical output contract:
+`python scripts/render_audit.py audit.json -o audit.md`
+`python scripts/validate_audit.py audit.md`
 
 It verifies fields, controlled values, claim numbering, evidence-node syntax, convergence-node count, provenance/dependency rules, and conservative uncertainty propagation.
 
