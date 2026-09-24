@@ -8,8 +8,7 @@ Return JSON only:
 
 ```json
 {
-  "case_id": "MH01",
-  "condition": "hidden",
+  "packet_id": "P-1A2B3C4D5E",
   "scope_status": "in scope",
   "anchors": [
     {
@@ -52,6 +51,7 @@ Rules:
 
 - Evaluate all three anchors.
 - Do not add or remove anchor claims.
+- Echo only the anonymous `packet_id` shown in the packet; do not guess a case ID or condition.
 - Judge support from the supplied evidence packet only.
 - Metadata may help identify the source in the visible condition but is not evidence.
 - Do not infer hidden source identity.
