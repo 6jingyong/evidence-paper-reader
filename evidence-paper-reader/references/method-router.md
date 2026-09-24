@@ -6,8 +6,11 @@ The router is deliberately conservative: a cue means "inspect this module", not 
 
 Always load:
 - `core-contract.md`
-- `output-contract.md`
 - `evidence-types.md`
+
+Output interface:
+- if Python can run: load `audit-ledger-format.md`, then render with `scripts/render_audit.py`
+- otherwise: load `output-contract.md`
 
 Load `domain-profiles.md` when the paper clearly belongs to one of its listed domains.
 
@@ -123,7 +126,8 @@ Flash path is a context-loading strategy, not a reduced-quality mode.
 4. audit claims one at a time
 5. re-run routing if a later claim exposes a new cue
 6. apply false-positive guards after every trap module
-7. validate the complete output with the Python validator
+7. render the structured ledger with `scripts/render_audit.py` when available
+8. validate the complete output with `scripts/validate_audit.py`
 
 Flash path does not permit fewer claims, missing fields, skipped routed modules, abstract-only support judgments, or weaker evidence standards.
 
