@@ -68,6 +68,11 @@ The current contract is intentionally stricter than a prose-only prompt:
 ├── tests/
 │   ├── fixtures/
 │   │   ├── ablationbench-audit.md
+│   │   ├── adversarial-care-coordination-before-after-2009-audit.md
+│   │   ├── adversarial-collagen-dic-2021-audit.md
+│   │   ├── adversarial-organic-diet-biomarkers-2019-audit.md
+│   │   ├── adversarial-subgroup-aneurysm-2008-audit.md
+│   │   ├── adversarial-train-test-leakage-2022-audit.md
 │   │   ├── historical-akt-inos-2010-audit.md
 │   │   ├── historical-brain-beauty-2011-audit.md
 │   │   ├── historical-bmd-gwas-replication-2010-audit.md
@@ -134,6 +139,7 @@ The tests verify, among other things, that:
 - forward/self dependencies are rejected and uncertainty cannot disappear without new evidence
 - figure/table interpretation traps remain present as bounded methodological knowledge
 - statistical, measurement, and study-design trap references remain modular and explicitly bounded from domain-fact priors
+- adversarial fixtures trigger subgroup-interaction, detection-limit, regression-to-the-mean, benchmark-leakage, and technical-repeat checks without adding new output fields
 
 GitHub Actions runs the same checks on pushes and pull requests.
 
@@ -174,6 +180,20 @@ The audit does not count every figure, endpoint, assay, or model as a separate c
 - `unclear`
 
 For example, two outcomes from the same randomized cohort are shared-source convergence, while the CATSPERB BMD association in the 2010 GWAS fixture receives independent-convergence status only because the supporting signal appears in a separately sampled replication cohort. Different evidence types do not automatically imply independence.
+
+### Adversarial methodology regression wave
+
+A third regression wave selects papers that can look convincing under surface reading but require the correct methodological module to avoid overclaiming.
+
+| Fixture | Domain | Trigger | Main adversarial boundary |
+| --- | --- | --- | --- |
+| `adversarial-subgroup-aneurysm-2008-audit.md` | medicine / RCT subgroup | statistics | significance within separate subgroups is not a treatment-by-subgroup interaction |
+| `adversarial-organic-diet-biomarkers-2019-audit.md` | environmental health / intervention | measurement + statistics + design | LOD handling, 58-parameter multiplicity control, cluster/crossover structure, and co-intervention confounding |
+| `adversarial-care-coordination-before-after-2009-audit.md` | health services | study design + statistics | large pre/post savings can reflect regression to the mean without a concurrent counterfactual |
+| `adversarial-train-test-leakage-2022-audit.md` | information retrieval | ML study design | semantic train-test overlap can inflate metrics or change rankings, but effect size depends on contamination fraction |
+| `adversarial-collagen-dic-2021-audit.md` | microscopy / measurement | measurement + dependence | repeated imaging/processing improves precision but does not turn five fibrils into many independent specimens |
+
+The point of these fixtures is trigger correctness. They should activate only the methodological knowledge relevant to the claim and should not turn the audit into a generic checklist.
 
 ### Current real-paper regression matrix
 
