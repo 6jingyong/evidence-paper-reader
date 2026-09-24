@@ -34,6 +34,7 @@ The paper provides useful evidence that its CFD setup reproduces the tested 24-h
 - evidence type: numerical simulation + field observation + statistical analysis
 - evidence provenance: paper-local
 - evidence nodes: E1 + E2
+- upstream claims: none
 - evidence dependence: partially independent convergence
 - source location: CFD validation results comparing modeled wind and PM10 with the two reference monitoring stations
 - support level: sufficient
@@ -44,6 +45,7 @@ The paper provides useful evidence that its CFD setup reproduces the tested 24-h
 - evidence type: statistical analysis + numerical simulation + field observation
 - evidence provenance: paper-local
 - evidence nodes: E3
+- upstream claims: C1
 - evidence dependence: single-source
 - source location: low-cost-sensor calibration results before and after linear correction using modeled concentrations as targets
 - support level: sufficient
@@ -54,6 +56,7 @@ The paper provides useful evidence that its CFD setup reproduces the tested 24-h
 - evidence type: statistical analysis + numerical simulation + field observation + author interpretation
 - evidence provenance: paper-local
 - evidence nodes: E2 + E3
+- upstream claims: C1 + C2
 - evidence dependence: shared-source convergence
 - source location: calibration-results interpretation and claims about improved sensor accuracy
 - support level: partial
@@ -64,6 +67,7 @@ The paper provides useful evidence that its CFD setup reproduces the tested 24-h
 - evidence type: numerical simulation + author interpretation
 - evidence provenance: paper-local
 - evidence nodes: E4
+- upstream claims: C1 + C2
 - evidence dependence: single-source
 - source location: discussion and conclusion on missing-data reconstruction and optimized sensor deployment
 - support level: partial
