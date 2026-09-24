@@ -16,6 +16,10 @@ Use these labels to describe where a paper's narrative goes beyond its evidence.
 - **material to strong explanation jump**: documents, interviews, or field records are narrated as if they settle a stronger mechanism claim than they actually do
 - **internal inconsistency**: the abstract, results, figures/tables, discussion, or conclusion give incompatible values, trends, phase assignments, sample descriptions, or causal statements; expose the mismatch instead of silently selecting the favorable version
 - **non-independent validation**: calibration, tuning, selection, judging, or optimization uses a target or proxy that is then reused as the main evaluation target, so improved agreement demonstrates fit to that target but not independent external accuracy or generalization
+- **mechanical coupling**: an explanatory variable, score, exposure, or predictor is partly constructed from the same event or quantity that mechanically changes or defines the outcome, so a strong association may be partly structural or tautological rather than independent explanatory evidence
+- **null-result overreach**: failure to reach statistical significance is narrated as proof of no effect, equivalence, safety, or practical irrelevance without an appropriate confidence interval, equivalence/non-inferiority design, or sufficiently tight effect bound
+- **proxy reification**: an operational measure, rating, biomarker, benchmark, or neural correlate is treated as if it were identical to the broader construct it was chosen to represent
+- **selection-conditioned evidence**: performance or effect size is reported for a filtered, retained, optimal, complete-case, or otherwise selected subset and then narrated as if it applied to the full sample, all configurations, or normal operating conditions
 
 ## Usage rule
 Use the label only after you state the concrete mismatch in plain language.
