@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: optical measurement-method validation study
 
 The paper gives useful evidence that DIC edge-intensity shift correlates with collagen-fibril diameter and can support non-destructive diameter estimation over a bounded range. The main adversarial issue is unit-of-analysis inflation: for some hydrated-fibril claims only five fibrils are the independent biological/physical units, while each fibril is imaged three times and each image processed five times. Those technical repeats improve precision of a fibril's measurement but do not turn five fibrils into dozens of independent validation specimens. The reported approximately ±4 nm hydrated accuracy is therefore promising but should be interpreted as a calibration result from a very small independent-fibril set rather than as a broadly established error distribution. The paper is mainly useful as a measurement-method and pseudo-replication stress case.
