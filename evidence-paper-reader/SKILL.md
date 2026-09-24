@@ -44,15 +44,10 @@ Do not load every optional reference by default.
 5. If auditable, extract 3–5 core claims. If partially auditable, extract only the 1–5 claims whose evidence chain can actually be reconstructed. If non-auditable, do not manufacture claims.
 6. Put prerequisite claims before downstream mechanism/causality/generality claims.
 
-### Phase B — evidence ledger
-For each claim:
-1. assign stable evidence-node IDs such as `E1`, `E2`
-2. record evidence type using `evidence-types.md`
-3. record provenance: paper-local / external citation / mixed
-4. record upstream claim IDs
-5. record evidence dependence
-6. record the most precise source location available
-
+### Phase B — evidence inventory and ledger
+For short/simple papers, assign E-nodes directly. For long or structurally complex papers, load `evidence-inventory-format.md` and use `scripts/evidence_inventory.py` to capture source records before support judgment.
+Inventory path: locate R records → deduplicate repeated presentations with G keys → group shared evidence-generating bases with U keys → promote decision-critical results to E-nodes.
+For each final E-node, record evidence type, provenance, upstream claims, evidence dependence, and the most precise source location available.
 Use the same E-node whenever the same underlying result is reused.
 
 ### Phase C — route only needed checks
@@ -160,12 +155,8 @@ Full path keeps the same output contract but allows broader simultaneous module 
 ## Optional deep references
 
 Use these only when the compact contract is not enough:
-- `references/claim-evidence-links.md`
-- `references/claim-dependencies.md`
-- `references/evidence-dependence.md`
-- `references/evidence-topology.md`
-- `references/follow-up-boundaries.md`
-- `references/pollution-patterns.md`
+- `references/evidence-inventory-format.md`, `claim-evidence-links.md`, `claim-dependencies.md`
+- `references/evidence-dependence.md`, `evidence-topology.md`, `follow-up-boundaries.md`, `pollution-patterns.md`
 
 ## Validation
 
