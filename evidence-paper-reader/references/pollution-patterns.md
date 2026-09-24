@@ -21,6 +21,7 @@ Use these labels to describe where a paper's narrative goes beyond its evidence.
 - **proxy reification**: an operational measure, rating, biomarker, benchmark, or neural correlate is treated as if it were identical to the broader construct it was chosen to represent
 - **selection-conditioned evidence**: performance or effect size is reported for a filtered, retained, optimal, complete-case, or otherwise selected subset and then narrated as if it applied to the full sample, all configurations, or normal operating conditions
 - **pseudo-triangulation**: multiple figures, endpoints, models, technical repeats, or evidence types that share the same underlying sample, specimens, dataset, target, or dominant error source are narrated as if they were independent confirmations or replications
+- **claim stacking / evidence double-spending**: the same evidence node is reused to support progressively stronger or distinct claims—such as performance, mechanism, causality, and generality—without additional direct evidence for the added reach
 
 ## Usage rule
 Use the label only after you state the concrete mismatch in plain language.
