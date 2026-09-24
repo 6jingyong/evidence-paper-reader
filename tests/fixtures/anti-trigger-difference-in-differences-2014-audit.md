@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: quasi-experimental difference-in-differences evaluation
 
 The paper contains pre/post outcome changes but should not be collapsed into an uncontrolled before-after study. It explicitly compares the intervention site with a matched comparator site using difference-in-differences, and the resulting between-site contrasts are not statistically significant for the evaluated outcomes. Importantly, the authors do not convert the intervention site's local pre/post improvements into causal benefits once the comparator removes that apparent effect. The correct residual concern is whether the comparator and common-trend/common-shock assumptions are credible, not that all before-after data are intrinsically unusable. The paper is mainly useful as a study-design reference and as an anti-trigger example of a quasi-experimental analysis appropriately refusing an attractive but unsupported causal conclusion.
