@@ -33,6 +33,7 @@ The most reliable content is the measured phase evolution, tensile-property tabl
 ### claim 1
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence nodes: E1
 - evidence dependence: single-source
 - source location: XRD results and phase-evolution discussion in the microstructure results section
 - support level: sufficient
@@ -42,6 +43,7 @@ The most reliable content is the measured phase evolution, tensile-property tabl
 ### claim 2
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E2 + E3
 - evidence dependence: shared-source convergence
 - source location: tensile-property results table and mechanical-properties discussion
 - support level: sufficient
@@ -51,6 +53,7 @@ The most reliable content is the measured phase evolution, tensile-property tabl
 ### claim 3
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence nodes: E4
 - evidence dependence: single-source
 - source location: hardness measurements in the mechanical-properties results, compared with the abstract and conclusion wording
 - support level: insufficient
@@ -60,6 +63,7 @@ The most reliable content is the measured phase evolution, tensile-property tabl
 ### claim 4
 - evidence type: direct experiment + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E1 + E3
 - evidence dependence: shared-source convergence
 - source location: abstract, microstructure interpretation, and mechanical-properties discussion
 - support level: partial
