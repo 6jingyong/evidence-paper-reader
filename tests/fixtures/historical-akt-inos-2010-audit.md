@@ -33,6 +33,7 @@ The strongest evidence is the repeated primary-hepatocyte perturbation chain sho
 ### claim 1
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: Figure 1 and Results section 3.1
 - support level: sufficient
 - reason: Repeated Western-blot experiments directly show increased Akt phosphorylation after cytokine and dbcAMP treatment over the reported time course.
@@ -41,6 +42,7 @@ The strongest evidence is the repeated primary-hepatocyte perturbation chain sho
 ### claim 2
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: Figure 2 and Results sections 3.2-3.3
 - support level: sufficient
 - reason: LY294002, FTI-276, and dominant-negative Akt reduce Akt activation and partially reverse the dbcAMP-associated suppression of iNOS or nitrite. Multiple perturbation routes support Akt involvement, while the word "part" keeps the claim matched to the partial reversals.
@@ -49,6 +51,7 @@ The strongest evidence is the repeated primary-hepatocyte perturbation chain sho
 ### claim 3
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: MAPK p44/42 perturbation experiments in Results section 3.4 and the abstract
 - support level: sufficient
 - reason: Pharmacologic inhibition of MAPK p44/42 does not suppress cytokine-induced iNOS or enhance dbcAMP's inhibitory effect, and constitutively active MAPK p44/42 does not alter cytokine-stimulated NO production. This directly supports independence within the tested hepatocyte system.
@@ -57,6 +60,7 @@ The strongest evidence is the repeated primary-hepatocyte perturbation chain sho
 ### claim 4
 - evidence type: author interpretation
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: Discussion, where the authors state that the specific mechanism for regulation of iNOS by Akt has not yet been defined
 - support level: insufficient
 - reason: The paper identifies candidate downstream signals including NF-kB and JNK but explicitly leaves the specific pathway unresolved. A fully specified mechanism would exceed the demonstrated perturbation chain.
