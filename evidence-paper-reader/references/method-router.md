@@ -113,13 +113,30 @@ Whenever any optional trap module is loaded, also apply `false-positive-guards.m
 
 Do not report a trap cue as a flaw until the mitigation check is complete.
 
-## Weak-model routing strategy
+## Flash routing strategy
 
-For a weaker model:
-1. read the paper once for scope and 3-5 claims
+Flash path is a context-loading strategy, not a reduced-quality mode.
+
+1. read the paper once for scope and 3–5 claims
 2. create a minimal cue list
-3. load only the modules matched by this router
+3. load every module matched by decision-critical claims
 4. audit claims one at a time
-5. validate the final output with the Python validator
+5. re-run routing if a later claim exposes a new cue
+6. apply false-positive guards after every trap module
+7. validate the complete output with the Python validator
+
+Flash path does not permit fewer claims, missing fields, skipped routed modules, abstract-only support judgments, or weaker evidence standards.
+
+## Escalate to Full path
+
+Switch from Flash to Full path when any of these applies:
+- three or more primary methodological modules are needed among figure/table, statistics, measurement, study design, and topology
+- a core claim structurally depends on an external cited work
+- direct results materially conflict across sections or displayed evidence
+- multiple studies, cohorts, datasets, sites, or experiments require a non-trivial dependence map
+- a decision-critical claim remains `unclear` after its targeted module check
+- the user requests a comprehensive/deep audit
+
+Full path may load more modules simultaneously and run a second cross-claim pass, but it uses the same evidence and output contracts.
 
 Do not keep all optional references in context unless the paper genuinely needs them.
