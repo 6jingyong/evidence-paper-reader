@@ -66,13 +66,16 @@ The skill is intentionally split so execution can keep context focused without c
 
 It should stay small enough to read in full.
 
-### Layer 1 — always-loaded contract
+### Layer 1 — core contract
 Every audit loads:
 - `references/core-contract.md`
-- `references/output-contract.md`
 - `references/evidence-types.md`
 
-These define the evidence graph, controlled values, support semantics, and exact output schema.
+For the output interface:
+- with Python: load `references/audit-ledger-format.md`, fill JSON, then use `scripts/render_audit.py`
+- without Python: load `references/output-contract.md` as the manual fallback
+
+This keeps Markdown formatting out of the model's working context whenever the runtime can own it.
 
 ### Layer 2 — routing
 `references/method-router.md` maps paper cues to optional modules.
@@ -94,7 +97,7 @@ Only load modules that matter to decision-critical claims:
 `references/domain-profiles.md` adds domain-specific emphasis without changing the output format.
 
 ### Layer 4 — scripts and CI
-`tests/validate_audit.py` checks the mechanical output/graph contract.
+`scripts/render_audit.py` owns canonical Markdown generation and `scripts/validate_audit.py` checks the mechanical output/graph contract.
 
 The regression suite tests semantic boundaries with historical, adversarial, and anti-trigger real-paper fixtures.
 
@@ -105,13 +108,13 @@ The validator cannot replace scientific judgment; it removes bookkeeping and con
 Flash path is the staged-loading route. It keeps context small without reducing the work required.
 
 1. Read `SKILL.md`.
-2. Load only the three Layer-1 references.
+2. Load `core-contract.md`, `evidence-types.md`, and `audit-ledger-format.md` when the renderer is available.
 3. Extract scope and the full 3–5 core claims.
 4. Run or consult the router.
 5. Load every matched module required by decision-critical claims.
 6. Audit one claim at a time and re-route when new cues appear.
-7. Render the complete `output-contract.md`.
-8. Run `validate_audit.py`.
+7. Fill the structured audit ledger and render it with `render_audit.py`.
+8. Run the packaged `validate_audit.py`.
 
 Flash path never permits fewer claims, missing fields, skipped routed modules, weaker support standards, or abstract-only support judgments.
 
@@ -171,8 +174,11 @@ The important distinction is execution strategy, not quality level: **Flash mean
     ├── agents/
     │   └── openai.yaml
     ├── scripts/
-    │   └── suggest_modules.py
+    │   ├── render_audit.py
+    │   ├── suggest_modules.py
+    │   └── validate_audit.py
     └── references/
+        ├── audit-ledger-format.md
         ├── claim-dependencies.md
         ├── claim-evidence-links.md
         ├── core-contract.md
@@ -190,6 +196,26 @@ The important distinction is execution strategy, not quality level: **Flash mean
         ├── study-design-traps.md
         └── pollution-patterns.md
 ```
+
+### Scripted output renderer
+
+When Python is available, the model does not need to manually reproduce Markdown headings or field ordering.
+
+Create a starter ledger:
+
+```bash
+python evidence-paper-reader/scripts/render_audit.py --template > audit.json
+```
+
+Fill semantic fields in `audit.json`, then:
+
+```bash
+python evidence-paper-reader/scripts/render_audit.py audit.json --check
+python evidence-paper-reader/scripts/render_audit.py audit.json -o audit.md
+python evidence-paper-reader/scripts/validate_audit.py audit.md
+```
+
+The renderer owns claim numbering, seven-section layout, field ordering, evidence-node/upstream-claim joining, out-of-scope placeholders, and value-breakdown ordering. The model still owns claim extraction, evidence identity, dependence, support judgment, reasons, and uncertainty.
 
 ### Optional routing helper
 
@@ -210,12 +236,13 @@ Run locally with:
 
 ```bash
 python -m unittest discover -s tests -v
-for audit in tests/fixtures/*-audit.md; do python tests/validate_audit.py "$audit"; done
+for audit in tests/fixtures/*-audit.md; do python evidence-paper-reader/scripts/validate_audit.py "$audit"; done
 ```
 
 The tests verify, among other things, that:
 
 - `SKILL.md` remains a thin orchestrator rather than absorbing the knowledge library
+- structured ledger rendering produces canonical Markdown that passes the packaged validator
 - mandatory versus optional references stay separated
 - the advisory router suggests relevant modules without treating lexical cues as findings
 
