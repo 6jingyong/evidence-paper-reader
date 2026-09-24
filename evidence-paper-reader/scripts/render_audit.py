@@ -9,6 +9,19 @@ import sys
 from pathlib import Path
 
 SCOPE_STATUSES = {"in scope", "partially in scope", "out of scope"}
+VIABILITY = {"auditable", "partially auditable", "non-auditable"}
+VIABILITY_FLAGS = {
+    "critical-method-omission",
+    "critical-result-omission",
+    "missing-comparator",
+    "selective-success-only",
+    "self-referential-construct",
+    "circular-validation",
+    "demo-only",
+    "proprietary-black-box",
+    "external-dependency-dominant",
+    "promotional-asymmetry",
+}
 CLAIM_TYPES = {"observational", "methodological", "mechanistic", "performance", "generality", "intervention"}
 CONCLUSION_STRENGTHS = {"weak", "medium", "strong"}
 SUPPORT_LEVELS = {"sufficient", "partial", "insufficient", "unclear"}
@@ -32,6 +45,8 @@ VALUE_KEYS = [
 
 TEMPLATE = {
     "scope_status": "in scope",
+    "evidence_viability": "auditable",
+    "viability_flags": [],
     "paper_type": "",
     "reader_conclusion": "",
     "claims": [
@@ -124,6 +139,20 @@ def validate_ledger(data: dict) -> list[str]:
         return ["ledger must be a JSON object"]
 
     scope = _choice(data.get("scope_status"), SCOPE_STATUSES, "scope_status", errors)
+    viability = _choice(data.get("evidence_viability"), VIABILITY, "evidence_viability", errors)
+
+    flags = data.get("viability_flags")
+    if not isinstance(flags, list) or not all(isinstance(x, str) for x in flags):
+        errors.append("viability_flags must be a string list")
+        flags = []
+    if len(flags) != len(set(flags)):
+        errors.append("viability_flags must not contain duplicates")
+    unknown_flags = [x for x in flags if x not in VIABILITY_FLAGS]
+    if unknown_flags:
+        errors.append(f"unknown viability flag(s): {', '.join(unknown_flags)}")
+    if viability in {"partially auditable", "non-auditable"} and not flags:
+        errors.append(f"{viability} requires at least one viability flag")
+
     _text(data.get("paper_type"), "paper_type", errors)
     _text(data.get("reader_conclusion"), "reader_conclusion", errors)
 
@@ -132,14 +161,17 @@ def validate_ledger(data: dict) -> list[str]:
         errors.append("claims must be a list")
         claims = []
 
-    if scope in {"in scope", "partially in scope"} and not (3 <= len(claims) <= 5):
-        errors.append("in-scope ledgers must contain 3 to 5 claims")
-    if scope == "out of scope" and claims:
-        errors.append("out-of-scope ledgers must use an empty claims list")
-    if scope == "out of scope":
+    if scope == "out of scope" or viability == "non-auditable":
+        if claims:
+            errors.append("out-of-scope or non-auditable ledgers must use an empty claims list")
         _text(data.get("not_applicable_reason"), "not_applicable_reason", errors)
+    elif viability == "auditable":
+        if not (3 <= len(claims) <= 5):
+            errors.append("auditable ledgers must contain 3 to 5 claims")
+    elif viability == "partially auditable":
+        if not (1 <= len(claims) <= 5):
+            errors.append("partially auditable ledgers must contain 1 to 5 reconstructable claims")
 
-    seen_nodes: set[str] = set()
     rendered_support = []
     for index, claim in enumerate(claims, start=1):
         if not isinstance(claim, dict):
@@ -177,13 +209,17 @@ def validate_ledger(data: dict) -> list[str]:
             nodes = []
         normalized_nodes = []
         for node in nodes:
-            if not isinstance(node, str) or not node.startswith("E") or not node[1:].isdigit() or int(node[1:]) < 1:
+            if (
+                not isinstance(node, str)
+                or not node.startswith("E")
+                or not node[1:].isdigit()
+                or int(node[1:]) < 1
+            ):
                 errors.append(f"claim {index}: invalid evidence node {node!r}")
                 continue
             if node in normalized_nodes:
                 errors.append(f"claim {index}: duplicate evidence node {node}")
             normalized_nodes.append(node)
-            seen_nodes.add(node)
 
         upstream = support.get("upstream_claims", [])
         if not isinstance(upstream, list) or not all(isinstance(x, int) for x in upstream):
@@ -281,17 +317,26 @@ def _join_upstream(upstream: list[int]) -> str:
     return " + ".join(f"C{i}" for i in upstream)
 
 
+def _join_viability_flags(flags: list[str]) -> str:
+    return "none" if not flags else " + ".join(flags)
+
+
 def render(data: dict) -> str:
     errors = validate_ledger(data)
     if errors:
         raise ValueError("\n".join(errors))
 
     scope = data["scope_status"]
+    viability = data["evidence_viability"]
+    no_claim_audit = scope == "out of scope" or viability == "non-auditable"
+
     lines = [
         "# reader-side paper audit",
         "",
         "## 1. reader conclusion",
         f"- scope status: {scope}",
+        f"- evidence viability: {viability}",
+        f"- viability flags: {_join_viability_flags(data['viability_flags'])}",
         f"- paper type: {data['paper_type'].strip()}",
         "",
         data["reader_conclusion"].strip(),
@@ -300,9 +345,16 @@ def render(data: dict) -> str:
         "",
     ]
 
-    if scope == "out of scope":
+    if no_claim_audit:
         reason = data["not_applicable_reason"].strip()
-        lines.extend([f"not applicable — {reason}", "", "## 3. evidence and support", "", f"not applicable — {reason}", ""])
+        lines.extend([
+            f"not applicable — {reason}",
+            "",
+            "## 3. evidence and support",
+            "",
+            f"not applicable — {reason}",
+            "",
+        ])
     else:
         for index, claim in enumerate(data["claims"], start=1):
             lines.extend([
