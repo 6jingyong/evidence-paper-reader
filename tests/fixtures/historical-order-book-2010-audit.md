@@ -33,6 +33,7 @@ The most robust result is a strong short-horizon linear association between orde
 ### claim 1
 - evidence type: administrative or transactional record + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: partially independent convergence
 - source location: Section 3, especially the April 2010 TAQ sample description, regression equation, Figure 2, and Table 2
 - support level: sufficient
@@ -42,6 +43,7 @@ The most robust result is a strong short-horizon linear association between orde
 ### claim 2
 - evidence type: administrative or transactional record + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E1 + E3
 - evidence dependence: partially independent convergence
 - source location: abstract, Section 3.2, and the paper's footnote discussing possible tautology in the OFI regression
 - support level: partial
@@ -51,6 +53,7 @@ The most robust result is a strong short-horizon linear association between orde
 ### claim 3
 - evidence type: administrative or transactional record + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E4 + E5
 - evidence dependence: partially independent convergence
 - source location: depth regressions, robustness analyses across stocks, half-hour intervals, and alternative aggregation scales
 - support level: sufficient
@@ -60,6 +63,7 @@ The most robust result is a strong short-horizon linear association between orde
 ### claim 4
 - evidence type: administrative or transactional record + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: shared-source convergence
 - source location: sample description and broad robustness/generalization language in the abstract and conclusion
 - support level: insufficient
