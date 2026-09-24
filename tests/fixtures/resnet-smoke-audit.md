@@ -33,6 +33,7 @@ The most durable value is the controlled comparison between plain and residual n
 ### claim 1
 - evidence type: computational benchmark
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: Figure 4 and Table 2; ImageNet experiments, paper page 5
 - support level: sufficient
 - reason: The 34-layer residual model has lower training error and lower validation error than the matched 34-layer plain network while the comparison keeps depth, width, parameter count, and computational cost closely matched. This directly supports the bounded optimization claim for the tested setup.
@@ -41,6 +42,7 @@ The most durable value is the controlled comparison between plain and residual n
 ### claim 2
 - evidence type: computational benchmark
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: Tables 3-6 and Figure 6; ImageNet and CIFAR-10 experiments, paper pages 6-8
 - support level: sufficient
 - reason: Deeper residual models improve accuracy across several tested depths on ImageNet and up through the 110-layer CIFAR-10 model. The 1202-layer CIFAR-10 result is worse than the 110-layer result, so the evidence supports that depth can help under residual learning, not that more depth is monotonically better.
@@ -49,6 +51,7 @@ The most durable value is the controlled comparison between plain and residual n
 ### claim 3
 - evidence type: computational benchmark + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: Section 3.1 and Figure 7; paper pages 3 and 8
 - support level: partial
 - reason: The response-magnitude analysis is consistent with learned residual functions being closer to zero, but it does not isolate that property as the causal reason optimization improves. The preconditioning explanation remains an interpretation layered onto the observed benchmark behavior.
@@ -57,6 +60,7 @@ The most durable value is the controlled comparison between plain and residual n
 ### claim 4
 - evidence type: computational benchmark + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: Section 4.3 and Tables 7-8; paper page 8, plus the generality statement near the end of the introduction
 - support level: insufficient
 - reason: Detection experiments show useful transfer within vision, but a few vision tasks do not establish a generic principle across domains, and the paper presents no non-vision evaluation. The broadest part of the claim outruns the demonstrated evidence.
