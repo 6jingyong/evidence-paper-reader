@@ -14,6 +14,9 @@ DEPENDENCE_REF = ROOT / "evidence-paper-reader" / "references" / "evidence-depen
 CLAIM_LINKS_REF = ROOT / "evidence-paper-reader" / "references" / "claim-evidence-links.md"
 CLAIM_DEPENDENCIES_REF = ROOT / "evidence-paper-reader" / "references" / "claim-dependencies.md"
 FIGURE_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "figure-and-table-traps.md"
+STATISTICAL_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "statistical-traps.md"
+MEASUREMENT_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "measurement-traps.md"
+STUDY_DESIGN_TRAPS_REF = ROOT / "evidence-paper-reader" / "references" / "study-design-traps.md"
 ECHINACEA_FIXTURE = ROOT / "tests" / "fixtures" / "historical-echinacea-2010-audit.md"
 AKT_FIXTURE = ROOT / "tests" / "fixtures" / "historical-akt-inos-2010-audit.md"
 BMD_REPLICATION_FIXTURE = ROOT / "tests" / "fixtures" / "historical-bmd-gwas-replication-2010-audit.md"
@@ -37,6 +40,9 @@ class SkillContractTests(unittest.TestCase):
         cls.claim_links_ref = CLAIM_LINKS_REF.read_text(encoding="utf-8")
         cls.claim_dependencies_ref = CLAIM_DEPENDENCIES_REF.read_text(encoding="utf-8")
         cls.figure_traps_ref = FIGURE_TRAPS_REF.read_text(encoding="utf-8")
+        cls.statistical_traps_ref = STATISTICAL_TRAPS_REF.read_text(encoding="utf-8")
+        cls.measurement_traps_ref = MEASUREMENT_TRAPS_REF.read_text(encoding="utf-8")
+        cls.study_design_traps_ref = STUDY_DESIGN_TRAPS_REF.read_text(encoding="utf-8")
         cls.allowed = validate_audit.evidence_labels(cls.evidence)
 
     def test_fixed_output_sections_are_unique_and_ordered(self):
@@ -181,6 +187,56 @@ class SkillContractTests(unittest.TestCase):
             self.assertIn(phrase, self.figure_traps_ref)
         self.assertIn("Treat figures and tables as evidence objects", self.skill)
         self.assertIn("visual impression overreach", self.pollution)
+
+    def test_methodological_world_knowledge_is_modular_and_bounded(self):
+        self.assertIn("Methodological knowledge boundary", self.skill)
+        self.assertIn("Do not run every methodological trap on every paper.", self.skill)
+        self.assertIn("Do not use generic field knowledge to overwrite a paper-local result.", self.skill)
+        for ref in [
+            "references/statistical-traps.md",
+            "references/measurement-traps.md",
+            "references/study-design-traps.md",
+        ]:
+            self.assertIn(ref, self.skill)
+
+    def test_statistical_traps_cover_high_value_inference_failures(self):
+        for phrase in [
+            "Effect size before significance",
+            "Multiple testing and selection",
+            "Optional stopping and repeated looks",
+            "Regression to the mean",
+            "Significant in one group, not significant in another",
+            "Collider conditioning",
+            "Dependence and standard errors",
+            "Missing data",
+        ]:
+            self.assertIn(phrase, self.statistical_traps_ref)
+
+    def test_measurement_traps_cover_validity_and_instrument_failures(self):
+        for phrase in [
+            "Reliability versus validity",
+            "Calibration and drift",
+            "Limit of detection and quantification",
+            "Saturation, ceiling, and floor effects",
+            "Batch, lot, and operator effects",
+            "Specificity and cross-reactivity",
+            "Surrogate endpoints",
+            "Preprocessing dependence",
+        ]:
+            self.assertIn(phrase, self.measurement_traps_ref)
+
+    def test_study_design_traps_cover_identification_failures(self):
+        for phrase in [
+            "Unit of assignment versus unit of analysis",
+            "Before-after without a concurrent control",
+            "Attrition and informative censoring",
+            "Immortal-time and time-alignment bias",
+            "Difference-in-differences and interrupted time series",
+            "Instrumental-variable and natural-experiment designs",
+            "Benchmark and ML design",
+            "Temporal leakage",
+        ]:
+            self.assertIn(phrase, self.study_design_traps_ref)
 
     def test_validator_rejects_malformed_evidence_nodes(self):
         text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
