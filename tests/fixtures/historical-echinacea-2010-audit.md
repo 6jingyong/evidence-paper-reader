@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: randomized controlled clinical intervention trial
 
 The trial directly supports a narrow conclusion that the blinded echinacea-versus-placebo comparisons did not reach conventional statistical significance for global cold severity or illness duration in this sample. It does not support the stronger statement that echinacea has been shown to have zero or no clinically meaningful effect: the confidence intervals still include potentially relevant benefit, and the authors explicitly note that higher-than-expected variability limited power to detect small but potentially important effects. The observed point estimates trend toward benefit, but those trends are also not sufficient evidence of efficacy. This skill can audit those evidentiary distinctions without turning the result into patient-specific treatment advice. The paper is mainly useful as an RCT result and null-result interpretation reference.
