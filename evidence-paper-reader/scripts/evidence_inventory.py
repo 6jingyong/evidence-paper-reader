@@ -73,6 +73,7 @@ TEMPLATE = {
             "reason": "",
         }
     ],
+    "unresolved_claims": [],
 }
 
 
@@ -224,6 +225,8 @@ def validate_inventory(data: dict) -> list[str]:
     if not isinstance(promotions, list):
         errors.append("promotions must be a list")
         promotions = []
+    if viability in {"auditable", "partially auditable"} and not promotions:
+        errors.append(f"{viability} inventory must contain at least one promoted evidence node")
     if viability == "non-auditable" and promotions:
         errors.append("non-auditable inventory must not contain promotions")
 
@@ -273,6 +276,44 @@ def validate_inventory(data: dict) -> list[str]:
     if len(evidence_ids) != len(set(evidence_ids)):
         errors.append("evidence node ids must be unique")
 
+    unresolved = data.get("unresolved_claims")
+    if not isinstance(unresolved, list):
+        errors.append("unresolved_claims must be a list")
+        unresolved = []
+    unresolved_ids = []
+    for i, item in enumerate(unresolved, start=1):
+        if not isinstance(item, dict):
+            errors.append(f"unresolved claim {i} must be an object")
+            continue
+        cid = item.get("claim_id")
+        if cid not in claim_ids:
+            errors.append(f"unresolved claim {i}: unknown claim_id {cid!r}")
+        else:
+            unresolved_ids.append(cid)
+        _nonempty(item.get("reason"), f"unresolved claim {i}.reason", errors)
+    if len(unresolved_ids) != len(set(unresolved_ids)):
+        errors.append("unresolved claim ids must be unique")
+    if viability == "non-auditable" and unresolved:
+        errors.append("non-auditable inventory must not invent claim-specific unresolved entries")
+
+    covered_claims = set()
+    for promotion in promotions:
+        for rid in promotion.get("record_ids", []):
+            record = record_by_id.get(rid)
+            if record:
+                covered_claims.update(record.get("claim_refs", []))
+
+    overlap = covered_claims & set(unresolved_ids)
+    if overlap:
+        errors.append(
+            "claims cannot be both promoted and unresolved: " + ", ".join(sorted(overlap))
+        )
+    for cid in claim_ids:
+        if cid not in covered_claims and cid not in unresolved_ids:
+            errors.append(
+                f"{cid}: claim has neither promoted evidence nor an unresolved_claims entry"
+            )
+
     return errors
 
 
@@ -284,7 +325,7 @@ def compact_summary(data: dict) -> str:
     record_by_id = {r["record_id"]: r for r in data["records"]}
     lines = [
         f"evidence viability: {data['evidence_viability']}",
-        f"claims: {len(data['claims'])}; records: {len(data['records'])}; evidence nodes: {len(data['promotions'])}",
+        f"claims: {len(data['claims'])}; records: {len(data['records'])}; evidence nodes: {len(data['promotions'])}; unresolved: {len(data.get('unresolved_claims', []))}",
     ]
 
     for claim in data["claims"]:
@@ -295,7 +336,14 @@ def compact_summary(data: dict) -> str:
             if any(cid in record_by_id[rid]["claim_refs"] for rid in p["record_ids"])
         ]
         if not related:
-            lines.append("- no promoted evidence node")
+            unresolved = {
+                item["claim_id"]: item["reason"]
+                for item in data.get("unresolved_claims", [])
+            }
+            if cid in unresolved:
+                lines.append(f"- unresolved retrieval gap: {unresolved[cid]}")
+            else:
+                lines.append("- no promoted evidence node")
             continue
         for p in related:
             rids = p["record_ids"]
