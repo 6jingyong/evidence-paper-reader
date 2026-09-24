@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: experimental materials-science paper
 
 The most reliable content is the measured phase evolution, tensile-property table, and hardness measurements across the tested Al additions. Those results support a bounded picture in which Al addition raises yield strength, sharply reduces elongation, and increases the BCC fraction within an FCC matrix over the tested range. The paper's summary prose is less reliable than its own displayed/measured results in two places: the reported hardness values do not increase continuously, and the highest tested Al condition is still described in the results as FCC+BCC rather than a demonstrated single BCC phase. The stronger B2/NiAl embrittlement mechanism also reaches beyond what the reported phase-identification evidence alone establishes. This paper is mainly useful as a result reference and as a regression case for internal-consistency checking.
