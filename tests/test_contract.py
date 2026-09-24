@@ -10,6 +10,7 @@ SKILL = SKILL_DIR / "SKILL.md"
 EVIDENCE_TYPES = REFS / "evidence-types.md"
 CORE_CONTRACT = REFS / "core-contract.md"
 OUTPUT_CONTRACT = REFS / "output-contract.md"
+AUDIT_LEDGER_FORMAT = REFS / "audit-ledger-format.md"
 METHOD_ROUTER = REFS / "method-router.md"
 DOMAIN_PROFILES = REFS / "domain-profiles.md"
 FOLLOW_UP = REFS / "follow-up-boundaries.md"
@@ -24,6 +25,8 @@ MEASUREMENT_TRAPS_REF = REFS / "measurement-traps.md"
 STUDY_DESIGN_TRAPS_REF = REFS / "study-design-traps.md"
 FALSE_POSITIVE_GUARDS_REF = REFS / "false-positive-guards.md"
 ROUTER_SCRIPT = SCRIPTS / "suggest_modules.py"
+RENDERER_SCRIPT = SCRIPTS / "render_audit.py"
+PACKAGED_VALIDATOR_SCRIPT = SCRIPTS / "validate_audit.py"
 
 FIXTURES = sorted((ROOT / "tests" / "fixtures").glob("*-audit.md"))
 RESNET_FIXTURE = ROOT / "tests" / "fixtures" / "resnet-smoke-audit.md"
@@ -50,8 +53,9 @@ def load_module(name: str, path: Path):
     return module
 
 
-validate_audit = load_module("validate_audit", ROOT / "tests" / "validate_audit.py")
+validate_audit = load_module("validate_audit", PACKAGED_VALIDATOR_SCRIPT)
 suggest_modules = load_module("suggest_modules", ROUTER_SCRIPT)
+render_audit = load_module("render_audit", RENDERER_SCRIPT)
 
 
 class SkillContractTests(unittest.TestCase):
@@ -61,6 +65,7 @@ class SkillContractTests(unittest.TestCase):
         cls.evidence = EVIDENCE_TYPES.read_text(encoding="utf-8")
         cls.core = CORE_CONTRACT.read_text(encoding="utf-8")
         cls.output = OUTPUT_CONTRACT.read_text(encoding="utf-8")
+        cls.ledger_format = AUDIT_LEDGER_FORMAT.read_text(encoding="utf-8")
         cls.router = METHOD_ROUTER.read_text(encoding="utf-8")
         cls.domains = DOMAIN_PROFILES.read_text(encoding="utf-8")
         cls.follow_up = FOLLOW_UP.read_text(encoding="utf-8")
@@ -81,6 +86,7 @@ class SkillContractTests(unittest.TestCase):
         for ref in [
             "references/core-contract.md",
             "references/output-contract.md",
+            "references/audit-ledger-format.md",
             "references/evidence-types.md",
             "references/method-router.md",
         ]:
@@ -114,7 +120,7 @@ class SkillContractTests(unittest.TestCase):
             self.assertIn(phrase, self.core)
 
     def test_router_separates_mandatory_and_optional_context(self):
-        for ref in ["core-contract.md", "output-contract.md", "evidence-types.md"]:
+        for ref in ["core-contract.md", "evidence-types.md", "audit-ledger-format.md", "output-contract.md"]:
             self.assertIn(ref, self.router)
         for ref in [
             "figure-and-table-traps.md",
@@ -152,6 +158,106 @@ class SkillContractTests(unittest.TestCase):
         )
         self.assertEqual(flash_result["recommended_path"], "flash")
         self.assertLess(flash_result["primary_module_count"], 3)
+        self.assertEqual(flash_result["render_with"], "render_audit.py")
+        self.assertEqual(flash_result["validate_with"], "validate_audit.py")
+
+    def test_renderer_turns_structured_ledger_into_valid_markdown(self):
+        ledger = {
+            "scope_status": "in scope",
+            "paper_type": "computational benchmark study",
+            "reader_conclusion": "The paper supports a bounded performance claim but not a broad mechanism claim.",
+            "claims": [
+                {
+                    "content": "Method A improves benchmark accuracy on dataset X.",
+                    "claim_type": "performance",
+                    "conclusion_strength": "medium",
+                    "support": {
+                        "evidence_type": ["computational benchmark", "statistical analysis"],
+                        "evidence_provenance": "paper-local",
+                        "evidence_nodes": ["E1", "E2"],
+                        "upstream_claims": [],
+                        "evidence_dependence": "shared-source convergence",
+                        "source_location": "Results; Table 2",
+                        "support_level": "sufficient",
+                        "reason": "The held-out benchmark comparison directly supports the bounded performance claim.",
+                        "external_dependency": "none",
+                    },
+                },
+                {
+                    "content": "The gain is caused by component B.",
+                    "claim_type": "mechanistic",
+                    "conclusion_strength": "strong",
+                    "support": {
+                        "evidence_type": ["computational benchmark"],
+                        "evidence_provenance": "paper-local",
+                        "evidence_nodes": ["E1", "E2"],
+                        "upstream_claims": [1],
+                        "evidence_dependence": "shared-source convergence",
+                        "source_location": "Ablation section",
+                        "support_level": "partial",
+                        "reason": "The ablation is compatible with the mechanism but does not uniquely establish it.",
+                        "external_dependency": "none",
+                    },
+                },
+                {
+                    "content": "The method generalizes beyond dataset X.",
+                    "claim_type": "generality",
+                    "conclusion_strength": "strong",
+                    "support": {
+                        "evidence_type": ["computational benchmark"],
+                        "evidence_provenance": "paper-local",
+                        "evidence_nodes": ["E3"],
+                        "upstream_claims": [1],
+                        "evidence_dependence": "single-source",
+                        "source_location": "Results; Dataset Y",
+                        "support_level": "partial",
+                        "reason": "One additional dataset broadens the result but does not establish universal generality.",
+                        "external_dependency": "none",
+                    },
+                },
+            ],
+            "usable": {
+                "results": "The benchmark estimates are usable.",
+                "methods_or_design": "The held-out comparison is reusable.",
+                "materials_or_documentation": "Dataset and evaluation details are documented.",
+            },
+            "downweight": {
+                "worth_noticing": "The ablation is suggestive rather than decisive.",
+                "cautious_or_ignore": "Do not convert two datasets into universal generality.",
+            },
+            "value_breakdown": {
+                "result": "high",
+                "method": "high",
+                "theory_or_insight": "medium",
+                "research_design": "high",
+                "material_or_documentation": "high",
+            },
+            "uncertainty_and_follow_up": "Independent-domain replication would test generality.",
+        }
+        self.assertEqual(render_audit.validate_ledger(ledger), [])
+        markdown = render_audit.render(ledger)
+        self.assertIn("### claim 1", markdown)
+        self.assertIn("- evidence nodes: E1 + E2", markdown)
+        self.assertIn("- upstream claims: C1", markdown)
+        self.assertEqual(validate_audit.validate(markdown, self.allowed), [])
+
+    def test_renderer_rejects_structural_shortcuts(self):
+        ledger = dict(render_audit.TEMPLATE)
+        ledger["claims"] = ledger["claims"][:2]
+        errors = render_audit.validate_ledger(ledger)
+        self.assertTrue(any("3 to 5 claims" in error for error in errors), errors)
+
+    def test_output_format_is_script_owned_when_runtime_exists(self):
+        for phrase in [
+            "structured JSON ledger",
+            "claim numbering",
+            "evidence-node formatting",
+            "upstream-claim formatting",
+            "Rendering is mechanical. Scientific judgment is not.",
+        ]:
+            self.assertIn(phrase, self.ledger_format)
+        self.assertIn("scripts/render_audit.py", self.skill)
+        self.assertIn("scripts/validate_audit.py", self.skill)
 
     def test_flash_path_cannot_be_used_as_a_shortcut(self):
         for phrase in [
