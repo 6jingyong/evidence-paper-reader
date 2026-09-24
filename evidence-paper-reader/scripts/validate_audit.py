@@ -24,6 +24,19 @@ PROVENANCE = {"paper-local", "external citation", "mixed"}
 DEPENDENCE = {"single-source", "shared-source convergence", "partially independent convergence", "independent convergence", "unclear"}
 VALUE_LEVELS = {"high", "medium", "low", "unclear"}
 SCOPE_STATUSES = {"in scope", "partially in scope", "out of scope"}
+VIABILITY = {"auditable", "partially auditable", "non-auditable"}
+VIABILITY_FLAGS = {
+    "critical-method-omission",
+    "critical-result-omission",
+    "missing-comparator",
+    "selective-success-only",
+    "self-referential-construct",
+    "circular-validation",
+    "demo-only",
+    "proprietary-black-box",
+    "external-dependency-dominant",
+    "promotional-asymmetry",
+}
 EVIDENCE_NODES_PATTERN = re.compile(r"^E[1-9]\d*(?: \+ E[1-9]\d*)*$")
 UPSTREAM_CLAIMS_PATTERN = re.compile(r"^C[1-9]\d*(?: \+ C[1-9]\d*)*$")
 VALUE_FIELDS = [
@@ -48,6 +61,12 @@ def _section(text: str, heading: str, next_heading: str | None) -> str:
 def _field_values(block: str, field: str) -> list[str]:
     pattern = rf"^- {re.escape(field)}:\s*(.+?)\s*$"
     return re.findall(pattern, block, flags=re.MULTILINE)
+
+
+def _parse_viability_flags(value: str) -> list[str]:
+    if value == "none":
+        return []
+    return [part.strip() for part in value.split(" + ")]
 
 
 def validate(text: str, allowed_evidence: set[str]) -> list[str]:
@@ -75,23 +94,53 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
     }
 
     conclusion = sections[SECTION_HEADINGS[0]]
+
     scope_values = _field_values(conclusion, "scope status")
     if len(scope_values) != 1 or scope_values[0] not in SCOPE_STATUSES:
         errors.append("section 1 must contain exactly one valid scope status")
+    scope = scope_values[0] if len(scope_values) == 1 else None
+
+    viability_values = _field_values(conclusion, "evidence viability")
+    if len(viability_values) != 1 or viability_values[0] not in VIABILITY:
+        errors.append("section 1 must contain exactly one valid evidence viability")
+    viability = viability_values[0] if len(viability_values) == 1 else None
+
+    flag_values = _field_values(conclusion, "viability flags")
+    parsed_flags: list[str] = []
+    if len(flag_values) != 1:
+        errors.append("section 1 must contain exactly one viability flags field")
+    else:
+        parsed_flags = _parse_viability_flags(flag_values[0])
+        if len(parsed_flags) != len(set(parsed_flags)):
+            errors.append("viability flags must not contain duplicates")
+        unknown_flags = [flag for flag in parsed_flags if flag not in VIABILITY_FLAGS]
+        if unknown_flags:
+            errors.append(f"unknown viability flag(s): {', '.join(unknown_flags)}")
+        if viability in {"partially auditable", "non-auditable"} and not parsed_flags:
+            errors.append(f"{viability} requires at least one viability flag")
+
     if len(_field_values(conclusion, "paper type")) != 1:
         errors.append("section 1 must contain exactly one paper type")
 
-    scope = scope_values[0] if len(scope_values) == 1 else None
     claims = sections[SECTION_HEADINGS[1]]
     support = sections[SECTION_HEADINGS[2]]
 
     claim_headers = re.findall(r"^### claim (\d+)\s*$", claims, flags=re.MULTILINE)
     support_headers = re.findall(r"^### claim (\d+)\s*$", support, flags=re.MULTILINE)
 
-    if scope in {"in scope", "partially in scope"}:
+    no_claim_audit = scope == "out of scope" or viability == "non-auditable"
+
+    if no_claim_audit:
+        if claim_headers or support_headers:
+            errors.append("out-of-scope or non-auditable audits must not contain claim blocks")
+        if "not applicable" not in claims.lower() or "not applicable" not in support.lower():
+            errors.append("out-of-scope or non-auditable audits must mark sections 2 and 3 not applicable")
+    elif scope in {"in scope", "partially in scope"} and viability in {"auditable", "partially auditable"}:
         expected = [str(i) for i in range(1, len(claim_headers) + 1)]
-        if not (3 <= len(claim_headers) <= 5):
-            errors.append("in-scope audits must contain 3 to 5 core claims")
+        if viability == "auditable" and not (3 <= len(claim_headers) <= 5):
+            errors.append("auditable audits must contain 3 to 5 core claims")
+        if viability == "partially auditable" and not (1 <= len(claim_headers) <= 5):
+            errors.append("partially auditable audits must contain 1 to 5 reconstructable claims")
         if claim_headers != expected:
             errors.append("core claim numbering must be sequential from 1")
         if support_headers != claim_headers:
@@ -117,6 +166,7 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
         dependencies = _field_values(support, "external dependency")
         evidence_values = _field_values(support, "evidence type")
         reasons = _field_values(support, "reason")
+
         for field, values in [
             ("evidence type", evidence_values),
             ("evidence provenance", provenances),
@@ -134,6 +184,7 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
         for value in provenances:
             if value not in PROVENANCE:
                 errors.append(f"invalid evidence provenance: {value}")
+
         parsed_nodes = []
         for value in evidence_nodes:
             if not EVIDENCE_NODES_PATTERN.fullmatch(value):
@@ -159,14 +210,13 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
                 errors.append(f"duplicate upstream claim within one support block: {value}")
             numbers = [int(ref[1:]) for ref in refs]
             if any(number >= index for number in numbers):
-                errors.append(
-                    f"claim {index}: upstream claims must reference earlier claims only"
-                )
+                errors.append(f"claim {index}: upstream claims must reference earlier claims only")
             parsed_upstream.append(numbers)
 
         for value in dependence:
             if value not in DEPENDENCE:
                 errors.append(f"invalid evidence dependence: {value}")
+
         if len(dependence) == len(parsed_nodes) == len(claim_headers):
             for index, (dep, nodes) in enumerate(zip(dependence, parsed_nodes), start=1):
                 if dep in {
@@ -178,9 +228,7 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
                         f"claim {index}: convergence dependence requires at least two evidence nodes"
                     )
 
-        if (
-            len(parsed_upstream) == len(parsed_nodes) == len(support_levels) == len(claim_headers)
-        ):
+        if len(parsed_upstream) == len(parsed_nodes) == len(support_levels) == len(claim_headers):
             for index, (upstream, nodes, level) in enumerate(
                 zip(parsed_upstream, parsed_nodes, support_levels), start=1
             ):
@@ -201,9 +249,11 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
         for value in support_levels:
             if value not in SUPPORT_LEVELS:
                 errors.append(f"invalid support level: {value}")
+
         for value in locations:
             if not value.strip():
                 errors.append("source location must not be empty")
+
         parsed_labels = []
         for value in evidence_values:
             labels = [part.strip() for part in value.split("+")]
@@ -224,9 +274,6 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
                     errors.append(
                         f"claim {index}: literature citation cannot be labeled paper-local"
                     )
-    elif scope == "out of scope":
-        if "not applicable" not in claims.lower() or "not applicable" not in support.lower():
-            errors.append("out-of-scope audits must mark sections 2 and 3 not applicable")
 
     usable = sections[SECTION_HEADINGS[3]]
     for subheading in [
