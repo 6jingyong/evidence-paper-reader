@@ -1,3 +1,4 @@
+import copy
 import importlib.util
 import unittest
 from pathlib import Path
@@ -73,7 +74,7 @@ class EvidenceViabilityTests(unittest.TestCase):
         self.assertEqual(validator.validate(text, self.allowed), [])
 
     def test_renderer_rejects_non_auditable_claim_manufacturing(self):
-        ledger = dict(renderer.TEMPLATE)
+        ledger = copy.deepcopy(renderer.TEMPLATE)
         ledger["evidence_viability"] = "non-auditable"
         ledger["viability_flags"] = ["critical-method-omission"]
         ledger["not_applicable_reason"] = "No reconstructable evidence chain."
@@ -81,14 +82,14 @@ class EvidenceViabilityTests(unittest.TestCase):
         self.assertTrue(any("empty claims list" in error for error in errors), errors)
 
     def test_renderer_requires_flags_for_partial_or_non_auditable(self):
-        partial = dict(renderer.TEMPLATE)
+        partial = copy.deepcopy(renderer.TEMPLATE)
         partial["evidence_viability"] = "partially auditable"
         partial["viability_flags"] = []
         errors = renderer.validate_ledger(partial)
         self.assertTrue(any("requires at least one viability flag" in error for error in errors), errors)
 
     def test_renderer_accepts_two_claim_partial_ledger(self):
-        ledger = dict(renderer.TEMPLATE)
+        ledger = copy.deepcopy(renderer.TEMPLATE)
         ledger["evidence_viability"] = "partially auditable"
         ledger["viability_flags"] = ["proprietary-black-box"]
         ledger["claims"] = renderer.TEMPLATE["claims"][:2]
