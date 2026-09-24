@@ -22,6 +22,8 @@ Use these labels to describe where a paper's narrative goes beyond its evidence.
 - **selection-conditioned evidence**: performance or effect size is reported for a filtered, retained, optimal, complete-case, or otherwise selected subset and then narrated as if it applied to the full sample, all configurations, or normal operating conditions
 - **pseudo-triangulation**: multiple figures, endpoints, models, technical repeats, or evidence types that share the same underlying sample, specimens, dataset, target, or dominant error source are narrated as if they were independent confirmations or replications
 - **claim stacking / evidence double-spending**: the same evidence node is reused to support progressively stronger or distinct claims—such as performance, mechanism, causality, and generality—without additional direct evidence for the added reach
+- **inference-chain laundering**: an uncertain upstream claim is treated as settled when used as a premise for a later claim, so uncertainty disappears as the narrative moves from observation to mechanism, causality, or generality
+- **visual impression overreach**: axis range, transformation, normalization, aggregation, smoothing, color scale, selected window, representative image, or other presentation choice creates a stronger visual impression than the underlying numerical comparison supports
 
 ## Usage rule
 Use the label only after you state the concrete mismatch in plain language.
