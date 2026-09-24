@@ -80,6 +80,12 @@ E3 can contribute materially independent evidence because it comes from U2.
       "record_ids": ["R1"],
       "reason": "Primary paper-local outcome result."
     }
+  ],
+  "unresolved_claims": [
+    {
+      "claim_id": "C2",
+      "reason": "No paper-local or inspected external evidence directly tests transfer beyond the enrolled population."
+    }
   ]
 }
 ```
@@ -207,15 +213,15 @@ This makes duplication mechanically visible before support judgment.
 
 ## Claim coverage
 
-Every decision-critical core claim should have at least one of:
+Every decision-critical core claim must have at least one of:
 
 - a promoted paper-local evidence node
 - a promoted external evidence node
-- an explicit statement that no reconstructable evidence candidate was found
+- an entry in `unresolved_claims` stating why no reconstructable evidence candidate was found
 
 Do not create an E node merely to avoid an empty claim.
 
-A claim with no reconstructable evidence may later receive `insufficient` or `unclear`.
+`unresolved_claims` is not a support judgment. It preserves a visible retrieval gap for the later audit, where the claim may receive `insufficient` or `unclear`.
 
 ## Missing materials
 
