@@ -1,0 +1,215 @@
+{
+  "benchmark_id": "claim-selection-12-v1",
+  "cases": [
+    {
+      "case_id": "CS01",
+      "viability": "auditable",
+      "required": [
+        "K1",
+        "K2"
+      ],
+      "optional": [
+        "K5"
+      ],
+      "forbidden": [
+        "K3",
+        "K4"
+      ],
+      "narrowing_pairs": [
+        [
+          "K2",
+          "K1"
+        ]
+      ]
+    },
+    {
+      "case_id": "CS02",
+      "viability": "auditable",
+      "required": [
+        "K1",
+        "K2",
+        "K3"
+      ],
+      "optional": [],
+      "forbidden": [
+        "K4",
+        "K5"
+      ],
+      "narrowing_pairs": [
+        [
+          "K2",
+          "K5"
+        ]
+      ]
+    },
+    {
+      "case_id": "CS03",
+      "viability": "auditable",
+      "required": [
+        "K1",
+        "K3"
+      ],
+      "optional": [
+        "K5"
+      ],
+      "forbidden": [
+        "K2",
+        "K4"
+      ],
+      "narrowing_pairs": []
+    },
+    {
+      "case_id": "CS04",
+      "viability": "auditable",
+      "required": [
+        "K1",
+        "K2"
+      ],
+      "optional": [],
+      "forbidden": [
+        "K3",
+        "K4",
+        "K5"
+      ],
+      "narrowing_pairs": [
+        [
+          "K2",
+          "K5"
+        ]
+      ]
+    },
+    {
+      "case_id": "CS05",
+      "viability": "auditable",
+      "required": [
+        "K1",
+        "K2"
+      ],
+      "optional": [
+        "K5"
+      ],
+      "forbidden": [
+        "K3",
+        "K4"
+      ],
+      "narrowing_pairs": []
+    },
+    {
+      "case_id": "CS06",
+      "viability": "auditable",
+      "required": [
+        "K1",
+        "K2",
+        "K4"
+      ],
+      "optional": [],
+      "forbidden": [
+        "K3",
+        "K5"
+      ],
+      "narrowing_pairs": []
+    },
+    {
+      "case_id": "CS07",
+      "viability": "auditable",
+      "required": [
+        "K1",
+        "K2",
+        "K3"
+      ],
+      "optional": [
+        "K5"
+      ],
+      "forbidden": [
+        "K4"
+      ],
+      "narrowing_pairs": [
+        [
+          "K2",
+          "K4"
+        ]
+      ]
+    },
+    {
+      "case_id": "CS08",
+      "viability": "auditable",
+      "required": [
+        "K1",
+        "K2",
+        "K3"
+      ],
+      "optional": [
+        "K5"
+      ],
+      "forbidden": [
+        "K4"
+      ],
+      "narrowing_pairs": [
+        [
+          "K3",
+          "K5"
+        ]
+      ]
+    },
+    {
+      "case_id": "CS09",
+      "viability": "non-auditable",
+      "required": [],
+      "optional": [],
+      "forbidden": [
+        "K1",
+        "K2",
+        "K3",
+        "K4",
+        "K5"
+      ],
+      "narrowing_pairs": []
+    },
+    {
+      "case_id": "CS10",
+      "viability": "non-auditable",
+      "required": [],
+      "optional": [],
+      "forbidden": [
+        "K1",
+        "K2",
+        "K3",
+        "K4",
+        "K5"
+      ],
+      "narrowing_pairs": []
+    },
+    {
+      "case_id": "CS11",
+      "viability": "partially auditable",
+      "required": [
+        "K1"
+      ],
+      "optional": [
+        "K2",
+        "K4"
+      ],
+      "forbidden": [
+        "K3",
+        "K5"
+      ],
+      "narrowing_pairs": []
+    },
+    {
+      "case_id": "CS12",
+      "viability": "auditable",
+      "required": [
+        "K1",
+        "K2"
+      ],
+      "optional": [
+        "K5"
+      ],
+      "forbidden": [
+        "K3",
+        "K4"
+      ],
+      "narrowing_pairs": []
+    }
+  ]
+}
