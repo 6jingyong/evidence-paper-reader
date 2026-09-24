@@ -1,5 +1,7 @@
 # Output contract
 
+This is the manual rendering fallback and the canonical Markdown reference. When Python is available, prefer `scripts/render_audit.py` with `references/audit-ledger-format.md` so the model does not spend context or attention on formatting.
+
 Use this exact top-level section order.
 
 # reader-side paper audit
