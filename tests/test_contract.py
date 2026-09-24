@@ -85,8 +85,11 @@ class SkillContractTests(unittest.TestCase):
             "references/method-router.md",
         ]:
             self.assertIn(ref, self.skill)
-        self.assertIn("Weak-model mode", self.skill)
+        self.assertIn("Flash path", self.skill)
+        self.assertIn("Full path", self.skill)
+        self.assertNotIn("Weak-model", self.skill)
         self.assertIn("Do not load every optional reference by default.", self.skill)
+        self.assertIn("Flash means less irrelevant context, not less work.", self.skill)
 
     def test_fixed_output_sections_are_unique_and_ordered_in_output_contract(self):
         positions = []
@@ -128,18 +131,40 @@ class SkillContractTests(unittest.TestCase):
             self.assertIn(ref, self.router)
         self.assertIn("Do not keep all optional references in context", self.router)
 
-    def test_router_script_is_advisory_and_selective(self):
-        result = suggest_modules.suggest_modules(
+    def test_router_script_is_advisory_selective_and_guarded(self):
+        complex_result = suggest_modules.suggest_modules(
             "Randomized trial with subgroup interaction, hazard ratio, "
             "biomarker assay below the limit of detection and a calibration curve."
         )
-        names = {item["module"] for item in result["suggested"]}
+        names = {item["module"] for item in complex_result["suggested"]}
         self.assertIn("statistical-traps.md", names)
         self.assertIn("measurement-traps.md", names)
         self.assertIn("study-design-traps.md", names)
         self.assertIn("false-positive-guards.md", names)
         self.assertNotIn("figure-and-table-traps.md", names)
-        self.assertIn("advisory only", result["warning"])
+        self.assertEqual(complex_result["recommended_path"], "full")
+        self.assertGreaterEqual(complex_result["primary_module_count"], 3)
+        self.assertIn("advisory only", complex_result["warning"])
+        self.assertIn("never lowers the audit contract", complex_result["warning"])
+
+        flash_result = suggest_modules.suggest_modules(
+            "Randomized trial reporting a hazard ratio for the primary outcome."
+        )
+        self.assertEqual(flash_result["recommended_path"], "flash")
+        self.assertLess(flash_result["primary_module_count"], 3)
+
+    def test_flash_path_cannot_be_used_as_a_shortcut(self):
+        for phrase in [
+            "does not lower the audit standard",
+            "reduce the required claim count",
+            "skip a routed module because it is inconvenient",
+            "Automatically switch to Full path",
+            "three or more primary methodological modules",
+            "Flash means less irrelevant context, not less work.",
+        ]:
+            self.assertIn(phrase, self.skill)
+        self.assertIn("Escalate to Full path", self.router)
+        self.assertIn("does not permit fewer claims", self.router)
 
     def test_domain_profiles_are_outside_skill_core(self):
         for heading in [
