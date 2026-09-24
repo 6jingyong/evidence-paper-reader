@@ -57,6 +57,62 @@ The current contract is intentionally stricter than a prose-only prompt:
 - false-positive guards that require trap cues to survive a mitigation check before they can downweight a claim
 - empirical finance, clinical/biomedical, and empirical-aesthetics coverage when the paper has a traceable evidence chain
 
+## Layered architecture
+
+The skill is intentionally split so weaker models do not need every rule in context at once.
+
+### Layer 0 — thin orchestrator
+`SKILL.md` contains only the stable workflow, mandatory boundaries, load order, and weak-model mode.
+
+It should stay small enough to read in full.
+
+### Layer 1 — always-loaded contract
+Every audit loads:
+- `references/core-contract.md`
+- `references/output-contract.md`
+- `references/evidence-types.md`
+
+These define the evidence graph, controlled values, support semantics, and exact output schema.
+
+### Layer 2 — routing
+`references/method-router.md` maps paper cues to optional modules.
+
+When plain paper text is available and Python can run, `scripts/suggest_modules.py` provides a lexical first-pass route. Its output is advisory: a cue means "inspect this module", never "a flaw exists".
+
+### Layer 3 — optional knowledge modules
+Only load modules that matter to decision-critical claims:
+- figures/tables
+- statistics
+- measurement
+- study design
+- topology
+- dependence
+- claim reuse/dependency
+- external follow-up
+- false-positive guards
+
+`references/domain-profiles.md` adds domain-specific emphasis without changing the output format.
+
+### Layer 4 — scripts and CI
+`tests/validate_audit.py` checks the mechanical output/graph contract.
+
+The regression suite tests semantic boundaries with historical, adversarial, and anti-trigger real-paper fixtures.
+
+The validator cannot replace scientific judgment; it removes bookkeeping and consistency work from the model.
+
+### Recommended weak-model workflow
+
+1. Read `SKILL.md`.
+2. Load only the three Layer-1 references.
+3. Extract scope and 3–5 core claims.
+4. Run or consult the router.
+5. Load only matched optional modules.
+6. Audit one claim at a time.
+7. Render using `output-contract.md`.
+8. Run `validate_audit.py`.
+
+This keeps context focused and makes the skill usable on models that cannot reliably hold the entire methodology library at once.
+
 ## Repository layout
 
 ```text
@@ -98,9 +154,13 @@ The current contract is intentionally stricter than a prose-only prompt:
     ├── SKILL.md
     ├── agents/
     │   └── openai.yaml
+    ├── scripts/
+    │   └── suggest_modules.py
     └── references/
         ├── claim-dependencies.md
         ├── claim-evidence-links.md
+        ├── core-contract.md
+        ├── domain-profiles.md
         ├── evidence-dependence.md
         ├── evidence-types.md
         ├── evidence-topology.md
@@ -108,10 +168,23 @@ The current contract is intentionally stricter than a prose-only prompt:
         ├── figure-and-table-traps.md
         ├── follow-up-boundaries.md
         ├── measurement-traps.md
+        ├── method-router.md
+        ├── output-contract.md
         ├── statistical-traps.md
         ├── study-design-traps.md
         └── pollution-patterns.md
 ```
+
+### Optional routing helper
+
+For plain extracted paper text:
+
+```bash
+python evidence-paper-reader/scripts/suggest_modules.py paper.txt
+python evidence-paper-reader/scripts/suggest_modules.py paper.txt --json
+```
+
+The helper only searches for methodological cues and suggests references to inspect. It never declares a bias or flaw; the model must verify the actual inference and any mitigation.
 
 ## Contract tests
 
@@ -125,6 +198,10 @@ for audit in tests/fixtures/*-audit.md; do python tests/validate_audit.py "$audi
 ```
 
 The tests verify, among other things, that:
+
+- `SKILL.md` remains a thin orchestrator rather than absorbing the knowledge library
+- mandatory versus optional references stay separated
+- the advisory router suggests relevant modules without treating lexical cues as findings
 
 - the seven output sections are present exactly once and in order
 - in-scope audits contain 3-5 sequential core claims
