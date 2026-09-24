@@ -33,6 +33,7 @@ The strongest results are descriptive and associational: the nationally represen
 ### claim 1
 - evidence type: survey record + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: partially independent convergence
 - source location: sample description and prevalence results comparing the 2019 and 2022 nationally representative samples
 - support level: sufficient
@@ -42,6 +43,7 @@ The strongest results are descriptive and associational: the nationally represen
 ### claim 2
 - evidence type: survey record + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E3
 - evidence dependence: single-source
 - source location: 2022 multivariable regression results for negative psychological states
 - support level: sufficient
@@ -51,6 +53,7 @@ The strongest results are descriptive and associational: the nationally represen
 ### claim 3
 - evidence type: survey record + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E3 + E4
 - evidence dependence: shared-source convergence
 - source location: title, regression results, and discussion language interpreting hyperconnection as harmful
 - support level: insufficient
@@ -60,6 +63,7 @@ The strongest results are descriptive and associational: the nationally represen
 ### claim 4
 - evidence type: survey record + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: partially independent convergence
 - source location: 2019-versus-2022 comparison and discussion attributing the change to the pandemic period
 - support level: partial
