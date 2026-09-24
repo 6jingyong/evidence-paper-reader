@@ -22,7 +22,8 @@ Default output language follows the user.
 
 Always load:
 1. `references/core-contract.md`
-2. `references/evidence-types.md`
+2. `references/evidence-viability.md`
+3. `references/evidence-types.md`
 
 For output:
 - when Python can run, load `references/audit-ledger-format.md` and use `scripts/render_audit.py`
@@ -38,11 +39,13 @@ Do not load every optional reference by default.
 
 ## Minimal workflow
 
-### Phase A — scope and claims
+### Phase A — scope, viability, and claims
 1. Inventory what is actually available: main text, figures/tables, supplement/appendix, references, data/code links.
-2. Decide scope: `in scope`, `partially in scope`, or `out of scope`.
-3. For in-scope papers, extract 3–5 core claims before judging them.
-4. Put prerequisite claims before downstream mechanism/causality/generality claims.
+2. Decide topical scope: `in scope`, `partially in scope`, or `out of scope`.
+3. Run `evidence-viability.md`: `auditable`, `partially auditable`, or `non-auditable`.
+4. Record any controlled viability flags.
+5. If auditable, extract 3–5 core claims. If partially auditable, extract only the 1–5 claims whose evidence chain can actually be reconstructed. If non-auditable, do not manufacture claims.
+6. Put prerequisite claims before downstream mechanism/causality/generality claims.
 
 ### Phase B — evidence ledger
 For each claim:
@@ -96,7 +99,7 @@ Prefer the structured renderer when available:
 
 If scripts cannot run, use `output-contract.md` exactly.
 
-For out-of-scope papers, keep the seven-section skeleton and use `not applicable` where appropriate.
+For out-of-scope or non-auditable material, keep the seven-section skeleton and use `not applicable` for sections 2 and 3 where appropriate.
 
 ## Mandatory boundaries
 
@@ -120,8 +123,8 @@ For medical papers, audit design and evidence only; do not convert the audit int
 Flash path is a staged-loading strategy for keeping context focused. It does not lower the audit standard.
 
 In Flash path:
-1. keep only `core-contract.md`, `evidence-types.md`, and the active output interface (`audit-ledger-format.md` with renderer, otherwise `output-contract.md`) loaded initially
-2. extract the full 3–5 core claims before support judgment
+1. keep only `core-contract.md`, `evidence-viability.md`, `evidence-types.md`, and the active output interface (`audit-ledger-format.md` with renderer, otherwise `output-contract.md`) loaded initially
+2. run the viability gate before claim extraction; do not force the full claim count for partially or non-auditable material
 3. run or consult the router
 4. load every optional module that a decision-critical claim actually requires
 5. audit one claim at a time
@@ -130,7 +133,7 @@ In Flash path:
 8. run `scripts/validate_audit.py` on the finished audit when a Python runtime is available
 
 Flash path must not:
-- reduce the required claim count
+- reduce the required claim count for material classified `auditable`
 - omit required output fields
 - skip a routed module because it is inconvenient
 - lower the evidence/support standard
