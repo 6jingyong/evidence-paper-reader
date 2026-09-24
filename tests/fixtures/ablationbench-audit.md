@@ -33,6 +33,7 @@ The most reusable contribution is the benchmark construction and the measured ga
 ### claim 1
 - evidence type: computational benchmark
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: benchmark construction and dataset sections; AuthorAblation and ReviewerAblation dataset statistics in the current arXiv version
 - support level: sufficient
 - reason: The paper directly documents the paper selection, extraction pipeline, benchmark instances, and evaluation setup used to define the two benchmark tracks. This supports the bounded claim that the benchmark implements a reproducible evaluation target, not that it perfectly captures all scientifically valuable ablations.
@@ -41,6 +42,7 @@ The most reusable contribution is the benchmark construction and the measured ga
 ### claim 2
 - evidence type: computational benchmark
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: main planner-results table and results discussion in the current arXiv version
 - support level: sufficient
 - reason: The reported benchmark results directly show that even the best evaluated system matches only a minority of author ablations. This is a benchmark-specific performance result and does not require a stronger claim about general scientific reasoning ability.
@@ -49,6 +51,7 @@ The most reusable contribution is the benchmark construction and the measured ga
 ### claim 3
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: human-baseline subsection; ten participants each evaluated one selected paper, with human F1@5 about 0.66 versus about 0.43 for GPT-5.4 on the same subset
 - support level: sufficient
 - reason: The paper directly reports the human evaluation and the matched model comparison. The evidence supports the stated result for this small selected subset but not a population-wide estimate of all expert researchers or all papers.
@@ -57,6 +60,7 @@ The most reusable contribution is the benchmark construction and the measured ga
 ### claim 4
 - evidence type: computational benchmark + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: planner comparison table and discussion comparing LM-Planner with Agent-Planner
 - support level: partial
 - reason: Several evaluated models favor the simpler planner and the aggregate discussion points in that direction, but GPT-5.4 is approximately tied across planner forms and model-specific results are not uniform. The evidence supports a bounded empirical tendency in this benchmark, not an intrinsic general advantage of one-step planning.
