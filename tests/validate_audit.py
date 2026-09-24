@@ -24,6 +24,7 @@ PROVENANCE = {"paper-local", "external citation", "mixed"}
 DEPENDENCE = {"single-source", "shared-source convergence", "partially independent convergence", "independent convergence", "unclear"}
 VALUE_LEVELS = {"high", "medium", "low", "unclear"}
 SCOPE_STATUSES = {"in scope", "partially in scope", "out of scope"}
+EVIDENCE_NODES_PATTERN = re.compile(r"^E[1-9]\\d*(?: \\+ E[1-9]\\d*)*$")
 VALUE_FIELDS = [
     "result value",
     "method value",
@@ -109,6 +110,7 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
         support_levels = _field_values(support, "support level")
         provenances = _field_values(support, "evidence provenance")
         dependence = _field_values(support, "evidence dependence")
+        evidence_nodes = _field_values(support, "evidence nodes")
         locations = _field_values(support, "source location")
         dependencies = _field_values(support, "external dependency")
         evidence_values = _field_values(support, "evidence type")
@@ -117,6 +119,7 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
             ("evidence type", evidence_values),
             ("evidence provenance", provenances),
             ("evidence dependence", dependence),
+            ("evidence nodes", evidence_nodes),
             ("source location", locations),
             ("support level", support_levels),
             ("reason", reasons),
@@ -128,9 +131,31 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
         for value in provenances:
             if value not in PROVENANCE:
                 errors.append(f"invalid evidence provenance: {value}")
+        parsed_nodes = []
+        for value in evidence_nodes:
+            if not EVIDENCE_NODES_PATTERN.fullmatch(value):
+                errors.append(f"invalid evidence nodes: {value}")
+                parsed_nodes.append([])
+                continue
+            nodes = value.split(" + ")
+            if len(nodes) != len(set(nodes)):
+                errors.append(f"duplicate evidence node within one support block: {value}")
+            parsed_nodes.append(nodes)
+
         for value in dependence:
             if value not in DEPENDENCE:
                 errors.append(f"invalid evidence dependence: {value}")
+        if len(dependence) == len(parsed_nodes) == len(claim_headers):
+            for index, (dep, nodes) in enumerate(zip(dependence, parsed_nodes), start=1):
+                if dep in {
+                    "shared-source convergence",
+                    "partially independent convergence",
+                    "independent convergence",
+                } and len(nodes) < 2:
+                    errors.append(
+                        f"claim {index}: convergence dependence requires at least two evidence nodes"
+                    )
+
         for value in support_levels:
             if value not in SUPPORT_LEVELS:
                 errors.append(f"invalid support level: {value}")
