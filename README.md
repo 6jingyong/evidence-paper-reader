@@ -239,10 +239,11 @@ The helper searches for methodological cues, suggests references to inspect, and
 
 ## Benchmarks
 
-Two non-core benchmark suites live under `benchmarks/`:
+Three non-core benchmark suites live under `benchmarks/`:
 
 - `tiered-source-40/`: 10 domains × 4 source/attention tiers; checks whether bounded evidence judgments can remain distinct from source prestige.
 - `metadata-halo-12/`: paired anonymous A/B packets with identical scientific content and metadata hidden vs visible; designed for isolated-context causal testing of prestige/attention halo.
+- `claim-selection-12/`: tests the pre-audit stage—core-claim recall, distractor selection, evidence-viability decisions, and especially silent narrowing of strong author claims into safer claims before support judgment.
 
 The second benchmark must be run in fresh independent model contexts. The development conversation itself is contaminated by knowing the pair mapping and reference expectations, so repository setup is not reported as a model result.
 
@@ -285,6 +286,8 @@ The tests verify, among other things, that:
 - statistical, measurement, and study-design trap references remain modular and explicitly bounded from domain-fact priors
 - adversarial fixtures trigger subgroup-interaction, detection-limit, regression-to-the-mean, benchmark-leakage, and technical-repeat checks without adding new output fields
 - anti-trigger fixtures verify that correctly mitigated subgroup, interim-analysis, LOD, pre/post, and technical-repeat cues do not cause automatic downweighting
+- evidence-viability fixtures distinguish auditable, partially auditable, and evidence-shaped non-auditable material
+- claim-selection benchmark tests required-claim recall, forbidden selections, silent narrowing, viability accuracy, and claim-count discipline
 
 GitHub Actions runs the same checks on pushes and pull requests.
 
