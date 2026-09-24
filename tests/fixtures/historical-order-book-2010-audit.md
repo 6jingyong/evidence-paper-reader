@@ -33,6 +33,7 @@ The most robust result is a strong short-horizon linear association between orde
 ### claim 1
 - evidence type: administrative or transactional record + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: Section 3, especially the April 2010 TAQ sample description, regression equation, Figure 2, and Table 2
 - support level: sufficient
 - reason: The paper analyzes one calendar month for 50 randomly selected S&P 500 constituents and reports an average R-squared near 65 percent for the OFI-price regression, with high statistical significance across the studied stocks.
@@ -41,6 +42,7 @@ The most robust result is a strong short-horizon linear association between orde
 ### claim 2
 - evidence type: administrative or transactional record + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: abstract, Section 3.2, and the paper's footnote discussing possible tautology in the OFI regression
 - support level: partial
 - reason: OFI is constructed from queue changes that include price-changing order-book events, so part of the contemporaneous explanatory power is mechanically linked to the outcome. The authors' decoupling check removes those events and lowers R-squared while retaining roughly 35-60 percent, supporting a substantial relation but not a clean causal "driven by" interpretation.
@@ -49,6 +51,7 @@ The most robust result is a strong short-horizon linear association between orde
 ### claim 3
 - evidence type: administrative or transactional record + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: depth regressions, robustness analyses across stocks, half-hour intervals, and alternative aggregation scales
 - support level: sufficient
 - reason: The paper directly reports the inverse depth relationship and repeated estimates across its stock/time subsamples. The claim is scoped to the analyzed sample and scales.
@@ -57,6 +60,7 @@ The most robust result is a strong short-horizon linear association between orde
 ### claim 4
 - evidence type: administrative or transactional record + statistical analysis + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: shared-source convergence
 - source location: sample description and broad robustness/generalization language in the abstract and conclusion
 - support level: insufficient
 - reason: The data cover 50 S&P 500 stocks during one calendar month in April 2010. Cross-stock and cross-timescale robustness within that sample does not establish invariance across market eras, crises, asset classes, venues, or microstructure regimes.
