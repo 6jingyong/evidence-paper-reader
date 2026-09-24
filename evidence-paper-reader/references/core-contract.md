@@ -63,6 +63,8 @@ Do not create a new ID merely because the same result appears in another figure,
 
 Evidence-node count is not evidence independence.
 
+For long or structurally complex papers, E nodes may be built through the optional `evidence-inventory-format.md` R/G/U intermediate layer. That layer is internal bookkeeping; the final audit still uses E nodes.
+
 ## 5. Claim dependencies
 
 Claims are ordered topologically.
