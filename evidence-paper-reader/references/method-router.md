@@ -15,6 +15,18 @@ Output interface:
 
 Load `domain-profiles.md` when the paper clearly belongs to one of its listed domains.
 
+## Evidence inventory trigger
+
+Use `evidence-inventory-format.md` + `scripts/evidence_inventory.py` when retrieval/deduplication itself is becoming a reasoning burden, especially when:
+- the same result is repeated across abstract/results/figures/tables/supplement
+- multiple cohorts, datasets, sites, experiments, or replications share some but not all source units
+- decision-critical evidence is split across main text and supplement/appendix
+- several claims reuse overlapping data or experiments
+- the paper is long enough that keeping all result text active would crowd out the audit contract
+
+Do not trigger the inventory path merely because the article has many pages. It should reduce ambiguity or active-context load.
+
+
 ## Route table
 
 ### Figures and tables
