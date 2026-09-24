@@ -21,6 +21,7 @@ CLAIM_TYPES = {"observational", "methodological", "mechanistic", "performance", 
 CONCLUSION_STRENGTHS = {"weak", "medium", "strong"}
 SUPPORT_LEVELS = {"sufficient", "partial", "insufficient", "unclear"}
 PROVENANCE = {"paper-local", "external citation", "mixed"}
+DEPENDENCE = {"single-source", "shared-source convergence", "partially independent convergence", "independent convergence", "unclear"}
 VALUE_LEVELS = {"high", "medium", "low", "unclear"}
 SCOPE_STATUSES = {"in scope", "partially in scope", "out of scope"}
 VALUE_FIELDS = [
@@ -107,6 +108,7 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
 
         support_levels = _field_values(support, "support level")
         provenances = _field_values(support, "evidence provenance")
+        dependence = _field_values(support, "evidence dependence")
         locations = _field_values(support, "source location")
         dependencies = _field_values(support, "external dependency")
         evidence_values = _field_values(support, "evidence type")
@@ -114,6 +116,7 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
         for field, values in [
             ("evidence type", evidence_values),
             ("evidence provenance", provenances),
+            ("evidence dependence", dependence),
             ("source location", locations),
             ("support level", support_levels),
             ("reason", reasons),
@@ -125,6 +128,9 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
         for value in provenances:
             if value not in PROVENANCE:
                 errors.append(f"invalid evidence provenance: {value}")
+        for value in dependence:
+            if value not in DEPENDENCE:
+                errors.append(f"invalid evidence dependence: {value}")
         for value in support_levels:
             if value not in SUPPORT_LEVELS:
                 errors.append(f"invalid support level: {value}")
