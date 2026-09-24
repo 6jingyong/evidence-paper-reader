@@ -33,6 +33,7 @@ The strongest evidence is the repeated primary-hepatocyte perturbation chain sho
 ### claim 1
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence nodes: E1
 - evidence dependence: single-source
 - source location: Figure 1 and Results section 3.1
 - support level: sufficient
@@ -42,6 +43,7 @@ The strongest evidence is the repeated primary-hepatocyte perturbation chain sho
 ### claim 2
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence nodes: E2 + E3 + E4
 - evidence dependence: partially independent convergence
 - source location: Figure 2 and Results sections 3.2-3.3
 - support level: sufficient
@@ -51,6 +53,7 @@ The strongest evidence is the repeated primary-hepatocyte perturbation chain sho
 ### claim 3
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence nodes: E5 + E6
 - evidence dependence: partially independent convergence
 - source location: MAPK p44/42 perturbation experiments in Results section 3.4 and the abstract
 - support level: sufficient
@@ -60,6 +63,7 @@ The strongest evidence is the repeated primary-hepatocyte perturbation chain sho
 ### claim 4
 - evidence type: author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E7
 - evidence dependence: single-source
 - source location: Discussion, where the authors state that the specific mechanism for regulation of iNOS by Akt has not yet been defined
 - support level: insufficient
