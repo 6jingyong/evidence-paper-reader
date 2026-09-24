@@ -185,6 +185,7 @@ The important distinction is execution strategy, not quality level: **Flash mean
     │   └── openai.yaml
     ├── scripts/
     │   ├── evidence_inventory.py
+    │   ├── merge_route.py
     │   ├── render_audit.py
     │   ├── suggest_modules.py
     │   └── validate_audit.py
@@ -204,6 +205,7 @@ The important distinction is execution strategy, not quality level: **Flash mean
         ├── follow-up-boundaries.md
         ├── measurement-traps.md
         ├── method-router.md
+        ├── semantic-router-card.md
         ├── output-contract.md
         ├── statistical-traps.md
         ├── study-design-traps.md
@@ -274,15 +276,16 @@ python evidence-paper-reader/scripts/suggest_modules.py paper.txt
 python evidence-paper-reader/scripts/suggest_modules.py paper.txt --json
 ```
 
-The helper searches for methodological cues, suggests references to inspect, and recommends Flash or Full based on route complexity. It never declares a bias or flaw; the model must verify the actual inference and any mitigation. Flash eligibility never relaxes the audit contract.
+The helper searches for cheap lexical cues and proposes candidate references. It is not the final router. Core claims are confirmed with `semantic-router-card.md`, then `merge_route.py` combines semantic decisions with lexical candidates. A cue never declares a bias or flaw.
 
 ## Benchmarks
 
-Three non-core benchmark suites live under `benchmarks/`:
+Four non-core benchmark suites live under `benchmarks/`:
 
 - `tiered-source-40/`: 10 domains × 4 source/attention tiers; checks whether bounded evidence judgments can remain distinct from source prestige.
 - `metadata-halo-12/`: paired anonymous A/B packets with identical scientific content and metadata hidden vs visible; designed for isolated-context causal testing of prestige/attention halo.
 - `claim-selection-12/`: tests the pre-audit stage—core-claim recall, distractor selection, evidence-viability decisions, and especially silent narrowing of strong author claims into safer claims before support judgment.
+- `router-adversarial-24/`: 12 semantic-only routing cases plus 12 lexical decoys; measures required-module recall, irrelevant keyword suppression, inventory routing, and lexical+semantic merge behavior.
 
 The second benchmark must be run in fresh independent model contexts. The development conversation itself is contaminated by knowing the pair mapping and reference expectations, so repository setup is not reported as a model result.
 
@@ -328,6 +331,7 @@ The tests verify, among other things, that:
 - evidence-viability fixtures distinguish auditable, partially auditable, and evidence-shaped non-auditable material
 - claim-selection benchmark tests required-claim recall, forbidden selections, silent narrowing, viability accuracy, and claim-count discipline
 - evidence-inventory tests prevent duplicate result promotion, cross-result E-node merges, repeated R promotion, invisible claim-retrieval gaps, and false independent convergence over shared U units
+- router-adversarial tests require a perfect semantic route to recover keyword-hidden modules and suppress incidental lexical decoys without weakening conservative `unclear` behavior
 
 GitHub Actions runs the same checks on pushes and pull requests.
 
