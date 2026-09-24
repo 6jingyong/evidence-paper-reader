@@ -21,6 +21,11 @@ ECHINACEA_FIXTURE = ROOT / "tests" / "fixtures" / "historical-echinacea-2010-aud
 AKT_FIXTURE = ROOT / "tests" / "fixtures" / "historical-akt-inos-2010-audit.md"
 BMD_REPLICATION_FIXTURE = ROOT / "tests" / "fixtures" / "historical-bmd-gwas-replication-2010-audit.md"
 BEAUTY_FIXTURE = ROOT / "tests" / "fixtures" / "historical-brain-beauty-2011-audit.md"
+ADVERSARIAL_SUBGROUP = ROOT / "tests" / "fixtures" / "adversarial-subgroup-aneurysm-2008-audit.md"
+ADVERSARIAL_ORGANIC = ROOT / "tests" / "fixtures" / "adversarial-organic-diet-biomarkers-2019-audit.md"
+ADVERSARIAL_BEFORE_AFTER = ROOT / "tests" / "fixtures" / "adversarial-care-coordination-before-after-2009-audit.md"
+ADVERSARIAL_LEAKAGE = ROOT / "tests" / "fixtures" / "adversarial-train-test-leakage-2022-audit.md"
+ADVERSARIAL_DIC = ROOT / "tests" / "fixtures" / "adversarial-collagen-dic-2021-audit.md"
 
 spec = importlib.util.spec_from_file_location("validate_audit", ROOT / "tests" / "validate_audit.py")
 validate_audit = importlib.util.module_from_spec(spec)
@@ -71,7 +76,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("Do not guess a DOI from memory.", self.follow_up)
 
     def test_all_real_paper_fixtures_satisfy_contract(self):
-        self.assertGreaterEqual(len(FIXTURES), 15)
+        self.assertGreaterEqual(len(FIXTURES), 20)
         for fixture in FIXTURES:
             with self.subTest(fixture=fixture.name):
                 errors = validate_audit.validate(fixture.read_text(encoding="utf-8"), self.allowed)
@@ -237,6 +242,30 @@ class SkillContractTests(unittest.TestCase):
             "Temporal leakage",
         ]:
             self.assertIn(phrase, self.study_design_traps_ref)
+
+    def test_adversarial_suite_triggers_distinct_method_modules(self):
+        subgroup = ADVERSARIAL_SUBGROUP.read_text(encoding="utf-8")
+        organic = ADVERSARIAL_ORGANIC.read_text(encoding="utf-8")
+        before_after = ADVERSARIAL_BEFORE_AFTER.read_text(encoding="utf-8")
+        leakage = ADVERSARIAL_LEAKAGE.read_text(encoding="utf-8")
+        dic = ADVERSARIAL_DIC.read_text(encoding="utf-8")
+
+        self.assertIn("interaction", subgroup.lower())
+        self.assertIn("subgroup", subgroup.lower())
+        self.assertIn("below detection", organic.lower())
+        self.assertIn("benjamini-hochberg", organic.lower())
+        self.assertIn("regression to the mean", before_after.lower())
+        self.assertIn("concurrent control", before_after.lower())
+        self.assertIn("train-test leakage", leakage.lower())
+        self.assertIn("ranking", leakage.lower())
+        self.assertIn("technical repeats", dic.lower())
+        self.assertIn("independent fibrils", dic.lower())
+
+    def test_measurement_reference_handles_threshold_coding_and_fit_error(self):
+        self.assertIn("Thresholded or detectability outcomes", self.measurement_traps_ref)
+        self.assertIn("reference category", self.measurement_traps_ref)
+        self.assertIn("not independent validation", self.measurement_traps_ref)
+        self.assertIn("fit error", self.measurement_traps_ref)
 
     def test_validator_rejects_malformed_evidence_nodes(self):
         text = RESNET_FIXTURE.read_text(encoding="utf-8").replace(
