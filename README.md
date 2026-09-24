@@ -54,6 +54,7 @@ The current contract is intentionally stricter than a prose-only prompt:
 - evidence-topology checks for mechanical coupling, null-result interpretation, proxy/construct separation, selection-conditioned evidence, and scale transfer
 - evidence-dependence checks that distinguish single-source evidence, shared-source corroboration, partial triangulation, and materially independent convergence
 - stable evidence-node IDs that make cross-claim evidence reuse and claim stacking visible
+- an optional R/G/U evidence-inventory layer for long papers that separates repeated source records, same-result identity, and shared evidence-generating units before promotion to E nodes
 - explicit claim-to-claim dependencies that carry upstream uncertainty forward
 - bounded methodological knowledge for figures/tables, statistical inference, measurement, and study design without embedding domain conclusions
 - false-positive guards that require trap cues to survive a mitigation check before they can downweight a claim
@@ -86,7 +87,8 @@ This keeps Markdown formatting out of the model's working context whenever the r
 When plain paper text is available and Python can run, `scripts/suggest_modules.py` provides a lexical first-pass route. Its output is advisory: a cue means "inspect this module", never "a flaw exists".
 
 ### Layer 3 — optional knowledge modules
-Only load modules that matter to decision-critical claims:
+Only load modules that matter to decision-critical claims or retrieval complexity:
+- evidence inventory for long/structurally complex papers
 - figures/tables
 - statistics
 - measurement
@@ -182,6 +184,7 @@ The important distinction is execution strategy, not quality level: **Flash mean
     ├── agents/
     │   └── openai.yaml
     ├── scripts/
+    │   ├── evidence_inventory.py
     │   ├── render_audit.py
     │   ├── suggest_modules.py
     │   └── validate_audit.py
@@ -192,6 +195,7 @@ The important distinction is execution strategy, not quality level: **Flash mean
         ├── core-contract.md
         ├── domain-profiles.md
         ├── evidence-dependence.md
+        ├── evidence-inventory-format.md
         ├── evidence-types.md
         ├── evidence-viability.md
         ├── evidence-topology.md
@@ -205,6 +209,41 @@ The important distinction is execution strategy, not quality level: **Flash mean
         ├── study-design-traps.md
         └── pollution-patterns.md
 ```
+
+### Evidence inventory for long papers
+
+Long-paper reading adds a retrieval problem before the scientific judgment problem.
+
+The optional inventory layer uses four identities:
+
+- `R`: a locatable source record
+- `G`: repeated presentations of the same underlying result
+- `U`: the evidence-generating unit (participants, dataset, specimens, cohort, site, archive, etc.)
+- `E`: the deduplicated evidence node used by the final audit
+
+Example:
+
+```text
+abstract primary outcome   R1 ─┐
+Table 2 same outcome       R2 ─┴─ G1 / U1 ─→ E1
+secondary outcome          R3 ─── G2 / U1 ─→ E2
+replication cohort         R4 ─── G3 / U2 ─→ E3
+```
+
+This prevents repeated presentation from becoming fake triangulation while preserving the distinction between different results from the same source unit and genuinely independent replication.
+
+Every core claim in an inventory must either connect to promoted evidence or appear explicitly in `unresolved_claims`. Retrieval failure therefore stays visible instead of silently dropping a difficult claim.
+
+Use:
+
+```bash
+python evidence-paper-reader/scripts/evidence_inventory.py --template > inventory.json
+python evidence-paper-reader/scripts/evidence_inventory.py inventory.json --check
+python evidence-paper-reader/scripts/evidence_inventory.py inventory.json --compact
+python evidence-paper-reader/scripts/evidence_inventory.py inventory.json --audit-ledger audit.json
+```
+
+The last command can reject obvious contradictions such as an audit claiming `independent convergence` when the promoted E nodes share the same known U key.
 
 ### Scripted output renderer
 
@@ -288,6 +327,7 @@ The tests verify, among other things, that:
 - anti-trigger fixtures verify that correctly mitigated subgroup, interim-analysis, LOD, pre/post, and technical-repeat cues do not cause automatic downweighting
 - evidence-viability fixtures distinguish auditable, partially auditable, and evidence-shaped non-auditable material
 - claim-selection benchmark tests required-claim recall, forbidden selections, silent narrowing, viability accuracy, and claim-count discipline
+- evidence-inventory tests prevent duplicate result promotion, cross-result E-node merges, repeated R promotion, invisible claim-retrieval gaps, and false independent convergence over shared U units
 
 GitHub Actions runs the same checks on pushes and pull requests.
 
