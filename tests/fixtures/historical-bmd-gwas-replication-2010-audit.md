@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: observational genetics study with discovery and independent replication cohorts
 
 The paper's strongest evidence is the two-stage association result for CATSPERB: variants associated with femoral-neck bone mineral density in 1524 premenopausal European-American women, with supporting evidence for rs1285635 in an independently sampled group of 669 premenopausal African-American women. That is materially stronger than repeated analyses of one cohort because the replication cohort has a separate sample and ancestry structure. The evidence does not justify treating every top discovery locus as independently replicated, because the replication support is concentrated in one locus and the top 50 SNPs were selectively carried forward. The paper is mainly useful as a genetics result and as a clear example of genuine independent convergence inside one paper.
