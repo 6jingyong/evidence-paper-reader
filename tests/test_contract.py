@@ -301,7 +301,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("- support level: insufficient", lod)
         self.assertIn("matched comparator", did)
         self.assertIn("difference-in-differences", did.lower())
-        self.assertIn("cannot necessarily be attributed", did.lower())
+        self.assertIn("explicitly avoid the causal conclusion", did.lower())
         self.assertIn("mixed-effects", hierarchy.lower())
         self.assertIn("nested", hierarchy.lower())
         self.assertIn("Do not flag pseudo-replication", hierarchy)
