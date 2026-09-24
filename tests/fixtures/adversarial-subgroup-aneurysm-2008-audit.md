@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: partially in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: randomized-trial subgroup analysis
 
 The randomized parent trial supports a bounded comparison of coiling versus clipping in elderly patients, but the subgroup-specific treatment-choice conclusion is much weaker than the headline wording suggests. The paper reports a non-significant overall difference in independent survival among 278 elderly participants, then reports significant treatment differences inside small aneurysm-location subgroups. Separate significance within subgroups does not by itself establish that treatment effects differ between subgroups; the relevant inferential question is an interaction or heterogeneity comparison. Because the available inspected material does not establish such an interaction analysis for the headline location-specific conclusion, that conclusion should be downweighted. The paper is mainly useful as a subgroup-analysis stress case rather than as stand-alone evidence for location-specific treatment selection.
