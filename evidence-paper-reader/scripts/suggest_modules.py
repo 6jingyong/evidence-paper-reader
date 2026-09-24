@@ -66,6 +66,25 @@ MODULES = {
 
 def suggest_modules(text: str) -> dict:
     lower = text.lower()
+
+    inventory_reasons = []
+    figure_table_refs = len(re.findall(r"\b(?:fig(?:ure)?|table)\s*[s]?\d+", lower))
+    multi_unit_cues = len(re.findall(
+        r"\b(?:independent cohort|replication cohort|multiple datasets?|multiple sites?|"
+        r"multiple laboratories?|external validation|validation cohort|test cohort)\b",
+        lower,
+    ))
+    supplement_cues = len(re.findall(r"\b(?:supplement|appendix|supporting information)\b", lower))
+    if len(text) >= 30000:
+        inventory_reasons.append("long extracted text")
+    if figure_table_refs >= 10:
+        inventory_reasons.append("many figure/table references")
+    if multi_unit_cues >= 2:
+        inventory_reasons.append("multiple evidence-generating units")
+    if supplement_cues >= 2 and figure_table_refs >= 4:
+        inventory_reasons.append("decision material likely split across main and supplementary content")
+
+    use_evidence_inventory = bool(inventory_reasons)
     suggestions = []
     for module, patterns in MODULES.items():
         hits = []
@@ -108,6 +127,9 @@ def suggest_modules(text: str) -> dict:
             "evidence-types.md",
             "audit-ledger-format.md",
         ],
+        "use_evidence_inventory": use_evidence_inventory,
+        "inventory_with": "evidence_inventory.py" if use_evidence_inventory else None,
+        "inventory_reasons": inventory_reasons,
         "render_with": "render_audit.py",
         "validate_with": "validate_audit.py",
         "suggested": suggestions,
@@ -133,6 +155,12 @@ def main() -> int:
         print(json.dumps(result, indent=2, ensure_ascii=False))
     else:
         print(f"Recommended path: {result['recommended_path'].upper()}")
+        print(
+            "Evidence inventory: "
+            + ("recommended" if result["use_evidence_inventory"] else "not required by lexical complexity check")
+        )
+        if result["inventory_reasons"]:
+            print("Inventory reasons: " + "; ".join(result["inventory_reasons"]))
         print(result["path_reason"])
         print("Always load:")
         for module in result["always_load"]:
