@@ -33,6 +33,7 @@ The paper directly demonstrates that selected nanoparticle additions can improve
 ### claim 1
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence nodes: E1 + E2
 - evidence dependence: partially independent convergence
 - source location: Table 1, Figure 5, Table 2, and the mechanical/tribological results section
 - support level: sufficient
@@ -42,6 +43,7 @@ The paper directly demonstrates that selected nanoparticle additions can improve
 ### claim 2
 - evidence type: direct experiment + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E1 + E3
 - evidence dependence: partially independent convergence
 - source location: Tables 1-2 and the discussion of optimal nanoparticle concentration
 - support level: insufficient
@@ -51,6 +53,7 @@ The paper directly demonstrates that selected nanoparticle additions can improve
 ### claim 3
 - evidence type: direct experiment + author interpretation
 - evidence provenance: paper-local
+- evidence nodes: E2 + E3
 - evidence dependence: shared-source convergence
 - source location: porosity/hardness discussion around Figure 5 and the concentration-dependent bending/wear results
 - support level: partial
@@ -60,6 +63,7 @@ The paper directly demonstrates that selected nanoparticle additions can improve
 ### claim 4
 - evidence type: direct experiment
 - evidence provenance: paper-local
+- evidence nodes: E4
 - evidence dependence: single-source
 - source location: cutting-tool application results and conclusion
 - support level: sufficient
