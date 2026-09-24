@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: repeated cross-sectional social survey with regression analysis
 
 The strongest results are descriptive and associational: the nationally representative Italian adolescent samples show a large increase in the share reporting more than three hours per day of social-media use between 2019 and 2022, and the 2022 regressions associate hyperconnection with several negative psychological and relational outcomes. Those claims are well matched to survey and statistical evidence. The title and parts of the discussion use stronger causal language such as "harmed" and "impact", but the design consists of two independent cross-sectional samples and cannot by itself establish that social-media hyperconnection or the pandemic caused the measured psychological states. The paper is mainly useful as a population-survey result reference rather than as causal evidence.
