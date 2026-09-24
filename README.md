@@ -54,6 +54,7 @@ The current contract is intentionally stricter than a prose-only prompt:
 - stable evidence-node IDs that make cross-claim evidence reuse and claim stacking visible
 - explicit claim-to-claim dependencies that carry upstream uncertainty forward
 - bounded methodological knowledge for figures/tables, statistical inference, measurement, and study design without embedding domain conclusions
+- false-positive guards that require trap cues to survive a mitigation check before they can downweight a claim
 - empirical finance, clinical/biomedical, and empirical-aesthetics coverage when the paper has a traceable evidence chain
 
 ## Repository layout
@@ -68,6 +69,10 @@ The current contract is intentionally stricter than a prose-only prompt:
 ├── tests/
 │   ├── fixtures/
 │   │   ├── ablationbench-audit.md
+│   │   ├── anti-trigger-difference-in-differences-2014-audit.md
+│   │   ├── anti-trigger-lod-multiple-imputation-2011-audit.md
+│   │   ├── anti-trigger-multisite-imaging-2023-audit.md
+│   │   ├── anti-trigger-sprint-2015-audit.md
 │   │   ├── adversarial-care-coordination-before-after-2009-audit.md
 │   │   ├── adversarial-collagen-dic-2021-audit.md
 │   │   ├── adversarial-organic-diet-biomarkers-2019-audit.md
@@ -99,6 +104,7 @@ The current contract is intentionally stricter than a prose-only prompt:
         ├── evidence-dependence.md
         ├── evidence-types.md
         ├── evidence-topology.md
+        ├── false-positive-guards.md
         ├── figure-and-table-traps.md
         ├── follow-up-boundaries.md
         ├── measurement-traps.md
@@ -140,6 +146,7 @@ The tests verify, among other things, that:
 - figure/table interpretation traps remain present as bounded methodological knowledge
 - statistical, measurement, and study-design trap references remain modular and explicitly bounded from domain-fact priors
 - adversarial fixtures trigger subgroup-interaction, detection-limit, regression-to-the-mean, benchmark-leakage, and technical-repeat checks without adding new output fields
+- anti-trigger fixtures verify that correctly mitigated subgroup, interim-analysis, LOD, pre/post, and technical-repeat cues do not cause automatic downweighting
 
 GitHub Actions runs the same checks on pushes and pull requests.
 
@@ -180,6 +187,19 @@ The audit does not count every figure, endpoint, assay, or model as a separate c
 - `unclear`
 
 For example, two outcomes from the same randomized cohort are shared-source convergence, while the CATSPERB BMD association in the 2010 GWAS fixture receives independent-convergence status only because the supporting signal appears in a separately sampled replication cohort. Different evidence types do not automatically imply independence.
+
+### Anti-trigger / false-positive regression wave
+
+The fourth regression wave tests the opposite failure mode: methodological pattern matching that criticizes a paper even after the relevant risk has been handled.
+
+| Fixture | Apparent trap cue | Mitigation that must receive credit |
+| --- | --- | --- |
+| `anti-trigger-sprint-2015-audit.md` | multiple subgroups and interim looks | prespecified interaction tests with Hommel adjustment; Lan-DeMets/O'Brien-Fleming group-sequential monitoring |
+| `anti-trigger-lod-multiple-imputation-2011-audit.md` | many values below LOD | censoring-aware likelihood, multiple imputation, and 5,000-replicate simulation validation across censoring regimes |
+| `anti-trigger-difference-in-differences-2014-audit.md` | pre/post intervention data | matched comparator and DiD analysis; authors explicitly refuse causal attribution when between-site change is null |
+| `anti-trigger-multisite-imaging-2023-audit.md` | huge numbers of cells and technical repeats | explicit nested design and mixed-effects variance decomposition across lab/person/experiment/replicate/cell/time |
+
+The target behavior is neither credulity nor reflexive criticism. A risk cue triggers a methodological check; a demonstrated mitigation earns credit; only residual uncertainty should affect the support judgment.
 
 ### Adversarial methodology regression wave
 
