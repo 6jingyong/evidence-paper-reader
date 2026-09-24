@@ -33,6 +33,7 @@ The paper provides direct controlled-source evidence for the accuracy of VRPM an
 ### claim 1
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: Results section 3.1.1, Figure 3, and Table 1
 - support level: sufficient
 - reason: The paper compares estimated emission with known synthetic-source emission and reports the combined relative-accuracy distribution. It also documents that one field date yielded only one valid dataset out of fifteen because of wind geometry.
@@ -41,6 +42,7 @@ The paper provides direct controlled-source evidence for the accuracy of VRPM an
 ### claim 2
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: single-source
 - source location: bLS single-source results and Table 1
 - support level: sufficient
 - reason: The reported value directly reflects retained observations after atmospheric-stability and footprint criteria. The claim remains scoped to those filtered conditions rather than all attempted observations.
@@ -49,6 +51,7 @@ The paper provides direct controlled-source evidence for the accuracy of VRPM an
 ### claim 3
 - evidence type: direct experiment + author interpretation
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: abstract and conclusion
 - support level: partial
 - reason: Controlled synthetic-source tests support practical potential, but accuracy depends on filtering, wind geometry, sensor placement, and a limited set of single/dual-source trials. Selection-conditioned evidence from valid or favorable configurations does not establish unconditional performance across agricultural deployments.
@@ -57,6 +60,7 @@ The paper provides direct controlled-source evidence for the accuracy of VRPM an
 ### claim 4
 - evidence type: direct experiment + statistical analysis
 - evidence provenance: paper-local
+- evidence dependence: partially independent convergence
 - source location: point-concentration and dual-source configuration results
 - support level: sufficient
 - reason: The study directly reports poor relative accuracy below 0.62 for a vertical point-concentration configuration and about 1.08 ± 0.44 for multiple horizontal point sensors, showing that configuration is decision-critical.
