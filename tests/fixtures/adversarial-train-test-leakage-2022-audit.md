@@ -2,6 +2,8 @@
 
 ## 1. reader conclusion
 - scope status: in scope
+- evidence viability: auditable
+- viability flags: none
 - paper type: computational benchmark contamination experiment
 
 The paper directly demonstrates that semantically overlapping training queries can inflate retrieval effectiveness and can even alter system rankings under deliberately constructed leakage conditions. It also reports that these effects become smaller as leakage forms a smaller and more realistic share of the training data, with many nDCG@10 differences not statistically significant. This is a useful stress case because the correct reading is neither "leakage invalidates every zero-shot result" nor "small average metric changes mean leakage is harmless." The strongest conclusion is conditional: leakage is a real benchmark-design threat whose practical magnitude depends on contamination amount and evaluation setup. The paper is mainly useful as a method/design reference for benchmark integrity.
