@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import random
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -139,7 +140,18 @@ def main() -> int:
         json.dumps(manifest, indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
-    print(f"PASS: generated {len(manifest)} anonymous packets ({len(data['cases'])} pairs)")
+
+    queue = [row["packet_id"] for row in manifest]
+    random.Random(data["seed"]).shuffle(queue)
+    (args.output_dir / "review_queue.json").write_text(
+        json.dumps(queue, indent=2),
+        encoding="utf-8",
+    )
+
+    print(
+        f"PASS: generated {len(manifest)} anonymous packets "
+        f"({len(data['cases'])} pairs) and a blinded review queue"
+    )
     return 0
 
 
