@@ -24,6 +24,9 @@ Use these labels to describe where a paper's narrative goes beyond its evidence.
 - **claim stacking / evidence double-spending**: the same evidence node is reused to support progressively stronger or distinct claims—such as performance, mechanism, causality, and generality—without additional direct evidence for the added reach
 - **inference-chain laundering**: an uncertain upstream claim is treated as settled when used as a premise for a later claim, so uncertainty disappears as the narrative moves from observation to mechanism, causality, or generality
 - **visual impression overreach**: axis range, transformation, normalization, aggregation, smoothing, color scale, selected window, representative image, or other presentation choice creates a stronger visual impression than the underlying numerical comparison supports
+- **self-referential construct loop**: an author-defined construct is operationalized by an author-defined score or proxy and then the same score is used as the main evidence that the broader construct exists, leaving no independent anchor
+- **evidence-shaped rhetoric**: technical presentation, named frameworks, diagrams, demonstrations, or numerical-looking claims create the form of empirical support while decision-critical methods or results needed to reconstruct the inference are absent
+- **promotional evidence substitution**: selected demonstrations, favorable product metrics, or weak/unnamed baselines are used in place of a reconstructable comparative evidence chain; use this for evidence structure, not as a claim about author motive
 
 ## Usage rule
 Use the label only after you state the concrete mismatch in plain language.
