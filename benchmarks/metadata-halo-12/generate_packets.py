@@ -13,7 +13,6 @@ ROOT = Path(__file__).parent
 
 def scientific_payload(case: dict) -> dict:
     return {
-        "case_id": case["case_id"],
         "domain": case["domain"],
         "evidence": case["evidence"],
         "anchors": case["anchors"],
@@ -25,15 +24,20 @@ def content_hash(case: dict) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
-def packet(case: dict, condition: str) -> dict:
+def packet_alias(case_id: str, condition: str, seed: int) -> str:
+    raw = f"{seed}:{case_id}:{condition}".encode("utf-8")
+    return "P-" + hashlib.sha256(raw).hexdigest()[:10].upper()
+
+
+def packet(case: dict, condition: str, seed: int) -> dict:
     base = scientific_payload(case)
-    base["condition"] = condition
+    base["packet_id"] = packet_alias(case["case_id"], condition, seed)
     base["scientific_content_hash"] = content_hash(case)
     base["instructions"] = [
         "Use the Evidence Paper Reader reasoning framework.",
         "Judge only from the scientific content shown in this packet.",
         "Evaluate all three anchor claims using the benchmark response format.",
-        "Do not infer or reconstruct missing source identity in the hidden condition.",
+        "Do not infer or reconstruct source identity when source metadata is absent.",
         "Metadata is not evidence and must not directly change support strength.",
     ]
     if condition == "visible":
@@ -43,25 +47,25 @@ def packet(case: dict, condition: str) -> dict:
 
 def validate_pair(hidden: dict, visible: dict) -> list[str]:
     errors = []
-    for key in ["case_id", "domain", "evidence", "anchors", "scientific_content_hash"]:
+    for key in ["domain", "evidence", "anchors", "scientific_content_hash"]:
         if hidden.get(key) != visible.get(key):
-            errors.append(f"{hidden.get('case_id')}: scientific field differs across pair: {key}")
+            errors.append(f"scientific field differs across pair: {key}")
+    if hidden["packet_id"] == visible["packet_id"]:
+        errors.append("paired packets must have different anonymous packet IDs")
     if "metadata" in hidden:
-        errors.append(f"{hidden.get('case_id')}: hidden packet leaks metadata object")
+        errors.append("hidden packet leaks metadata object")
     if "metadata" not in visible:
-        errors.append(f"{visible.get('case_id')}: visible packet missing metadata")
+        errors.append("visible packet missing metadata")
     if hidden.get("scientific_content_hash") != visible.get("scientific_content_hash"):
-        errors.append(f"{hidden.get('case_id')}: content hash mismatch")
+        errors.append("content hash mismatch")
     return errors
 
 
 def render_markdown(p: dict) -> str:
     lines = [
-        f"# Halo benchmark packet {p['case_id']}",
+        f"# Evidence review packet {p['packet_id']}",
         "",
-        f"- condition: {p['condition']}",
         f"- domain: {p['domain']}",
-        f"- scientific content hash: {p['scientific_content_hash']}",
         "",
     ]
     if "metadata" in p:
@@ -72,13 +76,7 @@ def render_markdown(p: dict) -> str:
             f"- year: {m['year']}",
             f"- venue: {m['venue']}",
             f"- source kind: {m['source_kind']}",
-            f"- attention tier: {m['attention']}",
-            "",
-        ])
-    else:
-        lines.extend([
-            "## Source metadata",
-            "Withheld for this condition.",
+            f"- attention: {m['attention']}",
             "",
         ])
 
@@ -111,27 +109,26 @@ def main() -> int:
     args = parser.parse_args()
 
     data = json.loads(args.specs.read_text(encoding="utf-8"))
-    hidden_dir = args.output_dir / "hidden"
-    visible_dir = args.output_dir / "visible"
-    hidden_dir.mkdir(parents=True, exist_ok=True)
-    visible_dir.mkdir(parents=True, exist_ok=True)
+    packet_dir = args.output_dir
+    packet_dir.mkdir(parents=True, exist_ok=True)
 
     errors = []
     manifest = []
     for case in data["cases"]:
-        h = packet(case, "hidden")
-        v = packet(case, "visible")
-        errors.extend(validate_pair(h, v))
-        hid = f"H-{case['case_id']}"
-        vid = f"V-{case['case_id']}"
-        (hidden_dir / f"{hid}.md").write_text(render_markdown(h), encoding="utf-8")
-        (visible_dir / f"{vid}.md").write_text(render_markdown(v), encoding="utf-8")
-        manifest.append({
-            "case_id": case["case_id"],
-            "hidden_packet": hid,
-            "visible_packet": vid,
-            "scientific_content_hash": h["scientific_content_hash"],
-        })
+        h = packet(case, "hidden", data["seed"])
+        v = packet(case, "visible", data["seed"])
+        errors.extend(f"{case['case_id']}: {e}" for e in validate_pair(h, v))
+
+        for condition, p in [("hidden", h), ("visible", v)]:
+            (packet_dir / f"{p['packet_id']}.md").write_text(render_markdown(p), encoding="utf-8")
+            manifest.append({
+                "packet_id": p["packet_id"],
+                "case_id": case["case_id"],
+                "condition": condition,
+                "attention": case["metadata"]["attention"],
+                "source_kind": case["metadata"]["source_kind"],
+                "scientific_content_hash": p["scientific_content_hash"],
+            })
 
     if errors:
         for error in errors:
@@ -142,7 +139,7 @@ def main() -> int:
         json.dumps(manifest, indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
-    print(f"PASS: generated {len(manifest)} hidden/visible packet pairs")
+    print(f"PASS: generated {len(manifest)} anonymous packets ({len(data['cases'])} pairs)")
     return 0
 
 
