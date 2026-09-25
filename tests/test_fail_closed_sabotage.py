@@ -181,6 +181,8 @@ def _parent_and_key(root, path):
 
 def apply_mutation(value, mutation: dict):
     op = mutation["op"]
+    if op == "replace_artifact":
+        return copy.deepcopy(mutation.get("value"))
     if op == "append_text":
         return value + mutation["value"]
     if op == "replace_text":
@@ -231,7 +233,7 @@ class FailClosedSabotageTests(unittest.TestCase):
         self.assertEqual(len({case["id"] for case in cases}), len(cases))
         covered = {case["layer"] for case in cases}
         self.assertEqual(covered, set(self.matrix["required_layers"]))
-        self.assertGreaterEqual(len(cases), 12)
+        self.assertGreaterEqual(len(cases), 18)
 
     def test_all_pristine_workflows_pass(self):
         for kind in ["simple", "lexical", "inventory"]:
