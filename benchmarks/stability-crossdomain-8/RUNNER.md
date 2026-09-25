@@ -22,7 +22,7 @@ The same values are also exported as:
 - `EPR_PROMPT_PATH`
 - `EPR_OUTPUT_PATH`
 
-The prompt contains the packet plus the public response contract. It does **not** contain reference expectations or scorer output. Use `--include-skill` when the external reviewer does not already have the benchmark skill installed in its fresh execution context.
+The prompt contains the packet plus the public response contract. It does **not** contain reference expectations or scorer output. The reviewer still needs the full Evidence Paper Reader skill available in its fresh context. `--include-skill` adds only the top-level `SKILL.md` router for inspection/debugging; it does not bundle referenced modules and is not a substitute for installing the skill.
 
 ## Isolation rule
 
@@ -63,7 +63,7 @@ python benchmarks/stability-crossdomain-8/run_reviewer.py \
 python benchmarks/stability-crossdomain-8/score_repeats.py runs/responses/
 ```
 
-For a reviewer that needs the skill text in the prompt:
+For debugging a reviewer that already has the referenced skill modules available, you may also include the top-level router text:
 
 ```bash
 python benchmarks/stability-crossdomain-8/run_reviewer.py \
