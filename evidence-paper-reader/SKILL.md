@@ -45,13 +45,7 @@ Do not load every optional reference by default.
 5. If auditable, extract 3–5 core claims. If partially auditable, extract only the 1–5 claims whose evidence chain can actually be reconstructed. If non-auditable, do not manufacture claims.
 6. Put prerequisite claims before downstream mechanism/causality/generality claims.
 
-### Phase B — evidence inventory and ledger
-For short/simple papers, assign E-nodes directly. For long or structurally complex papers, load `evidence-inventory-format.md` and use `scripts/evidence_inventory.py` to capture source records before support judgment.
-Inventory path: locate R records → deduplicate repeated presentations with G keys → group shared evidence-generating bases with U keys → promote decision-critical results to E-nodes.
-For each final E-node, record evidence type, provenance, upstream claims, evidence dependence, and the most precise source location available.
-Use the same E-node whenever the same underlying result is reused.
-
-### Phase C — route only needed checks
+### Phase B — route and decide evidence handling
 Use `suggest_modules.py` for lexical candidates, confirm each core claim with `semantic-router-card.md`, then merge with `merge_route.py`.
 
 When Python can run, do not rely on memory to open routed references one by one. Build the active methodological context deterministically:
@@ -74,6 +68,12 @@ Whenever a trap module is used, also apply:
 - `false-positive-guards.md`
 
 A cue triggers inspection, not automatic criticism.
+
+### Phase C — evidence inventory and ledger
+Follow the recomputed route's evidence-inventory decision. If inventory is not required, assign E-nodes directly. If it is required, load `evidence-inventory-format.md` and use `scripts/evidence_inventory.py` before support judgment.
+Inventory path: locate R records → deduplicate repeated presentations with G keys → group shared evidence-generating bases with U keys → promote decision-critical results to E-nodes.
+For each final E-node, record evidence type, provenance, upstream claims, evidence dependence, and the most precise source location available.
+Use the same E-node whenever the same underlying result is reused.
 
 ### Phase D — support judgment
 For each claim, choose exactly one:
