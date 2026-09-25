@@ -23,7 +23,10 @@
         "content"
       ],
       "value": "A silently rewritten claim after routing.",
-      "expect": "semantic route: claim text/order must exactly match"
+      "expect": "semantic route: claim text/order must exactly match",
+      "guards": [
+        "G103"
+      ]
     },
     {
       "id": "SB02",
@@ -50,7 +53,10 @@
         "claim_id"
       ],
       "value": "C9",
-      "expect": "semantic route: claim IDs must exactly match"
+      "expect": "semantic route: claim IDs must exactly match",
+      "guards": [
+        "G102"
+      ]
     },
     {
       "id": "SB04",
@@ -61,7 +67,10 @@
       "path": [
         "use_evidence_inventory"
       ],
-      "expect": "cached lexical route does not match deterministic recomputation"
+      "expect": "cached lexical route does not match deterministic recomputation",
+      "guards": [
+        "G104"
+      ]
     },
     {
       "id": "SB05",
@@ -94,7 +103,10 @@
       "target": "context",
       "op": "append_text",
       "value": "\\n<!-- hand-edited context -->\\n",
-      "expect": "context: supplied audit-context bundle does not match deterministic route materialization"
+      "expect": "context: supplied audit-context bundle does not match deterministic route materialization",
+      "guards": [
+        "G109"
+      ]
     },
     {
       "id": "SB08",
@@ -104,7 +116,10 @@
       "op": "replace_text",
       "old": "## BEGIN REFERENCE: statistical-traps.md",
       "value": "## BEGIN REFERENCE: OMITTED-statistical-traps.md",
-      "expect": "context: supplied audit-context bundle does not match deterministic route materialization"
+      "expect": "context: supplied audit-context bundle does not match deterministic route materialization",
+      "guards": [
+        "G109"
+      ]
     },
     {
       "id": "SB09",
@@ -182,7 +197,10 @@
           "value": "independent convergence"
         }
       ],
-      "expect": "inventory alignment: audit claim 1: independent convergence shares evidence unit(s): U1"
+      "expect": "inventory alignment: audit claim 1: independent convergence shares evidence unit(s): U1",
+      "guards": [
+        "G114"
+      ]
     },
     {
       "id": "SB12",
@@ -211,7 +229,10 @@
       "value": [
         "imaginary evidence"
       ],
-      "expect": "rendered audit: unknown evidence label(s): imaginary evidence"
+      "expect": "rendered audit: unknown evidence label(s): imaginary evidence",
+      "guards": [
+        "G115"
+      ]
     },
     {
       "id": "SB14",
@@ -250,7 +271,10 @@
           ]
         }
       ],
-      "expect": "ledger: claim 3: downstream claim cannot be sufficient without new evidence"
+      "expect": "ledger: claim 3: downstream claim cannot be sufficient without new evidence",
+      "guards": [
+        "G116"
+      ]
     },
     {
       "id": "SB15",
@@ -259,7 +283,11 @@
       "target": "semantic",
       "op": "replace_artifact",
       "value": null,
-      "expect": "requires the raw semantic-route artifact"
+      "expect": "requires the raw semantic-route artifact",
+      "guards": [
+        "G101",
+        "G105"
+      ]
     },
     {
       "id": "SB16",
@@ -268,7 +296,10 @@
       "target": "context",
       "op": "replace_artifact",
       "value": null,
-      "expect": "requires the generated audit-context bundle"
+      "expect": "requires the generated audit-context bundle",
+      "guards": [
+        "G107"
+      ]
     },
     {
       "id": "SB17",
@@ -277,7 +308,10 @@
       "target": "inventory",
       "op": "replace_artifact",
       "value": null,
-      "expect": "recomputed route requires evidence inventory"
+      "expect": "recomputed route requires evidence inventory",
+      "guards": [
+        "G110"
+      ]
     },
     {
       "id": "SB18",
@@ -286,7 +320,10 @@
       "target": "router_text",
       "op": "replace_artifact",
       "value": null,
-      "expect": "cached lexical route cannot substitute for router text"
+      "expect": "cached lexical route cannot substitute for router text",
+      "guards": [
+        "G104"
+      ]
     },
     {
       "id": "SB19",
@@ -301,7 +338,71 @@
         "measurement-traps.md"
       ],
       "value": "unclear",
-      "expect": "router text is required to recompute lexical routing deterministically"
+      "expect": "router text is required to recompute lexical routing deterministically",
+      "guards": [
+        "G104"
+      ]
+    },
+    {
+      "id": "SB20",
+      "layer": "merged_route",
+      "baseline": "simple",
+      "target": "route",
+      "op": "append",
+      "path": [
+        "modules"
+      ],
+      "value": "follow-up-boundaries.md",
+      "expect": "route artifact: supplied merged route does not match deterministic recomputation",
+      "guards": [
+        "G106"
+      ]
+    },
+    {
+      "id": "SB21",
+      "layer": "inventory",
+      "baseline": "simple",
+      "target": "inventory",
+      "op": "load_inventory_fixture",
+      "expect": "inventory: supplied inventory conflicts with recomputed route",
+      "guards": [
+        "G111"
+      ]
+    },
+    {
+      "id": "SB22",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "set",
+      "path": [
+        "evidence_viability"
+      ],
+      "value": "partially auditable",
+      "expect": "inventory: evidence_viability does not match the final audit ledger",
+      "guards": [
+        "G112"
+      ]
+    },
+    {
+      "id": "SB23",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "content"
+      ],
+      "value": "A drifted inventory-side claim.",
+      "expect": "inventory: claim contents/order drifted between evidence inventory and final audit ledger",
+      "guards": [
+        "G113"
+      ]
     }
+  ],
+  "code_canary_guards": [
+    "G108"
   ]
 }
