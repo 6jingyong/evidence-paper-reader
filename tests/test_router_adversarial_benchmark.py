@@ -75,6 +75,17 @@ class RouterAdversarialBenchmarkTests(unittest.TestCase):
             self.assertEqual(result["inventory_accuracy"], 1.0)
             self.assertEqual(result["exact_case_rate"], 1.0)
 
+    def test_semantic_route_carries_exact_claim_identity(self):
+        case = self.by_id["RA02"]
+        semantic = score_mod.perfect_semantic(case)
+        self.assertEqual(semantic["claims"][0]["claim_text"], case["claim"])
+        lexical_result = lexical.suggest_modules(case["claim"] + "\n" + case["text"])
+        merged = merge_mod.merge(lexical_result, semantic)
+        self.assertEqual(
+            merged["routed_claims"],
+            [{"claim_id": "C1", "claim_text": case["claim"]}],
+        )
+
     def test_semantic_required_can_add_a_keyword_hidden_route(self):
         case = self.by_id["RA02"]
         lexical_result = lexical.suggest_modules(case["claim"] + "\n" + case["text"])
@@ -135,6 +146,8 @@ class RouterAdversarialBenchmarkTests(unittest.TestCase):
             "unclear",
             "Do not require it merely because",
             "preserves a lexical hit",
+            "claim_text",
+            "If the claim later changes, rerun routing.",
         ]:
             self.assertIn(phrase, self.semantic_card)
 
