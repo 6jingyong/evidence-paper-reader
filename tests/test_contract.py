@@ -123,6 +123,15 @@ class SkillContractTests(unittest.TestCase):
         ]:
             self.assertIn(phrase, self.core)
 
+    def test_core_claims_are_source_facing_not_auditor_diagnostics(self):
+        for phrase in [
+            "Core claims must be source-facing",
+            "Do not use auditor diagnostics",
+            "belong in support reasoning/downweighting",
+            "A methodological claim may be selected when the paper itself claims",
+        ]:
+            self.assertIn(phrase, self.core)
+
     def test_evidence_viability_gate_is_explicit_and_non_prestige_based(self):
         for phrase in [
             "auditable",
