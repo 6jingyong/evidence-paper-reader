@@ -2,7 +2,7 @@
   "benchmark_id": "stability-crossdomain-8-v1",
   "repeats_per_case": 5,
   "seed": 20260924,
-  "purpose": "Cross-domain repeated-run stability benchmark for viability, claim selection, routing, inventory choice, and support judgment.",
+  "purpose": "Cross-domain repeated-run stability benchmark for viability, claim selection, routing, support judgment, and inventory over-trigger as a negative control.",
   "cases": [
     {
       "case_id": "ST01",
