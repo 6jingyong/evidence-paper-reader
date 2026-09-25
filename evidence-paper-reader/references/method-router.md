@@ -43,7 +43,7 @@ This claim-level pass is mandatory when optional routing matters. It is intentio
 
 ## Routed module execution record
 
-For every claim/module retained by the merged route, complete the generated `module-checks.json` entry with `clear`, `residual-concern`, or `unclear` plus a concise reason. Trap modules also require `mitigation_checked: true` only after the `false-positive-guards.md` mitigation pass. Do not add unrouted filler; reroute if a new issue appears.
+For every claim/module retained by the merged route, complete the generated `module-checks.json` entry with `clear`, `residual-concern`, or `unclear` plus a concise reason. Trap modules also require `mitigation_checked: true` only after the `false-positive-guards.md` mitigation pass. Because routed modules are decision-critical, a remaining `unclear` check is incompatible with `sufficient` final support for that claim. Do not add unrouted filler; reroute if a new issue appears.
 
 ## Route table
 
