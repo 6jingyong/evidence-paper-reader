@@ -21,6 +21,18 @@ def load_module(name: str, path: Path):
 
 gate = load_module("audit_gate", SCRIPT)
 AUTO_CONTEXT = object()
+AUTO_CHECKS = object()
+
+
+def completed_module_checks(route):
+    data = gate.module_checks_mod.template(route)
+    for claim in data["claims"]:
+        for check in claim["checks"]:
+            check["status"] = "clear"
+            check["reason"] = "The routed methodological check was explicitly completed."
+            if "mitigation_checked" in check:
+                check["mitigation_checked"] = True
+    return data
 
 
 def base_audit():
@@ -150,19 +162,28 @@ class AuditGateTests(unittest.TestCase):
         route=None,
         inventory=None,
         context_bundle=AUTO_CONTEXT,
+        module_checks=AUTO_CHECKS,
     ):
+        computed = None
+        if semantic is not None:
+            try:
+                computed = gate.build_context.recompute_route(
+                    semantic,
+                    lexical,
+                    router_text,
+                )
+            except ValueError:
+                pass
         if context_bundle is AUTO_CONTEXT:
-            context_bundle = None
-            if semantic is not None:
-                try:
-                    computed = gate.build_context.recompute_route(
-                        semantic,
-                        lexical,
-                        router_text,
-                    )
-                    context_bundle = gate.build_context.render_bundle(computed)
-                except ValueError:
-                    pass
+            context_bundle = (
+                gate.build_context.render_bundle(computed)
+                if computed is not None else None
+            )
+        if module_checks is AUTO_CHECKS:
+            module_checks = (
+                completed_module_checks(computed)
+                if computed is not None else None
+            )
         return gate.validate_gate(
             audit or base_audit(),
             semantic=semantic,
@@ -172,6 +193,7 @@ class AuditGateTests(unittest.TestCase):
             evidence_types_text=self.evidence_types,
             router_text=router_text,
             context_bundle=context_bundle,
+            module_checks=module_checks,
         )
 
     def test_simple_audit_passes_with_raw_routes_and_cached_merge(self):
@@ -194,6 +216,35 @@ class AuditGateTests(unittest.TestCase):
             context_bundle="# hand-written shortcut\n",
         )
         self.assertTrue(any("does not match deterministic route materialization" in x for x in errors), errors)
+
+    def test_routed_modules_require_module_checks(self):
+        errors = self.validate(
+            semantic=base_semantic(),
+            module_checks=None,
+        )
+        self.assertTrue(any("require module-checks.json" in x for x in errors), errors)
+
+    def test_missing_routed_module_check_is_rejected(self):
+        semantic = base_semantic()
+        route = gate.build_context.recompute_route(semantic, None, None)
+        checks = completed_module_checks(route)
+        del checks["claims"][0]["checks"][0]
+        errors = self.validate(
+            semantic=semantic,
+            module_checks=checks,
+        )
+        self.assertTrue(any("modules/order must exactly match" in x for x in errors), errors)
+
+    def test_trap_check_requires_false_positive_mitigation_pass(self):
+        semantic = base_semantic()
+        route = gate.build_context.recompute_route(semantic, None, None)
+        checks = completed_module_checks(route)
+        checks["claims"][0]["checks"][0]["mitigation_checked"] = False
+        errors = self.validate(
+            semantic=semantic,
+            module_checks=checks,
+        )
+        self.assertTrue(any("mitigation_checked must be true" in x for x in errors), errors)
 
     def test_cached_merged_route_cannot_replace_semantic_routing(self):
         errors = self.validate(
