@@ -25,6 +25,17 @@ def load_module(name: str, path: Path):
 gate = load_module("sabotage_audit_gate", GATE_SCRIPT)
 
 
+def completed_module_checks(route):
+    data = gate.module_checks_mod.template(route)
+    for claim in data["claims"]:
+        for check in claim["checks"]:
+            check["status"] = "clear"
+            check["reason"] = "The routed methodological check was explicitly completed."
+            if "mitigation_checked" in check:
+                check["mitigation_checked"] = True
+    return data
+
+
 def simple_audit():
     return {
         "scope_status": "in scope",
@@ -161,6 +172,7 @@ def pristine_workflow(kind: str, inventory_fixture: dict) -> dict:
 
     route = gate.build_context.recompute_route(semantic, lexical, router_text)
     context = gate.build_context.render_bundle(route)
+    module_checks = completed_module_checks(route)
     return {
         "audit": audit,
         "semantic": semantic,
@@ -168,6 +180,7 @@ def pristine_workflow(kind: str, inventory_fixture: dict) -> dict:
         "router_text": router_text,
         "route": route,
         "context": context,
+        "module_checks": module_checks,
         "inventory": inventory,
     }
 
@@ -227,6 +240,7 @@ class FailClosedSabotageTests(unittest.TestCase):
             route=artifacts["route"],
             inventory=artifacts["inventory"],
             context_bundle=artifacts["context"],
+            module_checks=artifacts["module_checks"],
             evidence_types_text=self.evidence_types,
         )
 
@@ -243,7 +257,7 @@ class FailClosedSabotageTests(unittest.TestCase):
         self.assertEqual(len({case["id"] for case in cases}), len(cases))
         covered = {case["layer"] for case in cases}
         self.assertEqual(covered, set(self.matrix["required_layers"]))
-        self.assertGreaterEqual(len(cases), 23)
+        self.assertGreaterEqual(len(cases), 26)
 
         matrix_guards = {
             guard
