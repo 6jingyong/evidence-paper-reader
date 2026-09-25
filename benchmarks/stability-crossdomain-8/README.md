@@ -32,7 +32,7 @@ The reviewer must still decide:
 - evidence viability
 - which claims belong in the audit
 - which methodology modules are required
-- whether evidence inventory is useful
+- whether the compact packet incorrectly triggers evidence inventory
 - support level for every selected claim
 
 ## Stability versus correctness
@@ -53,7 +53,7 @@ Per case and then averaged across cases:
 - viability pairwise exact agreement
 - claim-selection pairwise Jaccard
 - routing pairwise Jaccard
-- inventory pairwise exact agreement
+- inventory pairwise exact agreement (negative-control diagnostic only)
 - support-vector pairwise exact agreement
 
 For support, omission is treated as `not_selected`, so unstable claim selection propagates into the support-stability metric rather than disappearing.
@@ -65,7 +65,7 @@ For support, omission is treated as `not_selected`, so unstable claim selection 
 - forbidden-claim selection rate
 - required-module recall
 - unallowed-module rate
-- inventory accuracy
+- inventory over-trigger rate (all compact packets are intentionally negative controls)
 - support accuracy
 
 Reference expectations are internal benchmark metadata and must not be shown to the reviewing model.
@@ -95,7 +95,6 @@ The most useful output is not a single score. It is the layer profile:
 viability      1.00
 claim selection 0.88
 routing         0.73
-inventory       1.00
 support         0.81
 ```
 
@@ -118,6 +117,8 @@ A Work/Codex/agent runner that launches isolated sessions is the intended execut
 If viability is stable but claim selection drifts, improve the claim-selection stage.
 
 If claim selection is stable but routing drifts, tighten semantic-router instructions or module boundaries.
+
+Inventory is intentionally not included in the aggregate stability layers because these compact packets do not provide positive inventory coverage. Positive inventory routing is tested separately by the adversarial router benchmark (for example RA10) and the inventory fixtures.
 
 If routing is stable but support drifts, the evidence contracts/support semantics need stronger anchors.
 
