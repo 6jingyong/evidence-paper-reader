@@ -162,30 +162,31 @@
       "case_id": "CS06",
       "domain": "environmental sensing / CFD",
       "source_packet": [
-        "The study combines cost-effective air-quality measurements with CFD modeling to reconstruct local pollutant fields.",
-        "Sensor measurements are used in model calibration/tuning and are also central to the reported agreement used to support model accuracy.",
-        "The paper presents the combined approach as an accurate assessment method for the studied environment."
+        "The study combines low-cost air-quality measurements with CFD modeling to reconstruct local PM10 fields in a defined urban deployment.",
+        "The CFD model is compared with available reference monitoring data during a representative 24-hour period.",
+        "Low-cost sensors are calibrated against CFD-derived PM10 targets, reducing disagreement with those targets after fitting.",
+        "The paper presents the combined workflow as an accurate assessment method and discusses broader urban-monitoring applications beyond the exact tested deployment."
       ],
       "candidates": [
         {
           "id": "K1",
-          "text": "The combined measurement-plus-CFD workflow can reproduce local pollutant patterns in the studied deployment."
+          "text": "The combined measurement-plus-CFD workflow reproduces local pollutant patterns with useful agreement in the studied deployment."
         },
         {
           "id": "K2",
-          "text": "Agreement with the sensor measurements demonstrates independent external validation of model accuracy."
+          "text": "Calibrating the low-cost sensors against CFD-derived targets substantially reduces their disagreement with those targets during the examined deployment."
         },
         {
           "id": "K3",
-          "text": "The approach is established as accurate across different buildings, cities, and sensor deployments."
+          "text": "The approach is established as accurate across different buildings, cities, weather regimes, and sensor deployments."
         },
         {
           "id": "K4",
-          "text": "Sensor observations are used in both calibration and evaluation of the reported model agreement."
+          "text": "The calibrated low-cost sensors have substantially improved independent real-world measurement accuracy."
         },
         {
           "id": "K5",
-          "text": "The paper uses CFD."
+          "text": "The paper uses CFD and low-cost air-quality sensors."
         }
       ]
     },
