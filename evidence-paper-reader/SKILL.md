@@ -23,7 +23,8 @@ Always load:
 3. `references/evidence-types.md`
 
 For output:
-- when Python can run, load `references/audit-ledger-format.md` and use `scripts/render_audit.py`
+- when Python can run, load `references/audit-ledger-format.md` and complete through `scripts/audit_gate.py`
+- use `scripts/render_audit.py` and `scripts/validate_audit.py` only as focused debugging tools
 - otherwise load `references/output-contract.md` and render manually
 
 Then route optional references using:
@@ -120,7 +121,7 @@ For medical papers, audit design and evidence only; do not convert the audit int
 Flash path is a staged-loading strategy for keeping context focused. It does not lower the audit standard.
 
 In Flash path:
-1. keep only `core-contract.md`, `evidence-viability.md`, `evidence-types.md`, and the active output interface (`audit-ledger-format.md` with renderer, otherwise `output-contract.md`) loaded initially
+1. keep only `core-contract.md`, `evidence-viability.md`, `evidence-types.md`, and the active output interface (`audit-ledger-format.md` with the execution gate, otherwise `output-contract.md`) loaded initially
 2. run the viability gate before claim extraction; do not force the full claim count for partially or non-auditable material
 3. run lexical routing, semantic confirmation, and route merge
 4. load every optional module in the merged route
