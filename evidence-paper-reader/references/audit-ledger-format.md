@@ -98,16 +98,18 @@ For a focused ledger check:
 python evidence-paper-reader/scripts/render_audit.py audit.json --check
 ```
 
-For normal completion, use the combined execution gate with the merged route and, when required, the evidence inventory:
+For normal completion, give the gate the raw semantic route and any lexical route used to produce the merge. A cached merged route may be supplied too, but it is checked against deterministic recomputation rather than trusted:
 
 ```bash
 python evidence-paper-reader/scripts/audit_gate.py audit.json \
+  --semantic-route semantic-route.json \
+  --lexical-route lexical-route.json \
   --route merged-route.json \
   --inventory inventory.json \
   -o audit.md
 ```
 
-Omit `--inventory` only when the merged route says `use_evidence_inventory: false`.
+Omit `--lexical-route` only when no semantic decision is `unclear`. Omit `--route` if no cached merge is needed. Omit `--inventory` only when the recomputed route says `use_evidence_inventory: false`.
 
 The combined gate also validates the canonical rendered Markdown. Direct renderer/validator calls remain useful for debugging individual stages.
 
@@ -136,7 +138,9 @@ The model still handles:
 Rendering is mechanical. Scientific judgment is not.
 
 Cross-stage consistency is also mechanical where possible. `audit_gate.py` therefore rejects:
-- a claim audit with no merged route
+- a claim audit with no raw semantic-route artifact
+- a cached merged route that differs from deterministic recomputation
+- an `unclear` semantic decision with no lexical artifact to resolve/preserve it
 - a route-required inventory that was skipped
 - an inventory supplied against a route that says not to use one
 - claim text/order drifting between an inventory and the final ledger
