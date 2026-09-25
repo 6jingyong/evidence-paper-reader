@@ -307,11 +307,15 @@ class SkillContractTests(unittest.TestCase):
             "--semantic-route semantic-route.json",
             "--router-text paper.txt",
             "--context-bundle audit-context.md",
+            "--module-checks module-checks.json",
             "regenerates the expected context bundle byte-for-byte",
+            "requires exact per-claim routed-module execution records",
             "lexical-route JSON is only a cache",
         ]:
             self.assertIn(phrase, self.skill)
         self.assertIn("--semantic-route semantic-route.json", self.ledger_format)
+        self.assertIn("--module-checks module-checks.json", self.ledger_format)
+        self.assertIn("trap-module entries must confirm", self.ledger_format)
         self.assertIn("deterministic recomputation", self.ledger_format)
 
     def test_flash_path_cannot_be_used_as_a_shortcut(self):
@@ -319,6 +323,7 @@ class SkillContractTests(unittest.TestCase):
             "does not lower the audit standard",
             "reduce the required claim count",
             "skip a routed module because it is inconvenient",
+            "complete every routed module check",
             "Automatically switch to Full path",
             "three or more primary methodological modules",
             "Flash means less irrelevant context, not less work.",
