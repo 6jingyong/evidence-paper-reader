@@ -37,34 +37,10 @@ def render_prompt(
             SKILL.read_text(encoding="utf-8").rstrip(),
             "",
         ])
-    neutral_contract = """# Output contract
-
-Return JSON only.
-
-case_id must match the packet.
-evidence_viability is one of: auditable, partially auditable, non-auditable.
-Select 3–5 candidate claim IDs when auditable, 1–5 when partially auditable, and none when non-auditable.
-modules must contain only materially required module filenames from the installed skill.
-use_evidence_inventory is boolean.
-support must contain exactly one object for every selected claim, using one of: sufficient, partial, insufficient, unclear.
-note is optional and concise.
-
-Schema:
-{
-  "case_id": "<packet case id>",
-  "evidence_viability": "<controlled value>",
-  "selected_claim_ids": ["<candidate id>", "..."],
-  "modules": ["<module filename>", "..."],
-  "use_evidence_inventory": false,
-  "support": [
-    {"claim_id": "<selected candidate id>", "support_level": "<controlled value>"}
-  ],
-  "note": "<optional concise note>"
-}"""
     sections.extend([
-        "## Neutral output contract",
+        "## Response format",
         "",
-        neutral_contract,
+        RESPONSE_FORMAT.read_text(encoding="utf-8").rstrip(),
         "",
         "## Review packet",
         "",
