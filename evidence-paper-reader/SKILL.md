@@ -130,7 +130,7 @@ In Flash path:
 2. run the viability gate before claim extraction; do not force the full claim count for partially or non-auditable material
 3. run lexical routing and semantic confirmation
 4. generate the active context and module-check template with `scripts/build_context.py`; it recomputes the merge and includes every required base/routed reference
-5. audit one claim at a time from that generated context and complete every routed module check
+5. if the recomputed route requires inventory, build it now; then audit one claim at a time from the generated context and complete every routed module check
 6. re-route if a later claim exposes a new methodological cue
 7. preserve the semantic route, generated context bundle, completed module checks, any router text needed for lexical fallback, optional verified route caches, and any required evidence inventory
 8. run `scripts/audit_gate.py` on those artifacts; only render after the gate passes
