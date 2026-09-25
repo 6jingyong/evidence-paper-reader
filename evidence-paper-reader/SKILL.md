@@ -56,9 +56,9 @@ Use `suggest_modules.py` for lexical candidates, confirm each core claim with `s
 
 When Python can run, do not rely on memory to open routed references one by one. Build the active methodological context deterministically:
 
-`python scripts/build_context.py --semantic-route semantic-route.json [--router-text paper.txt] [--lexical-route lexical-route.json] -o audit-context.md --manifest context-manifest.json`
+`python scripts/build_context.py --semantic-route semantic-route.json [--router-text paper.txt] [--lexical-route lexical-route.json] -o audit-context.md --manifest context-manifest.json --checks-template module-checks.json`
 
-When lexical fallback matters, `paper.txt` is the plain source text used for lexical routing. A lexical-route JSON is only a cache and is accepted only when it matches deterministic recomputation from that text. Use the generated bundle for support judgment. If a claim changes or a new cue appears, rerun routing and rebuild the bundle.
+When lexical fallback matters, `paper.txt` is the plain source text used for lexical routing. A lexical-route JSON is only a cache and is accepted only when it matches deterministic recomputation from that text. Complete every generated module check with a status and reason; trap checks set `mitigation_checked=true` only after the false-positive guard pass. Use the generated bundle for support judgment. If a claim changes or a new cue appears, rerun routing and rebuild the bundle.
 Typical optional modules:
 - figures/tables → `figure-and-table-traps.md`
 - statistical inference → `statistical-traps.md`
@@ -92,11 +92,11 @@ Do not let abstract/conclusion prose override more direct paper-local results.
 ### Phase E — validate and render
 Prefer the fail-closed execution gate when scripts are available:
 1. fill the audit ledger defined in `audit-ledger-format.md`
-2. preserve the raw semantic-route JSON, generated `audit-context.md`, and any router text needed for lexical fallback; lexical/merged route JSON may be kept only as verified caches
+2. preserve the raw semantic-route JSON, generated `audit-context.md`, completed `module-checks.json`, and any router text needed for lexical fallback; lexical/merged route JSON may be kept only as verified caches
 3. if the merged route requires evidence inventory, complete and validate the inventory
-4. run `scripts/audit_gate.py audit.json --semantic-route semantic-route.json --context-bundle audit-context.md [--router-text paper.txt] [--lexical-route lexical-route.json] [--route merged-route.json] [--inventory inventory.json] -o audit.md`
+4. run `scripts/audit_gate.py audit.json --semantic-route semantic-route.json --context-bundle audit-context.md --module-checks module-checks.json [--router-text paper.txt] [--lexical-route lexical-route.json] [--route merged-route.json] [--inventory inventory.json] -o audit.md`
 
-The gate recomputes routing, regenerates the expected context bundle byte-for-byte, rejects stale/tampered caches, then validates the ledger, inventory requirement, inventory↔ledger claim identity, evidence-node/dependence alignment, controlled evidence labels, and final rendered Markdown.
+The gate recomputes routing, regenerates the expected context bundle byte-for-byte, requires exact per-claim routed-module execution records, rejects stale/tampered caches, then validates the ledger, inventory requirement, inventory↔ledger claim identity, evidence-node/dependence alignment, controlled evidence labels, and final rendered Markdown.
 
 Do not bypass a failed gate by calling the renderer directly. Fix the failing stage or rerun routing when the workflow changed.
 
@@ -129,10 +129,10 @@ In Flash path:
 1. keep only `core-contract.md`, `evidence-viability.md`, `evidence-types.md`, and the active output interface (`audit-ledger-format.md` with the execution gate, otherwise `output-contract.md`) loaded initially
 2. run the viability gate before claim extraction; do not force the full claim count for partially or non-auditable material
 3. run lexical routing and semantic confirmation
-4. generate the active context with `scripts/build_context.py`; it recomputes the merge and includes every required base/routed reference
-5. audit one claim at a time from that generated context
+4. generate the active context and module-check template with `scripts/build_context.py`; it recomputes the merge and includes every required base/routed reference
+5. audit one claim at a time from that generated context and complete every routed module check
 6. re-route if a later claim exposes a new methodological cue
-7. preserve the semantic route, generated context bundle, any router text needed for lexical fallback, optional verified route caches, and any required evidence inventory
+7. preserve the semantic route, generated context bundle, completed module checks, any router text needed for lexical fallback, optional verified route caches, and any required evidence inventory
 8. run `scripts/audit_gate.py` on those artifacts; only render after the gate passes
 
 Flash path must not:
@@ -173,7 +173,7 @@ Use these only when the compact contract is not enough:
 
 When Python can run, `audit_gate.py` is the normal completion boundary:
 
-`python scripts/audit_gate.py audit.json --semantic-route semantic-route.json --context-bundle audit-context.md [--router-text paper.txt] [--lexical-route lexical-route.json] [--route merged-route.json] [--inventory inventory.json] -o audit.md`
+`python scripts/audit_gate.py audit.json --semantic-route semantic-route.json --context-bundle audit-context.md --module-checks module-checks.json [--router-text paper.txt] [--lexical-route lexical-route.json] [--route merged-route.json] [--inventory inventory.json] -o audit.md`
 
 Use `scripts/render_audit.py --check`, `scripts/evidence_inventory.py --check`, and `scripts/validate_audit.py` as focused debugging tools, not as substitutes for the combined gate.
 
