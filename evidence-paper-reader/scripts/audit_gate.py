@@ -66,6 +66,9 @@ CRITICAL_GUARDS = {
     "G117": "routed methodological modules have execution records",
     "G118": "module execution records match routed obligations",
     "G119": "unresolved routed checks cannot coexist with sufficient support",
+    "G120": "raw semantic route satisfies its schema",
+    "G121": "cached merged route satisfies its schema",
+    "G122": "evidence inventory satisfies its schema",
 }
 
 
@@ -211,7 +214,10 @@ def validate_gate(
             ))
         else:
             semantic_errors = merge_route.validate_semantic(semantic)
-            errors.extend(f"semantic route: {x}" for x in semantic_errors)
+            errors.extend(
+                _guard("G120", f"semantic route: {x}")
+                for x in semantic_errors
+            )
 
             actual_ids = [
                 item.get("claim_id")
@@ -256,7 +262,10 @@ def validate_gate(
                     )
 
     if route is not None:
-        errors.extend(f"route artifact: {x}" for x in validate_route_result(route))
+        errors.extend(
+            _guard("G121", f"route artifact: {x}")
+            for x in validate_route_result(route)
+        )
         if recomputed_route is None:
             if claim_audit:
                 errors.append(_guard(
@@ -338,7 +347,10 @@ def validate_gate(
 
     if inventory is not None:
         inventory_errors = inventory_mod.validate_inventory(inventory)
-        errors.extend(f"inventory: {x}" for x in inventory_errors)
+        errors.extend(
+            _guard("G122", f"inventory: {x}")
+            for x in inventory_errors
+        )
 
         if inventory.get("evidence_viability") != viability:
             errors.append(_guard(
