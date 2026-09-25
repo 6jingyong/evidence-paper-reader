@@ -83,11 +83,16 @@ Do not let upstream uncertainty disappear without new evidence.
 Do not treat repeated analyses of the same source as independent replication.
 Do not let abstract/conclusion prose override more direct paper-local results.
 
-### Phase E — render
-Prefer the structured renderer when available:
+### Phase E — validate and render
+Prefer the fail-closed execution gate when scripts are available:
 1. fill the audit ledger defined in `audit-ledger-format.md`
-2. run `scripts/render_audit.py`
-3. run `scripts/validate_audit.py` on the rendered Markdown
+2. preserve the merged route JSON from `merge_route.py`
+3. if the merged route requires evidence inventory, complete and validate the inventory
+4. run `scripts/audit_gate.py audit.json --route merged-route.json [--inventory inventory.json] -o audit.md`
+
+The gate validates the ledger, route contract, inventory requirement, inventory↔ledger claim identity, evidence-node/dependence alignment, controlled evidence labels, and final rendered Markdown before writing output.
+
+Do not bypass a failed gate by calling the renderer directly. Fix the failing stage or rerun routing when the workflow changed.
 
 If scripts cannot run, use `output-contract.md` exactly.
 
@@ -121,8 +126,8 @@ In Flash path:
 4. load every optional module in the merged route
 5. audit one claim at a time
 6. re-route if a later claim exposes a new methodological cue
-7. render the complete audit with `scripts/render_audit.py` when available
-8. run `scripts/validate_audit.py` on the finished audit when a Python runtime is available
+7. preserve the merged route result and any required evidence inventory
+8. run `scripts/audit_gate.py` on the ledger plus those artifacts; only render after the gate passes
 
 Flash path must not:
 - reduce the required claim count for material classified `auditable`
@@ -160,10 +165,10 @@ Use these only when the compact contract is not enough:
 
 ## Validation
 
-The renderer and validator own the mechanical output contract:
-`python scripts/render_audit.py audit.json -o audit.md`
-`python scripts/validate_audit.py audit.md`
+When Python can run, `audit_gate.py` is the normal completion boundary:
 
-It verifies fields, controlled values, claim numbering, evidence-node syntax, convergence-node count, provenance/dependency rules, and conservative uncertainty propagation.
+`python scripts/audit_gate.py audit.json --route merged-route.json [--inventory inventory.json] -o audit.md`
 
-The validator cannot decide whether a scientific interpretation is true. Semantic judgment remains the model's job.
+Use `render_audit.py --check`, `evidence_inventory.py --check`, and `validate_audit.py` as focused debugging tools, not as substitutes for the combined gate.
+
+The gate fails closed on mechanical cross-stage inconsistencies. It cannot decide whether a scientific interpretation is true. Semantic judgment remains the model's job.
