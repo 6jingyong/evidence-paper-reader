@@ -26,6 +26,7 @@ def _load_module(name: str, path: Path):
 render_audit = _load_module("epr_render_audit", ROOT / "render_audit.py")
 inventory_mod = _load_module("epr_evidence_inventory", ROOT / "evidence_inventory.py")
 markdown_validator = _load_module("epr_validate_audit", ROOT / "validate_audit.py")
+merge_route = _load_module("epr_merge_route", ROOT / "merge_route.py")
 
 TRAP_MODULES = {
     "figure-and-table-traps.md",
@@ -101,6 +102,25 @@ def validate_route_result(route: dict) -> list[str]:
     return errors
 
 
+def _semantic_has_unclear(semantic: dict) -> bool:
+    for claim in semantic.get("claims", []):
+        if not isinstance(claim, dict):
+            continue
+        routes = claim.get("routes", {})
+        if isinstance(routes, dict) and "unclear" in routes.values():
+            return True
+        if claim.get("inventory") == "unclear":
+            return True
+    return False
+
+
+def _expected_claim_ids(audit: dict) -> list[str]:
+    claims = audit.get("claims", [])
+    if not isinstance(claims, list):
+        return []
+    return [f"C{i}" for i in range(1, len(claims) + 1)]
+
+
 def _claim_contents(audit: dict) -> list[str]:
     claims = audit.get("claims", [])
     if not isinstance(claims, list):
@@ -117,6 +137,8 @@ def _claim_contents(audit: dict) -> list[str]:
 def validate_gate(
     audit: dict,
     *,
+    semantic: dict | None,
+    lexical: dict | None,
     route: dict | None,
     inventory: dict | None,
     evidence_types_text: str,
@@ -127,17 +149,67 @@ def validate_gate(
     viability = audit.get("evidence_viability")
     claim_audit = scope != "out of scope" and viability != "non-auditable"
 
-    if claim_audit and route is None:
-        errors.append("route: auditable/partially auditable work requires a merged route result")
+    recomputed_route = None
+    if claim_audit:
+        if semantic is None:
+            errors.append(
+                "route: auditable/partially auditable work requires the raw semantic-route artifact"
+            )
+        else:
+            semantic_errors = merge_route.validate_semantic(semantic)
+            errors.extend(f"semantic route: {x}" for x in semantic_errors)
+
+            actual_ids = [
+                item.get("claim_id")
+                for item in semantic.get("claims", [])
+                if isinstance(item, dict)
+            ]
+            expected_ids = _expected_claim_ids(audit)
+            if actual_ids != expected_ids:
+                errors.append(
+                    "semantic route: claim IDs must exactly match final ledger claims in order: "
+                    + ", ".join(expected_ids)
+                )
+
+            if lexical is None and _semantic_has_unclear(semantic):
+                errors.append(
+                    "route: semantic decisions contain unclear but no lexical-route artifact was supplied"
+                )
+
+            if not semantic_errors and actual_ids == expected_ids and not (
+                lexical is None and _semantic_has_unclear(semantic)
+            ):
+                try:
+                    recomputed_route = merge_route.merge(
+                        lexical or {"suggested": [], "use_evidence_inventory": False},
+                        semantic,
+                    )
+                except ValueError as exc:
+                    errors.extend(f"route merge: {x}" for x in str(exc).splitlines())
 
     if route is not None:
-        errors.extend(f"route: {x}" for x in validate_route_result(route))
-        use_inventory = route.get("use_evidence_inventory")
+        errors.extend(f"route artifact: {x}" for x in validate_route_result(route))
+        if recomputed_route is None:
+            if claim_audit:
+                errors.append(
+                    "route artifact: merged route cannot substitute for raw semantic routing"
+                )
+        elif route != recomputed_route:
+            errors.append(
+                "route artifact: supplied merged route does not match deterministic recomputation"
+            )
+
+    effective_route = recomputed_route if recomputed_route is not None else route
+    if claim_audit and effective_route is None and semantic is not None:
+        errors.append("route: deterministic merge did not produce a usable route")
+
+    if effective_route is not None:
+        use_inventory = effective_route.get("use_evidence_inventory")
         if use_inventory is True and inventory is None:
-            errors.append("inventory: merged route requires evidence inventory but none was supplied")
+            errors.append("inventory: recomputed route requires evidence inventory but none was supplied")
         if use_inventory is False and inventory is not None:
             errors.append(
-                "inventory: supplied inventory conflicts with merged route; rerun routing instead of bypassing it"
+                "inventory: supplied inventory conflicts with recomputed route; rerun routing instead of bypassing it"
             )
 
     if inventory is not None:
@@ -166,9 +238,6 @@ def validate_gate(
                 for x in inventory_mod.check_audit_alignment(inventory, audit)
             )
 
-    # A canonical renderer output must also satisfy the public Markdown validator.
-    # This catches controlled evidence-label errors that the ledger renderer alone
-    # deliberately does not interpret.
     if not errors:
         markdown = render_audit.render(audit)
         allowed = markdown_validator.evidence_labels(evidence_types_text)
@@ -183,7 +252,13 @@ def validate_gate(
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("ledger", type=Path)
-    parser.add_argument("--route", type=Path)
+    parser.add_argument("--semantic-route", type=Path)
+    parser.add_argument("--lexical-route", type=Path)
+    parser.add_argument(
+        "--route",
+        type=Path,
+        help="Optional cached merged route; checked against deterministic recomputation.",
+    )
     parser.add_argument("--inventory", type=Path)
     parser.add_argument("--evidence-types", type=Path, default=EVIDENCE_TYPES)
     parser.add_argument("-o", "--output", type=Path)
@@ -192,6 +267,8 @@ def main() -> int:
 
     try:
         audit = _load_json(args.ledger, "ledger")
+        semantic = _load_json(args.semantic_route, "semantic route") if args.semantic_route else None
+        lexical = _load_json(args.lexical_route, "lexical route") if args.lexical_route else None
         route = _load_json(args.route, "route") if args.route else None
         inventory = _load_json(args.inventory, "inventory") if args.inventory else None
         evidence_types_text = args.evidence_types.read_text(encoding="utf-8")
@@ -201,6 +278,8 @@ def main() -> int:
 
     errors = validate_gate(
         audit,
+        semantic=semantic,
+        lexical=lexical,
         route=route,
         inventory=inventory,
         evidence_types_text=evidence_types_text,
