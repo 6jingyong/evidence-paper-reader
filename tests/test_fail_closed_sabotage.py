@@ -183,6 +183,8 @@ def apply_mutation(value, mutation: dict):
     op = mutation["op"]
     if op == "replace_artifact":
         return copy.deepcopy(mutation.get("value"))
+    if op == "load_inventory_fixture":
+        return json.loads(INVENTORY_FIXTURE.read_text(encoding="utf-8"))
     if op == "append_text":
         return value + mutation["value"]
     if op == "replace_text":
@@ -241,7 +243,19 @@ class FailClosedSabotageTests(unittest.TestCase):
         self.assertEqual(len({case["id"] for case in cases}), len(cases))
         covered = {case["layer"] for case in cases}
         self.assertEqual(covered, set(self.matrix["required_layers"]))
-        self.assertGreaterEqual(len(cases), 18)
+        self.assertGreaterEqual(len(cases), 23)
+
+        matrix_guards = {
+            guard
+            for case in cases
+            for guard in case.get("guards", [])
+        }
+        canary_guards = set(self.matrix.get("code_canary_guards", []))
+        self.assertFalse(matrix_guards & canary_guards)
+        self.assertEqual(
+            matrix_guards | canary_guards,
+            set(gate.CRITICAL_GUARDS),
+        )
 
     def test_all_pristine_workflows_pass(self):
         for kind in ["simple", "lexical", "inventory"]:
@@ -272,6 +286,11 @@ class FailClosedSabotageTests(unittest.TestCase):
                     any(case["expect"] in error for error in errors),
                     f"{case['id']} failed, but not at its intended invariant: {errors}",
                 )
+                for guard in case.get("guards", []):
+                    self.assertTrue(
+                        any(error.startswith(f"[{guard}]") for error in errors),
+                        f"{case['id']} did not trip declared guard {guard}: {errors}",
+                    )
 
 
 if __name__ == "__main__":
