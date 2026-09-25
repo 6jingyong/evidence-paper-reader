@@ -59,7 +59,6 @@ When Python can run, do not rely on memory to open routed references one by one.
 `python scripts/build_context.py --semantic-route semantic-route.json [--lexical-route lexical-route.json] -o audit-context.md --manifest context-manifest.json`
 
 Use the generated bundle for the support-judgment pass. If a claim changes or a new methodological cue appears, rerun routing and rebuild the bundle.
-
 Typical optional modules:
 - figures/tables → `figure-and-table-traps.md`
 - statistical inference → `statistical-traps.md`
