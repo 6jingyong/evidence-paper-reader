@@ -29,6 +29,7 @@ def completed_module_checks(route):
     for claim in data["claims"]:
         for check in claim["checks"]:
             check["status"] = "clear"
+            check["source_locations"] = ["Results; Methods"]
             check["reason"] = "The routed methodological check was explicitly completed."
             if "mitigation_checked" in check:
                 check["mitigation_checked"] = True
