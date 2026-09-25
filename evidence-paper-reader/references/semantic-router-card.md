@@ -8,6 +8,8 @@ Do not route from keywords alone. Ask whether the claim's evidence or inference 
 
 ## For each core claim
 
+Copy the exact current claim text into `claim_text`. This is a workflow identity field: do not paraphrase it during routing. If the claim later changes, rerun routing.
+
 Return one decision for every route:
 
 - `required` — this module is materially needed to judge the claim
@@ -73,6 +75,7 @@ Return JSON:
   "claims": [
     {
       "claim_id": "C1",
+      "claim_text": "The intervention reduced the primary outcome in the enrolled population.",
       "routes": {
         "figure-and-table-traps.md": "not_required",
         "statistical-traps.md": "required",
@@ -104,3 +107,5 @@ The merge script combines semantic decisions with lexical suggestions:
 - inventory uses the same rule: `required` on, `not_required` off, `unclear` preserves lexical recommendation
 
 A semantic route changes context loading, not the support judgment.
+
+The merge result carries `routed_claims` forward. The final execution gate requires their IDs, order, and exact claim text to match the final audit ledger. Claim drift therefore requires rerouting rather than silent continuation.
