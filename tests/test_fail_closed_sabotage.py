@@ -228,6 +228,14 @@ class FailClosedSabotageTests(unittest.TestCase):
             evidence_types_text=self.evidence_types,
         )
 
+    def test_ci_explicitly_runs_declarative_sabotage_matrix(self):
+        workflow = (ROOT / ".github" / "workflows" / "contract-tests.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("test -f tests/sabotage-matrix.json", workflow)
+        self.assertIn("test -f tests/test_fail_closed_sabotage.py", workflow)
+        self.assertIn("python tests/test_fail_closed_sabotage.py -v", workflow)
+
     def test_matrix_has_required_attack_surface_coverage(self):
         cases = self.matrix["cases"]
         self.assertEqual(len({case["id"] for case in cases}), len(cases))
