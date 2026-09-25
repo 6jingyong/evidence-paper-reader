@@ -251,6 +251,57 @@
         }
       ],
       "expect": "ledger: claim 3: downstream claim cannot be sufficient without new evidence"
+    },
+    {
+      "id": "SB15",
+      "layer": "semantic_route",
+      "baseline": "simple",
+      "target": "semantic",
+      "op": "replace_artifact",
+      "value": null,
+      "expect": "requires the raw semantic-route artifact"
+    },
+    {
+      "id": "SB16",
+      "layer": "generated_context",
+      "baseline": "simple",
+      "target": "context",
+      "op": "replace_artifact",
+      "value": null,
+      "expect": "requires the generated audit-context bundle"
+    },
+    {
+      "id": "SB17",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "replace_artifact",
+      "value": null,
+      "expect": "recomputed route requires evidence inventory"
+    },
+    {
+      "id": "SB18",
+      "layer": "lexical_cache",
+      "baseline": "lexical",
+      "target": "router_text",
+      "op": "replace_artifact",
+      "value": null,
+      "expect": "cached lexical route cannot substitute for router text"
+    },
+    {
+      "id": "SB19",
+      "layer": "semantic_route",
+      "baseline": "simple",
+      "target": "semantic",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "routes",
+        "measurement-traps.md"
+      ],
+      "value": "unclear",
+      "expect": "router text is required to recompute lexical routing deterministically"
     }
   ]
 }
