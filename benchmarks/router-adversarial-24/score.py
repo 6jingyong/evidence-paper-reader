@@ -118,6 +118,7 @@ def perfect_semantic(case: dict) -> dict:
     return {
         "claims": [{
             "claim_id": "C1",
+            "claim_text": case["claim"],
             "routes": routes,
             "inventory": "required" if case["inventory_required"] else "not_required",
             "reason": case["rationale"],
