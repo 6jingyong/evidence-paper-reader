@@ -65,6 +65,7 @@ CRITICAL_GUARDS = {
     "G116": "structured ledger passes internal validation",
     "G117": "routed methodological modules have execution records",
     "G118": "module execution records match routed obligations",
+    "G119": "unresolved routed checks cannot coexist with sufficient support",
 }
 
 
@@ -305,10 +306,22 @@ def validate_gate(
                 "module checks: routed methodological modules require module-checks.json",
             ))
         elif module_checks is not None:
+            module_check_errors = module_checks_mod.validate(
+                module_checks,
+                recomputed_route,
+            )
             errors.extend(
                 _guard("G118", f"module checks: {x}")
-                for x in module_checks_mod.validate(module_checks, recomputed_route)
+                for x in module_check_errors
             )
+            if not module_check_errors:
+                errors.extend(
+                    _guard("G119", f"module/support alignment: {x}")
+                    for x in module_checks_mod.check_support_alignment(
+                        module_checks,
+                        audit,
+                    )
+                )
 
     if effective_route is not None:
         use_inventory = effective_route.get("use_evidence_inventory")
