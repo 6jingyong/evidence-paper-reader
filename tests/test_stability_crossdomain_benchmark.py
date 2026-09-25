@@ -115,6 +115,30 @@ class CrossDomainStabilityTests(unittest.TestCase):
         self.assertLess(row["reference"]["required_module_recall"], 1.0)
         self.assertLess(row["reference"]["support_accuracy"], 1.0)
 
+    def test_required_claims_remain_source_facing(self):
+        by_id = {case["case_id"]: case for case in self.cases}
+        banned_fragments = {
+            "ST04": ["not fully independent"],
+            "ST05": ["the evidence is repeated cross-sectional"],
+            "ST06": ["mechanically coupled"],
+            "ST07": ["provides direct local evidence"],
+        }
+        for case_id, fragments in banned_fragments.items():
+            case = by_id[case_id]
+            candidates = {x["id"]: x["text"].lower() for x in case["candidates"]}
+            required_text = "\n".join(candidates[cid] for cid in case["reference"]["required_claims"])
+            for fragment in fragments:
+                self.assertNotIn(fragment, required_text)
+
+        st05 = by_id["ST05"]
+        st06 = by_id["ST06"]
+        st07 = by_id["ST07"]
+        st04 = by_id["ST04"]
+        self.assertIn("1.4 times", next(x["text"] for x in st05["candidates"] if x["id"] == "K5"))
+        self.assertIn("market depth", next(x["text"] for x in st06["candidates"] if x["id"] == "K3"))
+        self.assertIn("body size", next(x["text"] for x in st07["candidates"] if x["id"] == "K4"))
+        self.assertIn("calibration", next(x["text"].lower() for x in st04["candidates"] if x["id"] == "K2"))
+
     def test_validator_rejects_unknown_modules_and_claim_count_shortcuts(self):
         case = self.cases[0]
         run = self._perfect_runs(case)[0]
