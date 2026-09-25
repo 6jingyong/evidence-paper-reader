@@ -64,12 +64,35 @@ class ContextBundleTests(unittest.TestCase):
 
         route = builder.recompute_route(
             semantic(measurement="unclear"),
-            lexical={
-                "suggested": [{"module": "measurement-traps.md", "cues": ["calibration"]}],
-                "use_evidence_inventory": False,
-            },
+            lexical=None,
+            router_text="The sensor calibration was checked before analysis.",
         )
         self.assertIn("measurement-traps.md", route["modules"])
+
+    def test_cached_lexical_route_is_verification_only(self):
+        with self.assertRaises(ValueError):
+            builder.recompute_route(
+                semantic(),
+                lexical={"suggested": [], "use_evidence_inventory": False},
+            )
+
+        router_text = "A randomized trial reports a hazard ratio."
+        exact_cache = builder.suggest_modules.suggest_modules(router_text)
+        route = builder.recompute_route(
+            semantic(),
+            lexical=exact_cache,
+            router_text=router_text,
+        )
+        self.assertIn("statistical-traps.md", route["modules"])
+
+        bad_cache = dict(exact_cache)
+        bad_cache["use_evidence_inventory"] = not exact_cache["use_evidence_inventory"]
+        with self.assertRaises(ValueError):
+            builder.recompute_route(
+                semantic(),
+                lexical=bad_cache,
+                router_text=router_text,
+            )
 
     def test_bundle_is_deterministic(self):
         route = builder.recompute_route(semantic(), lexical=None)
