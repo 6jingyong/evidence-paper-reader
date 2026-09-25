@@ -194,6 +194,18 @@ class AuditGateTests(unittest.TestCase):
         )
         self.assertTrue(any("contain unclear but no lexical-route" in x for x in errors), errors)
 
+    def test_claim_change_after_routing_requires_reroute(self):
+        audit = base_audit()
+        route = base_route()
+        audit["claims"][1]["content"] = "A changed claim that was not routed."
+        errors = gate.validate_gate(
+            audit,
+            route=route,
+            inventory=None,
+            evidence_types_text=self.evidence_types,
+        )
+        self.assertTrue(any("rerun routing after claim changes" in x for x in errors), errors)
+
     def test_route_required_inventory_cannot_be_skipped(self):
         errors = self.validate(
             semantic=base_semantic(use_inventory=True),
