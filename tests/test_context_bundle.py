@@ -68,6 +68,12 @@ class ContextBundleTests(unittest.TestCase):
                 for check in template["claims"][0]["checks"]
             )
         )
+        self.assertTrue(
+            all(
+                check.get("source_locations") == []
+                for check in template["claims"][0]["checks"]
+            )
+        )
 
     def test_inventory_route_adds_inventory_contract(self):
         route = builder.recompute_route(semantic(inventory="required"), lexical=None)
