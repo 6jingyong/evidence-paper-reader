@@ -92,7 +92,7 @@ Do not let abstract/conclusion prose override more direct paper-local results.
 ### Phase E — validate and render
 Prefer the fail-closed execution gate when scripts are available:
 1. fill the audit ledger defined in `audit-ledger-format.md`
-2. preserve the semantic route, generated `audit-context.md`, and any router text needed for lexical fallback; lexical/merged route JSON may be kept only as verified caches
+2. preserve the raw semantic-route JSON, generated `audit-context.md`, and any router text needed for lexical fallback; lexical/merged route JSON may be kept only as verified caches
 3. if the merged route requires evidence inventory, complete and validate the inventory
 4. run `scripts/audit_gate.py audit.json --semantic-route semantic-route.json --context-bundle audit-context.md [--router-text paper.txt] [--lexical-route lexical-route.json] [--route merged-route.json] [--inventory inventory.json] -o audit.md`
 
