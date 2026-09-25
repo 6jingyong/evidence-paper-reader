@@ -27,7 +27,7 @@ render_audit = _load_module("epr_render_audit", ROOT / "render_audit.py")
 inventory_mod = _load_module("epr_evidence_inventory", ROOT / "evidence_inventory.py")
 markdown_validator = _load_module("epr_validate_audit", ROOT / "validate_audit.py")
 merge_route = _load_module("epr_merge_route", ROOT / "merge_route.py")
-suggest_modules = _load_module("epr_suggest_modules", ROOT / "suggest_modules.py")
+build_context = _load_module("epr_build_context", ROOT / "build_context.py")
 
 TRAP_MODULES = {
     "figure-and-table-traps.md",
@@ -120,48 +120,6 @@ def validate_route_result(route: dict) -> list[str]:
     return errors
 
 
-def _semantic_has_unclear(semantic: dict) -> bool:
-    for claim in semantic.get("claims", []):
-        if not isinstance(claim, dict):
-            continue
-        routes = claim.get("routes", {})
-        if isinstance(routes, dict) and "unclear" in routes.values():
-            return True
-        if claim.get("inventory") == "unclear":
-            return True
-    return False
-
-
-def _resolve_lexical(
-    semantic: dict,
-    lexical_cache: dict | None,
-    router_text: str | None,
-) -> tuple[dict | None, list[str]]:
-    errors: list[str] = []
-    unclear = _semantic_has_unclear(semantic)
-
-    if router_text is not None:
-        recomputed = suggest_modules.suggest_modules(router_text)
-        if lexical_cache is not None and lexical_cache != recomputed:
-            errors.append(
-                "lexical route: cached lexical route does not match deterministic recomputation from router text"
-            )
-        return recomputed, errors
-
-    if lexical_cache is not None:
-        errors.append(
-            "lexical route: cached lexical route cannot substitute for router text; omit the cache or supply --router-text"
-        )
-
-    if unclear:
-        errors.append(
-            "route: semantic decisions contain unclear but no router-text artifact was supplied"
-        )
-        return None, errors
-
-    return {"suggested": [], "use_evidence_inventory": False}, errors
-
-
 def _expected_claim_ids(audit: dict) -> list[str]:
     claims = audit.get("claims", [])
     if not isinstance(claims, list):
@@ -191,6 +149,7 @@ def validate_gate(
     inventory: dict | None,
     evidence_types_text: str,
     router_text: str | None = None,
+    context_bundle: str | None = None,
 ) -> list[str]:
     errors = [f"ledger: {x}" for x in render_audit.validate_ledger(audit)]
 
@@ -231,24 +190,19 @@ def validate_gate(
                     "semantic route: claim text/order must exactly match the final ledger; rerun routing after claim changes"
                 )
 
-            effective_lexical, lexical_errors = _resolve_lexical(
-                semantic,
-                lexical,
-                router_text,
-            )
-            errors.extend(lexical_errors)
-
             if (
                 not semantic_errors
                 and actual_ids == expected_ids
                 and semantic_text == audit_text
-                and effective_lexical is not None
-                and not lexical_errors
             ):
                 try:
-                    recomputed_route = merge_route.merge(effective_lexical, semantic)
+                    recomputed_route = build_context.recompute_route(
+                        semantic,
+                        lexical,
+                        router_text,
+                    )
                 except ValueError as exc:
-                    errors.extend(f"route merge: {x}" for x in str(exc).splitlines())
+                    errors.extend(f"route recomputation: {x}" for x in str(exc).splitlines())
 
     if route is not None:
         errors.extend(f"route artifact: {x}" for x in validate_route_result(route))
@@ -265,6 +219,22 @@ def validate_gate(
     effective_route = recomputed_route if recomputed_route is not None else route
     if claim_audit and effective_route is None and semantic is not None:
         errors.append("route: deterministic merge did not produce a usable route")
+
+    if claim_audit and recomputed_route is not None:
+        if context_bundle is None:
+            errors.append(
+                "context: claim audit requires the generated audit-context bundle"
+            )
+        else:
+            try:
+                expected_context = build_context.render_bundle(recomputed_route)
+            except ValueError as exc:
+                errors.extend(f"context: {x}" for x in str(exc).splitlines())
+            else:
+                if context_bundle != expected_context:
+                    errors.append(
+                        "context: supplied audit-context bundle does not match deterministic route materialization"
+                    )
 
     if effective_route is not None:
         use_inventory = effective_route.get("use_evidence_inventory")
@@ -332,6 +302,11 @@ def main() -> int:
         help="Optional cached merged route; checked against deterministic recomputation.",
     )
     parser.add_argument("--inventory", type=Path)
+    parser.add_argument(
+        "--context-bundle",
+        type=Path,
+        help="Generated audit-context.md; verified byte-for-byte against deterministic routing.",
+    )
     parser.add_argument("--evidence-types", type=Path, default=EVIDENCE_TYPES)
     parser.add_argument("-o", "--output", type=Path)
     parser.add_argument("--check", action="store_true")
@@ -347,6 +322,10 @@ def main() -> int:
         )
         route = _load_json(args.route, "route") if args.route else None
         inventory = _load_json(args.inventory, "inventory") if args.inventory else None
+        context_bundle = (
+            args.context_bundle.read_text(encoding="utf-8")
+            if args.context_bundle else None
+        )
         evidence_types_text = args.evidence_types.read_text(encoding="utf-8")
     except (OSError, ValueError) as exc:
         print(f"FAIL: {exc}", file=sys.stderr)
