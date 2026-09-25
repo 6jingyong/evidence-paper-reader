@@ -87,11 +87,11 @@ Do not let abstract/conclusion prose override more direct paper-local results.
 ### Phase E — validate and render
 Prefer the fail-closed execution gate when scripts are available:
 1. fill the audit ledger defined in `audit-ledger-format.md`
-2. preserve the merged route JSON from `merge_route.py`
+2. preserve the raw semantic-route JSON and any lexical-route JSON used by `merge_route.py`; the merged route may also be kept as a cache
 3. if the merged route requires evidence inventory, complete and validate the inventory
-4. run `scripts/audit_gate.py audit.json --route merged-route.json [--inventory inventory.json] -o audit.md`
+4. run `scripts/audit_gate.py audit.json --semantic-route semantic-route.json [--lexical-route lexical-route.json] [--route merged-route.json] [--inventory inventory.json] -o audit.md`
 
-The gate validates the ledger, route contract, inventory requirement, inventory↔ledger claim identity, evidence-node/dependence alignment, controlled evidence labels, and final rendered Markdown before writing output.
+The gate recomputes routing from raw artifacts, rejects a cached merged route that drifts from deterministic merge output, then validates the ledger, inventory requirement, inventory↔ledger claim identity, evidence-node/dependence alignment, controlled evidence labels, and final rendered Markdown.
 
 Do not bypass a failed gate by calling the renderer directly. Fix the failing stage or rerun routing when the workflow changed.
 
@@ -127,8 +127,8 @@ In Flash path:
 4. load every optional module in the merged route
 5. audit one claim at a time
 6. re-route if a later claim exposes a new methodological cue
-7. preserve the merged route result and any required evidence inventory
-8. run `scripts/audit_gate.py` on the ledger plus those artifacts; only render after the gate passes
+7. preserve raw lexical/semantic route artifacts, the merged route result, and any required evidence inventory
+8. run `scripts/audit_gate.py` on the ledger plus the raw route artifacts; only render after the gate passes
 
 Flash path must not:
 - reduce the required claim count for material classified `auditable`
@@ -168,7 +168,7 @@ Use these only when the compact contract is not enough:
 
 When Python can run, `audit_gate.py` is the normal completion boundary:
 
-`python scripts/audit_gate.py audit.json --route merged-route.json [--inventory inventory.json] -o audit.md`
+`python scripts/audit_gate.py audit.json --semantic-route semantic-route.json [--lexical-route lexical-route.json] [--route merged-route.json] [--inventory inventory.json] -o audit.md`
 
 Use `scripts/render_audit.py --check`, `scripts/evidence_inventory.py --check`, and `scripts/validate_audit.py` as focused debugging tools, not as substitutes for the combined gate.
 
