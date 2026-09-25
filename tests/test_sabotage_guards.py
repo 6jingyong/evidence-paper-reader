@@ -119,6 +119,14 @@ def validate(audit, semantic, route, context, *, inventory=None, lexical=None, r
 
 
 class SabotageGuardTests(unittest.TestCase):
+    def test_ci_explicitly_runs_this_sabotage_suite(self):
+        workflow = (ROOT / ".github" / "workflows" / "contract-tests.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("Run sabotage guard matrix", workflow)
+        self.assertIn("test -f tests/test_sabotage_guards.py", workflow)
+        self.assertIn("python tests/test_sabotage_guards.py -v", workflow)
+
     def test_clean_baseline_passes(self):
         audit = base_audit()
         semantic, route, context = deterministic_artifacts(audit)
