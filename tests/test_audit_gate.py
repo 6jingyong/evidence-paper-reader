@@ -109,14 +109,16 @@ def base_lexical(use_inventory=False):
     }
 
 
-def base_semantic(use_inventory=False):
+def base_semantic(use_inventory=False, audit=None):
+    audit = audit or base_audit()
     claims = []
-    for idx in range(1, 4):
+    for idx, ledger_claim in enumerate(audit["claims"], start=1):
         routes = {name: "not_required" for name in gate.merge_route.ROUTES}
         routes["statistical-traps.md"] = "required"
         routes["study-design-traps.md"] = "required"
         claims.append({
             "claim_id": f"C{idx}",
+            "claim_text": ledger_claim["content"],
             "routes": routes,
             "inventory": "required" if use_inventory and idx == 1 else "not_required",
             "reason": "The claim depends on the stated design and statistical comparison.",
@@ -196,15 +198,14 @@ class AuditGateTests(unittest.TestCase):
 
     def test_claim_change_after_routing_requires_reroute(self):
         audit = base_audit()
-        route = base_route()
+        semantic = base_semantic(audit=audit)
         audit["claims"][1]["content"] = "A changed claim that was not routed."
-        errors = gate.validate_gate(
+        errors = self.validate(
             audit,
-            route=route,
-            inventory=None,
-            evidence_types_text=self.evidence_types,
+            semantic=semantic,
+            lexical=base_lexical(),
         )
-        self.assertTrue(any("rerun routing after claim changes" in x for x in errors), errors)
+        self.assertTrue(any("claim text/order must exactly match" in x for x in errors), errors)
 
     def test_route_required_inventory_cannot_be_skipped(self):
         errors = self.validate(
@@ -244,8 +245,7 @@ class AuditGateTests(unittest.TestCase):
             })
         audit["claims"][1]["content"] = "A rewritten claim that was not inventoried."
 
-        semantic = base_semantic(use_inventory=True)
-        semantic["claims"] = semantic["claims"][:len(audit["claims"])]
+        semantic = base_semantic(use_inventory=True, audit=audit)
         errors = self.validate(
             audit,
             semantic=semantic,
