@@ -135,6 +135,7 @@ def suggest_modules(text: str) -> dict:
         "merge_with": "merge_route.py",
         "render_with": "render_audit.py",
         "validate_with": "validate_audit.py",
+        "complete_with": "audit_gate.py",
         "suggested": suggestions,
         "primary_module_count": primary_count,
         "recommended_path": recommended_path,
@@ -166,6 +167,7 @@ def main() -> int:
             print("Inventory reasons: " + "; ".join(result["inventory_reasons"]))
         print(result["path_reason"])
         print("Semantic route confirmation: required via semantic-router-card.md + merge_route.py")
+        print("Completion gate: audit_gate.py")
         print("Always load:")
         for module in result["always_load"]:
             print(f"- {module}")
