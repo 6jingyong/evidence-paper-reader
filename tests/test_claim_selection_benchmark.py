@@ -9,6 +9,7 @@ SPECS = BENCH / "case_specs.json"
 EXPECTATIONS = BENCH / "reference_expectations.json"
 GENERATOR = BENCH / "generate_packets.py"
 SCORER = BENCH / "score.py"
+RESPONSE_FORMAT = BENCH / "response-format.md"
 
 
 def load_module(name: str, path: Path):
@@ -47,6 +48,23 @@ class ClaimSelectionBenchmarkTests(unittest.TestCase):
                 {x["id"] for x in packet["candidate_claims"]},
                 {x["id"] for x in case["candidates"]},
             )
+
+    def test_public_response_format_is_answer_neutral(self):
+        contract = RESPONSE_FORMAT.read_text(encoding="utf-8")
+        self.assertNotIn('"CS01"', contract)
+        for candidate_id in ["K1", "K2", "K3", "K4", "K5"]:
+            self.assertNotIn(f'"{candidate_id}"', contract)
+
+    def test_cfd_case_separates_source_claims_from_auditor_diagnosis(self):
+        case = next(x for x in self.specs["cases"] if x["case_id"] == "CS06")
+        candidates = {x["id"]: x["text"] for x in case["candidates"]}
+        expectation = next(
+            x for x in self.expectations["cases"] if x["case_id"] == "CS06"
+        )
+        required_text = "\n".join(candidates[cid] for cid in expectation["required"])
+        self.assertNotIn("used in both calibration and evaluation", required_text.lower())
+        self.assertIn("CFD-derived targets", candidates["K2"])
+        self.assertIn("independent real-world measurement accuracy", candidates["K4"])
 
     def _perfect_responses(self):
         responses = {}
