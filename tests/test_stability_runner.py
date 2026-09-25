@@ -124,15 +124,12 @@ class StabilityRunnerTests(unittest.TestCase):
     def test_generated_matrix_carries_candidate_ids(self):
         specs = json.loads((BENCH / "case_specs.json").read_text(encoding="utf-8"))
         case = specs["cases"][0]
-        expected = [item["id"] for item in case["candidates"]]
-        row = {
-            "packet_id": generate.packet_id(case["case_id"], 1, specs["seed"]),
-            "case_id": case["case_id"],
-            "repeat": 1,
-            "domain": case["domain"],
-            "candidate_ids": expected,
-        }
-        self.assertEqual(row["candidate_ids"], expected)
+        pid = generate.packet_id(case["case_id"], 1, specs["seed"])
+        row = generate.job_row(case, pid, 1)
+        self.assertEqual(
+            row["candidate_ids"],
+            [item["id"] for item in case["candidates"]],
+        )
 
     def test_resume_requires_a_valid_response(self):
         with tempfile.TemporaryDirectory() as td:
