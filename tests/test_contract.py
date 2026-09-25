@@ -193,6 +193,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertLess(flash_result["primary_module_count"], 3)
         self.assertEqual(flash_result["render_with"], "render_audit.py")
         self.assertEqual(flash_result["validate_with"], "validate_audit.py")
+        self.assertEqual(flash_result["complete_with"], "audit_gate.py")
 
     def test_renderer_turns_structured_ledger_into_valid_markdown(self):
         ledger = {
