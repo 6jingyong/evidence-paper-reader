@@ -57,6 +57,7 @@ def completed(route):
     for claim in data["claims"]:
         for check in claim["checks"]:
             check["status"] = "clear"
+            check["source_locations"] = ["Results; Methods"]
             check["reason"] = "Completed against the routed reference."
             if "mitigation_checked" in check:
                 check["mitigation_checked"] = True
@@ -96,6 +97,7 @@ class ModuleChecksTests(unittest.TestCase):
         extra["claims"][1]["checks"].append({
             "module": "follow-up-boundaries.md",
             "status": "clear",
+            "source_locations": ["Results"],
             "reason": "Unrouted filler.",
         })
         errors = checks_mod.validate(extra, route)
@@ -136,6 +138,18 @@ class ModuleChecksTests(unittest.TestCase):
 
         audit["claims"][0]["support"]["support_level"] = "partial"
         self.assertEqual(checks_mod.check_support_alignment(data, audit), [])
+
+    def test_source_trace_cannot_be_skipped_or_duplicated(self):
+        route = route_fixture()
+        data = completed(route)
+        data["claims"][0]["checks"][0]["source_locations"] = []
+        errors = checks_mod.validate(data, route)
+        self.assertTrue(any("source_locations must be a non-empty string list" in x for x in errors), errors)
+
+        data = completed(route)
+        data["claims"][0]["checks"][0]["source_locations"] = ["Table 2", "Table 2"]
+        errors = checks_mod.validate(data, route)
+        self.assertTrue(any("source_locations must not contain duplicates" in x for x in errors), errors)
 
     def test_reason_and_status_cannot_be_skipped(self):
         route = route_fixture()
