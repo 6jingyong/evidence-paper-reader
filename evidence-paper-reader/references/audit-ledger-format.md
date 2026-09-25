@@ -92,23 +92,24 @@ Create a starter ledger:
 python evidence-paper-reader/scripts/render_audit.py --template > audit.json
 ```
 
-Check the ledger without rendering:
+For a focused ledger check:
 
 ```bash
 python evidence-paper-reader/scripts/render_audit.py audit.json --check
 ```
 
-Render canonical Markdown:
+For normal completion, use the combined execution gate with the merged route and, when required, the evidence inventory:
 
 ```bash
-python evidence-paper-reader/scripts/render_audit.py audit.json -o audit.md
+python evidence-paper-reader/scripts/audit_gate.py audit.json \
+  --route merged-route.json \
+  --inventory inventory.json \
+  -o audit.md
 ```
 
-Then run:
+Omit `--inventory` only when the merged route says `use_evidence_inventory: false`.
 
-```bash
-python evidence-paper-reader/scripts/validate_audit.py audit.md
-```
+The combined gate also validates the canonical rendered Markdown. Direct renderer/validator calls remain useful for debugging individual stages.
 
 ## Responsibility boundary
 
@@ -133,3 +134,14 @@ The model still handles:
 - reasons and uncertainty
 
 Rendering is mechanical. Scientific judgment is not.
+
+Cross-stage consistency is also mechanical where possible. `audit_gate.py` therefore rejects:
+- a claim audit with no merged route
+- a route-required inventory that was skipped
+- an inventory supplied against a route that says not to use one
+- claim text/order drifting between an inventory and the final ledger
+- evidence nodes or independence claims that conflict with the inventory
+- malformed route guard/path bookkeeping
+- controlled evidence labels that fail the final Markdown contract
+
+When one of these fails, repair or rerun the relevant stage instead of bypassing the gate.
