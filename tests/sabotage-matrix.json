@@ -8,7 +8,8 @@
     "merged_route",
     "generated_context",
     "inventory",
-    "final_ledger"
+    "final_ledger",
+    "module_checks"
   ],
   "cases": [
     {
@@ -399,6 +400,54 @@
       "expect": "inventory: claim contents/order drifted between evidence inventory and final audit ledger",
       "guards": [
         "G113"
+      ]
+    },
+    {
+      "id": "SB24",
+      "layer": "module_checks",
+      "baseline": "simple",
+      "target": "module_checks",
+      "op": "replace_artifact",
+      "value": null,
+      "expect": "module checks: routed methodological modules require module-checks.json",
+      "guards": [
+        "G117"
+      ]
+    },
+    {
+      "id": "SB25",
+      "layer": "module_checks",
+      "baseline": "simple",
+      "target": "module_checks",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "checks",
+        0,
+        "mitigation_checked"
+      ],
+      "value": false,
+      "expect": "mitigation_checked must be true after applying false-positive guards",
+      "guards": [
+        "G118"
+      ]
+    },
+    {
+      "id": "SB26",
+      "layer": "module_checks",
+      "baseline": "simple",
+      "target": "module_checks",
+      "op": "delete_index",
+      "path": [
+        "claims",
+        0,
+        "checks"
+      ],
+      "index": 0,
+      "expect": "checks modules/order must exactly match routed requirements",
+      "guards": [
+        "G118"
       ]
     }
   ],
