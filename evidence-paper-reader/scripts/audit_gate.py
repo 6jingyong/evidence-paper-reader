@@ -187,10 +187,10 @@ def validate_gate(
     *,
     semantic: dict | None,
     lexical: dict | None,
-    router_text: str | None,
     route: dict | None,
     inventory: dict | None,
     evidence_types_text: str,
+    router_text: str | None = None,
 ) -> list[str]:
     errors = [f"ledger: {x}" for x in render_audit.validate_ledger(audit)]
 
