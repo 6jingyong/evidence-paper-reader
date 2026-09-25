@@ -295,6 +295,7 @@ class SkillContractTests(unittest.TestCase):
         ]:
             self.assertIn(phrase, self.ledger_format)
         self.assertIn("scripts/audit_gate.py", self.skill)
+        self.assertIn("scripts/build_context.py", self.skill)
         self.assertIn("scripts/render_audit.py", self.skill)
         self.assertIn("scripts/validate_audit.py", self.skill)
         self.assertIn("Do not bypass a failed gate", self.skill)
