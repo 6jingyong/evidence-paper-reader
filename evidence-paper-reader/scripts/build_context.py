@@ -32,6 +32,7 @@ def _load_module(name: str, path: Path):
 
 merge_route = _load_module("epr_context_merge_route", ROOT / "merge_route.py")
 suggest_modules = _load_module("epr_context_suggest_modules", ROOT / "suggest_modules.py")
+module_checks = _load_module("epr_context_module_checks", ROOT / "module_checks.py")
 
 
 def _load_json(path: Path, label: str) -> dict:
@@ -114,6 +115,10 @@ def render_bundle(route: dict, reference_root: Path = REFERENCES) -> str:
     ]
     for item in route.get("routed_claims", []):
         lines.append(f"  - {item['claim_id']}: {item['claim_text']}")
+    lines.append("- claim module requirements:")
+    for item in route.get("claim_module_requirements", []):
+        modules = ", ".join(item["modules"]) if item["modules"] else "none"
+        lines.append(f"  - {item['claim_id']}: {modules}")
     lines.extend([
         "- included references: " + ", ".join(names),
         "",
@@ -150,6 +155,11 @@ def main() -> int:
     parser.add_argument("--reference-root", type=Path, default=REFERENCES)
     parser.add_argument("-o", "--output", type=Path)
     parser.add_argument("--manifest", type=Path)
+    parser.add_argument(
+        "--checks-template",
+        type=Path,
+        help="Write a per-claim module-check template derived from the same route.",
+    )
     args = parser.parse_args()
 
     try:
@@ -170,11 +180,19 @@ def main() -> int:
             "routed_claims": route["routed_claims"],
             "recommended_path": route["recommended_path"],
             "use_evidence_inventory": route["use_evidence_inventory"],
+            "claim_module_requirements": route["claim_module_requirements"],
             "references": context_files(route),
         }
         args.manifest.parent.mkdir(parents=True, exist_ok=True)
         args.manifest.write_text(
             json.dumps(manifest, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+
+    if args.checks_template:
+        args.checks_template.parent.mkdir(parents=True, exist_ok=True)
+        args.checks_template.write_text(
+            json.dumps(module_checks.template(route), indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
         )
 
