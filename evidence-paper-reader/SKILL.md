@@ -54,6 +54,12 @@ Use the same E-node whenever the same underlying result is reused.
 ### Phase C — route only needed checks
 Use `suggest_modules.py` for lexical candidates, confirm each core claim with `semantic-router-card.md`, then merge with `merge_route.py`.
 
+When Python can run, do not rely on memory to open routed references one by one. Build the active methodological context deterministically:
+
+`python scripts/build_context.py --semantic-route semantic-route.json [--lexical-route lexical-route.json] -o audit-context.md --manifest context-manifest.json`
+
+Use the generated bundle for the support-judgment pass. If a claim changes or a new methodological cue appears, rerun routing and rebuild the bundle.
+
 Typical optional modules:
 - figures/tables → `figure-and-table-traps.md`
 - statistical inference → `statistical-traps.md`
@@ -123,9 +129,9 @@ Flash path is a staged-loading strategy for keeping context focused. It does not
 In Flash path:
 1. keep only `core-contract.md`, `evidence-viability.md`, `evidence-types.md`, and the active output interface (`audit-ledger-format.md` with the execution gate, otherwise `output-contract.md`) loaded initially
 2. run the viability gate before claim extraction; do not force the full claim count for partially or non-auditable material
-3. run lexical routing, semantic confirmation, and route merge
-4. load every optional module in the merged route
-5. audit one claim at a time
+3. run lexical routing and semantic confirmation
+4. generate the active context with `scripts/build_context.py`; it recomputes the merge and includes every required base/routed reference
+5. audit one claim at a time from that generated context
 6. re-route if a later claim exposes a new methodological cue
 7. preserve raw lexical/semantic route artifacts, the merged route result, and any required evidence inventory
 8. run `scripts/audit_gate.py` on the ledger plus the raw route artifacts; only render after the gate passes
@@ -133,7 +139,7 @@ In Flash path:
 Flash path must not:
 - reduce the required claim count for material classified `auditable`
 - omit required output fields
-- skip a routed module because it is inconvenient
+- skip the generated context bundle or substitute an unrouted methodology module because it is convenient
 - lower the evidence/support standard
 - skip false-positive guards after a trap module is triggered
 - stop after abstract-only reading when a decision-critical result/method section is available
