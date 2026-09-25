@@ -31,6 +31,7 @@ def _load_module(name: str, path: Path):
 
 
 merge_route = _load_module("epr_context_merge_route", ROOT / "merge_route.py")
+suggest_modules = _load_module("epr_context_suggest_modules", ROOT / "suggest_modules.py")
 
 
 def _load_json(path: Path, label: str) -> dict:
@@ -55,20 +56,34 @@ def _semantic_has_unclear(semantic: dict) -> bool:
     return False
 
 
-def recompute_route(semantic: dict, lexical: dict | None) -> dict:
+def recompute_route(
+    semantic: dict,
+    lexical: dict | None,
+    router_text: str | None = None,
+) -> dict:
     semantic_errors = merge_route.validate_semantic(semantic)
     if semantic_errors:
         raise ValueError("\n".join(f"semantic route: {x}" for x in semantic_errors))
 
-    if lexical is None and _semantic_has_unclear(semantic):
+    if router_text is not None:
+        recomputed_lexical = suggest_modules.suggest_modules(router_text)
+        if lexical is not None and lexical != recomputed_lexical:
+            raise ValueError(
+                "cached lexical route does not match deterministic recomputation from router text"
+            )
+        lexical = recomputed_lexical
+    elif lexical is not None:
         raise ValueError(
-            "semantic route contains unclear decisions; lexical route is required to preserve or remove them deterministically"
+            "cached lexical route cannot substitute for router text; omit the cache or supply router text"
         )
+    elif _semantic_has_unclear(semantic):
+        raise ValueError(
+            "semantic route contains unclear decisions; router text is required to recompute lexical routing deterministically"
+        )
+    else:
+        lexical = {"suggested": [], "use_evidence_inventory": False}
 
-    return merge_route.merge(
-        lexical or {"suggested": [], "use_evidence_inventory": False},
-        semantic,
-    )
+    return merge_route.merge(lexical, semantic)
 
 
 def context_files(route: dict) -> list[str]:
@@ -122,7 +137,16 @@ def render_bundle(route: dict, reference_root: Path = REFERENCES) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--semantic-route", type=Path, required=True)
-    parser.add_argument("--lexical-route", type=Path)
+    parser.add_argument(
+        "--router-text",
+        type=Path,
+        help="Plain source text used to deterministically recompute lexical routing.",
+    )
+    parser.add_argument(
+        "--lexical-route",
+        type=Path,
+        help="Optional cached lexical route; checked against --router-text and never trusted alone.",
+    )
     parser.add_argument("--reference-root", type=Path, default=REFERENCES)
     parser.add_argument("-o", "--output", type=Path)
     parser.add_argument("--manifest", type=Path)
@@ -131,7 +155,11 @@ def main() -> int:
     try:
         semantic = _load_json(args.semantic_route, "semantic route")
         lexical = _load_json(args.lexical_route, "lexical route") if args.lexical_route else None
-        route = recompute_route(semantic, lexical)
+        router_text = (
+            args.router_text.read_text(encoding="utf-8", errors="ignore")
+            if args.router_text else None
+        )
+        route = recompute_route(semantic, lexical, router_text)
         bundle = render_bundle(route, args.reference_root)
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"FAIL: {exc}", file=sys.stderr)
