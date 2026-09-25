@@ -294,8 +294,10 @@ class SkillContractTests(unittest.TestCase):
             "Rendering is mechanical. Scientific judgment is not.",
         ]:
             self.assertIn(phrase, self.ledger_format)
+        self.assertIn("scripts/audit_gate.py", self.skill)
         self.assertIn("scripts/render_audit.py", self.skill)
         self.assertIn("scripts/validate_audit.py", self.skill)
+        self.assertIn("Do not bypass a failed gate", self.skill)
 
     def test_flash_path_cannot_be_used_as_a_shortcut(self):
         for phrase in [
