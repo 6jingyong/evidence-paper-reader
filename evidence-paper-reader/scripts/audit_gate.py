@@ -63,6 +63,8 @@ CRITICAL_GUARDS = {
     "G114": "inventory evidence topology aligns with ledger",
     "G115": "canonical rendered audit passes public validation",
     "G116": "structured ledger passes internal validation",
+    "G117": "routed methodological modules have execution records",
+    "G118": "module execution records match routed obligations",
 }
 
 
@@ -298,12 +300,13 @@ def validate_gate(
         requirements = recomputed_route.get("claim_module_requirements", [])
         has_required_checks = any(item.get("modules") for item in requirements)
         if has_required_checks and module_checks is None:
-            errors.append(
-                "module checks: routed methodological modules require module-checks.json"
-            )
+            errors.append(_guard(
+                "G117",
+                "module checks: routed methodological modules require module-checks.json",
+            ))
         elif module_checks is not None:
             errors.extend(
-                f"module checks: {x}"
+                _guard("G118", f"module checks: {x}")
                 for x in module_checks_mod.validate(module_checks, recomputed_route)
             )
 
