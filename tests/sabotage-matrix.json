@@ -449,6 +449,25 @@
       "guards": [
         "G118"
       ]
+    },
+    {
+      "id": "SB27",
+      "layer": "module_checks",
+      "baseline": "simple",
+      "target": "module_checks",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "checks",
+        0,
+        "status"
+      ],
+      "value": "unclear",
+      "expect": "sufficient support conflicts with unresolved routed module check",
+      "guards": [
+        "G119"
+      ]
     }
   ],
   "code_canary_guards": [
