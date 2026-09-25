@@ -50,8 +50,24 @@ class ContextBundleTests(unittest.TestCase):
 
         bundle = builder.render_bundle(route)
         self.assertIn("C1: The intervention reduced the primary outcome.", bundle)
+        self.assertIn("claim module requirements:", bundle)
+        self.assertIn("C1: statistical-traps.md, study-design-traps.md", bundle)
         self.assertIn("BEGIN REFERENCE: statistical-traps.md", bundle)
         self.assertNotIn("BEGIN REFERENCE: measurement-traps.md", bundle)
+
+    def test_route_generates_exact_module_check_template(self):
+        route = builder.recompute_route(semantic(), lexical=None)
+        template = builder.module_checks.template(route)
+        self.assertEqual(
+            [x["module"] for x in template["claims"][0]["checks"]],
+            ["statistical-traps.md", "study-design-traps.md"],
+        )
+        self.assertTrue(
+            all(
+                check.get("mitigation_checked") is False
+                for check in template["claims"][0]["checks"]
+            )
+        )
 
     def test_inventory_route_adds_inventory_contract(self):
         route = builder.recompute_route(semantic(inventory="required"), lexical=None)
