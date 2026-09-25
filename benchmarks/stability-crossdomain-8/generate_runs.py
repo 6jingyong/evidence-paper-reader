@@ -62,6 +62,7 @@ def main() -> int:
                 "case_id": case["case_id"],
                 "repeat": repeat,
                 "domain": case["domain"],
+                "candidate_ids": [item["id"] for item in case["candidates"]],
             })
 
     random.Random(data["seed"]).shuffle(matrix)
