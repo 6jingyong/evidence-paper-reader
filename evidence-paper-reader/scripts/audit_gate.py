@@ -28,6 +28,7 @@ inventory_mod = _load_module("epr_evidence_inventory", ROOT / "evidence_inventor
 markdown_validator = _load_module("epr_validate_audit", ROOT / "validate_audit.py")
 merge_route = _load_module("epr_merge_route", ROOT / "merge_route.py")
 build_context = _load_module("epr_build_context", ROOT / "build_context.py")
+module_checks_mod = _load_module("epr_module_checks", ROOT / "module_checks.py")
 
 TRAP_MODULES = {
     "figure-and-table-traps.md",
@@ -142,6 +143,18 @@ def validate_route_result(route: dict) -> list[str]:
                     f"route.routed_claims[{index}].claim_text must be a non-empty string"
                 )
 
+    try:
+        requirements = module_checks_mod.required_by_claim(route)
+    except ValueError as exc:
+        errors.append(str(exc))
+    else:
+        if routed_claims and [x.get("claim_id") for x in routed_claims] != [
+            x["claim_id"] for x in requirements
+        ]:
+            errors.append(
+                "route.claim_module_requirements must match routed_claims IDs/order"
+            )
+
     return errors
 
 
@@ -175,6 +188,7 @@ def validate_gate(
     evidence_types_text: str,
     router_text: str | None = None,
     context_bundle: str | None = None,
+    module_checks: dict | None = None,
 ) -> list[str]:
     errors = [
         _guard("G116", f"ledger: {x}")
@@ -280,6 +294,19 @@ def validate_gate(
                         "context: supplied audit-context bundle does not match deterministic route materialization",
                     ))
 
+    if claim_audit and recomputed_route is not None:
+        requirements = recomputed_route.get("claim_module_requirements", [])
+        has_required_checks = any(item.get("modules") for item in requirements)
+        if has_required_checks and module_checks is None:
+            errors.append(
+                "module checks: routed methodological modules require module-checks.json"
+            )
+        elif module_checks is not None:
+            errors.extend(
+                f"module checks: {x}"
+                for x in module_checks_mod.validate(module_checks, recomputed_route)
+            )
+
     if effective_route is not None:
         use_inventory = effective_route.get("use_evidence_inventory")
         if use_inventory is True and inventory is None:
@@ -353,6 +380,11 @@ def main() -> int:
     )
     parser.add_argument("--inventory", type=Path)
     parser.add_argument(
+        "--module-checks",
+        type=Path,
+        help="Per-claim execution record for every routed methodological module.",
+    )
+    parser.add_argument(
         "--context-bundle",
         type=Path,
         help="Generated audit-context.md; verified byte-for-byte against deterministic routing.",
@@ -372,6 +404,10 @@ def main() -> int:
         )
         route = _load_json(args.route, "route") if args.route else None
         inventory = _load_json(args.inventory, "inventory") if args.inventory else None
+        module_checks = (
+            _load_json(args.module_checks, "module checks")
+            if args.module_checks else None
+        )
         context_bundle = (
             args.context_bundle.read_text(encoding="utf-8")
             if args.context_bundle else None
@@ -390,6 +426,7 @@ def main() -> int:
         inventory=inventory,
         evidence_types_text=evidence_types_text,
         context_bundle=context_bundle,
+        module_checks=module_checks,
     )
     if errors:
         for error in errors:
