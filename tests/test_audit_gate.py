@@ -20,6 +20,7 @@ def load_module(name: str, path: Path):
 
 
 gate = load_module("audit_gate", SCRIPT)
+AUTO_CONTEXT = object()
 
 
 def base_audit():
@@ -148,7 +149,20 @@ class AuditGateTests(unittest.TestCase):
         router_text=None,
         route=None,
         inventory=None,
+        context_bundle=AUTO_CONTEXT,
     ):
+        if context_bundle is AUTO_CONTEXT:
+            context_bundle = None
+            if semantic is not None:
+                try:
+                    computed = gate.build_context.recompute_route(
+                        semantic,
+                        lexical,
+                        router_text,
+                    )
+                    context_bundle = gate.build_context.render_bundle(computed)
+                except ValueError:
+                    pass
         return gate.validate_gate(
             audit or base_audit(),
             semantic=semantic,
@@ -157,6 +171,7 @@ class AuditGateTests(unittest.TestCase):
             inventory=inventory,
             evidence_types_text=self.evidence_types,
             router_text=router_text,
+            context_bundle=context_bundle,
         )
 
     def test_simple_audit_passes_with_raw_routes_and_cached_merge(self):
@@ -165,6 +180,20 @@ class AuditGateTests(unittest.TestCase):
             route=merged_route(),
         )
         self.assertEqual(errors, [])
+
+    def test_claim_audit_requires_generated_context_bundle(self):
+        errors = self.validate(
+            semantic=base_semantic(),
+            context_bundle=None,
+        )
+        self.assertTrue(any("requires the generated audit-context bundle" in x for x in errors), errors)
+
+    def test_context_bundle_must_match_deterministic_materialization(self):
+        errors = self.validate(
+            semantic=base_semantic(),
+            context_bundle="# hand-written shortcut\n",
+        )
+        self.assertTrue(any("does not match deterministic route materialization" in x for x in errors), errors)
 
     def test_cached_merged_route_cannot_replace_semantic_routing(self):
         errors = self.validate(
