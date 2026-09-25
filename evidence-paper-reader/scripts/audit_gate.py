@@ -27,6 +27,7 @@ render_audit = _load_module("epr_render_audit", ROOT / "render_audit.py")
 inventory_mod = _load_module("epr_evidence_inventory", ROOT / "evidence_inventory.py")
 markdown_validator = _load_module("epr_validate_audit", ROOT / "validate_audit.py")
 merge_route = _load_module("epr_merge_route", ROOT / "merge_route.py")
+suggest_modules = _load_module("epr_suggest_modules", ROOT / "suggest_modules.py")
 
 TRAP_MODULES = {
     "figure-and-table-traps.md",
@@ -131,6 +132,36 @@ def _semantic_has_unclear(semantic: dict) -> bool:
     return False
 
 
+def _resolve_lexical(
+    semantic: dict,
+    lexical_cache: dict | None,
+    router_text: str | None,
+) -> tuple[dict | None, list[str]]:
+    errors: list[str] = []
+    unclear = _semantic_has_unclear(semantic)
+
+    if router_text is not None:
+        recomputed = suggest_modules.suggest_modules(router_text)
+        if lexical_cache is not None and lexical_cache != recomputed:
+            errors.append(
+                "lexical route: cached lexical route does not match deterministic recomputation from router text"
+            )
+        return recomputed, errors
+
+    if lexical_cache is not None:
+        errors.append(
+            "lexical route: cached lexical route cannot substitute for router text; omit the cache or supply --router-text"
+        )
+
+    if unclear:
+        errors.append(
+            "route: semantic decisions contain unclear but no router-text artifact was supplied"
+        )
+        return None, errors
+
+    return {"suggested": [], "use_evidence_inventory": False}, errors
+
+
 def _expected_claim_ids(audit: dict) -> list[str]:
     claims = audit.get("claims", [])
     if not isinstance(claims, list):
@@ -156,6 +187,7 @@ def validate_gate(
     *,
     semantic: dict | None,
     lexical: dict | None,
+    router_text: str | None,
     route: dict | None,
     inventory: dict | None,
     evidence_types_text: str,
@@ -199,19 +231,22 @@ def validate_gate(
                     "semantic route: claim text/order must exactly match the final ledger; rerun routing after claim changes"
                 )
 
-            if lexical is None and _semantic_has_unclear(semantic):
-                errors.append(
-                    "route: semantic decisions contain unclear but no lexical-route artifact was supplied"
-                )
+            effective_lexical, lexical_errors = _resolve_lexical(
+                semantic,
+                lexical,
+                router_text,
+            )
+            errors.extend(lexical_errors)
 
-            if not semantic_errors and actual_ids == expected_ids and not (
-                lexical is None and _semantic_has_unclear(semantic)
+            if (
+                not semantic_errors
+                and actual_ids == expected_ids
+                and semantic_text == audit_text
+                and effective_lexical is not None
+                and not lexical_errors
             ):
                 try:
-                    recomputed_route = merge_route.merge(
-                        lexical or {"suggested": [], "use_evidence_inventory": False},
-                        semantic,
-                    )
+                    recomputed_route = merge_route.merge(effective_lexical, semantic)
                 except ValueError as exc:
                     errors.extend(f"route merge: {x}" for x in str(exc).splitlines())
 
@@ -281,7 +316,16 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("ledger", type=Path)
     parser.add_argument("--semantic-route", type=Path)
-    parser.add_argument("--lexical-route", type=Path)
+    parser.add_argument(
+        "--router-text",
+        type=Path,
+        help="Plain source text used to deterministically recompute lexical routing.",
+    )
+    parser.add_argument(
+        "--lexical-route",
+        type=Path,
+        help="Optional cached lexical route; checked against --router-text and never trusted alone.",
+    )
     parser.add_argument(
         "--route",
         type=Path,
@@ -297,6 +341,10 @@ def main() -> int:
         audit = _load_json(args.ledger, "ledger")
         semantic = _load_json(args.semantic_route, "semantic route") if args.semantic_route else None
         lexical = _load_json(args.lexical_route, "lexical route") if args.lexical_route else None
+        router_text = (
+            args.router_text.read_text(encoding="utf-8", errors="ignore")
+            if args.router_text else None
+        )
         route = _load_json(args.route, "route") if args.route else None
         inventory = _load_json(args.inventory, "inventory") if args.inventory else None
         evidence_types_text = args.evidence_types.read_text(encoding="utf-8")
@@ -308,6 +356,7 @@ def main() -> int:
         audit,
         semantic=semantic,
         lexical=lexical,
+        router_text=router_text,
         route=route,
         inventory=inventory,
         evidence_types_text=evidence_types_text,
