@@ -40,7 +40,10 @@
         0,
         "claim_text"
       ],
-      "expect": "semantic route: C1: claim_text required"
+      "expect": "semantic route: C1: claim_text required",
+      "guards": [
+        "G120"
+      ]
     },
     {
       "id": "SB03",
@@ -83,7 +86,10 @@
         "modules"
       ],
       "value": "false-positive-guards.md",
-      "expect": "route artifact: route with trap modules must include false-positive-guards.md"
+      "expect": "route artifact: route with trap modules must include false-positive-guards.md",
+      "guards": [
+        "G121"
+      ]
     },
     {
       "id": "SB06",
@@ -95,7 +101,10 @@
         "recommended_path"
       ],
       "value": "full",
-      "expect": "route artifact: route.recommended_path=full conflicts"
+      "expect": "route artifact: route.recommended_path=full conflicts",
+      "guards": [
+        "G121"
+      ]
     },
     {
       "id": "SB07",
@@ -137,7 +146,10 @@
         "R1",
         "R3"
       ],
-      "expect": "one evidence node cannot merge different result keys"
+      "expect": "one evidence node cannot merge different result keys",
+      "guards": [
+        "G122"
+      ]
     },
     {
       "id": "SB10",
@@ -168,7 +180,10 @@
           ]
         }
       ],
-      "expect": "inventory: result key G1 is promoted into multiple evidence nodes"
+      "expect": "inventory: result key G1 is promoted into multiple evidence nodes",
+      "guards": [
+        "G122"
+      ]
     },
     {
       "id": "SB11",
@@ -213,7 +228,10 @@
         "promotions"
       ],
       "index": 2,
-      "expect": "inventory: C3: claim has neither promoted evidence nor an unresolved_claims entry"
+      "expect": "inventory: C3: claim has neither promoted evidence nor an unresolved_claims entry",
+      "guards": [
+        "G122"
+      ]
     },
     {
       "id": "SB13",
