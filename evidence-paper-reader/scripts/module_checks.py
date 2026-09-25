@@ -46,6 +46,7 @@ def template(route: dict) -> dict:
             check = {
                 "module": module,
                 "status": "unclear",
+                "source_locations": [],
                 "reason": "",
             }
             if module in TRAP_MODULES:
@@ -108,6 +109,20 @@ def validate(data: dict, route: dict) -> list[str]:
                     f"{claim_id} {module}: status must be one of: "
                     + ", ".join(sorted(STATUSES))
                 )
+            locations = check.get("source_locations")
+            if (
+                not isinstance(locations, list)
+                or not locations
+                or not all(isinstance(x, str) and x.strip() for x in locations)
+            ):
+                errors.append(
+                    f"{claim_id} {module}: source_locations must be a non-empty string list"
+                )
+            elif len({x.strip() for x in locations}) != len(locations):
+                errors.append(
+                    f"{claim_id} {module}: source_locations must not contain duplicates"
+                )
+
             reason = check.get("reason")
             if not isinstance(reason, str) or not reason.strip():
                 errors.append(f"{claim_id} {module}: reason must be a non-empty string")
