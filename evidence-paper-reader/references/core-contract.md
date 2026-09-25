@@ -50,6 +50,8 @@ Conclusion strength describes the reach of the claim:
 
 Do not silently narrow a claim before judging support.
 
+Core claims must be source-facing: propositions the paper itself reports, argues, interprets, or concludes. Do not use auditor diagnostics, design criticisms, or evidence-quality descriptions merely to fill the claim count. Statements such as "the validation is not independent" or "the evidence is cross-sectional" belong in support reasoning/downweighting unless the paper itself makes that proposition a central claim. A methodological claim may be selected when the paper itself claims a method, design property, or validation result.
+
 ## 4. Evidence nodes
 
 Assign stable local IDs:
