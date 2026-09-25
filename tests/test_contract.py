@@ -316,6 +316,8 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("--semantic-route semantic-route.json", self.ledger_format)
         self.assertIn("--module-checks module-checks.json", self.ledger_format)
         self.assertIn("trap-module entries must confirm", self.ledger_format)
+        self.assertIn("unresolved `unclear` routed check prevents `sufficient` support", self.ledger_format)
+        self.assertIn("an `unclear` routed check cannot coexist with `sufficient` support", self.skill)
         self.assertIn("deterministic recomputation", self.ledger_format)
 
     def test_flash_path_cannot_be_used_as_a_shortcut(self):
