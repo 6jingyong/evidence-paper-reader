@@ -191,7 +191,7 @@ def case_metrics(case: dict, runs: list[dict]) -> dict:
             "forbidden_claim_selection_rate": forbidden_selection_rate,
             "required_module_recall": route_required_recall,
             "unallowed_module_rate": route_unallowed_rate,
-            "inventory_accuracy": sum(v == ref["inventory"] for v in inventory_values) / len(runs),
+            "inventory_overtrigger_rate": sum(bool(v) for v in inventory_values) / len(runs),
             "support_accuracy": support_accuracy_hits / support_accuracy_total,
         },
         "modes": {
@@ -208,7 +208,6 @@ def aggregate(per_case: dict[str, dict]) -> dict:
         ("viability", "viability_pairwise_exact"),
         ("claim_selection", "claim_selection_pairwise_jaccard"),
         ("routing", "routing_pairwise_jaccard"),
-        ("inventory", "inventory_pairwise_exact"),
         ("support", "support_vector_pairwise_exact"),
     ]
     stability = {
