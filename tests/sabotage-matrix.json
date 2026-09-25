@@ -1,0 +1,256 @@
+{
+  "matrix_id": "fail-closed-sabotage-v1",
+  "purpose": "Mutate one trusted workflow artifact at a time and require the final audit gate to reject the sabotaged workflow.",
+  "required_layers": [
+    "claim_identity",
+    "semantic_route",
+    "lexical_cache",
+    "merged_route",
+    "generated_context",
+    "inventory",
+    "final_ledger"
+  ],
+  "cases": [
+    {
+      "id": "SB01",
+      "layer": "claim_identity",
+      "baseline": "simple",
+      "target": "audit",
+      "op": "set",
+      "path": [
+        "claims",
+        1,
+        "content"
+      ],
+      "value": "A silently rewritten claim after routing.",
+      "expect": "semantic route: claim text/order must exactly match"
+    },
+    {
+      "id": "SB02",
+      "layer": "semantic_route",
+      "baseline": "simple",
+      "target": "semantic",
+      "op": "delete",
+      "path": [
+        "claims",
+        0,
+        "claim_text"
+      ],
+      "expect": "semantic route: C1: claim_text required"
+    },
+    {
+      "id": "SB03",
+      "layer": "semantic_route",
+      "baseline": "simple",
+      "target": "semantic",
+      "op": "set",
+      "path": [
+        "claims",
+        1,
+        "claim_id"
+      ],
+      "value": "C9",
+      "expect": "semantic route: claim IDs must exactly match"
+    },
+    {
+      "id": "SB04",
+      "layer": "lexical_cache",
+      "baseline": "lexical",
+      "target": "lexical",
+      "op": "toggle",
+      "path": [
+        "use_evidence_inventory"
+      ],
+      "expect": "cached lexical route does not match deterministic recomputation"
+    },
+    {
+      "id": "SB05",
+      "layer": "merged_route",
+      "baseline": "simple",
+      "target": "route",
+      "op": "remove_value",
+      "path": [
+        "modules"
+      ],
+      "value": "false-positive-guards.md",
+      "expect": "route artifact: route with trap modules must include false-positive-guards.md"
+    },
+    {
+      "id": "SB06",
+      "layer": "merged_route",
+      "baseline": "simple",
+      "target": "route",
+      "op": "set",
+      "path": [
+        "recommended_path"
+      ],
+      "value": "full",
+      "expect": "route artifact: route.recommended_path=full conflicts"
+    },
+    {
+      "id": "SB07",
+      "layer": "generated_context",
+      "baseline": "simple",
+      "target": "context",
+      "op": "append_text",
+      "value": "\\n<!-- hand-edited context -->\\n",
+      "expect": "context: supplied audit-context bundle does not match deterministic route materialization"
+    },
+    {
+      "id": "SB08",
+      "layer": "generated_context",
+      "baseline": "simple",
+      "target": "context",
+      "op": "replace_text",
+      "old": "## BEGIN REFERENCE: statistical-traps.md",
+      "value": "## BEGIN REFERENCE: OMITTED-statistical-traps.md",
+      "expect": "context: supplied audit-context bundle does not match deterministic route materialization"
+    },
+    {
+      "id": "SB09",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "set",
+      "path": [
+        "promotions",
+        0,
+        "record_ids"
+      ],
+      "value": [
+        "R1",
+        "R3"
+      ],
+      "expect": "inventory: promotion E1 cannot merge different result keys"
+    },
+    {
+      "id": "SB10",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "append",
+      "path": [
+        "promotions"
+      ],
+      "value": {
+        "evidence_node": "E4",
+        "record_ids": [
+          "R2"
+        ],
+        "reason": "Sabotage: split one underlying result."
+      },
+      "also": [
+        {
+          "op": "set",
+          "path": [
+            "promotions",
+            0,
+            "record_ids"
+          ],
+          "value": [
+            "R1"
+          ]
+        }
+      ],
+      "expect": "inventory: result key G1 is promoted into multiple evidence nodes"
+    },
+    {
+      "id": "SB11",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "audit",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "support",
+        "evidence_nodes"
+      ],
+      "value": [
+        "E1",
+        "E2"
+      ],
+      "also": [
+        {
+          "op": "set",
+          "path": [
+            "claims",
+            0,
+            "support",
+            "evidence_dependence"
+          ],
+          "value": "independent convergence"
+        }
+      ],
+      "expect": "inventory alignment: audit claim 1: independent convergence shares evidence unit(s): U1"
+    },
+    {
+      "id": "SB12",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "delete_index",
+      "path": [
+        "promotions"
+      ],
+      "index": 2,
+      "expect": "inventory: C3: claim has neither promoted evidence nor an unresolved_claims entry"
+    },
+    {
+      "id": "SB13",
+      "layer": "final_ledger",
+      "baseline": "simple",
+      "target": "audit",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "support",
+        "evidence_type"
+      ],
+      "value": [
+        "imaginary evidence"
+      ],
+      "expect": "rendered audit: claim 1: unknown evidence label"
+    },
+    {
+      "id": "SB14",
+      "layer": "final_ledger",
+      "baseline": "simple",
+      "target": "audit",
+      "op": "set",
+      "path": [
+        "claims",
+        2,
+        "support",
+        "support_level"
+      ],
+      "value": "sufficient",
+      "also": [
+        {
+          "op": "set",
+          "path": [
+            "claims",
+            0,
+            "support",
+            "support_level"
+          ],
+          "value": "partial"
+        },
+        {
+          "op": "set",
+          "path": [
+            "claims",
+            2,
+            "support",
+            "evidence_nodes"
+          ],
+          "value": [
+            "E1"
+          ]
+        }
+      ],
+      "expect": "ledger: claim 3: downstream claim cannot be sufficient without new evidence"
+    }
+  ]
+}
