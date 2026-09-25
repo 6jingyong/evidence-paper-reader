@@ -42,7 +42,7 @@ def load_matrix(path: Path) -> list[dict]:
     data = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(data, list) or not data:
         raise ValueError("run matrix must be a non-empty JSON list")
-    required = {"packet_id", "case_id", "repeat", "domain"}
+    required = {"packet_id", "case_id", "repeat", "domain", "candidate_ids"}
     for row in data:
         if not required.issubset(row):
             raise ValueError(f"matrix row missing fields: {required - set(row)}")
