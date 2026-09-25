@@ -58,7 +58,7 @@ When Python can run, do not rely on memory to open routed references one by one.
 
 `python scripts/build_context.py --semantic-route semantic-route.json [--router-text paper.txt] [--lexical-route lexical-route.json] -o audit-context.md --manifest context-manifest.json --checks-template module-checks.json`
 
-When lexical fallback matters, `paper.txt` is the plain source text used for lexical routing. A lexical-route JSON is only a cache and is accepted only when it matches deterministic recomputation from that text. Complete every generated module check with a status and reason; trap checks set `mitigation_checked=true` only after the false-positive guard pass. Use the generated bundle for support judgment. If a claim changes or a new cue appears, rerun routing and rebuild the bundle.
+When lexical fallback matters, `paper.txt` is the plain source text used for lexical routing. A lexical-route JSON is only a cache and is accepted only when it matches deterministic recomputation from that text. Complete every generated module check with a status and reason; trap checks set `mitigation_checked=true` only after the false-positive guard pass, and an `unclear` routed check cannot coexist with `sufficient` support. Use the generated bundle for support judgment. If a claim changes or a new cue appears, rerun routing and rebuild the bundle.
 Typical optional modules:
 - figures/tables → `figure-and-table-traps.md`
 - statistical inference → `statistical-traps.md`
