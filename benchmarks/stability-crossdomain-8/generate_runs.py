@@ -42,6 +42,16 @@ def render_case(case: dict, pid: str) -> str:
     return "\n".join(lines)
 
 
+def job_row(case: dict, pid: str, repeat: int) -> dict:
+    return {
+        "packet_id": pid,
+        "case_id": case["case_id"],
+        "repeat": repeat,
+        "domain": case["domain"],
+        "candidate_ids": [item["id"] for item in case["candidates"]],
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("specs", nargs="?", type=Path, default=ROOT / "case_specs.json")
@@ -57,13 +67,7 @@ def main() -> int:
         for repeat in range(1, data["repeats_per_case"] + 1):
             pid = packet_id(case["case_id"], repeat, data["seed"])
             (packet_dir / f"{pid}.md").write_text(render_case(case, pid), encoding="utf-8")
-            matrix.append({
-                "packet_id": pid,
-                "case_id": case["case_id"],
-                "repeat": repeat,
-                "domain": case["domain"],
-                "candidate_ids": [item["id"] for item in case["candidates"]],
-            })
+            matrix.append(job_row(case, pid, repeat))
 
     random.Random(data["seed"]).shuffle(matrix)
     (args.output_dir / "run_matrix.json").write_text(
