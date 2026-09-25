@@ -339,6 +339,7 @@ def main() -> int:
         route=route,
         inventory=inventory,
         evidence_types_text=evidence_types_text,
+        context_bundle=context_bundle,
     )
     if errors:
         for error in errors:
