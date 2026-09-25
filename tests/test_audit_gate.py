@@ -99,21 +99,36 @@ def base_audit():
     }
 
 
-def base_route(use_inventory=False):
+def base_lexical(use_inventory=False):
     return {
-        "modules": [
-            "statistical-traps.md",
-            "study-design-traps.md",
-            "false-positive-guards.md",
+        "suggested": [
+            {"module": "statistical-traps.md", "cues": ["regression"]},
+            {"module": "study-design-traps.md", "cues": ["randomized"]},
         ],
         "use_evidence_inventory": use_inventory,
-        "inventory_basis": "semantic required" if use_inventory else "semantic not required",
-        "recommended_path": "flash",
-        "primary_module_count": 2,
-        "route_details": {},
-        "lexical_only_modules_removed": [],
-        "semantic_modules_added": [],
     }
+
+
+def base_semantic(use_inventory=False):
+    claims = []
+    for idx in range(1, 4):
+        routes = {name: "not_required" for name in gate.merge_route.ROUTES}
+        routes["statistical-traps.md"] = "required"
+        routes["study-design-traps.md"] = "required"
+        claims.append({
+            "claim_id": f"C{idx}",
+            "routes": routes,
+            "inventory": "required" if use_inventory and idx == 1 else "not_required",
+            "reason": "The claim depends on the stated design and statistical comparison.",
+        })
+    return {"claims": claims}
+
+
+def merged_route(use_inventory=False):
+    return gate.merge_route.merge(
+        base_lexical(use_inventory=use_inventory),
+        base_semantic(use_inventory=use_inventory),
+    )
 
 
 class AuditGateTests(unittest.TestCase):
@@ -122,41 +137,78 @@ class AuditGateTests(unittest.TestCase):
         cls.evidence_types = EVIDENCE_TYPES.read_text(encoding="utf-8")
         cls.inventory = json.loads(INVENTORY_FIXTURE.read_text(encoding="utf-8"))
 
-    def test_simple_audit_passes_with_merged_route(self):
-        errors = gate.validate_gate(
-            base_audit(),
-            route=base_route(),
-            inventory=None,
+    def validate(self, audit=None, *, semantic=None, lexical=None, route=None, inventory=None):
+        return gate.validate_gate(
+            audit or base_audit(),
+            semantic=semantic,
+            lexical=lexical,
+            route=route,
+            inventory=inventory,
             evidence_types_text=self.evidence_types,
+        )
+
+    def test_simple_audit_passes_with_raw_routes_and_cached_merge(self):
+        errors = self.validate(
+            semantic=base_semantic(),
+            lexical=base_lexical(),
+            route=merged_route(),
         )
         self.assertEqual(errors, [])
 
-    def test_claim_audit_requires_route(self):
-        errors = gate.validate_gate(
-            base_audit(),
-            route=None,
-            inventory=None,
-            evidence_types_text=self.evidence_types,
+    def test_cached_merged_route_cannot_replace_semantic_routing(self):
+        errors = self.validate(
+            semantic=None,
+            lexical=base_lexical(),
+            route=merged_route(),
         )
-        self.assertTrue(any("requires a merged route" in x for x in errors), errors)
+        self.assertTrue(any("requires the raw semantic-route artifact" in x for x in errors), errors)
+        self.assertTrue(any("cannot substitute for raw semantic routing" in x for x in errors), errors)
+
+    def test_cached_merged_route_must_match_recomputation(self):
+        route = merged_route()
+        route["modules"] = list(route["modules"]) + ["measurement-traps.md"]
+        route["primary_module_count"] += 1
+        route["recommended_path"] = "full"
+        errors = self.validate(
+            semantic=base_semantic(),
+            lexical=base_lexical(),
+            route=route,
+        )
+        self.assertTrue(any("does not match deterministic recomputation" in x for x in errors), errors)
+
+    def test_semantic_claim_ids_must_match_final_ledger(self):
+        semantic = base_semantic()
+        semantic["claims"][1]["claim_id"] = "C9"
+        errors = self.validate(
+            semantic=semantic,
+            lexical=base_lexical(),
+        )
+        self.assertTrue(any("claim IDs must exactly match" in x for x in errors), errors)
+
+    def test_unclear_semantic_decision_requires_lexical_artifact(self):
+        semantic = base_semantic()
+        semantic["claims"][0]["routes"]["measurement-traps.md"] = "unclear"
+        errors = self.validate(
+            semantic=semantic,
+            lexical=None,
+        )
+        self.assertTrue(any("contain unclear but no lexical-route" in x for x in errors), errors)
 
     def test_route_required_inventory_cannot_be_skipped(self):
-        errors = gate.validate_gate(
-            base_audit(),
-            route=base_route(use_inventory=True),
+        errors = self.validate(
+            semantic=base_semantic(use_inventory=True),
+            lexical=base_lexical(use_inventory=True),
             inventory=None,
-            evidence_types_text=self.evidence_types,
         )
         self.assertTrue(any("requires evidence inventory" in x for x in errors), errors)
 
-    def test_inventory_cannot_bypass_route_decision(self):
-        errors = gate.validate_gate(
-            base_audit(),
-            route=base_route(use_inventory=False),
+    def test_inventory_cannot_bypass_recomputed_route(self):
+        errors = self.validate(
+            semantic=base_semantic(),
+            lexical=base_lexical(),
             inventory=self.inventory,
-            evidence_types_text=self.evidence_types,
         )
-        self.assertTrue(any("conflicts with merged route" in x for x in errors), errors)
+        self.assertTrue(any("conflicts with recomputed route" in x for x in errors), errors)
 
     def test_inventory_claim_drift_is_rejected(self):
         audit = base_audit()
@@ -180,36 +232,23 @@ class AuditGateTests(unittest.TestCase):
             })
         audit["claims"][1]["content"] = "A rewritten claim that was not inventoried."
 
-        route = base_route(use_inventory=True)
-        errors = gate.validate_gate(
+        semantic = base_semantic(use_inventory=True)
+        semantic["claims"] = semantic["claims"][:len(audit["claims"])]
+        errors = self.validate(
             audit,
-            route=route,
+            semantic=semantic,
+            lexical=base_lexical(use_inventory=True),
             inventory=self.inventory,
-            evidence_types_text=self.evidence_types,
         )
         self.assertTrue(any("claim contents/order drifted" in x for x in errors), errors)
-
-    def test_route_guard_and_path_are_machine_checked(self):
-        route = base_route()
-        route["modules"].remove("false-positive-guards.md")
-        route["recommended_path"] = "full"
-        errors = gate.validate_gate(
-            base_audit(),
-            route=route,
-            inventory=None,
-            evidence_types_text=self.evidence_types,
-        )
-        self.assertTrue(any("must include false-positive-guards" in x for x in errors), errors)
-        self.assertTrue(any("recommended_path" in x for x in errors), errors)
 
     def test_final_gate_rejects_unknown_evidence_label(self):
         audit = base_audit()
         audit["claims"][0]["support"]["evidence_type"] = ["imaginary evidence"]
-        errors = gate.validate_gate(
+        errors = self.validate(
             audit,
-            route=base_route(),
-            inventory=None,
-            evidence_types_text=self.evidence_types,
+            semantic=base_semantic(),
+            lexical=base_lexical(),
         )
         self.assertTrue(any("unknown evidence label" in x for x in errors), errors)
 
