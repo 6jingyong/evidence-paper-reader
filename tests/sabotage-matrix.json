@@ -121,7 +121,7 @@
         "R1",
         "R3"
       ],
-      "expect": "inventory: promotion E1 cannot merge different result keys"
+      "expect": "one evidence node cannot merge different result keys"
     },
     {
       "id": "SB10",
@@ -211,7 +211,7 @@
       "value": [
         "imaginary evidence"
       ],
-      "expect": "rendered audit: claim 1: unknown evidence label"
+      "expect": "rendered audit: unknown evidence label(s): imaginary evidence"
     },
     {
       "id": "SB14",
