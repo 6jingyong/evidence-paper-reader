@@ -185,6 +185,7 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("never lowers the audit contract", complex_result["warning"])
         self.assertTrue(complex_result["semantic_router_required"])
         self.assertEqual(complex_result["merge_with"], "merge_route.py")
+        self.assertEqual(complex_result["context_with"], "build_context.py")
 
         flash_result = suggest_modules.suggest_modules(
             "Randomized trial reporting a hazard ratio for the primary outcome."
@@ -304,8 +305,10 @@ class SkillContractTests(unittest.TestCase):
         for phrase in [
             "raw semantic-route JSON",
             "--semantic-route semantic-route.json",
+            "--router-text paper.txt",
             "recomputes routing from raw artifacts",
             "rejects a cached merged route",
+            "lexical-route JSON is only a cache",
         ]:
             self.assertIn(phrase, self.skill)
         self.assertIn("--semantic-route semantic-route.json", self.ledger_format)
