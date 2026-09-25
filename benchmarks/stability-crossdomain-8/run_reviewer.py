@@ -14,6 +14,20 @@ from pathlib import Path
 
 PROMPT_SCRIPT = Path(__file__).parent / "prepare_review.py"
 
+SUPPORT = {"sufficient", "partial", "insufficient", "unclear"}
+VIABILITY = {"auditable", "partially auditable", "non-auditable"}
+ALLOWED_MODULES = {
+    "figure-and-table-traps.md",
+    "statistical-traps.md",
+    "measurement-traps.md",
+    "study-design-traps.md",
+    "evidence-topology.md",
+    "evidence-dependence.md",
+    "claim-evidence-links.md",
+    "claim-dependencies.md",
+    "follow-up-boundaries.md",
+}
+
 PLACEHOLDERS = {
     "{packet}",
     "{prompt}",
@@ -56,10 +70,13 @@ def command_for(
 
 def validate_json_output(path: Path, job: dict) -> None:
     data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError("response must be a JSON object")
     if data.get("case_id") != job["case_id"]:
         raise ValueError(
             f"response case_id {data.get('case_id')!r} does not match {job['case_id']!r}"
         )
+
     required = {
         "evidence_viability",
         "selected_claim_ids",
@@ -70,6 +87,58 @@ def validate_json_output(path: Path, job: dict) -> None:
     missing = required - set(data)
     if missing:
         raise ValueError(f"response missing fields: {sorted(missing)}")
+
+    viability = data.get("evidence_viability")
+    if viability not in VIABILITY:
+        raise ValueError("invalid evidence_viability")
+
+    selected = data.get("selected_claim_ids")
+    if not isinstance(selected, list) or not all(isinstance(x, str) for x in selected):
+        raise ValueError("selected_claim_ids must be a string list")
+    if len(selected) != len(set(selected)):
+        raise ValueError("selected_claim_ids contain duplicates")
+    candidate_ids = set(job.get("candidate_ids", []))
+    if candidate_ids and not set(selected) <= candidate_ids:
+        raise ValueError("selected_claim_ids contain unknown candidate IDs")
+    if viability == "auditable" and not (3 <= len(selected) <= 5):
+        raise ValueError("auditable response must select 3 to 5 claims")
+    if viability == "partially auditable" and not (1 <= len(selected) <= 5):
+        raise ValueError("partially auditable response must select 1 to 5 claims")
+    if viability == "non-auditable" and selected:
+        raise ValueError("non-auditable response must select zero claims")
+
+    modules = data.get("modules")
+    if not isinstance(modules, list) or not all(isinstance(x, str) for x in modules):
+        raise ValueError("modules must be a string list")
+    if len(modules) != len(set(modules)):
+        raise ValueError("modules contain duplicates")
+    unknown_modules = set(modules) - ALLOWED_MODULES
+    if unknown_modules:
+        raise ValueError(f"unknown module(s): {sorted(unknown_modules)}")
+
+    if not isinstance(data.get("use_evidence_inventory"), bool):
+        raise ValueError("use_evidence_inventory must be boolean")
+
+    support = data.get("support")
+    if not isinstance(support, list):
+        raise ValueError("support must be a list")
+    support_ids = []
+    for item in support:
+        if not isinstance(item, dict):
+            raise ValueError("support entries must be objects")
+        cid = item.get("claim_id")
+        level = item.get("support_level")
+        if not isinstance(cid, str):
+            raise ValueError("support claim_id must be a string")
+        if level not in SUPPORT:
+            raise ValueError(f"invalid support level for {cid}")
+        if candidate_ids and cid not in candidate_ids:
+            raise ValueError(f"unknown support claim {cid}")
+        support_ids.append(cid)
+    if len(support_ids) != len(set(support_ids)):
+        raise ValueError("duplicate support claim")
+    if set(support_ids) != set(selected):
+        raise ValueError("support claim IDs must exactly match selected_claim_ids")
 
 
 def build_prompt(
