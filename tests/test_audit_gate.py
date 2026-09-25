@@ -128,7 +128,7 @@ def base_semantic(use_inventory=False, audit=None):
 
 def merged_route(use_inventory=False):
     return gate.merge_route.merge(
-        base_lexical(use_inventory=use_inventory),
+        {"suggested": [], "use_evidence_inventory": False},
         base_semantic(use_inventory=use_inventory),
     )
 
@@ -139,7 +139,16 @@ class AuditGateTests(unittest.TestCase):
         cls.evidence_types = EVIDENCE_TYPES.read_text(encoding="utf-8")
         cls.inventory = json.loads(INVENTORY_FIXTURE.read_text(encoding="utf-8"))
 
-    def validate(self, audit=None, *, semantic=None, lexical=None, route=None, inventory=None):
+    def validate(
+        self,
+        audit=None,
+        *,
+        semantic=None,
+        lexical=None,
+        router_text=None,
+        route=None,
+        inventory=None,
+    ):
         return gate.validate_gate(
             audit or base_audit(),
             semantic=semantic,
@@ -147,12 +156,12 @@ class AuditGateTests(unittest.TestCase):
             route=route,
             inventory=inventory,
             evidence_types_text=self.evidence_types,
+            router_text=router_text,
         )
 
     def test_simple_audit_passes_with_raw_routes_and_cached_merge(self):
         errors = self.validate(
             semantic=base_semantic(),
-            lexical=base_lexical(),
             route=merged_route(),
         )
         self.assertEqual(errors, [])
@@ -160,7 +169,6 @@ class AuditGateTests(unittest.TestCase):
     def test_cached_merged_route_cannot_replace_semantic_routing(self):
         errors = self.validate(
             semantic=None,
-            lexical=base_lexical(),
             route=merged_route(),
         )
         self.assertTrue(any("requires the raw semantic-route artifact" in x for x in errors), errors)
@@ -173,7 +181,6 @@ class AuditGateTests(unittest.TestCase):
         route["recommended_path"] = "full"
         errors = self.validate(
             semantic=base_semantic(),
-            lexical=base_lexical(),
             route=route,
         )
         self.assertTrue(any("does not match deterministic recomputation" in x for x in errors), errors)
@@ -183,7 +190,6 @@ class AuditGateTests(unittest.TestCase):
         semantic["claims"][1]["claim_id"] = "C9"
         errors = self.validate(
             semantic=semantic,
-            lexical=base_lexical(),
         )
         self.assertTrue(any("claim IDs must exactly match" in x for x in errors), errors)
 
@@ -192,9 +198,32 @@ class AuditGateTests(unittest.TestCase):
         semantic["claims"][0]["routes"]["measurement-traps.md"] = "unclear"
         errors = self.validate(
             semantic=semantic,
-            lexical=None,
         )
-        self.assertTrue(any("contain unclear but no lexical-route" in x for x in errors), errors)
+        self.assertTrue(any("contain unclear but no router-text" in x for x in errors), errors)
+
+    def test_unclear_semantic_decision_uses_recomputed_lexical_route(self):
+        semantic = base_semantic()
+        semantic["claims"][0]["routes"]["measurement-traps.md"] = "unclear"
+        errors = self.validate(
+            semantic=semantic,
+            router_text="The sensor calibration was checked before analysis.",
+        )
+        self.assertEqual(errors, [])
+
+    def test_cached_lexical_route_cannot_substitute_for_router_text(self):
+        errors = self.validate(
+            semantic=base_semantic(),
+            lexical=base_lexical(),
+        )
+        self.assertTrue(any("cached lexical route cannot substitute" in x for x in errors), errors)
+
+    def test_cached_lexical_route_must_match_recomputation(self):
+        errors = self.validate(
+            semantic=base_semantic(),
+            lexical=base_lexical(),
+            router_text="A randomized trial reports a hazard ratio.",
+        )
+        self.assertTrue(any("cached lexical route does not match" in x for x in errors), errors)
 
     def test_claim_change_after_routing_requires_reroute(self):
         audit = base_audit()
@@ -203,14 +232,12 @@ class AuditGateTests(unittest.TestCase):
         errors = self.validate(
             audit,
             semantic=semantic,
-            lexical=base_lexical(),
         )
         self.assertTrue(any("claim text/order must exactly match" in x for x in errors), errors)
 
     def test_route_required_inventory_cannot_be_skipped(self):
         errors = self.validate(
             semantic=base_semantic(use_inventory=True),
-            lexical=base_lexical(use_inventory=True),
             inventory=None,
         )
         self.assertTrue(any("requires evidence inventory" in x for x in errors), errors)
@@ -218,7 +245,6 @@ class AuditGateTests(unittest.TestCase):
     def test_inventory_cannot_bypass_recomputed_route(self):
         errors = self.validate(
             semantic=base_semantic(),
-            lexical=base_lexical(),
             inventory=self.inventory,
         )
         self.assertTrue(any("conflicts with recomputed route" in x for x in errors), errors)
@@ -249,7 +275,6 @@ class AuditGateTests(unittest.TestCase):
         errors = self.validate(
             audit,
             semantic=semantic,
-            lexical=base_lexical(use_inventory=True),
             inventory=self.inventory,
         )
         self.assertTrue(any("claim contents/order drifted" in x for x in errors), errors)
@@ -260,7 +285,6 @@ class AuditGateTests(unittest.TestCase):
         errors = self.validate(
             audit,
             semantic=base_semantic(),
-            lexical=base_lexical(),
         )
         self.assertTrue(any("unknown evidence label" in x for x in errors), errors)
 
