@@ -25,7 +25,7 @@ Use `evidence-inventory-format.md` + `scripts/evidence_inventory.py` when retrie
 - several claims reuse overlapping data or experiments
 - the paper is long enough that keeping all result text active would crowd out the audit contract
 
-Do not trigger the inventory path merely because the article has many pages. It should reduce ambiguity or active-context load.
+Do not trigger the inventory path merely because the article has many pages. It should reduce ambiguity or active-context load. Treat these as routing criteria: execute the inventory path only after semantic+lexical routing has been merged/recomputed.
 
 
 ## Semantic confirmation pass
