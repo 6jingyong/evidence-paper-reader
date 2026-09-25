@@ -25,17 +25,6 @@ def load_module(name: str, path: Path):
 gate = load_module("sabotage_audit_gate", GATE_SCRIPT)
 
 
-def completed_module_checks(route):
-    data = gate.module_checks_mod.template(route)
-    for claim in data["claims"]:
-        for check in claim["checks"]:
-            check["status"] = "clear"
-            check["reason"] = "The routed methodological check was explicitly completed."
-            if "mitigation_checked" in check:
-                check["mitigation_checked"] = True
-    return data
-
-
 def simple_audit():
     return {
         "scope_status": "in scope",
@@ -268,7 +257,7 @@ class FailClosedSabotageTests(unittest.TestCase):
         self.assertEqual(len({case["id"] for case in cases}), len(cases))
         covered = {case["layer"] for case in cases}
         self.assertEqual(covered, set(self.matrix["required_layers"]))
-        self.assertGreaterEqual(len(cases), 26)
+        self.assertGreaterEqual(len(cases), 27)
 
         matrix_guards = {
             guard
