@@ -299,6 +299,17 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("scripts/validate_audit.py", self.skill)
         self.assertIn("Do not bypass a failed gate", self.skill)
 
+    def test_completion_gate_recomputes_routing_from_raw_artifacts(self):
+        for phrase in [
+            "raw semantic-route JSON",
+            "--semantic-route semantic-route.json",
+            "recomputes routing from raw artifacts",
+            "rejects a cached merged route",
+        ]:
+            self.assertIn(phrase, self.skill)
+        self.assertIn("--semantic-route semantic-route.json", self.ledger_format)
+        self.assertIn("deterministic recomputation", self.ledger_format)
+
     def test_flash_path_cannot_be_used_as_a_shortcut(self):
         for phrase in [
             "does not lower the audit standard",
