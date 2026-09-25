@@ -111,7 +111,7 @@ def render_bundle(route: dict, reference_root: Path = REFERENCES) -> str:
         "",
         f"- recommended path: {route['recommended_path']}",
         f"- evidence inventory required: {'yes' if route['use_evidence_inventory'] else 'no'}",
-        "- module-check contract: complete every routed claim/module with status clear, residual-concern, or unclear plus a concise reason; trap modules also require mitigation_checked=true after applying false-positive guards.",
+        "- module-check contract: complete every routed claim/module with status clear, residual-concern, or unclear, at least one precise paper source location/material gap, and a concise reason; trap modules also require mitigation_checked=true after applying false-positive guards.",
         "- routed claims:",
     ]
     for item in route.get("routed_claims", []):
