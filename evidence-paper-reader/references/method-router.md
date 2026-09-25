@@ -33,13 +33,17 @@ Do not trigger the inventory path merely because the article has many pages. It 
 After core claims are available:
 1. run or inspect the lexical candidate router
 2. apply `semantic-router-card.md` to each decision-critical claim, preserving exact `claim_text`
-3. use `scripts/build_context.py` to recompute the merge and materialize the routed references; when lexical fallback matters, pass the same plain source text used for lexical routing via `--router-text`; cached lexical JSON never substitutes for source text
+3. use `scripts/build_context.py` to recompute the merge, materialize the routed references, and generate `module-checks.json` with `--checks-template`; when lexical fallback matters, pass the same plain source text used for lexical routing via `--router-text`; cached lexical JSON never substitutes for source text
 
 Semantic `required` can add a module missed by keywords.
 Semantic `not_required` can remove an incidental lexical hit.
 Semantic `unclear` preserves a lexical hit until checked.
 
 This claim-level pass is mandatory when optional routing matters. It is intentionally much smaller than loading every methodology reference.
+
+## Routed module execution record
+
+For every claim/module retained by the merged route, complete the generated `module-checks.json` entry with `clear`, `residual-concern`, or `unclear` plus a concise reason. Trap modules also require `mitigation_checked: true` only after the `false-positive-guards.md` mitigation pass. Do not add unrouted filler; reroute if a new issue appears.
 
 ## Route table
 
@@ -150,9 +154,9 @@ Flash path is a context-loading strategy, not a reduced-quality mode.
 1. read the paper once for scope and evidence viability; extract claims only after the viability gate
 2. generate lexical route candidates
 3. confirm routes claim-by-claim with `semantic-router-card.md`, preserving exact claim text
-4. run `scripts/build_context.py` to deterministically merge routing and materialize the active reference bundle; if any semantic decision is `unclear`, provide the plain router text so lexical routing is recomputed rather than trusted from cache
-5. audit claims one at a time using that bundle
-6. re-run routing and rebuild the bundle if a later claim changes or exposes a new cue
+4. run `scripts/build_context.py` to deterministically merge routing, materialize the active reference bundle, and generate the module-check template; if any semantic decision is `unclear`, provide the plain router text so lexical routing is recomputed rather than trusted from cache
+5. audit claims one at a time using that bundle and complete every routed module check
+6. re-run routing and rebuild both bundle and checks if a later claim changes or exposes a new cue
 7. keep false-positive guards in the generated context whenever a trap module is retained
 8. complete through `scripts/audit_gate.py` with the raw semantic route and any lexical route needed for deterministic recomputation
 
