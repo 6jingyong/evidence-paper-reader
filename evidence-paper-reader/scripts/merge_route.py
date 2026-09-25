@@ -44,6 +44,12 @@ def validate_semantic(data: dict) -> list[str]:
             errors.append(f"claim {i}: duplicate claim_id {cid}")
         else:
             seen.add(cid)
+            if cid != f"C{i}":
+                errors.append(f"claim {i}: claim_id must be C{i}")
+
+        claim_text = claim.get("claim_text")
+        if not isinstance(claim_text, str) or not claim_text.strip():
+            errors.append(f"{cid or i}: claim_text required")
 
         routes = claim.get("routes")
         if not isinstance(routes, dict):
@@ -132,6 +138,13 @@ def merge(lexical: dict, semantic: dict) -> dict:
     recommended_path = "full" if primary_count >= 3 else "flash"
 
     return {
+        "routed_claims": [
+            {
+                "claim_id": claim["claim_id"],
+                "claim_text": claim["claim_text"].strip(),
+            }
+            for claim in semantic["claims"]
+        ],
         "modules": final_modules,
         "use_evidence_inventory": use_inventory,
         "inventory_basis": inventory_basis,
