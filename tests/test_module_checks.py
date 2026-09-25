@@ -116,6 +116,27 @@ class ModuleChecksTests(unittest.TestCase):
         self.assertNotIn("mitigation_checked", nontrap)
         self.assertEqual(checks_mod.validate(data, route), [])
 
+    def test_unclear_check_blocks_sufficient_support_only(self):
+        route = route_fixture()
+        data = completed(route)
+        data["claims"][0]["checks"][0]["status"] = "unclear"
+        data["claims"][0]["checks"][0]["reason"] = "The needed detail is not available."
+
+        audit = {
+            "claims": [
+                {"support": {"support_level": "sufficient"}},
+                {"support": {"support_level": "sufficient"}},
+            ]
+        }
+        errors = checks_mod.check_support_alignment(data, audit)
+        self.assertTrue(
+            any("sufficient support conflicts with unresolved routed module check" in x for x in errors),
+            errors,
+        )
+
+        audit["claims"][0]["support"]["support_level"] = "partial"
+        self.assertEqual(checks_mod.check_support_alignment(data, audit), [])
+
     def test_reason_and_status_cannot_be_skipped(self):
         route = route_fixture()
         data = completed(route)
