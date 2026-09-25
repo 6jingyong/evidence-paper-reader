@@ -258,7 +258,7 @@ class FailClosedSabotageTests(unittest.TestCase):
         self.assertEqual(len({case["id"] for case in cases}), len(cases))
         covered = {case["layer"] for case in cases}
         self.assertEqual(covered, set(self.matrix["required_layers"]))
-        self.assertGreaterEqual(len(cases), 27)
+        self.assertGreaterEqual(len(cases), 28)
 
         matrix_guards = {
             guard
