@@ -32,7 +32,9 @@ def render_prompt(
     ]
     if include_skill:
         sections.extend([
-            "## Skill snapshot",
+            "## Top-level skill snapshot",
+            "",
+            "This is only the top-level SKILL.md router. Referenced skill modules must still be installed or otherwise available to the reviewer.",
             "",
             SKILL.read_text(encoding="utf-8").rstrip(),
             "",
