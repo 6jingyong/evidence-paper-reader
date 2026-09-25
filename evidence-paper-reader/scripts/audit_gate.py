@@ -45,6 +45,31 @@ FINAL_MODULES = {
     "false-positive-guards.md",
 }
 
+CRITICAL_GUARDS = {
+    "G101": "raw semantic route required",
+    "G102": "semantic claim ids match ledger",
+    "G103": "semantic claim text matches ledger",
+    "G104": "routing recomputation succeeds from source-backed artifacts",
+    "G105": "cached merged route cannot replace raw semantic routing",
+    "G106": "cached merged route matches recomputation",
+    "G107": "generated context bundle required",
+    "G108": "generated context can be deterministically rebuilt",
+    "G109": "generated context matches deterministic materialization",
+    "G110": "required evidence inventory is present",
+    "G111": "forbidden evidence inventory is absent",
+    "G112": "inventory viability matches ledger",
+    "G113": "inventory claim identity matches ledger",
+    "G114": "inventory evidence topology aligns with ledger",
+    "G115": "canonical rendered audit passes public validation",
+    "G116": "structured ledger passes internal validation",
+}
+
+
+def _guard(code: str, message: str) -> str:
+    if code not in CRITICAL_GUARDS:
+        raise ValueError(f"unknown critical guard code: {code}")
+    return f"[{code}] {message}"
+
 
 def _load_json(path: Path, label: str) -> dict:
     try:
@@ -151,7 +176,10 @@ def validate_gate(
     router_text: str | None = None,
     context_bundle: str | None = None,
 ) -> list[str]:
-    errors = [f"ledger: {x}" for x in render_audit.validate_ledger(audit)]
+    errors = [
+        _guard("G116", f"ledger: {x}")
+        for x in render_audit.validate_ledger(audit)
+    ]
 
     scope = audit.get("scope_status")
     viability = audit.get("evidence_viability")
@@ -160,9 +188,10 @@ def validate_gate(
     recomputed_route = None
     if claim_audit:
         if semantic is None:
-            errors.append(
-                "route: auditable/partially auditable work requires the raw semantic-route artifact"
-            )
+            errors.append(_guard(
+                "G101",
+                "route: auditable/partially auditable work requires the raw semantic-route artifact",
+            ))
         else:
             semantic_errors = merge_route.validate_semantic(semantic)
             errors.extend(f"semantic route: {x}" for x in semantic_errors)
@@ -174,10 +203,11 @@ def validate_gate(
             ]
             expected_ids = _expected_claim_ids(audit)
             if actual_ids != expected_ids:
-                errors.append(
+                errors.append(_guard(
+                    "G102",
                     "semantic route: claim IDs must exactly match final ledger claims in order: "
-                    + ", ".join(expected_ids)
-                )
+                    + ", ".join(expected_ids),
+                ))
 
             semantic_text = [
                 item.get("claim_text", "").strip()
@@ -186,9 +216,10 @@ def validate_gate(
             ]
             audit_text = _claim_contents(audit)
             if semantic_text != audit_text:
-                errors.append(
-                    "semantic route: claim text/order must exactly match the final ledger; rerun routing after claim changes"
-                )
+                errors.append(_guard(
+                    "G103",
+                    "semantic route: claim text/order must exactly match the final ledger; rerun routing after claim changes",
+                ))
 
             if (
                 not semantic_errors
@@ -202,57 +233,75 @@ def validate_gate(
                         router_text,
                     )
                 except ValueError as exc:
-                    errors.extend(f"route recomputation: {x}" for x in str(exc).splitlines())
+                    errors.extend(
+                        _guard("G104", f"route recomputation: {x}")
+                        for x in str(exc).splitlines()
+                    )
 
     if route is not None:
         errors.extend(f"route artifact: {x}" for x in validate_route_result(route))
         if recomputed_route is None:
             if claim_audit:
-                errors.append(
-                    "route artifact: merged route cannot substitute for raw semantic routing"
-                )
+                errors.append(_guard(
+                    "G105",
+                    "route artifact: merged route cannot substitute for raw semantic routing",
+                ))
         elif route != recomputed_route:
-            errors.append(
-                "route artifact: supplied merged route does not match deterministic recomputation"
-            )
+            errors.append(_guard(
+                "G106",
+                "route artifact: supplied merged route does not match deterministic recomputation",
+            ))
 
     effective_route = recomputed_route if recomputed_route is not None else route
     if claim_audit and effective_route is None and semantic is not None:
-        errors.append("route: deterministic merge did not produce a usable route")
+        errors.append(_guard(
+            "G104",
+            "route: deterministic merge did not produce a usable route",
+        ))
 
     if claim_audit and recomputed_route is not None:
         if context_bundle is None:
-            errors.append(
-                "context: claim audit requires the generated audit-context bundle"
-            )
+            errors.append(_guard(
+                "G107",
+                "context: claim audit requires the generated audit-context bundle",
+            ))
         else:
             try:
                 expected_context = build_context.render_bundle(recomputed_route)
             except ValueError as exc:
-                errors.extend(f"context: {x}" for x in str(exc).splitlines())
+                errors.extend(
+                    _guard("G108", f"context: {x}")
+                    for x in str(exc).splitlines()
+                )
             else:
                 if context_bundle != expected_context:
-                    errors.append(
-                        "context: supplied audit-context bundle does not match deterministic route materialization"
-                    )
+                    errors.append(_guard(
+                        "G109",
+                        "context: supplied audit-context bundle does not match deterministic route materialization",
+                    ))
 
     if effective_route is not None:
         use_inventory = effective_route.get("use_evidence_inventory")
         if use_inventory is True and inventory is None:
-            errors.append("inventory: recomputed route requires evidence inventory but none was supplied")
+            errors.append(_guard(
+                "G110",
+                "inventory: recomputed route requires evidence inventory but none was supplied",
+            ))
         if use_inventory is False and inventory is not None:
-            errors.append(
-                "inventory: supplied inventory conflicts with recomputed route; rerun routing instead of bypassing it"
-            )
+            errors.append(_guard(
+                "G111",
+                "inventory: supplied inventory conflicts with recomputed route; rerun routing instead of bypassing it",
+            ))
 
     if inventory is not None:
         inventory_errors = inventory_mod.validate_inventory(inventory)
         errors.extend(f"inventory: {x}" for x in inventory_errors)
 
         if inventory.get("evidence_viability") != viability:
-            errors.append(
-                "inventory: evidence_viability does not match the final audit ledger"
-            )
+            errors.append(_guard(
+                "G112",
+                "inventory: evidence_viability does not match the final audit ledger",
+            ))
 
         inventory_claims = [
             item.get("content", "").strip()
@@ -261,13 +310,14 @@ def validate_gate(
         ]
         audit_claims = _claim_contents(audit)
         if inventory_claims != audit_claims:
-            errors.append(
-                "inventory: claim contents/order drifted between evidence inventory and final audit ledger"
-            )
+            errors.append(_guard(
+                "G113",
+                "inventory: claim contents/order drifted between evidence inventory and final audit ledger",
+            ))
 
         if not inventory_errors:
             errors.extend(
-                f"inventory alignment: {x}"
+                _guard("G114", f"inventory alignment: {x}")
                 for x in inventory_mod.check_audit_alignment(inventory, audit)
             )
 
@@ -275,7 +325,7 @@ def validate_gate(
         markdown = render_audit.render(audit)
         allowed = markdown_validator.evidence_labels(evidence_types_text)
         errors.extend(
-            f"rendered audit: {x}"
+            _guard("G115", f"rendered audit: {x}")
             for x in markdown_validator.validate(markdown, allowed)
         )
 
