@@ -99,6 +99,23 @@ def validate_route_result(route: dict) -> list[str]:
     if not isinstance(route.get("inventory_basis"), str) or not route.get("inventory_basis", "").strip():
         errors.append("route.inventory_basis must be a non-empty string")
 
+    routed_claims = route.get("routed_claims")
+    if not isinstance(routed_claims, list) or not routed_claims:
+        errors.append("route.routed_claims must be a non-empty list")
+    else:
+        for index, item in enumerate(routed_claims, start=1):
+            if not isinstance(item, dict):
+                errors.append(f"route.routed_claims[{index}] must be an object")
+                continue
+            if item.get("claim_id") != f"C{index}":
+                errors.append(
+                    f"route.routed_claims[{index}].claim_id must be C{index}"
+                )
+            if not isinstance(item.get("claim_text"), str) or not item["claim_text"].strip():
+                errors.append(
+                    f"route.routed_claims[{index}].claim_text must be a non-empty string"
+                )
+
     return errors
 
 
