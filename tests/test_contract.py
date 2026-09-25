@@ -306,8 +306,8 @@ class SkillContractTests(unittest.TestCase):
             "raw semantic-route JSON",
             "--semantic-route semantic-route.json",
             "--router-text paper.txt",
-            "recomputes routing from raw artifacts",
-            "rejects a cached merged route",
+            "--context-bundle audit-context.md",
+            "regenerates the expected context bundle byte-for-byte",
             "lexical-route JSON is only a cache",
         ]:
             self.assertIn(phrase, self.skill)
