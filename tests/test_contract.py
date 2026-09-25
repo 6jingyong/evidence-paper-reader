@@ -318,7 +318,20 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("trap-module entries must confirm", self.ledger_format)
         self.assertIn("unresolved `unclear` routed check prevents `sufficient` support", self.ledger_format)
         self.assertIn("an `unclear` routed check cannot coexist with `sufficient` support", self.skill)
+        self.assertIn("precise paper source location/material gap", self.skill)
+        self.assertIn("at least one precise paper source location", self.ledger_format)
         self.assertIn("deterministic recomputation", self.ledger_format)
+
+    def test_routing_precedes_inventory_execution(self):
+        route_pos = self.skill.index("### Phase B — route and decide evidence handling")
+        inventory_pos = self.skill.index("### Phase C — evidence inventory and ledger")
+        self.assertLess(route_pos, inventory_pos)
+        self.assertIn("Follow the recomputed route's evidence-inventory decision.", self.skill)
+        self.assertIn("if the recomputed route requires inventory, build it now", self.skill)
+        self.assertIn(
+            "execute the inventory path only after semantic+lexical routing has been merged/recomputed",
+            self.router,
+        )
 
     def test_flash_path_cannot_be_used_as_a_shortcut(self):
         for phrase in [
