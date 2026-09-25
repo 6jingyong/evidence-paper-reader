@@ -127,6 +127,37 @@ def validate(data: dict, route: dict) -> list[str]:
     return errors
 
 
+def check_support_alignment(data: dict, audit: dict) -> list[str]:
+    """Propagate unresolved routed checks into final claim support."""
+    errors: list[str] = []
+    claims = data.get("claims") if isinstance(data, dict) else None
+    audit_claims = audit.get("claims") if isinstance(audit, dict) else None
+    if not isinstance(claims, list) or not isinstance(audit_claims, list):
+        return errors
+    if len(claims) != len(audit_claims):
+        return errors
+
+    for index, (item, audit_claim) in enumerate(zip(claims, audit_claims), start=1):
+        if not isinstance(item, dict) or not isinstance(audit_claim, dict):
+            continue
+        checks = item.get("checks")
+        support = audit_claim.get("support")
+        if not isinstance(checks, list) or not isinstance(support, dict):
+            continue
+
+        unresolved = [
+            check.get("module")
+            for check in checks
+            if isinstance(check, dict) and check.get("status") == "unclear"
+        ]
+        if unresolved and support.get("support_level") == "sufficient":
+            errors.append(
+                f"C{index}: sufficient support conflicts with unresolved routed "
+                "module check(s): " + ", ".join(str(x) for x in unresolved)
+            )
+    return errors
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("checks", nargs="?", type=Path)
