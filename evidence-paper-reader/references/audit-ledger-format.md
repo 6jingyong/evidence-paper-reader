@@ -103,13 +103,14 @@ For normal completion, give the gate the raw semantic route and any lexical rout
 ```bash
 python evidence-paper-reader/scripts/audit_gate.py audit.json \
   --semantic-route semantic-route.json \
+  --router-text paper.txt \
   --lexical-route lexical-route.json \
   --route merged-route.json \
   --inventory inventory.json \
   -o audit.md
 ```
 
-Omit `--lexical-route` only when no semantic decision is `unclear`. Omit `--route` if no cached merge is needed. Omit `--inventory` only when the recomputed route says `use_evidence_inventory: false`.
+`--lexical-route` is only an optional cache: if supplied, it must be accompanied by `--router-text` and match deterministic recomputation. If any semantic decision is `unclear`, `--router-text` is required even when a lexical cache exists. Omit `--route` if no cached merge is needed. Omit `--inventory` only when the recomputed route says `use_evidence_inventory: false`.
 
 The combined gate also validates the canonical rendered Markdown. Direct renderer/validator calls remain useful for debugging individual stages.
 
@@ -140,7 +141,8 @@ Rendering is mechanical. Scientific judgment is not.
 Cross-stage consistency is also mechanical where possible. `audit_gate.py` therefore rejects:
 - a claim audit with no raw semantic-route artifact
 - a cached merged route that differs from deterministic recomputation
-- an `unclear` semantic decision with no lexical artifact to resolve/preserve it
+- an `unclear` semantic decision with no router text from which lexical fallback can be recomputed
+- a cached lexical route supplied without source text or differing from deterministic recomputation
 - a route-required inventory that was skipped
 - an inventory supplied against a route that says not to use one
 - claim text/order drifting between an inventory and the final ledger
