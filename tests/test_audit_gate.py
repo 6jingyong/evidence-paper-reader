@@ -228,7 +228,7 @@ class AuditGateTests(unittest.TestCase):
         errors = self.validate(
             semantic=semantic,
         )
-        self.assertTrue(any("contain unclear but no router-text" in x for x in errors), errors)
+        self.assertTrue(any("router text is required to recompute lexical routing deterministically" in x for x in errors), errors)
 
     def test_unclear_semantic_decision_uses_recomputed_lexical_route(self):
         semantic = base_semantic()
