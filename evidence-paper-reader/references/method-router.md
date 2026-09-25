@@ -10,7 +10,8 @@ Always load:
 - `evidence-types.md`
 
 Output interface:
-- if Python can run: load `audit-ledger-format.md`, then render with `scripts/render_audit.py`
+- if Python can run: load `audit-ledger-format.md`, build routed context with `scripts/build_context.py`, and complete through `scripts/audit_gate.py`
+- use `scripts/render_audit.py` / `scripts/validate_audit.py` only for focused debugging
 - otherwise: load `output-contract.md`
 
 Load `domain-profiles.md` when the paper clearly belongs to one of its listed domains.
@@ -31,8 +32,8 @@ Do not trigger the inventory path merely because the article has many pages. It 
 
 After core claims are available:
 1. run or inspect the lexical candidate router
-2. apply `semantic-router-card.md` to each decision-critical claim
-3. merge both layers with `scripts/merge_route.py`
+2. apply `semantic-router-card.md` to each decision-critical claim, preserving exact `claim_text`
+3. use `scripts/build_context.py` to recompute the merge and materialize the routed references; `scripts/merge_route.py` remains the deterministic merge primitive
 
 Semantic `required` can add a module missed by keywords.
 Semantic `not_required` can remove an incidental lexical hit.
@@ -148,13 +149,12 @@ Flash path is a context-loading strategy, not a reduced-quality mode.
 
 1. read the paper once for scope and evidence viability; extract claims only after the viability gate
 2. generate lexical route candidates
-3. confirm routes claim-by-claim with `semantic-router-card.md` and merge them
-4. load every module in the merged route
-5. audit claims one at a time
-6. re-run routing if a later claim exposes a new cue
-7. apply false-positive guards after every trap module
-8. render the structured ledger with `scripts/render_audit.py` when available
-9. validate the complete output with `scripts/validate_audit.py`
+3. confirm routes claim-by-claim with `semantic-router-card.md`, preserving exact claim text
+4. run `scripts/build_context.py` to deterministically merge routing and materialize the active reference bundle
+5. audit claims one at a time using that bundle
+6. re-run routing and rebuild the bundle if a later claim changes or exposes a new cue
+7. keep false-positive guards in the generated context whenever a trap module is retained
+8. complete through `scripts/audit_gate.py` with the raw semantic route and any lexical route needed for deterministic recomputation
 
 Flash path does not permit fewer claims, missing fields, skipped routed modules, abstract-only support judgments, or weaker evidence standards.
 
