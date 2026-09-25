@@ -133,6 +133,7 @@ def suggest_modules(text: str) -> dict:
         "semantic_router_required": True,
         "semantic_router_card": "semantic-router-card.md",
         "merge_with": "merge_route.py",
+        "context_with": "build_context.py",
         "render_with": "render_audit.py",
         "validate_with": "validate_audit.py",
         "complete_with": "audit_gate.py",
