@@ -486,6 +486,25 @@
       "guards": [
         "G119"
       ]
+    },
+    {
+      "id": "SB28",
+      "layer": "module_checks",
+      "baseline": "simple",
+      "target": "module_checks",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "checks",
+        0,
+        "source_locations"
+      ],
+      "value": [],
+      "expect": "source_locations must be a non-empty string list",
+      "guards": [
+        "G118"
+      ]
     }
   ],
   "code_canary_guards": [
