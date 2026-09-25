@@ -153,6 +153,17 @@ def semantic_for(audit: dict, *, inventory_required=False):
     return {"claims": claims}
 
 
+def completed_module_checks(route: dict) -> dict:
+    data = gate.module_checks_mod.template(route)
+    for claim in data["claims"]:
+        for check in claim["checks"]:
+            check["status"] = "clear"
+            check["reason"] = "The routed methodological check was explicitly completed."
+            if "mitigation_checked" in check:
+                check["mitigation_checked"] = True
+    return data
+
+
 def pristine_workflow(kind: str, inventory_fixture: dict) -> dict:
     inventory = None
     router_text = None
