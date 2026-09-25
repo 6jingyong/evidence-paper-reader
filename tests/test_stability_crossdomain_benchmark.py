@@ -76,13 +76,24 @@ class CrossDomainStabilityTests(unittest.TestCase):
             self.assertEqual(row["reference"]["forbidden_claim_selection_rate"], 0.0)
             self.assertEqual(row["reference"]["required_module_recall"], 1.0)
             self.assertEqual(row["reference"]["unallowed_module_rate"], 0.0)
-            self.assertEqual(row["reference"]["inventory_accuracy"], 1.0)
+            self.assertEqual(row["reference"]["inventory_overtrigger_rate"], 0.0)
             self.assertEqual(row["reference"]["support_accuracy"], 1.0)
 
         aggregate = score_mod.aggregate(per_case)
         for value in aggregate["mean_layer_stability"].values():
             self.assertEqual(value, 1.0)
         self.assertEqual(aggregate["run_count"], 40)
+
+    def test_inventory_is_negative_control_not_fake_positive_coverage(self):
+        self.assertTrue(all(not case["reference"]["inventory"] for case in self.cases))
+        per_case = {
+            case["case_id"]: score_mod.case_metrics(case, self._perfect_runs(case))
+            for case in self.cases
+        }
+        aggregate = score_mod.aggregate(per_case)
+        self.assertNotIn("inventory", aggregate["mean_layer_stability"])
+        for row in per_case.values():
+            self.assertEqual(row["reference"]["inventory_overtrigger_rate"], 0.0)
 
     def test_optional_claim_omission_does_not_reduce_support_accuracy(self):
         case = next(x for x in self.cases if x["case_id"] == "ST01")
