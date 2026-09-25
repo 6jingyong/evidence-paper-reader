@@ -139,7 +139,7 @@ In Flash path:
 Flash path must not:
 - reduce the required claim count for material classified `auditable`
 - omit required output fields
-- skip the generated context bundle or substitute an unrouted methodology module because it is convenient
+- skip a routed module because it is inconvenient, including by bypassing the generated context bundle or substituting an unrouted methodology module
 - lower the evidence/support standard
 - skip false-positive guards after a trap module is triggered
 - stop after abstract-only reading when a decision-critical result/method section is available
