@@ -1,11 +1,13 @@
 import copy
 import importlib.util
 import json
+import re
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).parents[1]
 SKILL = ROOT / "evidence-paper-reader"
@@ -116,6 +118,27 @@ def validate(audit, semantic, route, context, *, inventory=None, lexical=None, r
         router_text=router_text,
         context_bundle=context,
     )
+
+
+def guard_codes(errors):
+    return {
+        match.group(1)
+        for error in errors
+        for match in [re.match(r"^\[(G\d{3})\]", error)]
+        if match
+    }
+
+
+def inventory_artifacts():
+    inventory = json.loads(INVENTORY_FIXTURE.read_text(encoding="utf-8"))
+    audit = base_audit()
+    for claim, item in zip(audit["claims"], inventory["claims"]):
+        claim["content"] = item["content"]
+    semantic, route, context = deterministic_artifacts(
+        audit,
+        inventory_required=True,
+    )
+    return audit, semantic, route, context, inventory
 
 
 class SabotageGuardTests(unittest.TestCase):
@@ -285,6 +308,120 @@ class SabotageGuardTests(unittest.TestCase):
             any("independent convergence shares evidence unit(s): U1" in x for x in errors),
             errors,
         )
+
+    def test_every_critical_guard_has_a_live_sabotage(self):
+        audit = base_audit()
+        semantic, route, context = deterministic_artifacts(audit)
+        scenarios = {}
+
+        scenarios["G101"] = validate(audit, None, route, context)
+
+        bad_ids = copy.deepcopy(semantic)
+        bad_ids["claims"][1]["claim_id"] = "C9"
+        scenarios["G102"] = validate(audit, bad_ids, route, context)
+
+        bad_text = copy.deepcopy(semantic)
+        bad_text["claims"][1]["claim_text"] = "Claim text changed after routing."
+        scenarios["G103"] = validate(audit, bad_text, route, context)
+
+        unclear = copy.deepcopy(semantic)
+        unclear["claims"][0]["routes"]["measurement-traps.md"] = "unclear"
+        scenarios["G104"] = validate(audit, unclear, route, context)
+
+        scenarios["G105"] = validate(audit, None, route, context)
+
+        forged_route = copy.deepcopy(route)
+        forged_route["modules"].append("follow-up-boundaries.md")
+        scenarios["G106"] = validate(audit, semantic, forged_route, context)
+
+        scenarios["G107"] = validate(audit, semantic, route, None)
+
+        with mock.patch.object(
+            gate.build_context,
+            "render_bundle",
+            side_effect=ValueError("simulated routed-reference failure"),
+        ):
+            scenarios["G108"] = validate(audit, semantic, route, context)
+
+        scenarios["G109"] = validate(
+            audit,
+            semantic,
+            route,
+            context + "\nTAMPERED\n",
+        )
+
+        inv_audit, inv_semantic, inv_route, inv_context, inventory = inventory_artifacts()
+        scenarios["G110"] = validate(
+            inv_audit,
+            inv_semantic,
+            inv_route,
+            inv_context,
+            inventory=None,
+        )
+
+        scenarios["G111"] = validate(
+            audit,
+            semantic,
+            route,
+            context,
+            inventory=inventory,
+        )
+
+        wrong_viability = copy.deepcopy(inventory)
+        wrong_viability["evidence_viability"] = "partially auditable"
+        scenarios["G112"] = validate(
+            inv_audit,
+            inv_semantic,
+            inv_route,
+            inv_context,
+            inventory=wrong_viability,
+        )
+
+        drifted_inventory = copy.deepcopy(inventory)
+        drifted_inventory["claims"][0]["content"] = "Inventory claim text drift."
+        scenarios["G113"] = validate(
+            inv_audit,
+            inv_semantic,
+            inv_route,
+            inv_context,
+            inventory=drifted_inventory,
+        )
+
+        unknown_node = copy.deepcopy(inv_audit)
+        unknown_node["claims"][1]["support"]["evidence_nodes"] = ["E9"]
+        scenarios["G114"] = validate(
+            unknown_node,
+            inv_semantic,
+            inv_route,
+            inv_context,
+            inventory=inventory,
+        )
+
+        bad_label = copy.deepcopy(audit)
+        bad_label["claims"][0]["support"]["evidence_type"] = ["imaginary evidence"]
+        scenarios["G115"] = validate(
+            bad_label,
+            semantic,
+            route,
+            context,
+        )
+
+        laundering = copy.deepcopy(audit)
+        laundering["claims"][0]["support"]["support_level"] = "insufficient"
+        laundering["claims"][1]["support"]["evidence_nodes"] = ["E1"]
+        laundering["claims"][1]["support"]["upstream_claims"] = [1]
+        laundering["claims"][1]["support"]["support_level"] = "sufficient"
+        scenarios["G116"] = validate(
+            laundering,
+            semantic,
+            route,
+            context,
+        )
+
+        self.assertEqual(set(scenarios), set(gate.CRITICAL_GUARDS))
+        for code, errors in scenarios.items():
+            with self.subTest(guard=code, meaning=gate.CRITICAL_GUARDS[code]):
+                self.assertIn(code, guard_codes(errors), errors)
 
     def test_real_cli_wiring_accepts_valid_context_and_rejects_tampering(self):
         audit = base_audit()
