@@ -169,6 +169,6 @@ When Python can run, `audit_gate.py` is the normal completion boundary:
 
 `python scripts/audit_gate.py audit.json --route merged-route.json [--inventory inventory.json] -o audit.md`
 
-Use `render_audit.py --check`, `evidence_inventory.py --check`, and `validate_audit.py` as focused debugging tools, not as substitutes for the combined gate.
+Use `scripts/render_audit.py --check`, `scripts/evidence_inventory.py --check`, and `scripts/validate_audit.py` as focused debugging tools, not as substitutes for the combined gate.
 
 The gate fails closed on mechanical cross-stage inconsistencies. It cannot decide whether a scientific interpretation is true. Semantic judgment remains the model's job.
