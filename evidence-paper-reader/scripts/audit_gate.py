@@ -188,6 +188,17 @@ def validate_gate(
                     + ", ".join(expected_ids)
                 )
 
+            semantic_text = [
+                item.get("claim_text", "").strip()
+                for item in semantic.get("claims", [])
+                if isinstance(item, dict)
+            ]
+            audit_text = _claim_contents(audit)
+            if semantic_text != audit_text:
+                errors.append(
+                    "semantic route: claim text/order must exactly match the final ledger; rerun routing after claim changes"
+                )
+
             if lexical is None and _semantic_has_unclear(semantic):
                 errors.append(
                     "route: semantic decisions contain unclear but no lexical-route artifact was supplied"
