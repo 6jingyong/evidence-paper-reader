@@ -85,9 +85,20 @@ def merge(lexical: dict, semantic: dict) -> dict:
 
     aggregate = {route: [] for route in ROUTES}
     inventory_decisions = []
+    claim_module_requirements = []
     for claim in semantic["claims"]:
+        required_for_claim = []
         for route in ROUTES:
-            aggregate[route].append(claim["routes"][route])
+            decision = claim["routes"][route]
+            aggregate[route].append(decision)
+            if decision == "required" or (
+                decision == "unclear" and route in lexical_modules
+            ):
+                required_for_claim.append(route)
+        claim_module_requirements.append({
+            "claim_id": claim["claim_id"],
+            "modules": required_for_claim,
+        })
         inventory_decisions.append(claim["inventory"])
 
     final_modules = []
@@ -146,6 +157,7 @@ def merge(lexical: dict, semantic: dict) -> dict:
             for claim in semantic["claims"]
         ],
         "modules": final_modules,
+        "claim_module_requirements": claim_module_requirements,
         "use_evidence_inventory": use_inventory,
         "inventory_basis": inventory_basis,
         "recommended_path": recommended_path,
