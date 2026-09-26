@@ -491,6 +491,42 @@ def special_canary_passes(
                 "validate_ledger",
                 return_value=[],
             )
+        elif scenario == "evidence_relation_common_mode":
+            audit = artifacts["audit"]
+            audit["ledger_schema_version"] = 3
+            audit["reasoning_edges"] = []
+            for index, claim in enumerate(audit["claims"], start=1):
+                level = claim["support"]["support_level"]
+                status = {
+                    "sufficient": "direct",
+                    "partial": "qualified",
+                    "insufficient": "unsupported",
+                    "unclear": "unclear",
+                }[level]
+                claim["support"]["evidence_relations"] = [
+                    {
+                        "evidence_node": node,
+                        "relation": "supports",
+                        "reason": "The evidence node bears on the bounded claim.",
+                    }
+                    for node in claim["support"]["evidence_nodes"]
+                ]
+                audit["reasoning_edges"].append({
+                    "edge_id": f"R{index}",
+                    "target_claim": index,
+                    "evidence_nodes": list(claim["support"]["evidence_nodes"]),
+                    "upstream_claims": list(claim["support"].get("upstream_claims", [])),
+                    "inference_type": "direct-result",
+                    "reasoning_status": status,
+                    "added_reach": "none" if status == "direct" else "The stated claim adds reach beyond the direct result.",
+                    "assumptions": [],
+                })
+            audit["claims"][0]["support"]["evidence_relations"][0]["evidence_node"] = "E999"
+            patcher = mock.patch.object(
+                gate_module.render_audit,
+                "validate_ledger",
+                return_value=[],
+            )
         else:
             raise AssertionError(f"unknown mutation canary scenario: {scenario}")
 
