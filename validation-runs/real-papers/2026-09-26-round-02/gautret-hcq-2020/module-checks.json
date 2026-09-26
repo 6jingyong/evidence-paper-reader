@@ -1,0 +1,175 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results section 3.3; Table 2; exclusions"
+          ],
+          "reason": "Checked the denominator and treatment-arm exclusions rather than reading 70% versus 12.5% as an intention-to-treat estimate.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results section 3.3; Table 2; exclusions"
+          ],
+          "reason": "PCR negativity is retained as a virologic measurement and not silently upgraded to clinical recovery.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results section 3.3; Table 2; exclusions"
+          ],
+          "reason": "Controls were non-randomized and included patients from other centers or refusing protocol treatment.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Results section 3.3; Table 2; exclusions"
+          ],
+          "reason": "The PCR rate and exclusion pattern are parts of the same small study, not independent confirmations.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Results section 3.3; Table 2; exclusions"
+          ],
+          "reason": "The bounded claim is tied directly to Table 2 and the published analyzed denominators."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results section 3.3; Table 3"
+          ],
+          "reason": "The 100% value is recognized as 6/6 rather than a stable population estimate.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results section 3.3; Table 3"
+          ],
+          "reason": "PCR negativity remains a surrogate virologic outcome.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results section 3.3; Table 3"
+          ],
+          "reason": "Azithromycin was added according to clinical presentation rather than randomized assignment.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Results section 3.3; Table 3"
+          ],
+          "reason": "The comparison reuses the same study population and is not independent evidence.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Results section 3.3; Table 3"
+          ],
+          "reason": "The subgroup claim is linked to Table 3 and its exact denominators."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Methods; Tables 2 and 3"
+          ],
+          "reason": "Per-protocol exclusions, small subgroups, and unadjusted comparisons prevent the reported significance from carrying the causal conclusion.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Methods; Tables 2 and 3"
+          ],
+          "reason": "A day-6 nasopharyngeal PCR endpoint does not by itself establish clinical benefit.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Methods; Tables 2 and 3"
+          ],
+          "reason": "Open-label non-random allocation and treatment-arm attrition are decision-critical.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Methods; Tables 2 and 3"
+          ],
+          "reason": "Multiple tables and subgroup analyses reuse the same participants and cannot be counted as independent confirmation.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Methods; Tables 2 and 3"
+          ],
+          "reason": "E1, E2, and E3 are shared-source evidence from one small study."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Methods; Tables 2 and 3"
+          ],
+          "reason": "The strong efficacy conclusion depends on narrower PCR observations plus an attrition pattern that weakens them."
+        },
+        {
+          "module": "claim-dependencies.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Methods; Tables 2 and 3"
+          ],
+          "reason": "The treatment conclusion inherits the uncertainty of both reported subgroup claims."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Methods; Tables 2 and 3"
+          ],
+          "reason": "Clinical efficacy requires outcomes and comparative designs not established by this study."
+        }
+      ]
+    }
+  ]
+}
