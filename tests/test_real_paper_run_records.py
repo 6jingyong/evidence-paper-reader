@@ -52,6 +52,13 @@ class RealPaperRunRecordTests(unittest.TestCase):
             cases = manifest["cases"]
             self.assertTrue(cases, round_root)
             self.assertEqual(len({case["id"] for case in cases}), len(cases))
+            for case in cases:
+                self.assertIn(
+                    case["expected_viability"],
+                    {"auditable", "partially auditable", "non-auditable"},
+                )
+                self.assertIsInstance(case["expected_viability_flags"], list)
+                self.assertIsInstance(case["expected_support_levels"], list)
 
     def test_every_real_paper_record_replays_through_final_gate(self):
         full_paths = 0
@@ -77,6 +84,21 @@ class RealPaperRunRecordTests(unittest.TestCase):
                     self.assertTrue(source["source_url"].startswith("https://"))
                     self.assertEqual(result["expected_gate"], "pass")
                     self.assertEqual(result["reviewer"], manifest["reviewer"])
+                    self.assertEqual(
+                        ledger["evidence_viability"],
+                        case["expected_viability"],
+                    )
+                    self.assertEqual(
+                        ledger.get("viability_flags", []),
+                        case["expected_viability_flags"],
+                    )
+                    self.assertEqual(
+                        [
+                            claim["support"]["support_level"]
+                            for claim in ledger.get("claims", [])
+                        ],
+                        case["expected_support_levels"],
+                    )
 
                     inventory_path = root / "inventory.json"
                     inventory = (
