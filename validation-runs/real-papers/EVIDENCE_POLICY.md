@@ -4,9 +4,9 @@ Every real-paper test is a durable project evidence asset.
 
 ## Record first
 
-Full paper audits must use the source-backed path under validation-runs/real-papers. A paper that only appears in a chat, temporary workspace, or untracked output does not count as repository evidence.
+Full source audits must use the source-backed path under validation-runs/real-papers. A paper that only appears in a chat, temporary workspace, or untracked output does not count as repository evidence.
 
-A named public source used only inside a benchmark may enter as benchmark-source evidence when its public source URL and benchmark judgment are preserved by the catalog builder. That is deliberately lower provenance than a full replay and must not be described as a completed paper audit.
+A named public source used only inside a benchmark may enter as benchmark-source evidence when its public source URL and benchmark judgment are preserved by the catalog builder. That is deliberately lower provenance than a artifact replay and must not be described as a completed source audit.
 
 The legacy fixture index exists only to preserve older work whose source/run metadata were not captured. Do not add new papers to the legacy path as a shortcut.
 
