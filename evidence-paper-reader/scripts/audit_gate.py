@@ -46,6 +46,7 @@ FINAL_MODULES = {
     "false-positive-guards.md",
 }
 CONTEXT_BASE_REFERENCES = [
+    "carrier-neutral-core.md",
     "core-contract.md",
     "evidence-viability.md",
     "evidence-types.md",
