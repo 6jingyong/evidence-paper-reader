@@ -50,7 +50,7 @@ def discover_recorded():
                 "domain": case["domain"],
                 "round_ids": [manifest["round_id"]],
                 "test_surfaces": [{
-                    "kind": "full-replay",
+                    "kind": "artifact-replay",
                     "path": str(root.relative_to(ROOT)),
                     "status": result["expected_gate"],
                 }],
@@ -243,7 +243,7 @@ def build():
         "schema_version": 2,
         "policy": {
             "record_first": "Future full real-paper audits must become source-backed recorded cases; named benchmark-only sources remain explicitly lower provenance until promoted.",
-            "benchmark_boundary": "A public source used only in a benchmark is preserved as benchmark-source evidence and is not described as a full replay.",
+            "benchmark_boundary": "A public source used only in a benchmark is preserved as benchmark-source evidence and is not described as a artifact replay.",
             "legacy_boundary": "Legacy fixtures preserve earlier regression evidence but do not claim missing historical source metadata.",
             "counting_boundary": "Multiple benchmark or replay surfaces on one source do not count as multiple independent sources.",
         },
@@ -275,7 +275,7 @@ def render(catalog):
         f"- tiered-source benchmark cases mapped to durable identities: **{c['tiered_source_cases']}**",
         f"- source-backed papers prepared for isolated blind re-audit: **{c['blind_protocol_papers']}**",
         "",
-        "Source-backed entries have stable source identity plus replayable audit artifacts. Benchmark-source entries have explicit public source metadata and benchmark judgments but not a full replay. Legacy fixtures preserve older regression work whose original source/run metadata were not reconstructed.",
+        "Source-backed entries have stable source identity plus replayable audit artifacts. Benchmark-source entries have explicit public source metadata and benchmark judgments but not a artifact replay. Legacy fixtures preserve older regression work whose original source/run metadata were not reconstructed.",
         "",
         "## Source-backed papers",
         "",
@@ -288,7 +288,7 @@ def render(catalog):
         j = row["current_judgment"]
         support = " / ".join(j["support_levels"]) or "n/a"
         surfaces = ", ".join(x["kind"] for x in row["test_surfaces"])
-        replay = next(x["path"] for x in row["test_surfaces"] if x["kind"] == "full-replay")
+        replay = next(x["path"] for x in row["test_surfaces"] if x["kind"] == "artifact-replay")
         title = row["title"].replace("|", "\\|")
         lines.append(
             f"| {title} ({row['year']}) | {row['domain']} | {j['evidence_viability']} | {support} | {surfaces} | {replay} |"
@@ -298,7 +298,7 @@ def render(catalog):
         "",
         "## Benchmark-only named sources",
         "",
-        "These public sources were used in benchmark cases and are preserved as evidence of tested source diversity. They are not counted as full replay audits until promoted into a recorded round.",
+        "These public sources were used in benchmark cases and are preserved as evidence of tested source diversity. They are not counted as artifact replay audits until promoted into a recorded round.",
         "",
         "| Source | Domain | Tier | Narrow / broad support | Test surfaces |",
         "| --- | --- | --- | --- | --- |",
@@ -354,8 +354,8 @@ def errors(catalog):
         if status == "source-backed":
             if not all(row.get(k) for k in ["title", "stable_id", "source_url"]):
                 out.append(f"{row['evidence_id']}: incomplete source identity")
-            if "full-replay" not in kinds:
-                out.append(f"{row['evidence_id']}: missing full-replay surface")
+            if "artifact-replay" not in kinds:
+                out.append(f"{row['evidence_id']}: missing artifact-replay surface")
         elif status == "benchmark-source":
             if not all(row.get(k) for k in ["title", "source_url", "tier"]):
                 out.append(f"{row['evidence_id']}: incomplete benchmark source metadata")
