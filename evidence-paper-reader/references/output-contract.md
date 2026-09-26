@@ -46,6 +46,14 @@ Use the same claim numbers as section 2.
 - support level: sufficient | partial | insufficient | unclear
 - reason: ...
 - external dependency: none | <cited work title; DOI only if verified/available; why it matters>
+- reasoning edges: R1 | R1 + R2 | ...
+
+For ledger-v2 output, each listed reasoning edge is then rendered with:
+- inputs: evidence E-nodes and earlier upstream claims
+- inference type: direct-result | comparison | statistical-inference | causal | mechanistic | generalization | proxy-to-construct | aggregation | external-import
+- reasoning status: direct | supported | qualified | unsupported | unclear
+- added reach: none | <the extra logical reach>
+- assumptions: none | <material assumptions>
 
 For an out-of-scope or `non-auditable` source, use:
 `not applicable — <reason>`
