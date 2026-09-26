@@ -1,0 +1,99 @@
+{
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [
+    "selective-success-only"
+  ],
+  "paper_type": "open-label non-randomized clinical intervention study with virologic surrogate endpoint",
+  "reader_conclusion": "The publication exposes enough of its data and methods to audit the reported day-6 PCR comparisons, but those comparisons do not establish clinical treatment efficacy. The control group was not randomized, six hydroxychloroquine-treated patients were excluded from the analyzed cohort after treatment cessation including three ICU transfers and one death, and the small azithromycin subgroup contained only six analyzed patients. The paper was later retracted in 2025 after journal concerns about research conduct, PCR methodology, and the article's methodology and conclusions; those later concerns reinforce rather than replace the paper-local design limitations.",
+  "claims": [
+    {
+      "content": "Among the patients retained in the published day-6 analysis, 70% of hydroxychloroquine-treated patients were PCR-negative compared with 12.5% of controls.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E3"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Results section 3.3; Table 2; reported exclusions from the treated arm",
+        "support_level": "sufficient",
+        "reason": "The 14/20 versus 2/16 day-6 PCR result is directly reported for the analyzed cohort, while E3 preserves that this cohort excludes six treated patients who stopped treatment or follow-up.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "Among the six analyzed patients who received hydroxychloroquine plus azithromycin, all six were PCR-negative at day 6, compared with 57.1% in the analyzed hydroxychloroquine-only subgroup.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2",
+          "E3"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Results section 3.3; Table 3; treatment allocation description",
+        "support_level": "sufficient",
+        "reason": "The published table directly reports 6/6 versus 8/14 for the analyzed subgroups, but the subgroup was tiny, non-randomized, and selected according to clinical presentation.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "Hydroxychloroquine is an effective treatment for COVID-19 and its clinical effect is reinforced by azithromycin.",
+      "claim_type": "intervention",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2",
+          "E3"
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Abstract conclusion; Methods; exclusions; Tables 2 and 3",
+        "support_level": "insufficient",
+        "reason": "The observed PCR comparisons come from a non-randomized open-label design, use viral PCR rather than a demonstrated clinical-benefit endpoint, exclude clinically important treated dropouts, and include only six analyzed patients in the azithromycin subgroup. Those limitations block the stronger treatment-efficacy conclusion.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "usable": {
+    "results": "The day-by-day PCR tables and the identities/reasons for six treated-arm exclusions are useful for reconstructing exactly what was analyzed.",
+    "methods_or_design": "The paper is a useful stress case for non-randomized controls, per-protocol attrition, surrogate endpoints, and a tiny treatment subgroup.",
+    "materials_or_documentation": "Treatment doses, sampling schedule, day-6 endpoint, analyzed subgroup counts, and excluded-patient reasons are explicitly reported."
+  },
+  "downweight": {
+    "worth_noticing": "The large day-6 PCR difference in the analyzed cohort is a real reported observation and should not simply be erased; its interpretation is constrained by allocation, attrition, endpoint choice, and later retraction concerns.",
+    "cautious_or_ignore": "Do not convert PCR negativity in this selected non-randomized analyzed cohort into demonstrated clinical efficacy or treat the six-patient azithromycin subgroup as reliable comparative evidence."
+  },
+  "value_breakdown": {
+    "result": "medium",
+    "method": "medium",
+    "theory_or_insight": "low",
+    "research_design": "low",
+    "material_or_documentation": "medium"
+  },
+  "uncertainty_and_follow_up": "A treatment claim requires randomized or otherwise credible comparative assignment, intention-to-treat handling, clinically meaningful outcomes, consistent virologic measurement, and independent replication. The 2025 retraction notice also documents unresolved ethics, PCR-method, methodology, and conclusion concerns."
+}
