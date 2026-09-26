@@ -409,6 +409,33 @@ def special_canary_passes(
                 "render_bundle",
                 side_effect=ValueError("simulated routed-reference failure"),
             )
+        elif scenario == "semantic_required_module_dropped":
+            bad_route = copy.deepcopy(artifacts["route"])
+            bad_route["modules"].remove("statistical-traps.md")
+            bad_route["primary_module_count"] -= 1
+            for item in bad_route["claim_module_requirements"]:
+                if "statistical-traps.md" in item["modules"]:
+                    item["modules"].remove("statistical-traps.md")
+            artifacts["route"] = None
+            artifacts["context"] = gate_module.build_context.render_bundle(bad_route)
+            artifacts["module_checks"] = sabotage.completed_module_checks(bad_route)
+            patcher = mock.patch.object(
+                gate_module.build_context,
+                "recompute_route",
+                return_value=bad_route,
+            )
+        elif scenario == "shared_context_renderer_manifest_bug":
+            bad_context = artifacts["context"].replace(
+                ", statistical-traps.md",
+                "",
+                1,
+            )
+            artifacts["context"] = bad_context
+            patcher = mock.patch.object(
+                gate_module.build_context,
+                "render_bundle",
+                return_value=bad_context,
+            )
         else:
             raise AssertionError(f"unknown mutation canary scenario: {scenario}")
 
