@@ -18,7 +18,7 @@ Do not use publication status as evidence strength. Default output language foll
 ## Load order
 
 Always load:
-1. `references/core-contract.md`
+1. `references/carrier-neutral-core.md` + `references/core-contract.md`
 2. `references/evidence-viability.md`
 3. `references/evidence-types.md` + `references/evidence-relations.md`
 4. `references/reasoning-graph.md`
