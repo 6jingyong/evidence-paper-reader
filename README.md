@@ -1,8 +1,20 @@
 # Evidence Paper Reader
 
+> **Most paper readers summarize what a source says. Evidence Paper Reader checks how far its evidence actually lets you say it.**
+
 An open-source **Agent Skill** for **ChatGPT**, **Codex**, and other tools that support the open `SKILL.md` format.
 
-This skill reads **evidence-driven research papers** from the **reader's** point of view. The paper interface is one concrete implementation of a more general **claim–evidence–reasoning audit**: identify what a source claims, what evidence it exposes, how far that evidence actually reaches, where additional inference enters, and what remains usable or uncertain.
+Evidence Paper Reader performs a **claim–evidence–reasoning audit**: identify what a source claims, what evidence it exposes, how far that evidence reaches, which extra inferential bridge is needed for the broader conclusion, and what remains usable or uncertain.
+
+### 30-second example
+
+A forecasting paper can report strong F1/MCC and still fail to establish an actionable trading strategy. In the repository's Deep Limit Order Book Forecasting audit, the paper's own transaction metric can be very low even where conventional forecast scores are high. The audit therefore preserves **forecasting performance** while separating it from **tradeability** — and records that the authors themselves explicitly acknowledge that boundary.
+
+That is the core behavior: **keep the result, expose the extra logical bridge, and say when the authors already limit the claim themselves.**
+
+**Start here:** [8 source-backed examples](SHOWCASE.md) · [evidence registry](EVIDENCE.md) · [the skill](evidence-paper-reader/SKILL.md)
+
+Current public evidence base: **30 source-backed records**, **18 benchmark-only named sources**, **24 legacy regression fixtures**, **72 unique evidence identities**.
 
 It separates:
 
