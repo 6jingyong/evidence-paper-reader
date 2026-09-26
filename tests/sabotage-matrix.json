@@ -521,5 +521,158 @@
       "site": 1,
       "scenario": "render_bundle_raises"
     }
+  ],
+  "logic_weakening_mutations": [
+    {
+      "id": "LM01",
+      "operator": "skip_ledger_validation",
+      "cases": [
+        "SB14"
+      ],
+      "description": "Pretend the structured ledger validator returned no errors."
+    },
+    {
+      "id": "LM02",
+      "operator": "skip_semantic_validation",
+      "cases": [
+        "SB02"
+      ],
+      "description": "Skip raw semantic-route schema validation."
+    },
+    {
+      "id": "LM03",
+      "operator": "skip_route_validation",
+      "cases": [
+        "SB05",
+        "SB06"
+      ],
+      "description": "Skip validation of the cached merged-route schema and invariants."
+    },
+    {
+      "id": "LM04",
+      "operator": "skip_module_check_validation",
+      "cases": [
+        "SB25",
+        "SB26",
+        "SB28"
+      ],
+      "description": "Accept malformed or incomplete routed module execution records."
+    },
+    {
+      "id": "LM05",
+      "operator": "skip_support_alignment",
+      "cases": [
+        "SB27"
+      ],
+      "description": "Do not propagate unresolved routed checks into support judgments."
+    },
+    {
+      "id": "LM06",
+      "operator": "skip_inventory_validation",
+      "cases": [
+        "SB09",
+        "SB10",
+        "SB12"
+      ],
+      "description": "Skip evidence-inventory schema and topology validation."
+    },
+    {
+      "id": "LM07",
+      "operator": "skip_inventory_alignment",
+      "cases": [
+        "SB11"
+      ],
+      "description": "Skip inventory-to-ledger evidence topology alignment."
+    },
+    {
+      "id": "LM08",
+      "operator": "skip_public_validation",
+      "cases": [
+        "SB13"
+      ],
+      "description": "Skip validation of the canonical rendered audit."
+    },
+    {
+      "id": "LM09",
+      "operator": "trust_cached_recompute",
+      "cases": [
+        "SB20"
+      ],
+      "description": "Use the supplied merged-route cache as if it were deterministic recomputation."
+    },
+    {
+      "id": "LM10",
+      "operator": "trust_supplied_context",
+      "cases": [
+        "SB07",
+        "SB08"
+      ],
+      "description": "Treat the supplied context bundle as its own deterministic rebuild."
+    },
+    {
+      "id": "LM11",
+      "operator": "disable_claim_audit",
+      "cases": [
+        "SB01"
+      ],
+      "description": "Turn off claim-audit stage enforcement for an otherwise auditable ledger."
+    },
+    {
+      "id": "LM12",
+      "operator": "ignore_route_drift",
+      "cases": [
+        "SB20"
+      ],
+      "description": "Ignore disagreement between supplied merged route and recomputed route."
+    },
+    {
+      "id": "LM13",
+      "operator": "ignore_claim_text_drift",
+      "expected_sites": 2,
+      "cases": [
+        "SB01"
+      ],
+      "description": "Ignore semantic-route versus final-ledger claim-text drift and continue recomputation."
+    },
+    {
+      "id": "LM14",
+      "operator": "allow_missing_inventory",
+      "cases": [
+        "SB17"
+      ],
+      "description": "Make a route-required evidence inventory optional."
+    },
+    {
+      "id": "LM15",
+      "operator": "allow_forbidden_inventory",
+      "cases": [
+        "SB21"
+      ],
+      "description": "Allow an inventory when deterministic routing says not to use one."
+    },
+    {
+      "id": "LM16",
+      "operator": "ignore_inventory_claim_drift",
+      "cases": [
+        "SB23"
+      ],
+      "description": "Ignore claim identity drift between inventory and final ledger."
+    },
+    {
+      "id": "LM17",
+      "operator": "ignore_inventory_viability",
+      "cases": [
+        "SB22"
+      ],
+      "description": "Ignore evidence-viability disagreement between inventory and final ledger."
+    },
+    {
+      "id": "LM18",
+      "operator": "allow_missing_module_checks",
+      "cases": [
+        "SB24"
+      ],
+      "description": "Make routed methodological execution records optional."
+    }
   ]
 }
