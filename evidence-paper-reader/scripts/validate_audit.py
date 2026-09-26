@@ -23,6 +23,7 @@ SUPPORT_LEVELS = {"sufficient", "partial", "insufficient", "unclear"}
 PROVENANCE = {"paper-local", "external citation", "mixed"}
 DEPENDENCE = {"single-source", "shared-source convergence", "partially independent convergence", "independent convergence", "unclear"}
 VALUE_LEVELS = {"high", "medium", "low", "unclear"}
+AUTHOR_BOUNDARY_STATUSES = {"explicit", "partial", "absent", "unclear", "not-applicable"}
 SCOPE_STATUSES = {"in scope", "partially in scope", "out of scope"}
 VIABILITY = {"auditable", "partially auditable", "non-auditable"}
 VIABILITY_FLAGS = {
@@ -167,6 +168,9 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
         dependencies = _field_values(support, "external dependency")
         evidence_values = _field_values(support, "evidence type")
         reasons = _field_values(support, "reason")
+        author_boundaries = _field_values(support, "author boundary")
+        author_acknowledgments = _field_values(support, "author acknowledgment")
+        author_boundary_sources = _field_values(support, "author-boundary source")
 
         for field, values in [
             ("evidence type", evidence_values),
@@ -181,6 +185,40 @@ def validate(text: str, allowed_evidence: set[str]) -> list[str]:
         ]:
             if len(values) != len(claim_headers):
                 errors.append(f"every support block must contain '{field}'")
+
+        boundary_fields_present = any([
+            author_boundaries,
+            author_acknowledgments,
+            author_boundary_sources,
+        ])
+        if boundary_fields_present:
+            for field, values in [
+                ("author boundary", author_boundaries),
+                ("author acknowledgment", author_acknowledgments),
+                ("author-boundary source", author_boundary_sources),
+            ]:
+                if len(values) != len(claim_headers):
+                    errors.append(f"every support block must contain '{field}' when author-boundary metadata is present")
+            if len(author_boundaries) == len(claim_headers):
+                for index, status in enumerate(author_boundaries, start=1):
+                    if status not in AUTHOR_BOUNDARY_STATUSES:
+                        errors.append(f"invalid author boundary: {status}")
+                    if (
+                        status in {"explicit", "partial"}
+                        and len(author_boundary_sources) == len(claim_headers)
+                        and author_boundary_sources[index - 1] == "none"
+                    ):
+                        errors.append(
+                            f"claim {index}: {status} author boundary requires a concrete source"
+                        )
+                    if (
+                        index <= len(support_levels)
+                        and support_levels[index - 1] in {"partial", "insufficient", "unclear"}
+                        and status == "not-applicable"
+                    ):
+                        errors.append(
+                            f"claim {index}: non-sufficient support requires an author-boundary assessment"
+                        )
 
         for value in provenances:
             if value not in PROVENANCE:
