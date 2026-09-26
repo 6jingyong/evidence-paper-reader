@@ -11,6 +11,13 @@ Return exactly one JSON object with these fields:
       "claim_type": "observational | methodological | mechanistic | performance | generality | intervention",
       "conclusion_strength": "weak | medium | strong",
       "evidence_nodes": ["E1"],
+      "evidence_relations": [
+        {
+          "evidence_node": "E1",
+          "relation": "supports | undermines | mixed | contextual",
+          "reason": "how this evidence bears on this claim"
+        }
+      ],
       "upstream_claims": [],
       "support_level": "sufficient | partial | insufficient | unclear",
       "source_location": "precise source location",
@@ -42,6 +49,7 @@ Rules:
 - If it is `non-auditable`, return an empty `claims` list and an empty `reasoning_edges` list.
 - Number claims by list order only; do not put stored or guessed claim IDs in the claim text.
 - Evidence nodes use `E1`, `E2`, ... and upstream claims use earlier 1-based claim numbers.
+- Every claim must assign each declared E-node exactly one claim-local evidence relation: `supports`, `undermines`, `mixed`, or `contextual`. Do not infer final support mechanically from the relation label.
 - Every auditable claim must be reached by at least one reasoning edge.
 - For each claim, the union of its reasoning-edge evidence/upstream inputs must exactly match the claim's declared `evidence_nodes` and `upstream_claims`.
 - `sufficient` may use only `direct`/`supported` edges; `partial` must expose a qualified/unsupported/unclear bridge; `insufficient` must expose an unsupported bridge; `unclear` must expose an unclear bridge.
