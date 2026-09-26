@@ -14,6 +14,27 @@ SABOTAGE_TEST = ROOT / "tests" / "test_fail_closed_sabotage.py"
 MATRIX = ROOT / "tests" / "sabotage-matrix.json"
 EVIDENCE_TYPES = SKILL / "references" / "evidence-types.md"
 
+REQUIRED_LOGIC_OPERATORS = {
+    "skip_ledger_validation",
+    "skip_semantic_validation",
+    "skip_route_validation",
+    "skip_module_check_validation",
+    "skip_support_alignment",
+    "skip_inventory_validation",
+    "skip_inventory_alignment",
+    "skip_public_validation",
+    "trust_cached_recompute",
+    "trust_supplied_context",
+    "disable_claim_audit",
+    "ignore_route_drift",
+    "ignore_claim_text_drift",
+    "allow_missing_inventory",
+    "allow_forbidden_inventory",
+    "ignore_inventory_claim_drift",
+    "ignore_inventory_viability",
+    "allow_missing_module_checks",
+}
+
 
 def load_module(name: str, path: Path):
     spec = importlib.util.spec_from_file_location(name, path)
@@ -489,7 +510,11 @@ class GateMutationCanaryTests(unittest.TestCase):
     def test_logic_weakening_mutants_are_killed_by_existing_sabotage_cases(self):
         cases = {case["id"]: case for case in self.matrix["cases"]}
         mutations = self.matrix.get("logic_weakening_mutations", [])
-        self.assertGreaterEqual(len(mutations), 15)
+        self.assertEqual(len(mutations), len(REQUIRED_LOGIC_OPERATORS))
+        self.assertEqual(
+            {mutation["operator"] for mutation in mutations},
+            REQUIRED_LOGIC_OPERATORS,
+        )
 
         seen = set()
         survivors = []
