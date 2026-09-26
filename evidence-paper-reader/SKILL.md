@@ -21,7 +21,7 @@ Always load:
 1. `references/core-contract.md`
 2. `references/evidence-viability.md`
 3. `references/evidence-types.md`
-
+4. `references/reasoning-graph.md`
 For output:
 - when Python can run, load `references/audit-ledger-format.md` and complete through `scripts/audit_gate.py`
 - use `scripts/render_audit.py` and `scripts/validate_audit.py` only as focused debugging tools
@@ -73,7 +73,7 @@ A cue triggers inspection, not automatic criticism.
 Follow the recomputed route's evidence-inventory decision. If inventory is not required, assign E-nodes directly. If it is required, load `evidence-inventory-format.md` and use `scripts/evidence_inventory.py` before support judgment.
 Inventory path: locate R records → deduplicate repeated presentations with G keys → group shared evidence-generating bases with U keys → promote decision-critical results to E-nodes.
 For each final E-node, record evidence type, provenance, upstream claims, evidence dependence, and the most precise source location available.
-Use the same E-node whenever the same underlying result is reused.
+Use the same E-node whenever the same underlying result is reused; then build ledger-v2 reasoning edges that explicitly connect E-nodes/upstream claims to each target claim.
 
 ### Phase D — support judgment
 For each claim, choose exactly one:
@@ -166,7 +166,7 @@ Full path keeps the same output contract but allows broader simultaneous module 
 ## Optional deep references
 
 Use these only when the compact contract is not enough:
-- `references/evidence-inventory-format.md`, `claim-evidence-links.md`, `claim-dependencies.md`
+- `references/evidence-inventory-format.md`, `claim-evidence-links.md`, `claim-dependencies.md`, `reasoning-graph.md`
 - `references/evidence-dependence.md`, `evidence-topology.md`, `follow-up-boundaries.md`, `pollution-patterns.md`
 
 ## Validation
