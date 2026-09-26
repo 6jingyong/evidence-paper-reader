@@ -89,5 +89,52 @@
     "research_design": "high",
     "material_or_documentation": "high"
   },
-  "uncertainty_and_follow_up": "A stronger general statement would require cross-machine and cross-material calibration with known compliance and independent strain references. The study itself also notes that DIC-location effects were minor here partly because the tested deformation was low."
+  "uncertainty_and_follow_up": "A stronger general statement would require cross-machine and cross-material calibration with known compliance and independent strain references. The study itself also notes that DIC-location effects were minor here partly because the tested deformation was low.",
+  "ledger_schema_version": 2,
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Moves from the listed measurements/results to the stated comparative conclusion.",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends the directly tested population, task, setting, time, or material to the broader scope stated in the claim.",
+      "assumptions": [
+        "The directly tested cases are informative about the broader scope named in the claim."
+      ]
+    }
+  ]
 }
