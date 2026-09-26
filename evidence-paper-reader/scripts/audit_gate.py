@@ -45,6 +45,12 @@ FINAL_MODULES = {
     "follow-up-boundaries.md",
     "false-positive-guards.md",
 }
+CONTEXT_BASE_REFERENCES = [
+    "core-contract.md",
+    "evidence-viability.md",
+    "evidence-types.md",
+    "audit-ledger-format.md",
+]
 
 CRITICAL_GUARDS = {
     "G101": "raw semantic route required",
@@ -69,6 +75,8 @@ CRITICAL_GUARDS = {
     "G120": "raw semantic route satisfies its schema",
     "G121": "cached merged route satisfies its schema",
     "G122": "evidence inventory satisfies its schema",
+    "G123": "recomputed route preserves raw semantic requirements independently",
+    "G124": "generated context structurally matches route independently",
 }
 
 
@@ -159,6 +167,128 @@ def validate_route_result(route: dict) -> list[str]:
         ]:
             errors.append(
                 "route.claim_module_requirements must match routed_claims IDs/order"
+            )
+
+    return errors
+
+
+def validate_semantic_commitments(semantic: dict, route: dict) -> list[str]:
+    """Independent minimum oracle for semantic requirements.
+
+    This intentionally does not call merge_route.merge() or build_context helpers.
+    It checks only commitments that must survive every valid merge implementation.
+    """
+    errors: list[str] = []
+    modules = route.get("modules")
+    requirements = route.get("claim_module_requirements")
+    if not isinstance(modules, list) or not isinstance(requirements, list):
+        return ["route lacks module structures required for independent semantic checks"]
+
+    module_set = set(modules)
+    requirements_by_claim = {
+        item.get("claim_id"): set(item.get("modules", []))
+        for item in requirements
+        if isinstance(item, dict) and isinstance(item.get("modules"), list)
+    }
+
+    claims = semantic.get("claims", [])
+    for claim in claims:
+        if not isinstance(claim, dict):
+            continue
+        claim_id = claim.get("claim_id")
+        routes = claim.get("routes")
+        if not isinstance(routes, dict):
+            continue
+        required_for_claim = requirements_by_claim.get(claim_id, set())
+        for module, decision in routes.items():
+            if decision != "required":
+                continue
+            if module not in module_set:
+                errors.append(
+                    f"{claim_id}: semantic required module missing from merged route: {module}"
+                )
+            if module not in required_for_claim:
+                errors.append(
+                    f"{claim_id}: semantic required module missing from claim requirements: {module}"
+                )
+
+    inventory_decisions = [
+        claim.get("inventory")
+        for claim in claims
+        if isinstance(claim, dict)
+    ]
+    if "required" in inventory_decisions and route.get("use_evidence_inventory") is not True:
+        errors.append(
+            "semantic required evidence inventory was dropped by merged routing"
+        )
+    if inventory_decisions and set(inventory_decisions) == {"not_required"}:
+        if route.get("use_evidence_inventory") is not False:
+            errors.append(
+                "merged routing enabled evidence inventory despite every semantic decision being not_required"
+            )
+
+    return errors
+
+
+def validate_context_structure(context_bundle: str, route: dict) -> list[str]:
+    """Independent structural oracle for the generated context manifest."""
+    errors: list[str] = []
+    expected_refs = list(CONTEXT_BASE_REFERENCES)
+    if route.get("use_evidence_inventory") is True:
+        expected_refs.append("evidence-inventory-format.md")
+    for module in route.get("modules", []):
+        if module not in expected_refs:
+            expected_refs.append(module)
+
+    lines = context_bundle.splitlines()
+    expected_path = f"- recommended path: {route.get('recommended_path')}"
+    expected_inventory = (
+        "- evidence inventory required: yes"
+        if route.get("use_evidence_inventory") is True
+        else "- evidence inventory required: no"
+    )
+    expected_included = "- included references: " + ", ".join(expected_refs)
+
+    if lines.count(expected_path) != 1:
+        errors.append("context recommended-path manifest does not match route")
+    if lines.count(expected_inventory) != 1:
+        errors.append("context inventory-required manifest does not match route")
+    if lines.count(expected_included) != 1:
+        errors.append("context included-reference manifest does not match route")
+
+    begin_refs = [
+        line.removeprefix("## BEGIN REFERENCE: ")
+        for line in lines
+        if line.startswith("## BEGIN REFERENCE: ")
+    ]
+    end_refs = [
+        line.removeprefix("## END REFERENCE: ")
+        for line in lines
+        if line.startswith("## END REFERENCE: ")
+    ]
+    if begin_refs != expected_refs:
+        errors.append(
+            "context embedded reference order/content does not match independently expected route references"
+        )
+    if end_refs != expected_refs:
+        errors.append(
+            "context reference closing markers do not match independently expected route references"
+        )
+
+    requirement_lines = []
+    for item in route.get("claim_module_requirements", []):
+        if not isinstance(item, dict):
+            continue
+        modules = item.get("modules", [])
+        rendered = ", ".join(modules) if modules else "none"
+        requirement_lines.append(
+            f"  - {item.get('claim_id')}: {rendered}"
+        )
+    for line in requirement_lines:
+        if lines.count(line) != 1:
+            errors.append(
+                "context claim-module requirement manifest does not match route: "
+                + line.strip()
             )
 
     return errors
@@ -278,6 +408,12 @@ def validate_gate(
                 "route artifact: supplied merged route does not match deterministic recomputation",
             ))
 
+    if claim_audit and semantic is not None and recomputed_route is not None:
+        errors.extend(
+            _guard("G123", f"semantic commitments: {x}")
+            for x in validate_semantic_commitments(semantic, recomputed_route)
+        )
+
     effective_route = recomputed_route if recomputed_route is not None else route
     if claim_audit and effective_route is None and semantic is not None:
         errors.append(_guard(
@@ -305,6 +441,12 @@ def validate_gate(
                         "G109",
                         "context: supplied audit-context bundle does not match deterministic route materialization",
                     ))
+
+    if claim_audit and recomputed_route is not None and context_bundle is not None:
+        errors.extend(
+            _guard("G124", f"context structure: {x}")
+            for x in validate_context_structure(context_bundle, recomputed_route)
+        )
 
     if claim_audit and recomputed_route is not None:
         requirements = recomputed_route.get("claim_module_requirements", [])
