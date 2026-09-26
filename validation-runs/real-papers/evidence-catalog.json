@@ -7,8 +7,8 @@
     "counting_boundary": "Multiple benchmark or replay surfaces on one source do not count as multiple independent sources."
   },
   "counts": {
-    "source_backed_papers": 10,
-    "benchmark_only_sources": 38,
+    "source_backed_papers": 20,
+    "benchmark_only_sources": 28,
     "legacy_fixtures": 24,
     "evidence_entries": 72,
     "tiered_source_cases": 40,
@@ -95,6 +95,88 @@
       }
     },
     {
+      "evidence_id": "beaco2n-sensors-2018",
+      "identity_status": "source-backed",
+      "title": "The BErkeley Atmospheric CO2 Observation Network: field calibration and evaluation of low-cost air quality sensors",
+      "authors": "Jinsol Kim, Alexis A. Shusterman, Kaitlyn J. Lieschke, Catherine Newman, Ronald C. Cohen",
+      "year": 2018,
+      "stable_id": "DOI:10.5194/amt-11-1937-2018",
+      "source_url": "https://amt.copernicus.org/articles/11/1937/2018/",
+      "domain": "sensor-field-calibration",
+      "round_ids": [
+        "2026-09-26-round-03"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "artifact-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-03/beaco2n-sensors-2018",
+          "status": "pass"
+        },
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "sensor-flagship",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH11",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "partial"
+        ]
+      }
+    },
+    {
+      "evidence_id": "besmile-hf-2021",
+      "identity_status": "source-backed",
+      "title": "Feasibility and Preliminary Effects of the BESMILE-HF Program on Chronic Heart Failure Patients: A Pilot Randomized Controlled Trial",
+      "authors": "Xiankun Chen et al.",
+      "year": 2021,
+      "stable_id": "DOI:10.3389/fcvm.2021.715207",
+      "source_url": "https://www.frontiersin.org/journals/cardiovascular-medicine/articles/10.3389/fcvm.2021.715207/full",
+      "domain": "clinical-pilot-rct",
+      "round_ids": [
+        "2026-09-26-round-03"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "artifact-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-03/besmile-hf-2021",
+          "status": "pass"
+        },
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "cardiology-low",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH04",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "insufficient"
+        ]
+      }
+    },
+    {
       "evidence_id": "chocolate-weight-loss-2015",
       "identity_status": "source-backed",
       "title": "Chocolate with High Cocoa Content as a Weight-Loss Accelerator",
@@ -133,6 +215,88 @@
           "sufficient",
           "sufficient",
           "insufficient"
+        ]
+      }
+    },
+    {
+      "evidence_id": "cu-c2plus-electrocatalyst-2020",
+      "identity_status": "source-backed",
+      "title": "A scalable method for preparing Cu electrocatalysts that convert CO2 into C2+ products",
+      "authors": "Taehee Kim, G. Tayhas R. Palmore",
+      "year": 2020,
+      "stable_id": "DOI:10.1038/s41467-020-16998-9",
+      "source_url": "https://www.nature.com/articles/s41467-020-16998-9",
+      "domain": "electrocatalysis",
+      "round_ids": [
+        "2026-09-26-round-03"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "artifact-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-03/cu-c2plus-electrocatalyst-2020",
+          "status": "pass"
+        },
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "catalysis-flagship",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH07",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "stability-crossdomain-8",
+          "path": "benchmarks/stability-crossdomain-8/case_specs.json",
+          "case_id": "ST08",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "partial"
+        ]
+      }
+    },
+    {
+      "evidence_id": "drylands-desertification-2020",
+      "identity_status": "source-backed",
+      "title": "Anthropogenic climate change has driven over 5 million km2 of drylands towards desertification",
+      "authors": "A. L. Burrell, J. P. Evans, M. G. De Kauwe",
+      "year": 2020,
+      "stable_id": "DOI:10.1038/s41467-020-17710-7",
+      "source_url": "https://www.nature.com/articles/s41467-020-17710-7",
+      "domain": "climate-attribution",
+      "round_ids": [
+        "2026-09-26-round-03"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "artifact-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-03/drylands-desertification-2020",
+          "status": "pass"
+        },
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "climate-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "partial"
         ]
       }
     },
@@ -182,6 +346,41 @@
       }
     },
     {
+      "evidence_id": "encouragement-exam-2021",
+      "identity_status": "source-backed",
+      "title": "Not just words! Effects of a light-touch randomized encouragement intervention on students' exam grades, self-efficacy, motivation, and test anxiety",
+      "authors": "Tamás Keller, Péter Szakál",
+      "year": 2021,
+      "stable_id": "DOI:10.1371/journal.pone.0256960",
+      "source_url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0256960",
+      "domain": "education-randomized-field-experiment",
+      "round_ids": [
+        "2026-09-26-round-03"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "artifact-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-03/encouragement-exam-2021",
+          "status": "pass"
+        },
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "education-ordinary-b",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "partial"
+        ]
+      }
+    },
+    {
       "evidence_id": "gautret-hcq-2020",
       "identity_status": "source-backed",
       "title": "Hydroxychloroquine and azithromycin as a treatment of COVID-19: results of an open-label non-randomized clinical trial",
@@ -219,6 +418,84 @@
           "sufficient",
           "sufficient",
           "insufficient"
+        ]
+      }
+    },
+    {
+      "evidence_id": "layered-rocksalt-cathode-2021",
+      "identity_status": "source-backed",
+      "title": "Layered-rocksalt intergrown cathode for high-capacity zero-strain battery operation",
+      "authors": "Ning Li et al.",
+      "year": 2021,
+      "stable_id": "DOI:10.1038/s41467-021-22527-z",
+      "source_url": "https://www.nature.com/articles/s41467-021-22527-z",
+      "domain": "battery-materials",
+      "round_ids": [
+        "2026-09-26-round-03"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "artifact-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-03/layered-rocksalt-cathode-2021",
+          "status": "pass"
+        },
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "battery-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "partial"
+        ]
+      }
+    },
+    {
+      "evidence_id": "llm-evaluation-blog-2024",
+      "identity_status": "source-backed",
+      "title": "Let's talk about LLM evaluation",
+      "authors": "Clémentine Fourrier",
+      "year": 2024,
+      "stable_id": "HuggingFaceBlog:clefourrier:llm-evaluation:2024-05-23",
+      "source_url": "https://huggingface.co/blog/clefourrier/llm-evaluation",
+      "domain": "llm-evaluation-commentary",
+      "round_ids": [
+        "2026-09-26-round-03"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "artifact-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-03/llm-evaluation-blog-2024",
+          "status": "pass"
+        },
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "nlp-low",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH10",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "partially auditable",
+        "viability_flags": [
+          "external-dependency-dominant"
+        ],
+        "support_levels": [
+          "partial",
+          "partial",
+          "unclear"
         ]
       }
     },
@@ -262,6 +539,47 @@
       }
     },
     {
+      "evidence_id": "order-book-imbalance-quantumflow-2026",
+      "identity_status": "source-backed",
+      "title": "Does a stacked bid side actually mean support?",
+      "authors": "Dom",
+      "year": 2026,
+      "stable_id": "QuantumFlow:order-book-imbalance:2026-08-05",
+      "source_url": "https://quantumflow.tech/learn/order-book-imbalance/",
+      "domain": "market-microstructure-blog",
+      "round_ids": [
+        "2026-09-26-round-03"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "artifact-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-03/order-book-imbalance-quantumflow-2026",
+          "status": "pass"
+        },
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "finance-low",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH06",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "sufficient"
+        ]
+      }
+    },
+    {
       "evidence_id": "power-posing-2010",
       "identity_status": "source-backed",
       "title": "Power Posing: Brief Nonverbal Displays Affect Neuroendocrine Levels and Risk Tolerance",
@@ -297,6 +615,41 @@
           "sufficient",
           "sufficient",
           "insufficient"
+        ]
+      }
+    },
+    {
+      "evidence_id": "sixth-mass-extinction-2015",
+      "identity_status": "source-backed",
+      "title": "Accelerated modern human-induced species losses: Entering the sixth mass extinction",
+      "authors": "Gerardo Ceballos et al.",
+      "year": 2015,
+      "stable_id": "DOI:10.1126/sciadv.1400253",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4640606/",
+      "domain": "ecology-extinction-rates",
+      "round_ids": [
+        "2026-09-26-round-03"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "artifact-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-03/sixth-mass-extinction-2015",
+          "status": "pass"
+        },
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "ecology-flagship",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "partial"
         ]
       }
     },
@@ -440,6 +793,41 @@
       }
     },
     {
+      "evidence_id": "why-johnny-cant-encrypt-1999",
+      "identity_status": "source-backed",
+      "title": "Why Johnny Can't Encrypt: A Usability Evaluation of PGP 5.0",
+      "authors": "Alma Whitten, J. D. Tygar",
+      "year": 1999,
+      "stable_id": "USENIX:SEC99:Whitten-Tygar",
+      "source_url": "https://www.usenix.org/legacy/event/sec99/full_papers/whitten/whitten_html/",
+      "domain": "hci-security-usability",
+      "round_ids": [
+        "2026-09-26-round-03"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "artifact-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-03/why-johnny-cant-encrypt-1999",
+          "status": "pass"
+        },
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "hci-flagship",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "partial"
+        ]
+      }
+    },
+    {
       "evidence_id": "benchmark:tiered-source-40:battery-flagship",
       "identity_status": "benchmark-source",
       "title": "Ultrahigh power and energy density in partially ordered lithium-ion cathode materials",
@@ -510,35 +898,6 @@
       }
     },
     {
-      "evidence_id": "benchmark:tiered-source-40:battery-ordinary-a",
-      "identity_status": "benchmark-source",
-      "title": "Layered-rocksalt intergrown cathode for high-capacity zero-strain battery operation",
-      "authors": "",
-      "year": 2021,
-      "stable_id": "",
-      "source_url": "https://www.nature.com/articles/s41467-021-22527-z",
-      "domain": "battery materials",
-      "round_ids": [],
-      "source_kind": "peer-reviewed journal",
-      "venue": "Nature Communications",
-      "tier": "ordinary_a",
-      "access": "public full text available",
-      "test_surfaces": [
-        {
-          "kind": "tiered-source-40",
-          "path": "benchmarks/tiered-source-40/cases.json",
-          "case_id": "battery-ordinary-a",
-          "status": "benchmark-spec"
-        }
-      ],
-      "current_judgment": {
-        "scope_status": "in scope",
-        "narrow_claim_support": "sufficient",
-        "broad_claim_support": "partial",
-        "main_boundary": "The tested zero-strain/high-capacity behavior is well supported; a general design principle across the wider composition space remains a broader inference."
-      }
-    },
-    {
       "evidence_id": "benchmark:tiered-source-40:battery-ordinary-b",
       "identity_status": "benchmark-source",
       "title": "Photochemically driven solid electrolyte interphase for extremely fast-charging lithium-ion batteries",
@@ -565,41 +924,6 @@
         "narrow_claim_support": "sufficient",
         "broad_claim_support": "partial",
         "main_boundary": "Fast-charge performance in the tested graphite full cell is direct; attributing the whole improvement to a LiF-rich SEI and projecting to practical deployments adds mechanistic/generalization reach."
-      }
-    },
-    {
-      "evidence_id": "benchmark:tiered-source-40:cardiology-low",
-      "identity_status": "benchmark-source",
-      "title": "Feasibility and Preliminary Effects of the BESMILE-HF Program on Chronic Heart Failure Patients: A Pilot Randomized Controlled Trial",
-      "authors": "",
-      "year": 2021,
-      "stable_id": "",
-      "source_url": "https://www.frontiersin.org/journals/cardiovascular-medicine/articles/10.3389/fcvm.2021.715207/full",
-      "domain": "clinical cardiology",
-      "round_ids": [],
-      "source_kind": "small pilot randomized trial",
-      "venue": "Frontiers in Cardiovascular Medicine",
-      "tier": "low_attention_nontraditional",
-      "access": "public full text",
-      "test_surfaces": [
-        {
-          "kind": "tiered-source-40",
-          "path": "benchmarks/tiered-source-40/cases.json",
-          "case_id": "cardiology-low",
-          "status": "benchmark-spec"
-        },
-        {
-          "kind": "metadata-halo-12",
-          "path": "benchmarks/metadata-halo-12/packet_specs.json",
-          "case_id": "MH04",
-          "status": "benchmark-spec"
-        }
-      ],
-      "current_judgment": {
-        "scope_status": "in scope",
-        "narrow_claim_support": "sufficient",
-        "broad_claim_support": "insufficient",
-        "main_boundary": "Feasibility/adherence is directly supported; clinical efficacy is not established by an 18-person pilot and the paper itself calls for a larger, longer trial."
       }
     },
     {
@@ -658,47 +982,6 @@
         "narrow_claim_support": "sufficient",
         "broad_claim_support": "partial",
         "main_boundary": "Improved BP control in the studied communities is direct; broad public-health transfer across diverse populations extends beyond the enrolled clusters."
-      }
-    },
-    {
-      "evidence_id": "benchmark:tiered-source-40:catalysis-flagship",
-      "identity_status": "benchmark-source",
-      "title": "A scalable method for preparing Cu electrocatalysts that convert CO2 into C2+ products",
-      "authors": "",
-      "year": 2020,
-      "stable_id": "",
-      "source_url": "https://www.nature.com/articles/s41467-020-16998-9",
-      "domain": "catalysis",
-      "round_ids": [],
-      "source_kind": "peer-reviewed journal",
-      "venue": "Nature Communications",
-      "tier": "flagship_high_attention",
-      "access": "public full text",
-      "test_surfaces": [
-        {
-          "kind": "tiered-source-40",
-          "path": "benchmarks/tiered-source-40/cases.json",
-          "case_id": "catalysis-flagship",
-          "status": "benchmark-spec"
-        },
-        {
-          "kind": "metadata-halo-12",
-          "path": "benchmarks/metadata-halo-12/packet_specs.json",
-          "case_id": "MH07",
-          "status": "benchmark-spec"
-        },
-        {
-          "kind": "stability-crossdomain-8",
-          "path": "benchmarks/stability-crossdomain-8/case_specs.json",
-          "case_id": "ST08",
-          "status": "benchmark-spec"
-        }
-      ],
-      "current_judgment": {
-        "scope_status": "in scope",
-        "narrow_claim_support": "sufficient",
-        "broad_claim_support": "partial",
-        "main_boundary": "C2+ Faradaic efficiency and preparation performance are direct; identifying defect density/low roughness as the required active causal explanation is a stronger mechanistic claim."
       }
     },
     {
@@ -853,35 +1136,6 @@
       }
     },
     {
-      "evidence_id": "benchmark:tiered-source-40:climate-ordinary-a",
-      "identity_status": "benchmark-source",
-      "title": "Anthropogenic climate change has driven over 5 million km2 of drylands towards desertification",
-      "authors": "",
-      "year": 2020,
-      "stable_id": "",
-      "source_url": "https://www.nature.com/articles/s41467-020-17710-7",
-      "domain": "climate science",
-      "round_ids": [],
-      "source_kind": "peer-reviewed journal",
-      "venue": "Nature Communications",
-      "tier": "ordinary_a",
-      "access": "public full text available",
-      "test_surfaces": [
-        {
-          "kind": "tiered-source-40",
-          "path": "benchmarks/tiered-source-40/cases.json",
-          "case_id": "climate-ordinary-a",
-          "status": "benchmark-spec"
-        }
-      ],
-      "current_judgment": {
-        "scope_status": "in scope",
-        "narrow_claim_support": "sufficient",
-        "broad_claim_support": "partial",
-        "main_boundary": "The modeled attribution within the study's dryland framework is supportable; extrapolating to all desertification mechanisms or regions is broader."
-      }
-    },
-    {
       "evidence_id": "benchmark:tiered-source-40:climate-ordinary-b",
       "identity_status": "benchmark-source",
       "title": "Attribution of 2020 hurricane season extreme rainfall to human-induced climate change",
@@ -908,35 +1162,6 @@
         "narrow_claim_support": "sufficient",
         "broad_claim_support": "partial",
         "main_boundary": "The counterfactual hindcast supports a bounded attribution of 2020-season extreme rainfall; it does not by itself establish every hurricane hazard or future-season effect."
-      }
-    },
-    {
-      "evidence_id": "benchmark:tiered-source-40:ecology-flagship",
-      "identity_status": "benchmark-source",
-      "title": "Accelerated modern human-induced species losses: Entering the sixth mass extinction",
-      "authors": "",
-      "year": 2015,
-      "stable_id": "",
-      "source_url": "https://www.science.org/doi/10.1126/sciadv.1400253",
-      "domain": "ecology",
-      "round_ids": [],
-      "source_kind": "peer-reviewed journal",
-      "venue": "Science Advances",
-      "tier": "flagship_high_attention",
-      "access": "public full text available",
-      "test_surfaces": [
-        {
-          "kind": "tiered-source-40",
-          "path": "benchmarks/tiered-source-40/cases.json",
-          "case_id": "ecology-flagship",
-          "status": "benchmark-spec"
-        }
-      ],
-      "current_judgment": {
-        "scope_status": "in scope",
-        "narrow_claim_support": "sufficient",
-        "broad_claim_support": "partial",
-        "main_boundary": "Observed extinction rates under conservative background assumptions are directly analyzable; the broader 'sixth mass extinction' label adds scale and definitional reach."
       }
     },
     {
@@ -1120,70 +1345,6 @@
       }
     },
     {
-      "evidence_id": "benchmark:tiered-source-40:education-ordinary-b",
-      "identity_status": "benchmark-source",
-      "title": "Not just words! Effects of a light-touch randomized encouragement intervention on students' exam grades, self-efficacy, motivation, and test anxiety",
-      "authors": "",
-      "year": 2021,
-      "stable_id": "",
-      "source_url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0256960",
-      "domain": "education",
-      "round_ids": [],
-      "source_kind": "peer-reviewed randomized field experiment",
-      "venue": "PLOS ONE",
-      "tier": "ordinary_b",
-      "access": "public full text",
-      "test_surfaces": [
-        {
-          "kind": "tiered-source-40",
-          "path": "benchmarks/tiered-source-40/cases.json",
-          "case_id": "education-ordinary-b",
-          "status": "benchmark-spec"
-        }
-      ],
-      "current_judgment": {
-        "scope_status": "in scope",
-        "narrow_claim_support": "sufficient",
-        "broad_claim_support": "partial",
-        "main_boundary": "The null average exam-grade effect is informative; secondary self-efficacy patterns should not be laundered into a demonstrated achievement mechanism."
-      }
-    },
-    {
-      "evidence_id": "benchmark:tiered-source-40:finance-low",
-      "identity_status": "benchmark-source",
-      "title": "Does a stacked bid side actually mean support?",
-      "authors": "",
-      "year": 2026,
-      "stable_id": "",
-      "source_url": "https://quantumflow.tech/learn/order-book-imbalance/",
-      "domain": "financial market microstructure",
-      "round_ids": [],
-      "source_kind": "technical blog",
-      "venue": "QuantumFlow",
-      "tier": "low_attention_nontraditional",
-      "access": "public full article",
-      "test_surfaces": [
-        {
-          "kind": "tiered-source-40",
-          "path": "benchmarks/tiered-source-40/cases.json",
-          "case_id": "finance-low",
-          "status": "benchmark-spec"
-        },
-        {
-          "kind": "metadata-halo-12",
-          "path": "benchmarks/metadata-halo-12/packet_specs.json",
-          "case_id": "MH06",
-          "status": "benchmark-spec"
-        }
-      ],
-      "current_judgment": {
-        "scope_status": "in scope",
-        "narrow_claim_support": "sufficient",
-        "broad_claim_support": "insufficient",
-        "main_boundary": "The five-market directional association can be supported despite blog status; the article's own return calculation shows it does not establish a tradeable strategy after costs."
-      }
-    },
-    {
       "evidence_id": "benchmark:tiered-source-40:finance-ordinary-a",
       "identity_status": "benchmark-source",
       "title": "Queue Imbalance as a One-Tick-Ahead Price Predictor in a Limit Order Book",
@@ -1239,35 +1400,6 @@
         "narrow_claim_support": "sufficient",
         "broad_claim_support": "partial",
         "main_boundary": "Forecast metrics can be strong while actionable trading performance remains weak; the paper itself explicitly separates those endpoints."
-      }
-    },
-    {
-      "evidence_id": "benchmark:tiered-source-40:hci-flagship",
-      "identity_status": "benchmark-source",
-      "title": "Why Johnny Can't Encrypt: A Usability Evaluation of PGP 5.0",
-      "authors": "",
-      "year": 1999,
-      "stable_id": "",
-      "source_url": "https://www.usenix.org/conference/8th-usenix-security-symposium/why-johnny-cant-encrypt-usability-evaluation-pgp-50",
-      "domain": "human-computer interaction",
-      "round_ids": [],
-      "source_kind": "peer-reviewed conference paper",
-      "venue": "USENIX Security Symposium",
-      "tier": "flagship_high_attention",
-      "access": "public full text",
-      "test_surfaces": [
-        {
-          "kind": "tiered-source-40",
-          "path": "benchmarks/tiered-source-40/cases.json",
-          "case_id": "hci-flagship",
-          "status": "benchmark-spec"
-        }
-      ],
-      "current_judgment": {
-        "scope_status": "in scope",
-        "narrow_claim_support": "sufficient",
-        "broad_claim_support": "partial",
-        "main_boundary": "The lab study strongly supports usability failure for the tested novices/tasks; 'most computer users' and general security-interface theory extend beyond the small case study."
       }
     },
     {
@@ -1393,41 +1525,6 @@
       }
     },
     {
-      "evidence_id": "benchmark:tiered-source-40:nlp-low",
-      "identity_status": "benchmark-source",
-      "title": "Let's talk about LLM evaluation",
-      "authors": "",
-      "year": 2024,
-      "stable_id": "",
-      "source_url": "https://huggingface.co/blog/clefourrier/llm-evaluation",
-      "domain": "natural language processing",
-      "round_ids": [],
-      "source_kind": "technical community blog",
-      "venue": "Hugging Face Blog",
-      "tier": "low_attention_nontraditional",
-      "access": "public full article",
-      "test_surfaces": [
-        {
-          "kind": "tiered-source-40",
-          "path": "benchmarks/tiered-source-40/cases.json",
-          "case_id": "nlp-low",
-          "status": "benchmark-spec"
-        },
-        {
-          "kind": "metadata-halo-12",
-          "path": "benchmarks/metadata-halo-12/packet_specs.json",
-          "case_id": "MH10",
-          "status": "benchmark-spec"
-        }
-      ],
-      "current_judgment": {
-        "scope_status": "partially in scope",
-        "narrow_claim_support": "partial",
-        "broad_claim_support": "unclear",
-        "main_boundary": "The article contains useful evaluation heuristics and examples, but many prescriptions are experiential/synthetic and are not organized as a single paper-local empirical evidence chain."
-      }
-    },
-    {
       "evidence_id": "benchmark:tiered-source-40:nlp-ordinary-a",
       "identity_status": "benchmark-source",
       "title": "Are All the Datasets in Benchmark Necessary? A Pilot Study of Dataset Evaluation for Text Classification",
@@ -1483,41 +1580,6 @@
         "narrow_claim_support": "sufficient",
         "broad_claim_support": "partial",
         "main_boundary": "Results on three benchmarks can support local robustness/consistency; broad resistance to contamination/bias across LLM evaluation regimes is a wider claim."
-      }
-    },
-    {
-      "evidence_id": "benchmark:tiered-source-40:sensor-flagship",
-      "identity_status": "benchmark-source",
-      "title": "The BErkeley Atmospheric CO2 Observation Network: field calibration and evaluation of low-cost air quality sensors",
-      "authors": "",
-      "year": 2018,
-      "stable_id": "",
-      "source_url": "https://amt.copernicus.org/articles/11/1937/2018/",
-      "domain": "sensor engineering",
-      "round_ids": [],
-      "source_kind": "peer-reviewed journal",
-      "venue": "Atmospheric Measurement Techniques",
-      "tier": "flagship_high_attention",
-      "access": "public full text",
-      "test_surfaces": [
-        {
-          "kind": "tiered-source-40",
-          "path": "benchmarks/tiered-source-40/cases.json",
-          "case_id": "sensor-flagship",
-          "status": "benchmark-spec"
-        },
-        {
-          "kind": "metadata-halo-12",
-          "path": "benchmarks/metadata-halo-12/packet_specs.json",
-          "case_id": "MH11",
-          "status": "benchmark-spec"
-        }
-      ],
-      "current_judgment": {
-        "scope_status": "in scope",
-        "narrow_claim_support": "sufficient",
-        "broad_claim_support": "partial",
-        "main_boundary": "Field co-location/calibration performance is direct; transfer to new sensor lots, environments, and long-term drift regimes needs independent validation."
       }
     },
     {
