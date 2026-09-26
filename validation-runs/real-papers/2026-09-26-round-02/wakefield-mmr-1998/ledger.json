@@ -26,6 +26,6 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "The causal question requires population-level comparative epidemiology with reliable vaccination and developmental records. That evidence must come from independent studies rather than attempting to repair this retracted case series.",
-  "ledger_schema_version": 2,
+  "ledger_schema_version": 3,
   "reasoning_edges": []
 }
