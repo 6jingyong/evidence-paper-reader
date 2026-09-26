@@ -84,6 +84,86 @@ class PaperEvidenceCatalogTests(unittest.TestCase):
                 {"legacy-regression"},
             )
 
+    def test_tiered_sources_are_fully_mapped_without_double_counting(self):
+        tiered = json.loads(
+            (
+                ROOT
+                / "benchmarks"
+                / "tiered-source-40"
+                / "cases.json"
+            ).read_text(encoding="utf-8")
+        )["cases"]
+        self.assertEqual(len(tiered), 40)
+        self.assertEqual(self.catalog["counts"]["tiered_source_cases"], 40)
+        self.assertEqual(self.catalog["counts"]["benchmark_only_sources"], 38)
+
+        by_surface_case = {}
+        for row in self.catalog["entries"]:
+            for surface in row["test_surfaces"]:
+                if surface["kind"] == "tiered-source-40":
+                    by_surface_case[surface["case_id"]] = row["evidence_id"]
+
+        self.assertEqual(
+            set(by_surface_case),
+            {case["id"] for case in tiered},
+        )
+        self.assertEqual(
+            by_surface_case["cardiology-flagship"],
+            "sprint-2015",
+        )
+        self.assertEqual(
+            by_surface_case["finance-flagship"],
+            "legacy:historical-order-book-2010",
+        )
+
+    def test_benchmark_only_sources_have_public_identity_but_not_full_replay(self):
+        rows = [
+            row
+            for row in self.catalog["entries"]
+            if row["identity_status"] == "benchmark-source"
+        ]
+        self.assertEqual(
+            len(rows),
+            self.catalog["counts"]["benchmark_only_sources"],
+        )
+        for row in rows:
+            self.assertTrue(row["title"].strip())
+            self.assertTrue(row["source_url"].startswith("https://"))
+            kinds = {surface["kind"] for surface in row["test_surfaces"]}
+            self.assertIn("tiered-source-40", kinds)
+            self.assertNotIn("full-replay", kinds)
+
+    def test_reused_benchmark_cases_attach_to_existing_evidence_identities(self):
+        source_map = json.loads(
+            (
+                ROOT
+                / "validation-runs"
+                / "real-papers"
+                / "benchmark-source-map.json"
+            ).read_text(encoding="utf-8")
+        )
+        catalog_ids = {row["evidence_id"] for row in self.catalog["entries"]}
+
+        for mapping_name in [
+            "stability_crossdomain_8",
+            "claim_selection_12",
+        ]:
+            for case_id, evidence_id in source_map[mapping_name].items():
+                if evidence_id == "synthetic":
+                    continue
+                self.assertIn(
+                    evidence_id,
+                    catalog_ids,
+                    f"{mapping_name}/{case_id} points outside evidence registry",
+                )
+
+        synthetic = {
+            case_id
+            for case_id, evidence_id in source_map["claim_selection_12"].items()
+            if evidence_id == "synthetic"
+        }
+        self.assertEqual(synthetic, {"CS09", "CS10", "CS11"})
+
     def test_multiple_surfaces_do_not_inflate_paper_count(self):
         source_backed = [
             row
