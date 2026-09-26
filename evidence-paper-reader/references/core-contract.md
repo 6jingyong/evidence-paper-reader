@@ -4,6 +4,21 @@ This is the compact semantic contract that should be loaded for every paper-side
 
 The goal is to keep different model configurations aligned on the same evidence graph without requiring every methodological reference to stay in context.
 
+## 0. Audit target: claim → evidence → reasoning
+
+This contract audits logical reach, not scientific authority.
+
+For each important claim, ask what the source actually says, what evidence is available, what that evidence directly supports, and which additional inferential steps are needed to reach the stated conclusion.
+
+Do not turn the audit into:
+- a verdict on ultimate scientific truth
+- a fraud, fabrication, falsification, or misconduct investigation
+- an inference about author honesty, intent, or competence
+- a venue/prestige-based quality score
+- a simulated editorial or peer-review recommendation
+
+Documented corrections, retractions, provenance failures, or external disputes may be used only as evidence about whether a claim-evidence chain remains inspectable or usable. Record the documented fact and its consequence for the chain; do not infer blame.
+
 ## 1. Scope first
 
 Use exactly one scope status:
