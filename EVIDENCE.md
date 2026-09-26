@@ -4,8 +4,8 @@ This page is generated from repository artifacts. It records what the project ha
 
 ## Current coverage
 
-- source-backed recorded papers: **20**
-- benchmark-only named sources: **28**
+- source-backed recorded papers: **30**
+- benchmark-only named sources: **18**
 - legacy regression fixtures: **24**
 - total unique evidence entries: **72**
 - tiered-source benchmark cases mapped to durable identities: **40**
@@ -19,24 +19,34 @@ Source-backed entries have stable source identity plus replayable audit artifact
 | Paper | Domain | Viability | Support vector | Test surfaces | Evidence path |
 | --- | --- | --- | --- | --- | --- |
 | Exploring digital image correlation technique for the analysis of the tensile properties of all-cellulose composites (2021) | materials-measurement | auditable | sufficient / sufficient / partial | artifact-replay, blind-re-audit, source-to-audit | validation-runs/real-papers/2026-09-26-round-01/acc-dic-2021 |
+| Pitfalls in identifying active catalyst species (2020) | catalysis-commentary-external-data | partially auditable | partial / partial / insufficient | artifact-replay, tiered-source-40, metadata-halo-12 | validation-runs/real-papers/2026-09-26-round-04/active-catalyst-pitfalls-2020 |
+| Adapting User Interfaces with Model-based Reinforcement Learning (2021) | hci-adaptive-interfaces | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-04/adaptive-ui-model-based-rl-2021 |
 | Attention Is All You Need (2017) | machine-learning | auditable | sufficient / sufficient / partial | artifact-replay, blind-re-audit, source-to-audit | validation-runs/real-papers/2026-09-26-round-01/attention-is-all-you-need-2017 |
 | The BErkeley Atmospheric CO2 Observation Network: field calibration and evaluation of low-cost air quality sensors (2018) | sensor-field-calibration | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40, metadata-halo-12 | validation-runs/real-papers/2026-09-26-round-03/beaco2n-sensors-2018 |
+| BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (2019) | nlp-language-model-benchmark | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40, metadata-halo-12 | validation-runs/real-papers/2026-09-26-round-04/bert-2019 |
 | Feasibility and Preliminary Effects of the BESMILE-HF Program on Chronic Heart Failure Patients: A Pilot Randomized Controlled Trial (2021) | clinical-pilot-rct | auditable | sufficient / sufficient / insufficient | artifact-replay, tiered-source-40, metadata-halo-12 | validation-runs/real-papers/2026-09-26-round-03/besmile-hf-2021 |
 | Chocolate with High Cocoa Content as a Weight-Loss Accelerator (2015) | nutrition-p-hacking-promotional | auditable | sufficient / sufficient / insufficient | artifact-replay, blind-re-audit, source-to-audit | validation-runs/real-papers/2026-09-26-round-02/chocolate-weight-loss-2015 |
 | A scalable method for preparing Cu electrocatalysts that convert CO2 into C2+ products (2020) | electrocatalysis | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40, metadata-halo-12, stability-crossdomain-8 | validation-runs/real-papers/2026-09-26-round-03/cu-c2plus-electrocatalyst-2020 |
+| Deep Limit Order Book Forecasting (2024) | market-microstructure-deep-learning | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-04/deep-lob-forecasting-2024 |
 | Anthropogenic climate change has driven over 5 million km2 of drylands towards desertification (2020) | climate-attribution | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-03/drylands-desertification-2020 |
 | Echinacea for treating the common cold: a randomized controlled trial (2010) | clinical-medicine-negative-result | auditable | sufficient / sufficient / insufficient | artifact-replay, claim-selection-12, blind-re-audit, source-to-audit | validation-runs/real-papers/2026-09-26-round-01/echinacea-2010 |
 | Not just words! Effects of a light-touch randomized encouragement intervention on students' exam grades, self-efficacy, motivation, and test anxiety (2021) | education-randomized-field-experiment | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-03/encouragement-exam-2021 |
 | Hydroxychloroquine and azithromycin as a treatment of COVID-19: results of an open-label non-randomized clinical trial (2020) | clinical-nonrandomized-proxy-endpoint | auditable | sufficient / sufficient / insufficient | artifact-replay, blind-re-audit, source-to-audit | validation-runs/real-papers/2026-09-26-round-02/gautret-hcq-2020 |
+| Attribution of 2020 hurricane season extreme rainfall to human-induced climate change (2022) | climate-hurricane-attribution | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-04/hurricane-rainfall-attribution-2022 |
 | Layered-rocksalt intergrown cathode for high-capacity zero-strain battery operation (2021) | battery-materials | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-03/layered-rocksalt-cathode-2021 |
 | Let's talk about LLM evaluation (2024) | llm-evaluation-commentary | partially auditable | partial / partial / unclear | artifact-replay, tiered-source-40, metadata-halo-12 | validation-runs/real-papers/2026-09-26-round-03/llm-evaluation-blog-2024 |
 | The experience of mathematical beauty and its neural correlates (2014) | neuroaesthetics | auditable | sufficient / partial / insufficient | artifact-replay, blind-re-audit, source-to-audit | validation-runs/real-papers/2026-09-26-round-01/mathematical-beauty-2014 |
+| Microclimatic Warming Leads to a Decrease in Species and Growth Form Diversity: Insights From a Tropical Alpine Grassland (2021) | ecology-warming-field-experiment | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-04/microclimatic-warming-paramo-2021 |
 | Does a stacked bid side actually mean support? (2026) | market-microstructure-blog | auditable | sufficient / sufficient / sufficient | artifact-replay, tiered-source-40, metadata-halo-12 | validation-runs/real-papers/2026-09-26-round-03/order-book-imbalance-quantumflow-2026 |
+| Photochemically driven solid electrolyte interphase for extremely fast-charging lithium-ion batteries (2021) | battery-fast-charging | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-04/photochemical-sei-fast-charge-2021 |
 | Power Posing: Brief Nonverbal Displays Affect Neuroendocrine Levels and Risk Tolerance (2010) | social-psychology-small-n-multi-outcome | auditable | sufficient / sufficient / insufficient | artifact-replay, blind-re-audit, source-to-audit | validation-runs/real-papers/2026-09-26-round-02/power-posing-2010 |
 | Accelerated modern human-induced species losses: Entering the sixth mass extinction (2015) | ecology-extinction-rates | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-03/sixth-mass-extinction-2015 |
 | A Randomized Trial of Intensive versus Standard Blood-Pressure Control (2015) | clinical-medicine | auditable | sufficient / sufficient / sufficient | artifact-replay, tiered-source-40, metadata-halo-12, stability-crossdomain-8, claim-selection-12, blind-re-audit, source-to-audit | validation-runs/real-papers/2026-09-26-round-01/sprint-2015 |
 | Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis (2020) | registry-source-integrity | non-auditable | n/a | artifact-replay, blind-re-audit, source-to-audit | validation-runs/real-papers/2026-09-26-round-02/surgisphere-hcq-2020 |
+| A temporal deep learning framework for calibration of low-cost air quality sensors (2026) | sensor-calibration-preprint | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40, metadata-halo-12 | validation-runs/real-papers/2026-09-26-round-04/temporal-lstm-air-sensor-2026 |
+| Learning How to Order Imaging Tests and Make Subsequent Clinical Decisions: a Randomized Study of the Effectiveness of a Virtual Learning Environment for Medical Students (2021) | medical-education-small-rct | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-04/virtual-imaging-education-2021 |
 | Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children (1998) | case-series-source-integrity | non-auditable | n/a | artifact-replay, blind-re-audit, source-to-audit | validation-runs/real-papers/2026-09-26-round-02/wakefield-mmr-1998 |
+| Effect of a Multicomponent Intervention Delivered on a Web-Based Platform on Hypertension Control: A Cluster Randomized Clinical Trial (2022) | clinical-hypertension-cluster-rct | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-04/web-hypertension-cluster-rct-2022 |
 | Why Johnny Can't Encrypt: A Usability Evaluation of PGP 5.0 (1999) | hci-security-usability | auditable | sufficient / sufficient / partial | artifact-replay, tiered-source-40 | validation-runs/real-papers/2026-09-26-round-03/why-johnny-cant-encrypt-1999 |
 
 ## Benchmark-only named sources
@@ -47,30 +57,20 @@ These public sources were used in benchmark cases and are preserved as evidence 
 | --- | --- | --- | --- | --- |
 | Ultrahigh power and energy density in partially ordered lithium-ion cathode materials (2020) | battery materials | flagship_high_attention | sufficient / partial | tiered-source-40, metadata-halo-12 |
 | Dry Electrode Architecture Design for Pushing Energy Density Limits at Cell Level (2025) | battery materials | low_attention_nontraditional | sufficient / partial | tiered-source-40, metadata-halo-12 |
-| Photochemically driven solid electrolyte interphase for extremely fast-charging lithium-ion batteries (2021) | battery materials | ordinary_b | sufficient / partial | tiered-source-40 |
 | Effects of a Narrative-Based Psychoeducational Intervention to Prepare Patients for Responding to Acute Myocardial Infarction: A Randomized Clinical Trial (2022) | clinical cardiology | ordinary_a | sufficient / partial | tiered-source-40 |
-| Effect of a Multicomponent Intervention Delivered on a Web-Based Platform on Hypertension Control: A Cluster Randomized Clinical Trial (2022) | clinical cardiology | ordinary_b | sufficient / partial | tiered-source-40 |
-| Pitfalls in identifying active catalyst species (2020) | catalysis | low_attention_nontraditional | partial / insufficient | tiered-source-40, metadata-halo-12 |
 | Iodide-mediated Cu catalyst restructuring during CO2 electroreduction (2022) | catalysis | ordinary_a | sufficient / partial | tiered-source-40 |
 | Experimental and numerical investigation of NO oxidation on Pt/Al2O3- and NOx storage on Pt/BaO/Al2O3-catalysts (2022) | catalysis | ordinary_b | sufficient / partial | tiered-source-40 |
 | Assessing the observed impact of anthropogenic climate change (2016) | climate science | flagship_high_attention | sufficient / partial | tiered-source-40 |
 | Surface Infrared Forcing as a Primary Driver of Contemporary Global Warming: A Synthesis of Biophysical, Spectral, and Land-Use Evidence (2026) | climate science | low_attention_nontraditional | partial / insufficient | tiered-source-40 |
-| Attribution of 2020 hurricane season extreme rainfall to human-induced climate change (2022) | climate science | ordinary_b | sufficient / partial | tiered-source-40 |
 | Ecoacoustics as a novel tool for assessing pond restoration success: Results of a pilot study (2021) | ecology | low_attention_nontraditional | partial / partial | tiered-source-40 |
-| Microclimatic Warming Leads to a Decrease in Species and Growth Form Diversity: Insights From a Tropical Alpine Grassland (2021) | ecology | ordinary_a | sufficient / partial | tiered-source-40 |
 | Impact of round goby on native invertebrate communities - An experimental field study (2021) | ecology | ordinary_b | sufficient / partial | tiered-source-40, stability-crossdomain-8 |
 | Experimental Estimates of Education Production Functions (1999) | education | flagship_high_attention | sufficient / partial | tiered-source-40 |
-| Learning How to Order Imaging Tests and Make Subsequent Clinical Decisions: a Randomized Study of the Effectiveness of a Virtual Learning Environment for Medical Students (2021) | education | low_attention_nontraditional | sufficient / partial | tiered-source-40 |
 | Flipped learning enhances non-technical skill performance in simulation-based education: a randomised controlled trial (2021) | education | ordinary_a | sufficient / partial | tiered-source-40 |
 | Queue Imbalance as a One-Tick-Ahead Price Predictor in a Limit Order Book (2016) | financial market microstructure | ordinary_a | sufficient / partial | tiered-source-40 |
-| Deep Limit Order Book Forecasting (2024) | financial market microstructure | ordinary_b | sufficient / partial | tiered-source-40 |
 | Adaptive User Interface Generation Through Reinforcement Learning: A Data-Driven Approach to Personalization and Optimization (2024) | human-computer interaction | low_attention_nontraditional | partial / insufficient | tiered-source-40 |
-| Adapting User Interfaces with Model-based Reinforcement Learning (2021) | human-computer interaction | ordinary_a | sufficient / partial | tiered-source-40 |
 | The Image of the Interface: How People Use Landmarks to Develop Spatial Memory of Commands in Graphical Interfaces (2021) | human-computer interaction | ordinary_b | sufficient / partial | tiered-source-40 |
-| BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (2019) | natural language processing | flagship_high_attention | sufficient / partial | tiered-source-40, metadata-halo-12 |
 | Are All the Datasets in Benchmark Necessary? A Pilot Study of Dataset Evaluation for Text Classification (2022) | natural language processing | ordinary_a | sufficient / partial | tiered-source-40 |
 | StructEval: Deepen and Broaden Large Language Model Assessment via Structured Evaluation (2024) | natural language processing | ordinary_b | sufficient / partial | tiered-source-40 |
-| A temporal deep learning framework for calibration of low-cost air quality sensors (2026) | sensor engineering | low_attention_nontraditional | sufficient / partial | tiered-source-40, metadata-halo-12 |
 | Calibration of SO2 and NO2 Electrochemical Sensors via a Training and Testing Method in an Industrial Coastal Environment (2022) | sensor engineering | ordinary_a | sufficient / partial | tiered-source-40 |
 | Development and Calibration of a Low-Cost, Piezoelectric Rainfall Sensor through Machine Learning (2022) | sensor engineering | ordinary_b | sufficient / partial | tiered-source-40 |
 
