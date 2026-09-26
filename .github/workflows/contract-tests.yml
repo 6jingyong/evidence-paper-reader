@@ -45,6 +45,23 @@ jobs:
           python validation-runs/real-papers/validate_judgments.py --root .
           python tests/test_real_paper_run_records.py -v
           python tests/test_real_paper_judgment_mutations.py -v
+      - name: Validate source-to-audit protocol
+        shell: bash
+        run: |
+          test -f benchmarks/source-to-audit-10/case_index.json
+          test -f benchmarks/source-to-audit-10/prepare_source.py
+          test -f benchmarks/source-to-audit-10/run_reviewer.py
+          test -f benchmarks/source-to-audit-10/score_source.py
+          test -f tests/test_source_to_audit_benchmark.py
+          python tests/test_source_to_audit_benchmark.py -v
+      - name: Validate durable source-to-audit evidence
+        shell: bash
+        run: |
+          test -f validation-runs/real-papers/validate_source_runs.py
+          test -f validation-runs/real-papers/source-runs/README.md
+          test -f tests/test_durable_source_runs.py
+          python validation-runs/real-papers/validate_source_runs.py
+          python tests/test_durable_source_runs.py -v
       - name: Validate durable blind-run evidence
         shell: bash
         run: |
