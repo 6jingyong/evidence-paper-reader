@@ -102,8 +102,7 @@
       "edge_id": "R1",
       "target_claim": 1,
       "evidence_nodes": [
-        "E1",
-        "E3"
+        "E1"
       ],
       "upstream_claims": [],
       "inference_type": "direct-result",
@@ -113,10 +112,23 @@
     },
     {
       "edge_id": "R2",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E3"
+      ],
+      "upstream_claims": [],
+      "inference_type": "statistical-inference",
+      "reasoning_status": "supported",
+      "added_reach": "Uses the treatment-arm exclusion record to define the reported 70% versus 12.5% result explicitly as an analyzed-cohort, not intention-to-treat, comparison.",
+      "assumptions": [
+        "The published exclusion accounting is adequate to identify which participants contribute to the stated day-6 denominator."
+      ]
+    },
+    {
+      "edge_id": "R3",
       "target_claim": 2,
       "evidence_nodes": [
-        "E2",
-        "E3"
+        "E2"
       ],
       "upstream_claims": [],
       "inference_type": "direct-result",
@@ -125,22 +137,63 @@
       "assumptions": []
     },
     {
-      "edge_id": "R3",
-      "target_claim": 3,
+      "edge_id": "R4",
+      "target_claim": 2,
       "evidence_nodes": [
-        "E1",
-        "E2",
         "E3"
       ],
+      "upstream_claims": [],
+      "inference_type": "statistical-inference",
+      "reasoning_status": "supported",
+      "added_reach": "Keeps the six-patient azithromycin comparison bounded to the analyzed subgroup and its treatment-selection context.",
+      "assumptions": [
+        "The reported subgroup/exclusion accounting correctly identifies the analyzed participants."
+      ]
+    },
+    {
+      "edge_id": "R5",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1"
+      ],
       "upstream_claims": [
-        1,
+        1
+      ],
+      "inference_type": "causal",
+      "reasoning_status": "unsupported",
+      "added_reach": "Moves from a non-randomized day-6 PCR difference in the retained cohort to clinical treatment efficacy for hydroxychloroquine.",
+      "assumptions": [
+        "The treated and control groups are sufficiently exchangeable and PCR negativity is an adequate bridge to clinical efficacy."
+      ]
+    },
+    {
+      "edge_id": "R6",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [
         2
       ],
       "inference_type": "causal",
       "reasoning_status": "unsupported",
-      "added_reach": "Moves from the observed treatment/exposure contrast to the stated intervention or causal conclusion.",
+      "added_reach": "Moves from a six-patient non-randomized azithromycin subgroup PCR result to the claim that azithromycin reinforces hydroxychloroquine's clinical effect.",
       "assumptions": [
-        "The study design and measurement preserve the causal contrast required by the stated claim."
+        "The azithromycin subgroup is comparable to hydroxychloroquine-only patients and its PCR endpoint identifies incremental clinical benefit."
+      ]
+    },
+    {
+      "edge_id": "R7",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E3"
+      ],
+      "upstream_claims": [],
+      "inference_type": "statistical-inference",
+      "reasoning_status": "unsupported",
+      "added_reach": "Treats a per-protocol cohort with clinically important treated-arm exclusions as if it preserved an unbiased treatment-effect comparison.",
+      "assumptions": [
+        "Post-treatment exclusion is unrelated to outcome and does not distort the comparative treatment estimate."
       ]
     }
   ]
