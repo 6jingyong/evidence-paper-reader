@@ -165,6 +165,76 @@ class ReasoningGraphTests(unittest.TestCase):
             errors,
         )
 
+    def test_real_cases_preserve_distinct_multi_edge_bridges(self):
+        cases = {
+            "mathematical-beauty-2014": (
+                RUN_ROOT
+                / "2026-09-26-round-01"
+                / "mathematical-beauty-2014"
+                / "ledger.json"
+            ),
+            "gautret-hcq-2020": (
+                RUN_ROOT
+                / "2026-09-26-round-02"
+                / "gautret-hcq-2020"
+                / "ledger.json"
+            ),
+            "acc-dic-2021": (
+                RUN_ROOT
+                / "2026-09-26-round-01"
+                / "acc-dic-2021"
+                / "ledger.json"
+            ),
+        }
+        ledgers = {
+            name: json.loads(path.read_text(encoding="utf-8"))
+            for name, path in cases.items()
+        }
+
+        beauty_c3 = [
+            edge
+            for edge in ledgers["mathematical-beauty-2014"]["reasoning_edges"]
+            if edge["target_claim"] == 3
+        ]
+        self.assertEqual(
+            {edge["inference_type"] for edge in beauty_c3},
+            {"proxy-to-construct", "generalization"},
+        )
+        self.assertTrue(
+            all(edge["reasoning_status"] == "unsupported" for edge in beauty_c3)
+        )
+
+        gautret_c3 = [
+            edge
+            for edge in ledgers["gautret-hcq-2020"]["reasoning_edges"]
+            if edge["target_claim"] == 3
+        ]
+        self.assertEqual(len(gautret_c3), 3)
+        self.assertEqual(
+            [edge["inference_type"] for edge in gautret_c3].count("causal"),
+            2,
+        )
+        self.assertIn(
+            "statistical-inference",
+            {edge["inference_type"] for edge in gautret_c3},
+        )
+        self.assertTrue(
+            all(edge["reasoning_status"] == "unsupported" for edge in gautret_c3)
+        )
+
+        acc_c3 = [
+            edge
+            for edge in ledgers["acc-dic-2021"]["reasoning_edges"]
+            if edge["target_claim"] == 3
+        ]
+        self.assertEqual(len(acc_c3), 2)
+        self.assertTrue(
+            all(edge["inference_type"] == "generalization" for edge in acc_c3)
+        )
+        self.assertTrue(
+            all(edge["reasoning_status"] == "qualified" for edge in acc_c3)
+        )
+
     def test_all_source_backed_ledgers_are_v2_and_reasoning_closed(self):
         ledgers = []
         for round_root in sorted(RUN_ROOT.glob("*-round-*")):
