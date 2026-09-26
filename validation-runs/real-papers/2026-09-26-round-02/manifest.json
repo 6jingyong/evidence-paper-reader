@@ -8,27 +8,65 @@
     {
       "id": "gautret-hcq-2020",
       "domain": "clinical-nonrandomized-proxy-endpoint",
-      "inventory_expected": true
+      "inventory_expected": true,
+      "expected_viability": "auditable",
+      "expected_viability_flags": [
+        "selective-success-only"
+      ],
+      "expected_support_levels": [
+        "sufficient",
+        "sufficient",
+        "insufficient"
+      ]
     },
     {
       "id": "power-posing-2010",
       "domain": "social-psychology-small-n-multi-outcome",
-      "inventory_expected": false
+      "inventory_expected": false,
+      "expected_viability": "auditable",
+      "expected_viability_flags": [],
+      "expected_support_levels": [
+        "sufficient",
+        "sufficient",
+        "insufficient"
+      ]
     },
     {
       "id": "chocolate-weight-loss-2015",
       "domain": "nutrition-p-hacking-promotional",
-      "inventory_expected": false
+      "inventory_expected": false,
+      "expected_viability": "auditable",
+      "expected_viability_flags": [
+        "selective-success-only",
+        "promotional-asymmetry"
+      ],
+      "expected_support_levels": [
+        "sufficient",
+        "sufficient",
+        "insufficient"
+      ]
     },
     {
       "id": "surgisphere-hcq-2020",
       "domain": "registry-source-integrity",
-      "inventory_expected": false
+      "inventory_expected": false,
+      "expected_viability": "non-auditable",
+      "expected_viability_flags": [
+        "source-integrity-failure",
+        "proprietary-black-box"
+      ],
+      "expected_support_levels": []
     },
     {
       "id": "wakefield-mmr-1998",
       "domain": "case-series-source-integrity",
-      "inventory_expected": false
+      "inventory_expected": false,
+      "expected_viability": "non-auditable",
+      "expected_viability_flags": [
+        "source-integrity-failure",
+        "selective-success-only"
+      ],
+      "expected_support_levels": []
     }
   ]
 }
