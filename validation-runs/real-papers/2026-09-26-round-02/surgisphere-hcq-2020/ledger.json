@@ -25,5 +25,7 @@
     "research_design": "low",
     "material_or_documentation": "high"
   },
-  "uncertainty_and_follow_up": "A substantive reanalysis would require independently accessible source data, identifiable contributing institutions or equivalent provenance, and a reproducible audit of extraction and analysis. Without that substrate, more elaborate statistical re-reading cannot repair the evidence chain."
+  "uncertainty_and_follow_up": "A substantive reanalysis would require independently accessible source data, identifiable contributing institutions or equivalent provenance, and a reproducible audit of extraction and analysis. Without that substrate, more elaborate statistical re-reading cannot repair the evidence chain.",
+  "ledger_schema_version": 2,
+  "reasoning_edges": []
 }
