@@ -81,7 +81,7 @@ class PaperEvidenceCatalogTests(unittest.TestCase):
             self.assertEqual(row["stable_id"], "")
             kinds = {surface["kind"] for surface in row["test_surfaces"]}
             self.assertIn("legacy-regression", kinds)
-            self.assertNotIn("full-replay", kinds)
+            self.assertNotIn("artifact-replay", kinds)
 
     def test_tiered_sources_are_fully_mapped_without_double_counting(self):
         tiered = json.loads(
@@ -130,7 +130,7 @@ class PaperEvidenceCatalogTests(unittest.TestCase):
             self.assertTrue(row["source_url"].startswith("https://"))
             kinds = {surface["kind"] for surface in row["test_surfaces"]}
             self.assertIn("tiered-source-40", kinds)
-            self.assertNotIn("full-replay", kinds)
+            self.assertNotIn("artifact-replay", kinds)
 
     def test_reused_benchmark_cases_attach_to_existing_evidence_identities(self):
         source_map = json.loads(
