@@ -24,7 +24,19 @@
         "source_location": "Method; Results; Figures 3 and 4; hormone-analysis footnote",
         "support_level": "sufficient",
         "reason": "The randomized pose manipulation and reported ANCOVA-style analyses directly support a bounded within-study hormone-difference claim, while the small sample and excluded hormone outliers limit precision.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The reported testosterone analysis bears in favor of a short-term hormone difference under the laboratory pose manipulation."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The reported cortisol analysis bears in favor of a short-term hormone difference under the laboratory pose manipulation."
+          }
+        ]
       }
     },
     {
@@ -46,7 +58,19 @@
         "source_location": "Risk-taking measure; Results",
         "support_level": "sufficient",
         "reason": "The paper reports 86.36% versus 60% taking the gamble and a higher mean self-reported power score in the high-power condition.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E3",
+            "relation": "supports",
+            "reason": "The gambling-choice result directly bears in favor of the bounded laboratory risk-taking difference."
+          },
+          {
+            "evidence_node": "E4",
+            "relation": "supports",
+            "reason": "The self-reported power result directly bears in favor of the bounded laboratory feeling-of-power difference."
+          }
+        ]
       }
     },
     {
@@ -73,7 +97,29 @@
         "source_location": "Abstract; Discussion; real-world and health extrapolation paragraphs",
         "support_level": "insufficient",
         "reason": "The study measured short-term laboratory hormone, gamble, and self-report outcomes in one small sample; it did not measure job interviews, public speaking performance, chronic health, or long-term well-being.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "mixed",
+            "reason": "The short-term testosterone result supports a narrower immediate laboratory effect but not durable real-world power, performance, health, or well-being."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "The short-term cortisol result supports a narrower immediate laboratory effect but not the broader real-world outcome claim."
+          },
+          {
+            "evidence_node": "E3",
+            "relation": "mixed",
+            "reason": "One laboratory gamble supports a narrower behavioral effect but does not establish general real-world performance or risk behavior."
+          },
+          {
+            "evidence_node": "E4",
+            "relation": "mixed",
+            "reason": "A short self-report of felt power supports a narrower subjective effect but not durable power, health, or well-being."
+          }
+        ]
       }
     }
   ],
@@ -94,7 +140,7 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "The key uncertainty is external and statistical robustness: larger preregistered replications with prespecified primary outcomes and real-world performance endpoints are needed before actionable claims follow.",
-  "ledger_schema_version": 2,
+  "ledger_schema_version": 3,
   "reasoning_edges": [
     {
       "edge_id": "R1",
