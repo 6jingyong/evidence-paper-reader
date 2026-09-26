@@ -125,6 +125,91 @@ def build_bundle(case_id: str, component_paths: dict[str, Path]) -> tuple[bytes,
     return bundle, records
 
 
+def validate_manifest_contract(case_id: str, manifest: dict) -> list[str]:
+    errors: list[str] = []
+    try:
+        contract = load_profile_contract(case_id)
+        expected_profile_sha = profile_sha256(case_id)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        return [f"profile load failed: {exc}"]
+
+    profile_meta = manifest.get("acquisition_profile")
+    if not isinstance(profile_meta, dict):
+        errors.append("acquisition_profile must be an object")
+    else:
+        expected = {
+            "schema_version": contract["schema_version"],
+            "bundle_format": contract["bundle_format"],
+            "profile_sha256": expected_profile_sha,
+            "representation": contract["case"]["representation"],
+            "required_preservation": contract["case"]["required_preservation"],
+        }
+        if profile_meta != expected:
+            errors.append("acquisition_profile does not match the current case profile")
+
+    if manifest.get("normalization_method") != contract["bundle_format"]:
+        errors.append(
+            "normalization_method must match the acquisition profile bundle_format"
+        )
+
+    components = manifest.get("components")
+    if not isinstance(components, list):
+        errors.append("components must be a list")
+        components = []
+
+    declared = contract["case"]["components"]
+    declared_by_id = {item["component_id"]: item for item in declared}
+    required_ids = [
+        item["component_id"]
+        for item in declared
+        if item.get("required") is True
+    ]
+    actual_ids = [
+        item.get("component_id")
+        for item in components
+        if isinstance(item, dict)
+    ]
+
+    if len(actual_ids) != len(set(actual_ids)):
+        errors.append("components contain duplicate component_id values")
+    unknown = sorted(set(actual_ids) - set(declared_by_id))
+    if unknown:
+        errors.append("components contain unknown id(s): " + ", ".join(unknown))
+    missing = [component_id for component_id in required_ids if component_id not in actual_ids]
+    if missing:
+        errors.append("components missing required id(s): " + ", ".join(missing))
+
+    expected_order = [
+        item["component_id"]
+        for item in declared
+        if item["component_id"] in actual_ids
+    ]
+    if actual_ids != expected_order:
+        errors.append("components must follow acquisition-profile order")
+
+    for item in components:
+        if not isinstance(item, dict):
+            errors.append("each component manifest entry must be an object")
+            continue
+        component_id = item.get("component_id")
+        declared_item = declared_by_id.get(component_id)
+        if declared_item is None:
+            continue
+        if item.get("role") != declared_item["role"]:
+            errors.append(f"{component_id}: component role does not match profile")
+        if item.get("url") != declared_item["url"]:
+            errors.append(f"{component_id}: component URL does not match profile")
+        digest = item.get("sha256")
+        if not isinstance(digest, str) or len(digest) != 64 or any(
+            ch not in "0123456789abcdef" for ch in digest
+        ):
+            errors.append(f"{component_id}: component sha256 must be lowercase SHA-256")
+        if not isinstance(item.get("bytes"), int) or item["bytes"] <= 0:
+            errors.append(f"{component_id}: component bytes must be a positive integer")
+
+    return errors
+
+
 def build_manifest(
     case_id: str,
     material: Path,
