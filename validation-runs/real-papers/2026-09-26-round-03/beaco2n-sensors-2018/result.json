@@ -1,0 +1,8 @@
+{
+  "expected_gate": "pass",
+  "reviewer": "GPT-5.6 Sol",
+  "audited_on": "2026-09-26",
+  "replay_contract": "CI recomputes route and context from semantic-route.json, then runs the final audit gate.",
+  "inventory_path": false,
+  "note": "Strong field calibration performance with explicit transfer limits."
+}

@@ -1,0 +1,155 @@
+{
+  "ledger_schema_version": 3,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "technical market-microstructure blog with first-party transactional data",
+  "reader_conclusion": "The article supports a directional order-book imbalance association and also supports its negative boundary: the measured gross return does not establish a tradeable strategy after costs.",
+  "claims": [
+    {
+      "content": "Across five tested Binance perpetual markets, bid-heavy books were followed by higher prices more often than ask-heavy books; for BTC the extreme-decile hit rates were 55.52% versus 46.08%, a 9.43-point spread with a block-bootstrap 95% interval of 7.1 to 11.9 points.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "administrative or transactional record",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The first-party order-book history and block-bootstrap comparison directly support the bounded directional association."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Direct answer; BTC decile analysis and block bootstrap",
+        "support_level": "sufficient",
+        "reason": "The article exposes measurement, sample framing, hit rates, uncertainty, and cross-market replication.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "The most extreme 1% bid-heavy observations did not show a stronger resolved directional effect than the next four percentile points below them.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "administrative or transactional record",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The reported 52.81% versus 54.13% hit rates and small tail sample support the bounded 'not resolved' statement."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Extreme-tail analysis",
+        "support_level": "sufficient",
+        "reason": "The source distinguishes failure to resolve a stronger tail effect from evidence that huge walls are worse.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "These results do not establish a tradeable taker strategy: the most bid-heavy BTC decile earned only 0.35 basis points on average before fees, below the roughly 4–5 basis-point taker fee per side cited by the article.",
+      "claim_type": "methodological",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "administrative or transactional record",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E3"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E3",
+            "relation": "supports",
+            "reason": "The reported gross return is far below the cited taker fee scale, supporting the negative tradeability boundary."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Direct answer; tradeability/cost discussion",
+        "support_level": "sufficient",
+        "reason": "Directional predictiveness and economic profitability are different endpoints, and the reported gross return is insufficient to cover stated taker costs.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "statistical-inference",
+      "reasoning_status": "supported",
+      "added_reach": "Moves from hourly order-book observations to a bounded directional association in the tested markets.",
+      "assumptions": [
+        "The hourly sampling and day-block bootstrap adequately represent dependence for the reported association."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares the extreme 1% tail with the adjacent high-imbalance band without turning noise into a reversal.",
+      "assumptions": [
+        "The tail sample supports a negative boundary rather than a precise null effect."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E3"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares gross signal return with transaction costs to judge whether the association establishes a simple taker strategy.",
+      "assumptions": [
+        "The cited taker-fee scale applies to the simple strategy interpretation being rejected."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "Directional statistics, block bootstrap, tail comparison, and gross-return estimate are inspectable.",
+    "methods_or_design": "The article usefully separates hit-rate predictiveness from profitability and uses day-level resampling.",
+    "materials_or_documentation": "Depth definition, horizon, markets, dates, and first-party data provenance are stated."
+  },
+  "downweight": {
+    "worth_noticing": "Blog status does not erase exposed first-party data and uncertainty analysis.",
+    "cautious_or_ignore": "Do not convert a directional hit-rate edge into a tradeable strategy or displayed size into committed liquidity."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "medium",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Out-of-sample/live tests with fees, slippage, funding, venue transfer, and dynamic order behavior are needed for strategy claims."
+}

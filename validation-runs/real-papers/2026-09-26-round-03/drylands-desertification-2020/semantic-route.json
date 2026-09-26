@@ -1,0 +1,55 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "claim_text": "Within the study's 1982–2015 attribution framework, anthropogenic climate change had a desertifying effect across 12.55% of drylands, about 5.43 million km².",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "required",
+        "measurement-traps.md": "not_required",
+        "study-design-traps.md": "required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "not_required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "not_required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C1's disclosed evidence and inferential reach."
+    },
+    {
+      "claim_id": "C2",
+      "claim_text": "The study estimated that 6% of global drylands underwent desertification driven by unsustainable land use compounded by anthropogenic climate change between 1982 and 2015.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "required",
+        "measurement-traps.md": "not_required",
+        "study-design-traps.md": "required",
+        "evidence-topology.md": "required",
+        "evidence-dependence.md": "not_required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "not_required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C2's disclosed evidence and inferential reach."
+    },
+    {
+      "claim_id": "C3",
+      "claim_text": "Anthropogenic climate change itself has driven more than 5 million km² of drylands into desertification as a general global causal statement.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "required",
+        "measurement-traps.md": "not_required",
+        "study-design-traps.md": "required",
+        "evidence-topology.md": "required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C3's disclosed evidence and inferential reach."
+    }
+  ]
+}

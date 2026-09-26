@@ -1,0 +1,130 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Cognitive walkthrough analysis"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Cognitive walkthrough analysis"
+          ],
+          "reason": "Checked sampling, assignment, comparator, and design limits before allowing causal or general claims.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Cognitive walkthrough analysis"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "User test; task completion results"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "User test; task completion results"
+          ],
+          "reason": "Checked sampling, assignment, comparator, and design limits before allowing causal or general claims.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "User test; task completion results"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract/Conclusion; walkthrough and user test"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract/Conclusion; walkthrough and user test"
+          ],
+          "reason": "Checked sampling, assignment, comparator, and design limits before allowing causal or general claims.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract/Conclusion; walkthrough and user test"
+          ],
+          "reason": "Checked whether multiple observations are independent or reused parts of one source/data stream.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract/Conclusion; walkthrough and user test"
+          ],
+          "reason": "Kept reused or jointly generated evidence from being counted as independent confirmation."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract/Conclusion; walkthrough and user test"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        },
+        {
+          "module": "claim-dependencies.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract/Conclusion; walkthrough and user test"
+          ],
+          "reason": "Checked that the broader claim inherits rather than erases uncertainty from upstream claims."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract/Conclusion; walkthrough and user test"
+          ],
+          "reason": "Separated what this source establishes from evidence needed for the stronger claim."
+        }
+      ]
+    }
+  ]
+}

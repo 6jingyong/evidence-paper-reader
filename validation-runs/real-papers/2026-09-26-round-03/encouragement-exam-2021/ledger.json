@@ -1,0 +1,168 @@
+{
+  "ledger_schema_version": 3,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "preregistered randomized field experiment",
+  "reader_conclusion": "The experiment supports a null average exam-grade effect and a small self-efficacy effect in the survey subsample; broader engagement/mechanism claims extend beyond measured outcomes.",
+  "claims": [
+    {
+      "content": "The encouragement intervention did not produce an average treatment effect on students' end-of-semester exam grades in the full randomized sample.",
+      "claim_type": "intervention",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The preregistered primary-outcome analysis directly reports no average grade effect."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Primary exam-grade analysis; abstract and results",
+        "support_level": "sufficient",
+        "reason": "The randomized primary outcome is explicitly null.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "Among endline-survey respondents, encouragement increased self-efficacy by 0.304 units (p<0.001; Cohen's d=0.12), passing the preregistered multiple-testing threshold.",
+      "claim_type": "intervention",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The survey-subsample randomized comparison directly reports the small positive self-efficacy effect and multiplicity correction."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results IV.2.2; Table 3",
+        "support_level": "sufficient",
+        "reason": "The bounded claim includes the survey-subsample scope and reported effect size/significance.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "The experiment establishes a self-efficacy mechanism through which encouragement broadly improves students' academic engagement and achievement.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "undermines",
+            "reason": "The preregistered primary academic-performance outcome showed no average improvement."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "A small self-efficacy effect supports one intermediate response but not downstream engagement or achievement mediation."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Abstract/Discussion; grade and self-efficacy results",
+        "support_level": "partial",
+        "reason": "The self-efficacy signal is real, but the source did not demonstrate mediation into the null average grade outcome or directly measure broad engagement.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Uses random assignment and the primary-outcome comparison to support the bounded null average treatment-effect statement.",
+      "assumptions": [
+        "The randomized analysis and administrative grade outcome preserve the intended contrast."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Attributes the bounded respondent-sample self-efficacy difference to encouragement.",
+      "assumptions": [
+        "Survey response does not so distort randomization that the respondent-sample effect is uninterpretable."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "mechanistic",
+      "reasoning_status": "qualified",
+      "added_reach": "Moves from a secondary self-efficacy effect to an established mechanism for broader engagement and achievement.",
+      "assumptions": [
+        "The self-efficacy change mediates later engagement/achievement despite the null average grade outcome."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "The null primary grade result and corrected self-efficacy secondary result should be retained together.",
+    "methods_or_design": "The preregistered randomized field design and registry outcome are useful.",
+    "materials_or_documentation": "Outcomes, multiplicity correction, survey instruments, and deviations are documented."
+  },
+  "downweight": {
+    "worth_noticing": "A null primary outcome can coexist with a small secondary psychological effect.",
+    "cautious_or_ignore": "Do not turn the self-efficacy result into demonstrated academic achievement or a proven broad mechanism."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "high",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Formal mediation and downstream behavioral/achievement outcomes would test the proposed mechanism."
+}

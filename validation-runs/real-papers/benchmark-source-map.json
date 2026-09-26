@@ -2,7 +2,17 @@
   "schema_version": 1,
   "tiered_source_aliases": {
     "cardiology-flagship": "sprint-2015",
-    "finance-flagship": "legacy:historical-order-book-2010"
+    "finance-flagship": "legacy:historical-order-book-2010",
+    "battery-ordinary-a": "layered-rocksalt-cathode-2021",
+    "climate-ordinary-a": "drylands-desertification-2020",
+    "ecology-flagship": "sixth-mass-extinction-2015",
+    "cardiology-low": "besmile-hf-2021",
+    "hci-flagship": "why-johnny-cant-encrypt-1999",
+    "sensor-flagship": "beaco2n-sensors-2018",
+    "finance-low": "order-book-imbalance-quantumflow-2026",
+    "education-ordinary-b": "encouragement-exam-2021",
+    "catalysis-flagship": "cu-c2plus-electrocatalyst-2020",
+    "nlp-low": "llm-evaluation-blog-2024"
   },
   "stability_crossdomain_8": {
     "ST01": "sprint-2015",

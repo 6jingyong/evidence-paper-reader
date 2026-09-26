@@ -66,7 +66,7 @@ class PaperEvidenceCatalogTests(unittest.TestCase):
             if row["identity_status"] == "source-backed"
         }
         case_ids = {case["case_id"] for case in source_index["cases"]}
-        self.assertEqual(case_ids, source_backed)
+        self.assertTrue(case_ids.issubset(source_backed))
         self.assertEqual(
             self.catalog["counts"]["source_to_audit_protocol_papers"],
             len(case_ids),
@@ -76,7 +76,10 @@ class PaperEvidenceCatalogTests(unittest.TestCase):
                 continue
             kinds = {surface["kind"] for surface in row["test_surfaces"]}
             self.assertIn("artifact-replay", kinds)
-            self.assertIn("source-to-audit", kinds)
+            if row["evidence_id"] in case_ids:
+                self.assertIn("source-to-audit", kinds)
+            else:
+                self.assertNotIn("source-to-audit", kinds)
 
     def test_blind_benchmark_cannot_introduce_unrecorded_paper(self):
         blind = json.loads(
@@ -121,7 +124,18 @@ class PaperEvidenceCatalogTests(unittest.TestCase):
         )["cases"]
         self.assertEqual(len(tiered), 40)
         self.assertEqual(self.catalog["counts"]["tiered_source_cases"], 40)
-        self.assertEqual(self.catalog["counts"]["benchmark_only_sources"], 38)
+        source_map = json.loads(
+            (
+                ROOT
+                / "validation-runs"
+                / "real-papers"
+                / "benchmark-source-map.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            self.catalog["counts"]["benchmark_only_sources"],
+            40 - len(source_map["tiered_source_aliases"]),
+        )
 
         by_surface_case = {}
         for row in self.catalog["entries"]:

@@ -1,0 +1,263 @@
+{
+  "round_id": "2026-09-26-round-03",
+  "audited_on": "2026-09-26",
+  "reviewer": "GPT-5.6 Sol",
+  "base_head": "340599aef04881386d80417ffc5245e06101c336",
+  "purpose": "Promote ten tiered benchmark-only sources across ten domains and mixed prestige levels into full source-backed claim-evidence-reasoning artifact replays, preserving narrow results and explicit inference boundaries.",
+  "cases": [
+    {
+      "id": "layered-rocksalt-cathode-2021",
+      "domain": "battery-materials",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "drylands-desertification-2020",
+      "domain": "climate-attribution",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "sixth-mass-extinction-2015",
+      "domain": "ecology-extinction-rates",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "besmile-hf-2021",
+      "domain": "clinical-pilot-rct",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "why-johnny-cant-encrypt-1999",
+      "domain": "hci-security-usability",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "beaco2n-sensors-2018",
+      "domain": "sensor-field-calibration",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "order-book-imbalance-quantumflow-2026",
+      "domain": "market-microstructure-blog",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "encouragement-exam-2021",
+      "domain": "education-randomized-field-experiment",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "cu-c2plus-electrocatalyst-2020",
+      "domain": "electrocatalysis",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "llm-evaluation-blog-2024",
+      "domain": "llm-evaluation-commentary",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "partially auditable",
+          "required_viability_flags": [
+            "external-dependency-dominant"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "external-dependency-dominant"
+          ],
+          "support_levels": [
+            [
+              "partial"
+            ],
+            [
+              "partial"
+            ],
+            [
+              "unclear"
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

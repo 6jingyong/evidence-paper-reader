@@ -1,0 +1,154 @@
+{
+  "ledger_schema_version": 3,
+  "scope_status": "partially in scope",
+  "evidence_viability": "partially auditable",
+  "viability_flags": [
+    "external-dependency-dominant"
+  ],
+  "paper_type": "technical community commentary",
+  "reader_conclusion": "The article is useful as an evaluation taxonomy and boundary-setting argument, but most stronger prescriptions aggregate external work and practitioner experience rather than one self-contained empirical chain.",
+  "claims": [
+    {
+      "content": "Current LLM evaluation can be organized into three main modes: automated benchmarks, human judges, and model judges, each with distinct uses and limitations.",
+      "claim_type": "methodological",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The article explicitly defines and discusses the taxonomy, but it is an expert synthesis rather than an independently validated exhaustive classification."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "How do we do LLM evaluation?",
+        "support_level": "partial",
+        "reason": "The taxonomy is clearly stated and useful, but the source does not independently establish exhaustiveness across the field.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "Ranking stability is a more robust evaluation target than isolated absolute scores because benchmark and human-evaluation scores are susceptible to small methodological perturbations.",
+      "claim_type": "methodological",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "The article cites and summarizes instability examples, but underlying experiments are largely external."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Section 2: Leaderboards and rankings",
+        "support_level": "partial",
+        "reason": "The argument is plausible and linked to prior results, but this article does not reproduce enough comparative evidence to establish the prescription generally.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "General model capabilities cannot currently be evaluated because the field has not defined what those capabilities mean.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E3"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E3",
+            "relation": "contextual",
+            "reason": "The article gives conceptual reasons and examples showing proxy/construct ambiguity, but no decisive empirical criterion settles the universal claim."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Section 3 and Conclusion",
+        "support_level": "unclear",
+        "reason": "The construct-definition problem is clearly articulated, but the universal claim is conceptual and not resolved by a self-contained empirical test.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "aggregation",
+      "reasoning_status": "qualified",
+      "added_reach": "Aggregates practitioner experience and cited work into a field-level taxonomy.",
+      "assumptions": [
+        "The author's survey of evaluation practice is representative."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "external-import",
+      "reasoning_status": "qualified",
+      "added_reach": "Imports external instability results into a general methodological recommendation.",
+      "assumptions": [
+        "The cited instability findings transfer across evaluation settings."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E3"
+      ],
+      "upstream_claims": [],
+      "inference_type": "proxy-to-construct",
+      "reasoning_status": "unclear",
+      "added_reach": "Moves from capability-definition and proxy ambiguity to a field-wide claim about what cannot currently be evaluated.",
+      "assumptions": [
+        "No existing operational framework defines any broad model capability well enough for meaningful evaluation."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "The taxonomy, concrete failure examples, and caveats are useful methodological prompts.",
+    "methods_or_design": "The distinction among automated, human, and model-judge evaluation is useful for routing risks.",
+    "materials_or_documentation": "The article links much of the external work motivating its recommendations but does not reproduce it locally."
+  },
+  "downweight": {
+    "worth_noticing": "Non-paper commentary can contain valuable logic and boundary-setting even when its empirical basis is distributed.",
+    "cautious_or_ignore": "Do not treat field-level prescriptions or capability impossibility statements as independently demonstrated by this article alone."
+  },
+  "value_breakdown": {
+    "result": "low",
+    "method": "medium",
+    "theory_or_insight": "high",
+    "research_design": "low",
+    "material_or_documentation": "medium"
+  },
+  "uncertainty_and_follow_up": "Inspect the cited instability, human-evaluation, model-judge, and capability-measurement studies before upgrading field-level prescriptions."
+}

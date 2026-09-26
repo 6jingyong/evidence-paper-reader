@@ -1,0 +1,166 @@
+{
+  "ledger_schema_version": 3,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "experimental electrocatalysis study",
+  "reader_conclusion": "The preparation method and high C2+ Faradaic efficiencies are directly supported; assigning defect density and low roughness as the essential causal explanation is a stronger mechanistic inference.",
+  "claims": [
+    {
+      "content": "Anodic halogenation followed by reconstruction provided a scalable preparation route for Cu catalysts that reached C2+ Faradaic efficiencies up to about 72.6%.",
+      "claim_type": "performance",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The preparation series and electrochemical product measurements directly support the bounded process/performance claim."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract; electrochemical results; Summary",
+        "support_level": "sufficient",
+        "reason": "The source directly reports the preparation route and C2+ selectivity under stated conditions.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "The optimized Cu_KCl, Cu_KBr, and Cu_KI catalysts produced C2+ Faradaic efficiencies of about 70.7%, 71.5%, and 72.6%, respectively.",
+      "claim_type": "performance",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "Catalyst-specific product analyses directly report the three efficiencies."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Catalyst comparison; Summary",
+        "support_level": "sufficient",
+        "reason": "The bounded catalyst-specific values are direct electrochemical results.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "A high density of Cu defect sites together with low roughness is the essential causal combination responsible for efficient selective C2+ production.",
+      "claim_type": "mechanistic",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "mixed",
+            "reason": "Preparation/performance covariation is consistent with the proposed explanation but does not isolate a unique mechanism."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "High selectivity supports the association while multiple surface changes remain possible."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Mechanistic discussion; characterization and Summary",
+        "support_level": "partial",
+        "reason": "Characterization/performance correlations make the mechanism plausible, but coupled morphology, oxidation history, surface chemistry, and reaction conditions limit unique causal attribution.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares optimized halide-derived catalysts on the same C2+ Faradaic-efficiency endpoint.",
+      "assumptions": [
+        "Product quantification is comparable across optimized catalyst conditions."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "mechanistic",
+      "reasoning_status": "qualified",
+      "added_reach": "Moves from correlated surface features and selectivity to an essential causal surface mechanism.",
+      "assumptions": [
+        "Other co-varying surface and compositional features do not materially explain selectivity."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "Preparation conditions and C2+ Faradaic efficiencies are reusable at the tested conditions.",
+    "methods_or_design": "The scalable reconstruction route and characterization/performance comparison are useful.",
+    "materials_or_documentation": "Halogenation conditions, catalyst labels, selectivity, roughness, and defect characterization are reported."
+  },
+  "downweight": {
+    "worth_noticing": "The cross-catalyst pattern makes the proposed surface explanation worth following.",
+    "cautious_or_ignore": "Do not treat correlation among reconstructed features and selectivity as a uniquely isolated causal mechanism."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "medium",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Orthogonal perturbations independently varying defect density, roughness, and surface chemistry would strengthen mechanism."
+}

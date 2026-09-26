@@ -1,0 +1,152 @@
+{
+  "ledger_schema_version": 3,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "pilot randomized controlled trial",
+  "reader_conclusion": "The 18-person pilot supports feasibility and a self-efficacy signal, but is not powered to establish clinical efficacy or exercise-capacity benefit.",
+  "claims": [
+    {
+      "content": "The BESMILE-HF program was feasible in this 18-participant pilot: adherence was good, intervention participants completed required home exercises, and no intervention-related adverse events were captured.",
+      "claim_type": "intervention",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "Adherence/completion and safety records directly support feasibility in the enrolled pilot."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results: feasibility/adherence and adverse events",
+        "support_level": "sufficient",
+        "reason": "The claim stays at the feasibility/safety scope documented in the pilot.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "After six weeks, self-efficacy improved more in the BESMILE-HF group than control, with a mean difference of 3.2 (95% CI 0.6 to 5.9; p=0.004).",
+      "claim_type": "intervention",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The randomized between-group comparison directly supports the bounded self-efficacy outcome."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results: self-efficacy outcome",
+        "support_level": "sufficient",
+        "reason": "The randomized pilot reports a statistically supported between-group self-efficacy difference.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "BESMILE-HF produces a demonstrated clinical exercise-capacity benefit in chronic heart-failure patients.",
+      "claim_type": "intervention",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E3"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E3",
+            "relation": "mixed",
+            "reason": "The point estimate was clinically suggestive, but the between-group confidence interval included no difference."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results: peak oxygen consumption; Discussion and Conclusion",
+        "support_level": "insufficient",
+        "reason": "The between-group exercise-capacity difference was not statistically significant, the CI included zero, and the 18-person pilot was not powered to confirm clinical benefit.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Uses randomized assignment to attribute the bounded six-week self-efficacy difference to the intervention in this pilot.",
+      "assumptions": [
+        "Randomization and blinded outcome handling preserved the intended comparison despite the small sample."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E3"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "unsupported",
+      "added_reach": "Moves from a small imprecise exercise-capacity signal to established clinical benefit.",
+      "assumptions": [
+        "The pilot estimate is sufficiently precise and representative to establish a treatment effect."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "Feasibility, adherence, self-efficacy, and exercise-capacity estimates are useful pilot data.",
+    "methods_or_design": "The randomized pilot is useful for feasibility and variance estimation, not definitive efficacy.",
+    "materials_or_documentation": "Randomization, blinding roles, adherence, confidence intervals, and adverse events are explicit."
+  },
+  "downweight": {
+    "worth_noticing": "The self-efficacy result is a real randomized pilot signal.",
+    "cautious_or_ignore": "Do not relabel a non-significant between-group exercise result as confirmed clinical benefit."
+  },
+  "value_breakdown": {
+    "result": "medium",
+    "method": "medium",
+    "theory_or_insight": "medium",
+    "research_design": "medium",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "A larger trial with longer follow-up and prespecified clinical outcomes is needed for efficacy."
+}

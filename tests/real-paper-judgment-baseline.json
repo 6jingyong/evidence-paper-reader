@@ -208,6 +208,212 @@
           "support_levels": []
         }
       }
+    },
+    "2026-09-26-round-03": {
+      "layered-rocksalt-cathode-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "drylands-desertification-2020": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "sixth-mass-extinction-2015": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "besmile-hf-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "why-johnny-cant-encrypt-1999": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "beaco2n-sensors-2018": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "order-book-imbalance-quantumflow-2026": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ]
+          ]
+        }
+      },
+      "encouragement-exam-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "cu-c2plus-electrocatalyst-2020": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "llm-evaluation-blog-2024": {
+        "must_hold": {
+          "viability": "partially auditable",
+          "required_viability_flags": [
+            "external-dependency-dominant"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "external-dependency-dominant"
+          ],
+          "support_levels": [
+            [
+              "partial"
+            ],
+            [
+              "partial"
+            ],
+            [
+              "unclear"
+            ]
+          ]
+        }
+      }
     }
   }
 }

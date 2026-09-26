@@ -1,0 +1,112 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "figure-and-table-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Electrochemical characterization; Fig. 2"
+          ],
+          "reason": "Checked the decision-critical table/figure values rather than relying on visual emphasis.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Electrochemical characterization; Fig. 2"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Electrochemical characterization; Fig. 2"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Structural evolution results and figures"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Structural evolution results and figures"
+          ],
+          "reason": "Checked whether multiple observations are independent or reused parts of one source/data stream.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Structural evolution results and figures"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; composition-series validation; Discussion"
+          ],
+          "reason": "Checked whether multiple observations are independent or reused parts of one source/data stream.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; composition-series validation; Discussion"
+          ],
+          "reason": "Kept reused or jointly generated evidence from being counted as independent confirmation."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; composition-series validation; Discussion"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        },
+        {
+          "module": "claim-dependencies.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; composition-series validation; Discussion"
+          ],
+          "reason": "Checked that the broader claim inherits rather than erases uncertainty from upstream claims."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; composition-series validation; Discussion"
+          ],
+          "reason": "Separated what this source establishes from evidence needed for the stronger claim."
+        }
+      ]
+    }
+  ]
+}
