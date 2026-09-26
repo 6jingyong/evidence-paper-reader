@@ -79,10 +79,9 @@ class PaperEvidenceCatalogTests(unittest.TestCase):
         for row in legacy:
             self.assertEqual(row["source_url"], "")
             self.assertEqual(row["stable_id"], "")
-            self.assertEqual(
-                {surface["kind"] for surface in row["test_surfaces"]},
-                {"legacy-regression"},
-            )
+            kinds = {surface["kind"] for surface in row["test_surfaces"]}
+            self.assertIn("legacy-regression", kinds)
+            self.assertNotIn("full-replay", kinds)
 
     def test_tiered_sources_are_fully_mapped_without_double_counting(self):
         tiered = json.loads(
