@@ -55,6 +55,7 @@ Otherwise use one or more of:
 - `proprietary-black-box`
 - `external-dependency-dominant`
 - `promotional-asymmetry`
+- `source-integrity-failure`
 
 These flags describe evidence structure, not author motive.
 
@@ -148,6 +149,14 @@ Commercial or proprietary work is not automatically non-auditable. Judge only th
 The source's central conclusion is mostly a retelling or synthesis of claims from external sources that are not inspected, with little independent paper-local evidence.
 
 This can still have documentation or conceptual value.
+
+### Source integrity failure
+
+The central evidence depends on records, datasets, measurements, or provenance that can no longer be treated as a trustworthy inspectable substrate because a documented integrity failure blocks verification.
+
+Examples include a retracted paper whose authors or journal state that the underlying data cannot be independently verified, fabricated or materially misdescribed source records, or an unavailable dataset whose provenance is the reason for retraction.
+
+Do not set this flag merely because a paper is controversial, contradicted, corrected, or retracted for a reason that does not undermine the evidence chain. Record the documented integrity problem and its source. When the integrity failure reaches the central evidence substrate, `non-auditable` is appropriate even if the prose, tables, and statistical outputs remain fully visible.
 
 ### Promotional asymmetry
 
