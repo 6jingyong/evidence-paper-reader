@@ -79,6 +79,7 @@ CRITICAL_GUARDS = {
     "G124": "generated context structurally matches route independently",
     "G125": "generated context embeds exact routed reference bodies independently",
     "G126": "raw semantic obligations reach execution artifacts independently",
+    "G127": "reasoning graph closes claim-evidence-reasoning inputs independently",
 }
 
 
@@ -412,6 +413,109 @@ def validate_context_reference_bodies(context_bundle: str, route: dict) -> list[
     return errors
 
 
+def validate_reasoning_closure(audit: dict) -> list[str]:
+    """Independent minimum oracle for ledger-v2 reasoning closure.
+
+    This intentionally does not call render_audit.validate_ledger(). It checks
+    only graph/claim input closure and support-status compatibility.
+    """
+    if audit.get("ledger_schema_version", 1) < 2:
+        return []
+
+    scope = audit.get("scope_status")
+    viability = audit.get("evidence_viability")
+    if scope == "out of scope" or viability == "non-auditable":
+        return []
+
+    claims = audit.get("claims")
+    edges = audit.get("reasoning_edges")
+    if not isinstance(claims, list) or not isinstance(edges, list) or not edges:
+        return ["schema v2 claim audit requires claims and non-empty reasoning_edges"]
+
+    by_claim: dict[int, list[dict]] = {}
+    seen_ids: set[str] = set()
+    errors: list[str] = []
+
+    for position, edge in enumerate(edges, start=1):
+        if not isinstance(edge, dict):
+            errors.append(f"reasoning edge {position} is not an object")
+            continue
+        edge_id = edge.get("edge_id")
+        expected_id = f"R{position}"
+        if edge_id != expected_id:
+            errors.append(
+                f"reasoning edge order/id mismatch at position {position}: expected {expected_id}"
+            )
+        if isinstance(edge_id, str):
+            if edge_id in seen_ids:
+                errors.append(f"duplicate reasoning edge id: {edge_id}")
+            seen_ids.add(edge_id)
+
+        target = edge.get("target_claim")
+        if not isinstance(target, int) or target < 1 or target > len(claims):
+            errors.append(f"{edge_id or expected_id}: invalid target_claim")
+            continue
+        by_claim.setdefault(target, []).append(edge)
+
+    allowed_for_sufficient = {"direct", "supported"}
+    for claim_index, claim in enumerate(claims, start=1):
+        if not isinstance(claim, dict):
+            continue
+        support = claim.get("support")
+        if not isinstance(support, dict):
+            continue
+        claim_edges = by_claim.get(claim_index, [])
+        if not claim_edges:
+            errors.append(f"claim {claim_index}: no reasoning edge reaches the claim")
+            continue
+
+        expected_nodes = set(support.get("evidence_nodes", []))
+        expected_upstream = set(support.get("upstream_claims", []))
+        graph_nodes: set[str] = set()
+        graph_upstream: set[int] = set()
+        statuses: set[str] = set()
+
+        for edge in claim_edges:
+            nodes = edge.get("evidence_nodes", [])
+            upstream = edge.get("upstream_claims", [])
+            if isinstance(nodes, list):
+                graph_nodes.update(x for x in nodes if isinstance(x, str))
+            if isinstance(upstream, list):
+                graph_upstream.update(x for x in upstream if isinstance(x, int))
+            status = edge.get("reasoning_status")
+            if isinstance(status, str):
+                statuses.add(status)
+
+        if graph_nodes != expected_nodes:
+            errors.append(
+                f"claim {claim_index}: reasoning evidence inputs do not exactly match claim evidence_nodes"
+            )
+        if graph_upstream != expected_upstream:
+            errors.append(
+                f"claim {claim_index}: reasoning upstream inputs do not exactly match claim upstream_claims"
+            )
+
+        level = support.get("support_level")
+        if level == "sufficient" and not statuses.issubset(allowed_for_sufficient):
+            errors.append(
+                f"claim {claim_index}: sufficient support conflicts with non-supporting reasoning status"
+            )
+        elif level == "partial" and statuses.issubset(allowed_for_sufficient):
+            errors.append(
+                f"claim {claim_index}: partial support lacks a qualified/unsupported/unclear reasoning edge"
+            )
+        elif level == "insufficient" and "unsupported" not in statuses:
+            errors.append(
+                f"claim {claim_index}: insufficient support lacks an unsupported reasoning edge"
+            )
+        elif level == "unclear" and "unclear" not in statuses:
+            errors.append(
+                f"claim {claim_index}: unclear support lacks an unclear reasoning edge"
+            )
+
+    return errors
+
+
 def _expected_claim_ids(audit: dict) -> list[str]:
     claims = audit.get("claims", [])
     if not isinstance(claims, list):
@@ -452,6 +556,11 @@ def validate_gate(
     scope = audit.get("scope_status")
     viability = audit.get("evidence_viability")
     claim_audit = scope != "out of scope" and viability != "non-auditable"
+
+    errors.extend(
+        _guard("G127", f"reasoning graph: {x}")
+        for x in validate_reasoning_closure(audit)
+    )
 
     recomputed_route = None
     if claim_audit:
