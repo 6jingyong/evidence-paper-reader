@@ -22,7 +22,7 @@
     "ST05": "legacy:social-hyperconnection",
     "ST06": "legacy:historical-order-book-2010",
     "ST07": "benchmark:tiered-source-40:ecology-ordinary-b",
-    "ST08": "benchmark:tiered-source-40:catalysis-flagship"
+    "ST08": "cu-c2plus-electrocatalyst-2020"
   },
   "claim_selection_12": {
     "CS01": "legacy:social-hyperconnection",
