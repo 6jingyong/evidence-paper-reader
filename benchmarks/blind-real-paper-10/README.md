@@ -32,13 +32,13 @@ When a source record contains public integrity/provenance or later-context URLs,
 
 ## Reviewer output
 
-The reviewer creates a fresh audit judgment in the compact JSON form defined by `response-format.md`. Claim text is free-form. No stored claim IDs are exposed.
+The reviewer creates a fresh audit judgment in the compact JSON form defined by `response-format.md`. Claim text is free-form. No stored claim IDs are exposed. The response must also construct its own E-nodes, upstream claim dependencies, and ledger-v2 reasoning graph so the benchmark measures the logical bridge rather than only the final support label.
 
 ## Claim comparison
 
 `score_blind.py` performs a conservative lexical alignment between fresh claims and stored audit claims, then checks support against the hidden `must_hold` / `allowed_range` contract.
 
-Low-confidence claim matches are reported as `needs_adjudication`, not silently treated as wrong. Hard viability and required-integrity invariants can be scored without claim matching.
+Low-confidence claim matches are reported as `needs_adjudication`, not silently treated as wrong. Hard viability and required-integrity invariants can be scored without claim matching. Inference-type and reasoning-status overlap are reported as advisory diagnostics only; they do not determine hard pass/fail.
 
 The lexical matcher is deliberately not called a semantic oracle. Its job is to automate obvious matches and route ambiguous rewrites to review.
 
