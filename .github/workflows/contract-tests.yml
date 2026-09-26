@@ -45,6 +45,14 @@ jobs:
           python validation-runs/real-papers/validate_judgments.py --root .
           python tests/test_real_paper_run_records.py -v
           python tests/test_real_paper_judgment_mutations.py -v
+      - name: Validate durable blind-run evidence
+        shell: bash
+        run: |
+          test -f validation-runs/real-papers/validate_blind_runs.py
+          test -f validation-runs/real-papers/blind-runs/README.md
+          test -f tests/test_durable_blind_runs.py
+          python validation-runs/real-papers/validate_blind_runs.py
+          python tests/test_durable_blind_runs.py -v
       - name: Validate paper evidence registry
         shell: bash
         run: |
