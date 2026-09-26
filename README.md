@@ -282,7 +282,7 @@ The helper searches for cheap lexical cues and proposes candidate references. It
 
 Every real-paper test is treated as a durable repository evidence asset. See [EVIDENCE.md](EVIDENCE.md) for the generated, source-backed evidence catalog and the explicitly lower-provenance legacy regression set.
 
-The catalog follows a record-first rule: future real-paper tests must leave source identity and replayable repository artifacts before they count toward project evidence. Multiple runs or benchmark surfaces on one paper do not inflate the independent-paper count. CI regenerates the expected catalog from repository state and fails if the published evidence page becomes stale.
+The catalog follows a provenance-graded record-first rule: full paper audits must leave source identity and replayable repository artifacts; named benchmark-only public sources are retained separately at lower evidence grade until promoted into a full replay. Multiple runs or benchmark surfaces on one source do not inflate the independent-source count. CI regenerates the expected catalog from repository state and fails if the published evidence page becomes stale.
 
 The detailed policy is in `validation-runs/real-papers/EVIDENCE_POLICY.md`.
 
