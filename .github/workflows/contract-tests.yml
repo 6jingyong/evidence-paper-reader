@@ -45,6 +45,16 @@ jobs:
           python validation-runs/real-papers/validate_judgments.py --root .
           python tests/test_real_paper_run_records.py -v
           python tests/test_real_paper_judgment_mutations.py -v
+      - name: Validate paper evidence registry
+        shell: bash
+        run: |
+          test -f validation-runs/real-papers/build_evidence_catalog.py
+          test -f validation-runs/real-papers/evidence-catalog.json
+          test -f validation-runs/real-papers/EVIDENCE_POLICY.md
+          test -f EVIDENCE.md
+          test -f tests/test_paper_evidence_catalog.py
+          python validation-runs/real-papers/build_evidence_catalog.py --check
+          python tests/test_paper_evidence_catalog.py -v
       - name: Validate blind real-paper benchmark isolation
         shell: bash
         run: |
