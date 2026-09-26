@@ -113,6 +113,38 @@ class CommonModeOracleTests(unittest.TestCase):
             errors,
         )
 
+    def test_semantic_not_required_cannot_leak_back_from_bad_merge(self):
+        artifacts = self.pristine("simple")
+        bad_route = copy.deepcopy(artifacts["route"])
+        bad_route["modules"].insert(
+            bad_route["modules"].index("false-positive-guards.md"),
+            "measurement-traps.md",
+        )
+        bad_route["primary_module_count"] += 1
+        bad_route["recommended_path"] = "full"
+        for item in bad_route["claim_module_requirements"]:
+            item["modules"].append("measurement-traps.md")
+
+        artifacts["route"] = None
+        artifacts["context"] = gate.build_context.render_bundle(bad_route)
+        artifacts["module_checks"] = sabotage.completed_module_checks(bad_route)
+
+        with mock.patch.object(
+            gate.build_context,
+            "recompute_route",
+            return_value=bad_route,
+        ):
+            errors = self.validate(artifacts)
+
+        self.assertTrue(
+            any(error.startswith("[G123]") for error in errors),
+            errors,
+        )
+        self.assertTrue(
+            any("despite every semantic decision being not_required" in error for error in errors),
+            errors,
+        )
+
     def test_shared_context_renderer_bug_cannot_self_validate(self):
         artifacts = self.pristine("simple")
         bad_context = artifacts["context"].replace(
@@ -135,6 +167,35 @@ class CommonModeOracleTests(unittest.TestCase):
         )
         self.assertTrue(
             any(error.startswith("[G124]") for error in errors),
+            errors,
+        )
+
+    def test_shared_context_renderer_cannot_swap_reference_body(self):
+        artifacts = self.pristine("simple")
+        begin = "## BEGIN REFERENCE: statistical-traps.md\n\n"
+        end = "\n\n## END REFERENCE: statistical-traps.md"
+        prefix, rest = artifacts["context"].split(begin, 1)
+        _, suffix = rest.split(end, 1)
+        bad_context = prefix + begin + "CORRUPTED REFERENCE BODY" + end + suffix
+        artifacts["context"] = bad_context
+
+        with mock.patch.object(
+            gate.build_context,
+            "render_bundle",
+            return_value=bad_context,
+        ):
+            errors = self.validate(artifacts)
+
+        self.assertFalse(
+            any(error.startswith("[G109]") for error in errors),
+            errors,
+        )
+        self.assertFalse(
+            any(error.startswith("[G124]") for error in errors),
+            errors,
+        )
+        self.assertTrue(
+            any(error.startswith("[G125]") for error in errors),
             errors,
         )
 
