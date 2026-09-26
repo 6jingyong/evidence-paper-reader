@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "tiered_source_aliases": {
+    "cardiology-flagship": "sprint-2015",
+    "finance-flagship": "legacy:historical-order-book-2010"
+  },
+  "stability_crossdomain_8": {
+    "ST01": "sprint-2015",
+    "ST02": "legacy:hea-aluminum",
+    "ST03": "legacy:resnet-smoke",
+    "ST04": "legacy:air-quality-cfd",
+    "ST05": "legacy:social-hyperconnection",
+    "ST06": "legacy:historical-order-book-2010",
+    "ST07": "benchmark:tiered-source-40:ecology-ordinary-b",
+    "ST08": "benchmark:tiered-source-40:catalysis-flagship"
+  },
+  "claim_selection_12": {
+    "CS01": "legacy:social-hyperconnection",
+    "CS02": "legacy:hea-aluminum",
+    "CS03": "echinacea-2010",
+    "CS04": "legacy:historical-brain-beauty-2011",
+    "CS05": "legacy:resnet-smoke",
+    "CS06": "legacy:air-quality-cfd",
+    "CS07": "legacy:adversarial-care-coordination-before-after-2009",
+    "CS08": "legacy:historical-bmd-gwas-replication-2010",
+    "CS09": "synthetic",
+    "CS10": "synthetic",
+    "CS11": "synthetic",
+    "CS12": "sprint-2015"
+  }
+}
