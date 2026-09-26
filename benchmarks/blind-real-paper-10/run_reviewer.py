@@ -28,6 +28,18 @@ CLAIM_TYPES = {
     "intervention",
 }
 STRENGTH = {"weak", "medium", "strong"}
+INFERENCE_TYPES = {
+    "direct-result",
+    "comparison",
+    "statistical-inference",
+    "causal",
+    "mechanistic",
+    "generalization",
+    "proxy-to-construct",
+    "aggregation",
+    "external-import",
+}
+REASONING_STATUS = {"direct", "supported", "qualified", "unsupported", "unclear"}
 MODULES = {
     "figure-and-table-traps.md",
     "statistical-traps.md",
@@ -89,11 +101,125 @@ def validate_response(path: Path, case_id: str) -> None:
             raise ValueError(f"claim {index}: invalid claim_type")
         if claim.get("conclusion_strength") not in STRENGTH:
             raise ValueError(f"claim {index}: invalid conclusion_strength")
+        nodes = claim.get("evidence_nodes")
+        if (
+            not isinstance(nodes, list)
+            or not nodes
+            or not all(
+                isinstance(node, str)
+                and node.startswith("E")
+                and node[1:].isdigit()
+                and int(node[1:]) >= 1
+                for node in nodes
+            )
+        ):
+            raise ValueError(f"claim {index}: evidence_nodes must be a non-empty E-node list")
+        if len(nodes) != len(set(nodes)):
+            raise ValueError(f"claim {index}: duplicate evidence_nodes")
+
+        upstream = claim.get("upstream_claims")
+        if not isinstance(upstream, list) or not all(isinstance(x, int) for x in upstream):
+            raise ValueError(f"claim {index}: upstream_claims must be an integer list")
+        if len(upstream) != len(set(upstream)):
+            raise ValueError(f"claim {index}: duplicate upstream_claims")
+        if any(x < 1 or x >= index for x in upstream):
+            raise ValueError(f"claim {index}: upstream_claims must reference earlier claims")
+
         if claim.get("support_level") not in SUPPORT:
             raise ValueError(f"claim {index}: invalid support_level")
         for key in ["source_location", "reason"]:
             if not isinstance(claim.get(key), str) or not claim[key].strip():
                 raise ValueError(f"claim {index}: {key} must be non-empty")
+
+    reasoning_edges = data.get("reasoning_edges")
+    if not isinstance(reasoning_edges, list):
+        raise ValueError("reasoning_edges must be a list")
+    if viability == "non-auditable":
+        if reasoning_edges:
+            raise ValueError("non-auditable response must contain zero reasoning_edges")
+    elif not reasoning_edges:
+        raise ValueError("auditable/partially auditable response requires reasoning_edges")
+
+    by_claim = {}
+    for position, edge in enumerate(reasoning_edges, start=1):
+        if not isinstance(edge, dict):
+            raise ValueError(f"reasoning edge {position} must be an object")
+        expected_id = f"R{position}"
+        if edge.get("edge_id") != expected_id:
+            raise ValueError(f"reasoning edge {position}: edge_id must be {expected_id}")
+        target = edge.get("target_claim")
+        if not isinstance(target, int) or target < 1 or target > len(claims):
+            raise ValueError(f"{expected_id}: invalid target_claim")
+
+        nodes = edge.get("evidence_nodes")
+        if not isinstance(nodes, list) or not all(isinstance(x, str) for x in nodes):
+            raise ValueError(f"{expected_id}: evidence_nodes must be a string list")
+        if len(nodes) != len(set(nodes)):
+            raise ValueError(f"{expected_id}: duplicate evidence_nodes")
+
+        upstream = edge.get("upstream_claims")
+        if not isinstance(upstream, list) or not all(isinstance(x, int) for x in upstream):
+            raise ValueError(f"{expected_id}: upstream_claims must be an integer list")
+        if len(upstream) != len(set(upstream)):
+            raise ValueError(f"{expected_id}: duplicate upstream_claims")
+        if any(x < 1 or x >= target for x in upstream):
+            raise ValueError(f"{expected_id}: upstream_claims must reference earlier claims")
+        if not nodes and not upstream:
+            raise ValueError(f"{expected_id}: reasoning edge must have at least one input")
+
+        if edge.get("inference_type") not in INFERENCE_TYPES:
+            raise ValueError(f"{expected_id}: invalid inference_type")
+        status = edge.get("reasoning_status")
+        if status not in REASONING_STATUS:
+            raise ValueError(f"{expected_id}: invalid reasoning_status")
+        reach = edge.get("added_reach")
+        if not isinstance(reach, str) or not reach.strip():
+            raise ValueError(f"{expected_id}: added_reach must be non-empty")
+        if status == "direct" and reach.strip() != "none":
+            raise ValueError(f"{expected_id}: direct edge must use added_reach 'none'")
+        assumptions = edge.get("assumptions")
+        if not isinstance(assumptions, list) or not all(
+            isinstance(x, str) and x.strip() for x in assumptions
+        ):
+            raise ValueError(f"{expected_id}: assumptions must be a string list")
+        if len(assumptions) != len(set(assumptions)):
+            raise ValueError(f"{expected_id}: duplicate assumptions")
+        by_claim.setdefault(target, []).append(edge)
+
+    if viability != "non-auditable":
+        for claim_index, claim in enumerate(claims, start=1):
+            edges = by_claim.get(claim_index, [])
+            if not edges:
+                raise ValueError(f"claim {claim_index}: no reasoning edge")
+            graph_nodes = set().union(*(set(edge["evidence_nodes"]) for edge in edges))
+            graph_upstream = set().union(*(set(edge["upstream_claims"]) for edge in edges))
+            if graph_nodes != set(claim["evidence_nodes"]):
+                raise ValueError(
+                    f"claim {claim_index}: reasoning evidence inputs must exactly match evidence_nodes"
+                )
+            if graph_upstream != set(claim["upstream_claims"]):
+                raise ValueError(
+                    f"claim {claim_index}: reasoning upstream inputs must exactly match upstream_claims"
+                )
+
+            statuses = {edge["reasoning_status"] for edge in edges}
+            level = claim["support_level"]
+            if level == "sufficient" and not statuses.issubset({"direct", "supported"}):
+                raise ValueError(
+                    f"claim {claim_index}: sufficient support conflicts with reasoning status"
+                )
+            if level == "partial" and statuses.issubset({"direct", "supported"}):
+                raise ValueError(
+                    f"claim {claim_index}: partial support requires a non-fully-supporting reasoning edge"
+                )
+            if level == "insufficient" and "unsupported" not in statuses:
+                raise ValueError(
+                    f"claim {claim_index}: insufficient support requires an unsupported edge"
+                )
+            if level == "unclear" and "unclear" not in statuses:
+                raise ValueError(
+                    f"claim {claim_index}: unclear support requires an unclear edge"
+                )
 
     modules = data.get("modules")
     if not isinstance(modules, list) or not all(isinstance(x, str) for x in modules):
