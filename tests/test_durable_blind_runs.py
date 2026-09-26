@@ -46,9 +46,24 @@ def write_valid_run(root: Path):
                 "content": f"Independent source-facing claim {i}.",
                 "claim_type": "performance",
                 "conclusion_strength": "medium",
+                "evidence_nodes": [f"E{i}"],
+                "upstream_claims": [],
                 "support_level": "partial",
                 "source_location": f"Results {i}",
                 "reason": "The source supports this bounded statement.",
+            }
+            for i in range(1, 4)
+        ],
+        "reasoning_edges": [
+            {
+                "edge_id": f"R{i}",
+                "target_claim": i,
+                "evidence_nodes": [f"E{i}"],
+                "upstream_claims": [],
+                "inference_type": "generalization",
+                "reasoning_status": "qualified",
+                "added_reach": "The source supports only a bounded version of the claim.",
+                "assumptions": [],
             }
             for i in range(1, 4)
         ],
