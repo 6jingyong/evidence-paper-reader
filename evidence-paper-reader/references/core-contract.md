@@ -2,6 +2,8 @@
 
 This is the compact semantic contract that should be loaded for every paper-side audit.
 
+It is the paper adapter for `carrier-neutral-core.md`. Paper-specific names, provenance labels, locations, and methodological modules may be stricter than the generic core but must not weaken its claim–evidence–reasoning invariants.
+
 The goal is to keep different model configurations aligned on the same evidence graph without requiring every methodological reference to stay in context.
 
 ## 0. Audit target: claim → evidence → reasoning
