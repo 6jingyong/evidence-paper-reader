@@ -1,0 +1,376 @@
+{
+  "benchmark_id": "carrier-neutral-12-v1",
+  "cases": {
+    "CN01": {
+      "viability": "auditable",
+      "support": [
+        "sufficient",
+        "sufficient",
+        "insufficient"
+      ],
+      "inference": [
+        [
+          "direct-result"
+        ],
+        [
+          "direct-result"
+        ],
+        [
+          "generalization"
+        ]
+      ],
+      "relation_any": [
+        [
+          "supports"
+        ],
+        [
+          "supports"
+        ],
+        [
+          "mixed",
+          "contextual",
+          "undermines"
+        ]
+      ]
+    },
+    "CN02": {
+      "viability": "auditable",
+      "support": [
+        "sufficient",
+        "partial",
+        "insufficient"
+      ],
+      "inference": [
+        [
+          "direct-result"
+        ],
+        [
+          "generalization"
+        ],
+        [
+          "generalization"
+        ]
+      ],
+      "relation_any": [
+        [
+          "supports"
+        ],
+        [
+          "supports",
+          "mixed"
+        ],
+        [
+          "mixed",
+          "contextual",
+          "undermines"
+        ]
+      ]
+    },
+    "CN03": {
+      "viability": "non-auditable",
+      "support": [],
+      "inference": [],
+      "relation_any": []
+    },
+    "CN04": {
+      "viability": "auditable",
+      "support": [
+        "sufficient",
+        "insufficient",
+        "unclear"
+      ],
+      "inference": [
+        [
+          "comparison"
+        ],
+        [
+          "generalization"
+        ],
+        [
+          "statistical-inference",
+          "generalization"
+        ]
+      ],
+      "relation_any": [
+        [
+          "supports"
+        ],
+        [
+          "mixed",
+          "contextual"
+        ],
+        [
+          "contextual"
+        ]
+      ]
+    },
+    "CN05": {
+      "viability": "auditable",
+      "support": [
+        "sufficient",
+        "insufficient",
+        "insufficient"
+      ],
+      "inference": [
+        [
+          "direct-result",
+          "comparison"
+        ],
+        [
+          "causal"
+        ],
+        [
+          "generalization"
+        ]
+      ],
+      "relation_any": [
+        [
+          "supports"
+        ],
+        [
+          "mixed",
+          "undermines"
+        ],
+        [
+          "mixed",
+          "contextual",
+          "undermines"
+        ]
+      ]
+    },
+    "CN06": {
+      "viability": "auditable",
+      "support": [
+        "sufficient",
+        "partial",
+        "insufficient"
+      ],
+      "inference": [
+        [
+          "direct-result"
+        ],
+        [
+          "generalization"
+        ],
+        [
+          "causal",
+          "generalization"
+        ]
+      ],
+      "relation_any": [
+        [
+          "supports"
+        ],
+        [
+          "supports",
+          "mixed"
+        ],
+        [
+          "contextual",
+          "undermines"
+        ]
+      ]
+    },
+    "CN07": {
+      "viability": "auditable",
+      "support": [
+        "sufficient",
+        "insufficient",
+        "insufficient"
+      ],
+      "inference": [
+        [
+          "direct-result",
+          "comparison"
+        ],
+        [
+          "causal"
+        ],
+        [
+          "generalization"
+        ]
+      ],
+      "relation_any": [
+        [
+          "supports"
+        ],
+        [
+          "mixed",
+          "undermines"
+        ],
+        [
+          "mixed",
+          "contextual",
+          "undermines"
+        ]
+      ]
+    },
+    "CN08": {
+      "viability": "auditable",
+      "support": [
+        "sufficient",
+        "sufficient",
+        "insufficient"
+      ],
+      "inference": [
+        [
+          "direct-result"
+        ],
+        [
+          "causal",
+          "mechanistic"
+        ],
+        [
+          "generalization"
+        ]
+      ],
+      "relation_any": [
+        [
+          "supports"
+        ],
+        [
+          "supports"
+        ],
+        [
+          "contextual",
+          "mixed"
+        ]
+      ]
+    },
+    "CN09": {
+      "viability": "auditable",
+      "support": [
+        "sufficient",
+        "partial",
+        "insufficient"
+      ],
+      "inference": [
+        [
+          "direct-result",
+          "comparison"
+        ],
+        [
+          "generalization"
+        ],
+        [
+          "generalization"
+        ]
+      ],
+      "relation_any": [
+        [
+          "supports"
+        ],
+        [
+          "supports",
+          "mixed"
+        ],
+        [
+          "mixed",
+          "contextual",
+          "undermines"
+        ]
+      ]
+    },
+    "CN10": {
+      "viability": "auditable",
+      "support": [
+        "sufficient",
+        "insufficient",
+        "insufficient"
+      ],
+      "inference": [
+        [
+          "direct-result"
+        ],
+        [
+          "generalization"
+        ],
+        [
+          "causal",
+          "mechanistic"
+        ]
+      ],
+      "relation_any": [
+        [
+          "supports"
+        ],
+        [
+          "mixed",
+          "undermines"
+        ],
+        [
+          "contextual",
+          "mixed",
+          "undermines"
+        ]
+      ]
+    },
+    "CN11": {
+      "viability": "auditable",
+      "support": [
+        "sufficient",
+        "partial",
+        "insufficient"
+      ],
+      "inference": [
+        [
+          "direct-result"
+        ],
+        [
+          "generalization"
+        ],
+        [
+          "generalization"
+        ]
+      ],
+      "relation_any": [
+        [
+          "supports"
+        ],
+        [
+          "supports",
+          "mixed"
+        ],
+        [
+          "mixed",
+          "contextual",
+          "undermines"
+        ]
+      ]
+    },
+    "CN12": {
+      "viability": "auditable",
+      "support": [
+        "sufficient",
+        "insufficient",
+        "partial"
+      ],
+      "inference": [
+        [
+          "causal",
+          "comparison"
+        ],
+        [
+          "generalization"
+        ],
+        [
+          "generalization"
+        ]
+      ],
+      "relation_any": [
+        [
+          "supports"
+        ],
+        [
+          "contextual",
+          "mixed",
+          "undermines"
+        ],
+        [
+          "supports",
+          "mixed"
+        ]
+      ]
+    }
+  }
+}
