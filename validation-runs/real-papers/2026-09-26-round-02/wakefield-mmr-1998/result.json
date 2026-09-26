@@ -1,0 +1,8 @@
+{
+  "expected_gate": "pass",
+  "reviewer": "GPT-5.6 Sol",
+  "audited_on": "2026-09-26",
+  "replay_contract": "Non-auditable records bypass claim routing and must pass the final gate with no semantic route, context, module checks, or inventory.",
+  "inventory_path": false,
+  "note": "A readable case-series narrative is not enough when the causal design is inadequate and the central case-history substrate has documented integrity failure."
+}
