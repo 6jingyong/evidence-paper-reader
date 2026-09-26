@@ -12,7 +12,8 @@
     "legacy_fixtures": 24,
     "evidence_entries": 72,
     "tiered_source_cases": 40,
-    "blind_protocol_papers": 10
+    "blind_protocol_papers": 10,
+    "source_to_audit_protocol_papers": 10
   },
   "entries": [
     {
@@ -36,6 +37,11 @@
         {
           "kind": "blind-re-audit",
           "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        },
+        {
+          "kind": "source-to-audit",
+          "path": "benchmarks/source-to-audit-10",
           "status": "protocol-ready"
         }
       ],
@@ -71,6 +77,11 @@
           "kind": "blind-re-audit",
           "path": "benchmarks/blind-real-paper-10",
           "status": "protocol-ready"
+        },
+        {
+          "kind": "source-to-audit",
+          "path": "benchmarks/source-to-audit-10",
+          "status": "protocol-ready"
         }
       ],
       "current_judgment": {
@@ -104,6 +115,11 @@
         {
           "kind": "blind-re-audit",
           "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        },
+        {
+          "kind": "source-to-audit",
+          "path": "benchmarks/source-to-audit-10",
           "status": "protocol-ready"
         }
       ],
@@ -148,6 +164,11 @@
           "kind": "blind-re-audit",
           "path": "benchmarks/blind-real-paper-10",
           "status": "protocol-ready"
+        },
+        {
+          "kind": "source-to-audit",
+          "path": "benchmarks/source-to-audit-10",
+          "status": "protocol-ready"
         }
       ],
       "current_judgment": {
@@ -181,6 +202,11 @@
         {
           "kind": "blind-re-audit",
           "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        },
+        {
+          "kind": "source-to-audit",
+          "path": "benchmarks/source-to-audit-10",
           "status": "protocol-ready"
         }
       ],
@@ -218,6 +244,11 @@
           "kind": "blind-re-audit",
           "path": "benchmarks/blind-real-paper-10",
           "status": "protocol-ready"
+        },
+        {
+          "kind": "source-to-audit",
+          "path": "benchmarks/source-to-audit-10",
+          "status": "protocol-ready"
         }
       ],
       "current_judgment": {
@@ -251,6 +282,11 @@
         {
           "kind": "blind-re-audit",
           "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        },
+        {
+          "kind": "source-to-audit",
+          "path": "benchmarks/source-to-audit-10",
           "status": "protocol-ready"
         }
       ],
@@ -310,6 +346,11 @@
           "kind": "blind-re-audit",
           "path": "benchmarks/blind-real-paper-10",
           "status": "protocol-ready"
+        },
+        {
+          "kind": "source-to-audit",
+          "path": "benchmarks/source-to-audit-10",
+          "status": "protocol-ready"
         }
       ],
       "current_judgment": {
@@ -344,6 +385,11 @@
           "kind": "blind-re-audit",
           "path": "benchmarks/blind-real-paper-10",
           "status": "protocol-ready"
+        },
+        {
+          "kind": "source-to-audit",
+          "path": "benchmarks/source-to-audit-10",
+          "status": "protocol-ready"
         }
       ],
       "current_judgment": {
@@ -376,6 +422,11 @@
         {
           "kind": "blind-re-audit",
           "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        },
+        {
+          "kind": "source-to-audit",
+          "path": "benchmarks/source-to-audit-10",
           "status": "protocol-ready"
         }
       ],
