@@ -124,6 +124,27 @@ class SkillContractTests(unittest.TestCase):
         ]:
             self.assertIn(phrase, self.viability_ref)
 
+    def test_author_acknowledged_boundaries_are_explicit_and_support_neutral(self):
+        for phrase in [
+            "Author-acknowledged boundaries",
+            "Author acknowledgment is not evidence for the claim",
+            "Absence of acknowledgment does not imply deception",
+        ]:
+            self.assertIn(phrase, self.core)
+
+        for phrase in [
+            "author boundary: explicit | partial | absent | unclear | not-applicable",
+            "author acknowledgment:",
+            "author-boundary source:",
+            "the authors themselves also limit this point",
+        ]:
+            self.assertIn(phrase, self.output)
+
+        self.assertIn(
+            "check whether the source authors explicitly acknowledge the same boundary",
+            self.skill,
+        )
+
     def test_fixed_output_sections_are_unique_and_ordered_in_output_contract(self):
         positions = []
         for heading in validate_audit.SECTION_HEADINGS:
