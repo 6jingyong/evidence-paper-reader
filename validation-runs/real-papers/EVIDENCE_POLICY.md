@@ -4,7 +4,9 @@ Every real-paper test is a durable project evidence asset.
 
 ## Record first
 
-New paper tests must use the source-backed path under validation-runs/real-papers. A paper that only appears in a chat, temporary workspace, or untracked output does not count as repository evidence.
+Full paper audits must use the source-backed path under validation-runs/real-papers. A paper that only appears in a chat, temporary workspace, or untracked output does not count as repository evidence.
+
+A named public source used only inside a benchmark may enter as benchmark-source evidence when its public source URL and benchmark judgment are preserved by the catalog builder. That is deliberately lower provenance than a full replay and must not be described as a completed paper audit.
 
 The legacy fixture index exists only to preserve older work whose source/run metadata were not captured. Do not add new papers to the legacy path as a shortcut.
 
@@ -20,6 +22,6 @@ Protocol-ready blind cases are not completed blind-model results.
 
 ## Enforcement
 
-The catalog builder discovers recorded rounds, legacy fixtures, and blind benchmark membership. CI rejects stale catalogs, missing source-backed identities, blind cases without recorded papers, missing legacy fixtures, or generated evidence pages that diverge from repository state.
+The catalog builder discovers recorded rounds, named tiered benchmark sources, explicit benchmark-to-evidence mappings, legacy fixtures, blind benchmark membership, and durable blind runs. CI rejects stale catalogs, missing identities, duplicate counting through aliases, blind cases without recorded papers, missing legacy fixtures, or generated evidence pages that diverge from repository state.
 
-Future paper-bearing benchmark formats should reference source-backed recorded case IDs rather than creating parallel paper identities.
+Future paper-bearing benchmark formats must either reference an existing evidence identity or add their public sources to the catalog discovery/mapping contract. They must not create an untracked parallel paper list.
