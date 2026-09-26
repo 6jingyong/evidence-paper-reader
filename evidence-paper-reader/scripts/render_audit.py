@@ -35,7 +35,7 @@ DEPENDENCE = {
     "unclear",
 }
 VALUE_LEVELS = {"high", "medium", "low", "unclear"}
-LEDGER_SCHEMA_VERSION = 3
+LEDGER_SCHEMA_VERSION = 4
 INFERENCE_TYPES = {
     "direct-result",
     "comparison",
@@ -49,6 +49,7 @@ INFERENCE_TYPES = {
 }
 REASONING_STATUSES = {"direct", "supported", "qualified", "unsupported", "unclear"}
 EVIDENCE_RELATIONS = {"supports", "undermines", "mixed", "contextual"}
+AUTHOR_BOUNDARY_STATUSES = {"explicit", "partial", "absent", "unclear", "not-applicable"}
 
 VALUE_KEYS = [
     ("result", "result value"),
@@ -86,7 +87,12 @@ TEMPLATE = {
                 "source_location": "",
                 "support_level": "unclear",
                 "reason": "",
-                "external_dependency": "none"
+                "external_dependency": "none",
+                "author_boundary": {
+                    "status": "unclear",
+                    "summary": "No author-boundary assessment recorded yet.",
+                    "source_location": "none"
+                }
             }
         },
         {
@@ -109,7 +115,12 @@ TEMPLATE = {
                 "source_location": "",
                 "support_level": "unclear",
                 "reason": "",
-                "external_dependency": "none"
+                "external_dependency": "none",
+                "author_boundary": {
+                    "status": "unclear",
+                    "summary": "No author-boundary assessment recorded yet.",
+                    "source_location": "none"
+                }
             }
         },
         {
@@ -132,7 +143,12 @@ TEMPLATE = {
                 "source_location": "",
                 "support_level": "unclear",
                 "reason": "",
-                "external_dependency": "none"
+                "external_dependency": "none",
+                "author_boundary": {
+                    "status": "unclear",
+                    "summary": "No author-boundary assessment recorded yet.",
+                    "source_location": "none"
+                }
             }
         }
     ],
@@ -377,6 +393,42 @@ def validate_ledger(data: dict) -> list[str]:
         )
         if provenance in {"external citation", "mixed"} and dependency == "none":
             errors.append(f"claim {index}: {provenance} requires a named external_dependency")
+
+        if schema_version >= 4:
+            boundary = support.get("author_boundary")
+            if not isinstance(boundary, dict):
+                errors.append(f"claim {index}.support.author_boundary must be an object for schema v4")
+            else:
+                boundary_status = _choice(
+                    boundary.get("status"),
+                    AUTHOR_BOUNDARY_STATUSES,
+                    f"claim {index}.support.author_boundary.status",
+                    errors,
+                )
+                boundary_summary = _text(
+                    boundary.get("summary"),
+                    f"claim {index}.support.author_boundary.summary",
+                    errors,
+                )
+                boundary_location = _text(
+                    boundary.get("source_location"),
+                    f"claim {index}.support.author_boundary.source_location",
+                    errors,
+                )
+                if boundary_status in {"explicit", "partial"} and boundary_location == "none":
+                    errors.append(
+                        f"claim {index}: {boundary_status} author boundary requires a concrete source_location"
+                    )
+                if level in {"partial", "insufficient", "unclear"} and boundary_status == "not-applicable":
+                    errors.append(
+                        f"claim {index}: non-sufficient support requires an author-boundary assessment"
+                    )
+                if boundary_status == "not-applicable" and (
+                    boundary_summary != "none" or boundary_location != "none"
+                ):
+                    errors.append(
+                        f"claim {index}: not-applicable author boundary must use summary/source_location 'none'"
+                    )
 
         rendered_support.append({
             "nodes": set(normalized_nodes),
@@ -650,6 +702,13 @@ def render(data: dict) -> str:
                 f"- reason: {support['reason'].strip()}",
                 f"- external dependency: {support['external_dependency'].strip()}",
             ])
+            if data.get("ledger_schema_version", 1) >= 4:
+                boundary = support["author_boundary"]
+                lines.extend([
+                    f"- author boundary: {boundary['status']}",
+                    f"- author acknowledgment: {boundary['summary'].strip()}",
+                    f"- author-boundary source: {boundary['source_location'].strip()}",
+                ])
             if claim_edges:
                 lines.append(
                     "- reasoning edges: " + " + ".join(edge["edge_id"] for edge in claim_edges)
