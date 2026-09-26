@@ -77,6 +77,7 @@ CRITICAL_GUARDS = {
     "G122": "evidence inventory satisfies its schema",
     "G123": "recomputed route preserves raw semantic requirements independently",
     "G124": "generated context structurally matches route independently",
+    "G125": "generated context embeds exact routed reference bodies independently",
 }
 
 
@@ -192,6 +193,7 @@ def validate_semantic_commitments(semantic: dict, route: dict) -> list[str]:
     }
 
     claims = semantic.get("claims", [])
+    semantic_decisions_by_module: dict[str, list[str]] = {}
     for claim in claims:
         if not isinstance(claim, dict):
             continue
@@ -201,6 +203,7 @@ def validate_semantic_commitments(semantic: dict, route: dict) -> list[str]:
             continue
         required_for_claim = requirements_by_claim.get(claim_id, set())
         for module, decision in routes.items():
+            semantic_decisions_by_module.setdefault(module, []).append(decision)
             if decision != "required":
                 continue
             if module not in module_set:
@@ -210,6 +213,23 @@ def validate_semantic_commitments(semantic: dict, route: dict) -> list[str]:
             if module not in required_for_claim:
                 errors.append(
                     f"{claim_id}: semantic required module missing from claim requirements: {module}"
+                )
+
+    for module, decisions in semantic_decisions_by_module.items():
+        if decisions and set(decisions) == {"not_required"}:
+            if module in module_set:
+                errors.append(
+                    f"merged routing retained {module} despite every semantic decision being not_required"
+                )
+            leaked_claims = sorted(
+                claim_id
+                for claim_id, modules_for_claim in requirements_by_claim.items()
+                if module in modules_for_claim
+            )
+            if leaked_claims:
+                errors.append(
+                    f"{module} leaked into claim requirements despite semantic not_required: "
+                    + ", ".join(leaked_claims)
                 )
 
     inventory_decisions = [
@@ -289,6 +309,36 @@ def validate_context_structure(context_bundle: str, route: dict) -> list[str]:
             errors.append(
                 "context claim-module requirement manifest does not match route: "
                 + line.strip()
+            )
+
+    return errors
+
+
+def validate_context_reference_bodies(context_bundle: str, route: dict) -> list[str]:
+    """Verify embedded routed reference bodies without calling the renderer."""
+    errors: list[str] = []
+    expected_refs = list(CONTEXT_BASE_REFERENCES)
+    if route.get("use_evidence_inventory") is True:
+        expected_refs.append("evidence-inventory-format.md")
+    for module in route.get("modules", []):
+        if module not in expected_refs:
+            expected_refs.append(module)
+
+    for name in expected_refs:
+        begin = f"## BEGIN REFERENCE: {name}\n\n"
+        end = f"\n\n## END REFERENCE: {name}"
+        if context_bundle.count(begin) != 1 or context_bundle.count(end) != 1:
+            continue
+        embedded = context_bundle.split(begin, 1)[1].split(end, 1)[0]
+        path = SKILL_ROOT / "references" / name
+        try:
+            source = path.read_text(encoding="utf-8").rstrip()
+        except OSError as exc:
+            errors.append(f"cannot read routed reference {name}: {exc}")
+            continue
+        if embedded != source:
+            errors.append(
+                f"embedded reference body does not exactly match source file: {name}"
             )
 
     return errors
@@ -446,6 +496,13 @@ def validate_gate(
         errors.extend(
             _guard("G124", f"context structure: {x}")
             for x in validate_context_structure(context_bundle, recomputed_route)
+        )
+        errors.extend(
+            _guard("G125", f"context reference body: {x}")
+            for x in validate_context_reference_bodies(
+                context_bundle,
+                recomputed_route,
+            )
         )
 
     if claim_audit and recomputed_route is not None:
