@@ -15,6 +15,7 @@ SOURCE_RUNS = RUN_ROOT / "source-runs"
 BENCH = ROOT / "benchmarks" / "source-to-audit-10"
 CASE_INDEX = BENCH / "case_index.json"
 BLIND_RUNNER = ROOT / "benchmarks" / "blind-real-paper-10" / "run_reviewer.py"
+PREPARE_SOURCE = BENCH / "prepare_source.py"
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
@@ -27,6 +28,7 @@ def load_module(name: str, path: Path):
 
 
 blind = load_module("durable_source_blind_validator", BLIND_RUNNER)
+prepare = load_module("durable_source_prepare_contract", PREPARE_SOURCE)
 
 
 def load(path: Path):
@@ -54,6 +56,8 @@ def validate_source_input(case_id: str, data: dict, case: dict) -> list[str]:
     for key in ["acquired_at", "acquisition_method", "normalization_method"]:
         if not isinstance(data.get(key), str) or not data[key].strip():
             errors.append(f"{key} must be a non-empty string")
+
+    errors.extend(prepare.validate_manifest_contract(case_id, data))
 
     review = data.get("review_material")
     if not isinstance(review, dict):
