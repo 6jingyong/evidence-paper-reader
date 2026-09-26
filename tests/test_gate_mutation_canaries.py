@@ -436,6 +436,18 @@ def special_canary_passes(
                 "render_bundle",
                 return_value=bad_context,
             )
+        elif scenario == "shared_reference_body_corruption":
+            begin = "## BEGIN REFERENCE: statistical-traps.md\n\n"
+            end = "\n\n## END REFERENCE: statistical-traps.md"
+            prefix, rest = artifacts["context"].split(begin, 1)
+            _, suffix = rest.split(end, 1)
+            bad_context = prefix + begin + "CORRUPTED REFERENCE BODY" + end + suffix
+            artifacts["context"] = bad_context
+            patcher = mock.patch.object(
+                gate_module.build_context,
+                "render_bundle",
+                return_value=bad_context,
+            )
         else:
             raise AssertionError(f"unknown mutation canary scenario: {scenario}")
 
