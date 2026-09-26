@@ -95,5 +95,54 @@
     "research_design": "low",
     "material_or_documentation": "medium"
   },
-  "uncertainty_and_follow_up": "A credible efficacy test would prespecify a primary endpoint, use an adequately powered sample, correct or control multiplicity, report all outcomes consistently, and follow weight maintenance long enough to test the claimed long-term effect."
+  "uncertainty_and_follow_up": "A credible efficacy test would prespecify a primary endpoint, use an adequately powered sample, correct or control multiplicity, report all outcomes consistently, and follow weight maintenance long enough to test the claimed long-term effect.",
+  "ledger_schema_version": 2,
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Moves from the observed treatment/exposure contrast to the stated intervention or causal conclusion.",
+      "assumptions": [
+        "The study design and measurement preserve the causal contrast required by the stated claim."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2",
+        "E3"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "unsupported",
+      "added_reach": "Extends the directly tested population, task, setting, time, or material to the broader scope stated in the claim.",
+      "assumptions": [
+        "The directly tested cases are informative about the broader scope named in the claim."
+      ]
+    }
+  ]
 }
