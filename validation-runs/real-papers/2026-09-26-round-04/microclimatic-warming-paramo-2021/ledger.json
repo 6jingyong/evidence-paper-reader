@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Results: Microclimate; Table 2",
         "support_level": "sufficient",
         "reason": "The claim retains the measured site-specific temperature directions and magnitudes rather than treating OTCs as a simple uniform warming manipulation.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Results: AGB and Biodiversity; Figs. 3–4",
         "support_level": "sufficient",
         "reason": "The claim preserves both positive and null/qualified outcomes: biomass increased strongly in 2019, some diversity metrics declined, but species richness was not generally reduced.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -96,7 +106,12 @@
         "source_location": "Discussion/Conclusion; transition-to-shrub interpretation",
         "support_level": "partial",
         "reason": "The authors present shrub dominance as a possible future step; the experiment directly observed tussock changes, not a completed shrub transition, and notes further research is needed.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The authors present shrub dominance as a possible future step rather than an observed endpoint and explicitly call for further research on long-term growth-form transitions.",
+          "source_location": "Discussion/Conclusion; future shrub-dominance interpretation and further-research statement"
+        }
       }
     }
   ],
