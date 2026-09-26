@@ -38,7 +38,7 @@ The reviewer creates a fresh audit judgment in the compact JSON form defined by 
 
 `score_blind.py` performs a conservative lexical alignment between fresh claims and stored audit claims, then checks support against the hidden `must_hold` / `allowed_range` contract.
 
-Low-confidence claim matches are reported as `needs_adjudication`, not silently treated as wrong. Hard viability and required-integrity invariants can be scored without claim matching. Inference-type and reasoning-status overlap are reported as advisory diagnostics only; they do not determine hard pass/fail.
+Low-confidence claim matches are reported as `needs_adjudication`, not silently treated as wrong. Hard viability and required-integrity invariants can be scored without claim matching. Inference-type, reasoning-status, and claim-local evidence-relation overlap are reported as advisory diagnostics only; they do not determine hard pass/fail.
 
 The lexical matcher is deliberately not called a semantic oracle. Its job is to automate obvious matches and route ambiguous rewrites to review.
 
