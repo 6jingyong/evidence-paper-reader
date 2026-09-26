@@ -23,7 +23,14 @@
         "source_location": "Methods; Results; Table 2; Figure 3A",
         "support_level": "sufficient",
         "reason": "Random assignment and the reported primary-outcome hazard ratio of 0.75 (95% CI 0.64–0.89) directly support the bounded intervention claim.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The randomized primary-outcome contrast directly bears in favor of the stated cardiovascular benefit within SPRINT participants."
+          }
+        ]
       }
     },
     {
@@ -44,7 +51,14 @@
         "source_location": "Results; Table 2; Figure 3B",
         "support_level": "sufficient",
         "reason": "The randomized comparison reports 155 versus 210 deaths and a hazard ratio of 0.73 (95% CI 0.60–0.90).",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The randomized all-cause mortality contrast directly bears in favor of the stated mortality claim."
+          }
+        ]
       }
     },
     {
@@ -65,7 +79,14 @@
         "source_location": "Results; serious-adverse-event analysis",
         "support_level": "sufficient",
         "reason": "The trial reports higher rates of these prespecified serious adverse-event categories in the intensive-treatment group.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E3",
+            "relation": "supports",
+            "reason": "The reported serious-adverse-event comparison directly bears in favor of the stated harm claim."
+          }
+        ]
       }
     }
   ],
@@ -86,7 +107,7 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "The trial establishes a treatment-target effect in its enrolled population, not a context-free optimum for every patient. Longer follow-up, implementation details, and the balance between cardiovascular benefit and treatment-related adverse events remain important for transfer.",
-  "ledger_schema_version": 2,
+  "ledger_schema_version": 3,
   "reasoning_edges": [
     {
       "edge_id": "R1",
