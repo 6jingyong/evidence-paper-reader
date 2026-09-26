@@ -11,26 +11,26 @@ This page is generated from repository artifacts. It records what the project ha
 - tiered-source benchmark cases mapped to durable identities: **40**
 - source-backed papers prepared for isolated blind re-audit: **10**
 
-Source-backed entries have stable source identity plus replayable audit artifacts. Benchmark-source entries have explicit public source metadata and benchmark judgments but not a full replay. Legacy fixtures preserve older regression work whose original source/run metadata were not reconstructed.
+Source-backed entries have stable source identity plus replayable audit artifacts. Benchmark-source entries have explicit public source metadata and benchmark judgments but not a artifact replay. Legacy fixtures preserve older regression work whose original source/run metadata were not reconstructed.
 
 ## Source-backed papers
 
 | Paper | Domain | Viability | Support vector | Test surfaces | Evidence path |
 | --- | --- | --- | --- | --- | --- |
-| Exploring digital image correlation technique for the analysis of the tensile properties of all-cellulose composites (2021) | materials-measurement | auditable | sufficient / sufficient / partial | full-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-01/acc-dic-2021 |
-| Attention Is All You Need (2017) | machine-learning | auditable | sufficient / sufficient / partial | full-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-01/attention-is-all-you-need-2017 |
-| Chocolate with High Cocoa Content as a Weight-Loss Accelerator (2015) | nutrition-p-hacking-promotional | auditable | sufficient / sufficient / insufficient | full-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-02/chocolate-weight-loss-2015 |
-| Echinacea for treating the common cold: a randomized controlled trial (2010) | clinical-medicine-negative-result | auditable | sufficient / sufficient / insufficient | full-replay, claim-selection-12, blind-re-audit | validation-runs/real-papers/2026-09-26-round-01/echinacea-2010 |
-| Hydroxychloroquine and azithromycin as a treatment of COVID-19: results of an open-label non-randomized clinical trial (2020) | clinical-nonrandomized-proxy-endpoint | auditable | sufficient / sufficient / insufficient | full-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-02/gautret-hcq-2020 |
-| The experience of mathematical beauty and its neural correlates (2014) | neuroaesthetics | auditable | sufficient / partial / insufficient | full-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-01/mathematical-beauty-2014 |
-| Power Posing: Brief Nonverbal Displays Affect Neuroendocrine Levels and Risk Tolerance (2010) | social-psychology-small-n-multi-outcome | auditable | sufficient / sufficient / insufficient | full-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-02/power-posing-2010 |
-| A Randomized Trial of Intensive versus Standard Blood-Pressure Control (2015) | clinical-medicine | auditable | sufficient / sufficient / sufficient | full-replay, tiered-source-40, metadata-halo-12, stability-crossdomain-8, claim-selection-12, blind-re-audit | validation-runs/real-papers/2026-09-26-round-01/sprint-2015 |
-| Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis (2020) | registry-source-integrity | non-auditable | n/a | full-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-02/surgisphere-hcq-2020 |
-| Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children (1998) | case-series-source-integrity | non-auditable | n/a | full-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-02/wakefield-mmr-1998 |
+| Exploring digital image correlation technique for the analysis of the tensile properties of all-cellulose composites (2021) | materials-measurement | auditable | sufficient / sufficient / partial | artifact-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-01/acc-dic-2021 |
+| Attention Is All You Need (2017) | machine-learning | auditable | sufficient / sufficient / partial | artifact-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-01/attention-is-all-you-need-2017 |
+| Chocolate with High Cocoa Content as a Weight-Loss Accelerator (2015) | nutrition-p-hacking-promotional | auditable | sufficient / sufficient / insufficient | artifact-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-02/chocolate-weight-loss-2015 |
+| Echinacea for treating the common cold: a randomized controlled trial (2010) | clinical-medicine-negative-result | auditable | sufficient / sufficient / insufficient | artifact-replay, claim-selection-12, blind-re-audit | validation-runs/real-papers/2026-09-26-round-01/echinacea-2010 |
+| Hydroxychloroquine and azithromycin as a treatment of COVID-19: results of an open-label non-randomized clinical trial (2020) | clinical-nonrandomized-proxy-endpoint | auditable | sufficient / sufficient / insufficient | artifact-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-02/gautret-hcq-2020 |
+| The experience of mathematical beauty and its neural correlates (2014) | neuroaesthetics | auditable | sufficient / partial / insufficient | artifact-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-01/mathematical-beauty-2014 |
+| Power Posing: Brief Nonverbal Displays Affect Neuroendocrine Levels and Risk Tolerance (2010) | social-psychology-small-n-multi-outcome | auditable | sufficient / sufficient / insufficient | artifact-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-02/power-posing-2010 |
+| A Randomized Trial of Intensive versus Standard Blood-Pressure Control (2015) | clinical-medicine | auditable | sufficient / sufficient / sufficient | artifact-replay, tiered-source-40, metadata-halo-12, stability-crossdomain-8, claim-selection-12, blind-re-audit | validation-runs/real-papers/2026-09-26-round-01/sprint-2015 |
+| Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis (2020) | registry-source-integrity | non-auditable | n/a | artifact-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-02/surgisphere-hcq-2020 |
+| Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children (1998) | case-series-source-integrity | non-auditable | n/a | artifact-replay, blind-re-audit | validation-runs/real-papers/2026-09-26-round-02/wakefield-mmr-1998 |
 
 ## Benchmark-only named sources
 
-These public sources were used in benchmark cases and are preserved as evidence of tested source diversity. They are not counted as full replay audits until promoted into a recorded round.
+These public sources were used in benchmark cases and are preserved as evidence of tested source diversity. They are not counted as artifact replay audits until promoted into a recorded round.
 
 | Source | Domain | Tier | Narrow / broad support | Test surfaces |
 | --- | --- | --- | --- | --- |
