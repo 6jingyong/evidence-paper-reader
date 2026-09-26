@@ -1,6 +1,6 @@
 # Reasoning graph
 
-The reasoning graph makes the **claim → evidence → reasoning** layer explicit in structured ledgers.
+The reasoning graph makes the **claim → evidence → reasoning** layer explicit in structured ledgers. In ledger v3, pair it with `evidence-relations.md`: evidence relations record how each E-node bears on a claim, while reasoning edges record whether the logical bridge from the declared inputs reaches that claim.
 
 It is not a chain-of-thought transcript. It records only the inspectable logical bridge needed to audit whether the listed inputs can carry the target claim.
 
