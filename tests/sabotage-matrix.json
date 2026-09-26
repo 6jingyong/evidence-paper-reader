@@ -510,7 +510,8 @@
   "code_canary_guards": [
     "G108",
     "G123",
-    "G124"
+    "G124",
+    "G125"
   ],
   "mutation_site_canaries": [
     {
@@ -532,6 +533,11 @@
       "guard": "G124",
       "site": 1,
       "scenario": "shared_context_renderer_manifest_bug"
+    },
+    {
+      "guard": "G125",
+      "site": 1,
+      "scenario": "shared_reference_body_corruption"
     }
   ],
   "logic_weakening_mutations": [
