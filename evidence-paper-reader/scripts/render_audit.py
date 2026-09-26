@@ -429,6 +429,10 @@ def validate_ledger(data: dict) -> list[str]:
                     errors.append(
                         f"claim {index}: not-applicable author boundary must use summary/source_location 'none'"
                     )
+                if boundary_status in {"absent", "unclear"} and boundary_summary == "none":
+                    errors.append(
+                        f"claim {index}: {boundary_status} author boundary requires a short explanatory summary"
+                    )
 
         rendered_support.append({
             "nodes": set(normalized_nodes),
