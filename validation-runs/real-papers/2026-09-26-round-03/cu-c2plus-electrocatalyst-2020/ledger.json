@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Abstract; electrochemical results; Summary",
         "support_level": "sufficient",
         "reason": "The source directly reports the preparation route and C2+ selectivity under stated conditions.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Catalyst comparison; Summary",
         "support_level": "sufficient",
         "reason": "The bounded catalyst-specific values are direct electrochemical results.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -96,7 +106,12 @@
         "source_location": "Mechanistic discussion; characterization and Summary",
         "support_level": "partial",
         "reason": "Characterization/performance correlations make the mechanism plausible, but coupled morphology, oxidation history, surface chemistry, and reaction conditions limit unique causal attribution.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
       }
     }
   ],

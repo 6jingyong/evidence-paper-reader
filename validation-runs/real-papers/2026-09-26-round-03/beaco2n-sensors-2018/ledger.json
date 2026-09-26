@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Calibration evaluation; Fig. 6 and Table 3",
         "support_level": "sufficient",
         "reason": "The performance values are directly reported after the stated calibration corrections.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Calibration procedure; Table 3",
         "support_level": "sufficient",
         "reason": "The paper directly evaluates these corrections within the network and reports error reduction.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -96,7 +106,12 @@
         "source_location": "Discussion/Conclusions; calibration and drift sections",
         "support_level": "partial",
         "reason": "The study supports dense monitoring with calibrated sensors, but its performance depends on local/reference information and observed sensor/environment effects.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The authors explicitly discuss sensor-specific offsets, environmental cross-sensitivity, calibration transfer, and drift, so the need for local/reference calibration and continued drift management is already part of the paper's own boundary.",
+          "source_location": "Discussion/Conclusions; calibration transfer and drift sections"
+        }
       }
     }
   ],

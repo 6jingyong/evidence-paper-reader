@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Direct answer; BTC decile analysis and block bootstrap",
         "support_level": "sufficient",
         "reason": "The article exposes measurement, sample framing, hit rates, uncertainty, and cross-market replication.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Extreme-tail analysis",
         "support_level": "sufficient",
         "reason": "The source distinguishes failure to resolve a stronger tail effect from evidence that huge walls are worse.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -87,7 +97,12 @@
         "source_location": "Direct answer; tradeability/cost discussion",
         "support_level": "sufficient",
         "reason": "Directional predictiveness and economic profitability are different endpoints, and the reported gross return is insufficient to cover stated taker costs.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     }
   ],

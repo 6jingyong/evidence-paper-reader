@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Primary exam-grade analysis; abstract and results",
         "support_level": "sufficient",
         "reason": "The randomized primary outcome is explicitly null.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Results IV.2.2; Table 3",
         "support_level": "sufficient",
         "reason": "The bounded claim includes the survey-subsample scope and reported effect size/significance.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -96,7 +106,12 @@
         "source_location": "Abstract/Discussion; grade and self-efficacy results",
         "support_level": "partial",
         "reason": "The self-efficacy signal is real, but the source did not demonstrate mediation into the null average grade outcome or directly measure broad engagement.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "partial",
+          "summary": "The authors explicitly report the null average exam-grade result and discuss the self-efficacy effect separately; this acknowledges the missing academic-performance link, but does not fully resolve the proposed engagement/mediation mechanism.",
+          "source_location": "Discussion; null grade result and self-efficacy interpretation"
+        }
       }
     }
   ],

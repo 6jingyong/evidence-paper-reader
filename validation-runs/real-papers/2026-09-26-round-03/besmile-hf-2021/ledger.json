@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -30,7 +30,12 @@
         "source_location": "Results: feasibility/adherence and adverse events",
         "support_level": "sufficient",
         "reason": "The claim stays at the feasibility/safety scope documented in the pilot.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -58,7 +63,12 @@
         "source_location": "Results: self-efficacy outcome",
         "support_level": "sufficient",
         "reason": "The randomized pilot reports a statistically supported between-group self-efficacy difference.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -86,7 +96,12 @@
         "source_location": "Results: peak oxygen consumption; Discussion and Conclusion",
         "support_level": "insufficient",
         "reason": "The between-group exercise-capacity difference was not statistically significant, the CI included zero, and the 18-person pilot was not powered to confirm clinical benefit.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The authors explicitly describe the study as a small pilot, state that the exercise-capacity comparison was not definitive, and call for a larger trial with longer follow-up before clinical efficacy is concluded.",
+          "source_location": "Discussion and Conclusion; pilot-size and future-trial limitations"
+        }
       }
     }
   ],

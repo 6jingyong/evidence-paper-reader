@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Cognitive walkthrough analysis",
         "support_level": "sufficient",
         "reason": "The claim is limited to flaws identified by the explicit walkthrough procedure.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -58,7 +63,12 @@
         "source_location": "User test; task completion results",
         "support_level": "sufficient",
         "reason": "The paper directly reports that most participants failed the task under the stated lab conditions.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -96,7 +106,12 @@
         "source_location": "Abstract/Conclusion; walkthrough and user test",
         "support_level": "partial",
         "reason": "The case-study evidence is coherent, but 'most computer users' is a population-level generalization beyond the limited sample and task.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "partial",
+          "summary": "The authors present the work as a case study combining a cognitive walkthrough with a small novice-user laboratory test, which acknowledges the empirical basis is limited, while still drawing a broader conclusion about most computer users.",
+          "source_location": "Method/User study framing; Conclusion"
+        }
       }
     }
   ],

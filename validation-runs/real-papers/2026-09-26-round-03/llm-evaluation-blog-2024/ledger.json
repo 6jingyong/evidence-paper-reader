@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "partially in scope",
   "evidence_viability": "partially auditable",
   "viability_flags": [
@@ -32,7 +32,12 @@
         "source_location": "How do we do LLM evaluation?",
         "support_level": "partial",
         "reason": "The taxonomy is clearly stated and useful, but the source does not independently establish exhaustiveness across the field.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Section 2: Leaderboards and rankings",
         "support_level": "partial",
         "reason": "The argument is plausible and linked to prior results, but this article does not reproduce enough comparative evidence to establish the prescription generally.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -86,7 +96,12 @@
         "source_location": "Section 3 and Conclusion",
         "support_level": "unclear",
         "reason": "The construct-definition problem is clearly articulated, but the universal claim is conceptual and not resolved by a self-contained empirical test.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "partial",
+          "summary": "The author explicitly emphasizes that broad model capabilities are not clearly defined and treats capability measurement as an open construct problem; this acknowledges the measurement boundary but does not itself establish the universal claim that such capabilities cannot currently be evaluated.",
+          "source_location": "Section 3 and Conclusion; capability-definition discussion"
+        }
       }
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Results: impact of anthropogenic climate change; Fig. 2a",
         "support_level": "sufficient",
         "reason": "The claim preserves the study framework, period, and definition of a desertifying ACC effect.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Abstract; driver attribution and desertification classification",
         "support_level": "sufficient",
         "reason": "The claim is limited to the source's explicit combined-driver result and study period.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -96,7 +106,12 @@
         "source_location": "Title; Abstract; Results distinction between negative forcing and significant desertification",
         "support_level": "partial",
         "reason": "The paper states that negative ACC forcing does not guarantee desertification; only a subset of negatively forced areas experienced significant desertification.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The paper itself states that negative anthropogenic-climate forcing does not guarantee realized desertification and distinguishes climate forcing from combined climate/land-use desertification.",
+          "source_location": "Results distinction between negative ACC forcing and significant desertification; Discussion"
+        }
       }
     }
   ],

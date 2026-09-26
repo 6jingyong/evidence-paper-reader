@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Electrochemical characterization; Fig. 2",
         "support_level": "sufficient",
         "reason": "The performance values are directly reported under explicit voltage and rate conditions.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -58,7 +63,12 @@
         "source_location": "Structural evolution results and figures",
         "support_level": "sufficient",
         "reason": "The source directly reports suppression of anisotropic structural change for the tested composition.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -95,7 +105,12 @@
         "source_location": "Abstract; composition-series validation; Discussion",
         "support_level": "partial",
         "reason": "The composition series supports transfer beyond one formulation, but broad design-space performance remains a generalization.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
       }
     }
   ],
