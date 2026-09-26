@@ -1,0 +1,146 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; fMRI results; beauty-rating analysis"
+          ],
+          "reason": "Checked that the reported result is an association within the analyzed fMRI sample rather than a deterministic neural marker.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; fMRI results; beauty-rating analysis"
+          ],
+          "reason": "Beauty is operationalized by participant ratings and BOLD activity; neither proxy is treated as the full construct.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; fMRI results; beauty-rating analysis"
+          ],
+          "reason": "The result is bounded to the scanned mathematicians and the presented formula set.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; fMRI results; beauty-rating analysis"
+          ],
+          "reason": "The claim is linked to the paper's parametric fMRI result."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Introduction; Discussion comparing field A1 with prior beauty studies"
+          ],
+          "reason": "Regional overlap is not treated as identity of subjective experiences or constructs.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Introduction; Discussion comparing field A1 with prior beauty studies"
+          ],
+          "reason": "Visual and musical evidence comes from prior studies rather than a within-subject multi-domain experiment here.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Introduction; Discussion comparing field A1 with prior beauty studies"
+          ],
+          "reason": "The paper-local mathematical result and cited prior-domain results are only partially independent and use related neuroimaging constructs."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Introduction; Discussion comparing field A1 with prior beauty studies"
+          ],
+          "reason": "The cross-domain claim explicitly depends on both current activation and prior studies."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Introduction; Discussion comparing field A1 with prior beauty studies"
+          ],
+          "reason": "Sameness of region does not establish a universal neural mechanism of beauty."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Implications for future work; Discussion"
+          ],
+          "reason": "The inference from ratings/BOLD to an abstract culture-independent property is a construct expansion.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Implications for future work; Discussion"
+          ],
+          "reason": "The selected expert sample does not manipulate culture or learning.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Implications for future work; Discussion"
+          ],
+          "reason": "Cross-domain literature convergence does not remove shared measurement and interpretive assumptions."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Implications for future work; Discussion"
+          ],
+          "reason": "The culture-independence statement is identified as an interpretive extension rather than a directly measured variable."
+        },
+        {
+          "module": "claim-dependencies.md",
+          "status": "clear",
+          "source_locations": [
+            "Implications for future work; Discussion"
+          ],
+          "reason": "The broad inference depends on the weaker cross-domain claim and inherits its uncertainty."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Implications for future work; Discussion"
+          ],
+          "reason": "Population, expertise, culture, and additional aesthetic domains require direct follow-up."
+        }
+      ]
+    }
+  ]
+}
