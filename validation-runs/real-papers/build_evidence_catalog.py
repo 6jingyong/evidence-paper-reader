@@ -286,8 +286,8 @@ def build():
     return {
         "schema_version": 2,
         "policy": {
-            "record_first": "Future full real-paper audits must become source-backed recorded cases; named benchmark-only sources remain explicitly lower provenance until promoted.",
-            "benchmark_boundary": "A public source used only in a benchmark is preserved as benchmark-source evidence and is not described as a artifact replay.",
+            "record_first": "Future full source audits must become source-backed recorded cases; named benchmark-only sources remain explicitly lower provenance until promoted.",
+            "benchmark_boundary": "A public source used only in a benchmark is preserved as benchmark-source evidence and is not described as an artifact replay.",
             "legacy_boundary": "Legacy fixtures preserve earlier regression evidence but do not claim missing historical source metadata.",
             "counting_boundary": "Multiple benchmark or replay surfaces on one source do not count as multiple independent sources.",
         },
