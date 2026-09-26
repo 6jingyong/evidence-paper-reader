@@ -98,7 +98,7 @@ def discover_tiered(entries: dict, source_map: dict):
     aliases = source_map["tiered_source_aliases"]
     tiered_to_evidence = {}
     created = set()
-    for case in load(TIERED):
+    for case in load(TIERED)["cases"]:
         case_id = case["case_id"] if "case_id" in case else case["id"]
         if case_id in aliases:
             eid = aliases[case_id]
@@ -142,7 +142,7 @@ def discover_tiered(entries: dict, source_map: dict):
 
 
 def attach_named_benchmark_surfaces(entries: dict, tiered_to_evidence: dict, source_map: dict):
-    for packet in load(METADATA):
+    for packet in load(METADATA)["cases"]:
         source_case_id = packet["source_case_id"]
         eid = tiered_to_evidence.get(source_case_id)
         if eid is None:
@@ -289,7 +289,7 @@ def render(catalog):
         support = " / ".join(j["support_levels"]) or "n/a"
         surfaces = ", ".join(x["kind"] for x in row["test_surfaces"])
         replay = next(x["path"] for x in row["test_surfaces"] if x["kind"] == "full-replay")
-        title = row["title"].replace("|", "\|")
+        title = row["title"].replace("|", "\\|")
         lines.append(
             f"| {title} ({row['year']}) | {row['domain']} | {j['evidence_viability']} | {support} | {surfaces} | {replay} |"
         )
