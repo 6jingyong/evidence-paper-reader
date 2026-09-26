@@ -14,6 +14,7 @@ SKILL_ROOT = ROOT.parent
 REFERENCES = SKILL_ROOT / "references"
 
 BASE_REFERENCES = [
+    "carrier-neutral-core.md",
     "core-contract.md",
     "evidence-viability.md",
     "evidence-types.md",
