@@ -509,5 +509,17 @@
   ],
   "code_canary_guards": [
     "G108"
+  ],
+  "mutation_site_canaries": [
+    {
+      "guard": "G104",
+      "site": 2,
+      "scenario": "recompute_returns_none"
+    },
+    {
+      "guard": "G108",
+      "site": 1,
+      "scenario": "render_bundle_raises"
+    }
   ]
 }
