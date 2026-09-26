@@ -94,7 +94,19 @@ A claim may not depend on itself or on a later claim.
 
 Uncertainty does not reset downstream. If a downstream claim adds no new evidence nodes beyond required upstream claims, it cannot become `sufficient` when a required upstream claim is not sufficient.
 
-## 6. Evidence provenance
+## 6. Reasoning edges
+
+Ledger schema v2 makes the logical bridge from evidence/upstream claims to each target claim explicit.
+
+Every auditable claim must be reached by one or more `R` edges. Together those edges must account for exactly the evidence nodes and upstream claims declared in the claim's support block.
+
+Use `reasoning-graph.md` for the controlled inference types and edge statuses.
+
+The graph is a compact auditable artifact, not private chain-of-thought. Record only the premises, inference type, added reach, material assumptions, and whether that bridge is direct, supported, qualified, unsupported, or unclear.
+
+A support judgment and its reasoning edges must agree: `sufficient` cannot hide a qualified or unsupported bridge; `insufficient` must expose where the stated reach is unsupported.
+
+## 7. Evidence provenance
 
 Use exactly one:
 - `paper-local`
@@ -106,7 +118,7 @@ A citation is not paper-local evidence.
 Do not claim knowledge of a cited work unless it was inspected.
 Do not guess DOIs from memory.
 
-## 7. Evidence dependence
+## 8. Evidence dependence
 
 Use exactly one:
 - `single-source`
@@ -119,7 +131,7 @@ Any convergence label requires at least two evidence nodes.
 
 Technical repeats, multiple outcomes from the same participants, multiple models on the same dataset, repeated random seeds, or several figures from one experiment do not automatically create independent replication.
 
-## 8. Support level
+## 9. Support level
 
 Use exactly one:
 - `sufficient`
@@ -135,7 +147,7 @@ Interpretation:
 
 Do not treat publication status, author confidence, figure complexity, or citation count as support strength.
 
-## 9. Direct evidence wins over narrative summary
+## 10. Direct evidence wins over narrative summary
 
 Compare abstract, results, figures/tables, discussion, and conclusion.
 
@@ -144,7 +156,7 @@ When they conflict:
 - prefer the most direct and precisely located paper-local result for the bounded claim
 - do not let summary prose overwrite measured values, tables, figures, or documented procedures
 
-## 10. Reuse and inference reach
+## 11. Reuse and inference reach
 
 Evidence reuse is allowed.
 
@@ -160,7 +172,7 @@ Ask:
 - What extra reach is added by the claim?
 - Is there new direct evidence for that extra reach?
 
-## 11. Uncertainty and null results
+## 12. Uncertainty and null results
 
 Do not translate `not statistically significant` into:
 - no effect
@@ -172,7 +184,7 @@ Inspect effect size, uncertainty interval, and any equivalence/non-inferiority m
 
 If material needed for judgment is missing, say `unclear` rather than filling the gap.
 
-## 12. Methodological risk is not a verdict
+## 13. Methodological risk is not a verdict
 
 A risk cue starts a check.
 
@@ -185,7 +197,7 @@ Before downweighting:
 
 If a potential issue is adequately handled and leaves no decision-relevant residual concern, it does not need to appear in the final downweight section.
 
-## 13. Domain knowledge boundary
+## 14. Domain knowledge boundary
 
 Use bundled methodological knowledge to interpret evidence.
 
@@ -193,7 +205,7 @@ Do not inject expected domain values, normal ranges, treatment effects, material
 
 If external scientific context is needed, treat that as a separate literature-search task.
 
-## 14. Medical boundary
+## 15. Medical boundary
 
 A clinical paper may be audited for design, outcomes, uncertainty, and causal reach.
 
