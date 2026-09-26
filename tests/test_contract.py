@@ -100,6 +100,30 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("Do not load every optional reference by default.", self.skill)
         self.assertIn("Flash means less irrelevant context, not less work.", self.skill)
 
+    def test_skill_is_logic_audit_not_scientific_policing(self):
+        for phrase in [
+            "general claim–evidence–reasoning audit",
+            "Do not adjudicate ultimate scientific truth",
+            "investigate misconduct",
+            "infer author intent",
+        ]:
+            self.assertIn(phrase, self.skill)
+
+        for phrase in [
+            "Audit target: claim → evidence → reasoning",
+            "audits logical reach, not scientific authority",
+            "a fraud, fabrication, falsification, or misconduct investigation",
+            "do not infer blame",
+        ]:
+            self.assertIn(phrase, self.core)
+
+        for phrase in [
+            "evidence usability, not culpability",
+            "does not independently determine fabrication, falsification, misconduct, deception, or author intent",
+            "what happens to the claim-evidence chain",
+        ]:
+            self.assertIn(phrase, self.viability_ref)
+
     def test_fixed_output_sections_are_unique_and_ordered_in_output_contract(self):
         positions = []
         for heading in validate_audit.SECTION_HEADINGS:
@@ -292,7 +316,7 @@ class SkillContractTests(unittest.TestCase):
             "claim numbering",
             "evidence-node formatting",
             "upstream-claim formatting",
-            "Rendering is mechanical. Scientific judgment is not.",
+            "Rendering is mechanical. Claim–evidence–reasoning judgment is not.",
         ]:
             self.assertIn(phrase, self.ledger_format)
         self.assertIn("scripts/audit_gate.py", self.skill)
