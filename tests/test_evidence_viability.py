@@ -94,6 +94,7 @@ class EvidenceViabilityTests(unittest.TestCase):
         ledger["evidence_viability"] = "non-auditable"
         ledger["viability_flags"] = ["source-integrity-failure"]
         ledger["claims"] = []
+        ledger["reasoning_edges"] = []
         ledger["paper_type"] = "retracted observational registry study"
         ledger["reader_conclusion"] = "The central source data cannot be independently verified."
         ledger["not_applicable_reason"] = "A documented source-integrity failure blocks the central evidence chain."
@@ -113,7 +114,11 @@ class EvidenceViabilityTests(unittest.TestCase):
         ledger = copy.deepcopy(renderer.TEMPLATE)
         ledger["evidence_viability"] = "partially auditable"
         ledger["viability_flags"] = ["proprietary-black-box"]
-        ledger["claims"] = renderer.TEMPLATE["claims"][:2]
+        ledger["claims"] = copy.deepcopy(renderer.TEMPLATE["claims"][:2])
+        ledger["reasoning_edges"] = copy.deepcopy(renderer.TEMPLATE["reasoning_edges"][:2])
+        for edge in ledger["reasoning_edges"]:
+            edge["reasoning_status"] = "unclear"
+            edge["added_reach"] = "The available material does not resolve the full inferential bridge."
         # Fill the template placeholders sufficiently to isolate claim-count behavior.
         ledger["paper_type"] = "technical note"
         ledger["reader_conclusion"] = "Only part of the evidence chain is reconstructable."
