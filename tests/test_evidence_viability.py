@@ -39,6 +39,7 @@ class EvidenceViabilityTests(unittest.TestCase):
             "Demo-only evidence",
             "Proprietary black box",
             "Promotional asymmetry",
+            "Source integrity failure",
             "New terminology is not a problem by itself.",
             "Commercial or proprietary work is not automatically non-auditable.",
         ]:
@@ -87,6 +88,26 @@ class EvidenceViabilityTests(unittest.TestCase):
         partial["viability_flags"] = []
         errors = renderer.validate_ledger(partial)
         self.assertTrue(any("requires at least one viability flag" in error for error in errors), errors)
+
+    def test_renderer_accepts_non_auditable_source_integrity_failure(self):
+        ledger = copy.deepcopy(renderer.TEMPLATE)
+        ledger["evidence_viability"] = "non-auditable"
+        ledger["viability_flags"] = ["source-integrity-failure"]
+        ledger["claims"] = []
+        ledger["paper_type"] = "retracted observational registry study"
+        ledger["reader_conclusion"] = "The central source data cannot be independently verified."
+        ledger["not_applicable_reason"] = "A documented source-integrity failure blocks the central evidence chain."
+        ledger["usable"] = {
+            "results": "Published numerical claims can be inspected as historical claims, not relied on as validated evidence.",
+            "methods_or_design": "The nominal study design remains inspectable.",
+            "materials_or_documentation": "The publication and retraction record are useful provenance documentation.",
+        }
+        ledger["downweight"] = {
+            "worth_noticing": "The reported analysis is historically important.",
+            "cautious_or_ignore": "Do not reuse the central result as evidence while the source data are unverifiable.",
+        }
+        ledger["uncertainty_and_follow_up"] = "Any substantive reassessment requires independently verifiable source data."
+        self.assertEqual(renderer.validate_ledger(ledger), [])
 
     def test_renderer_accepts_two_claim_partial_ledger(self):
         ledger = copy.deepcopy(renderer.TEMPLATE)
