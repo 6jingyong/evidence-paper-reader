@@ -18,7 +18,7 @@ def render_prompt(packet_text: str, packet_path: str, *, include_skill: bool = F
         "",
         "Run exactly this one audit in a fresh context.",
         "Use only the public source material named in the packet plus the installed Evidence Paper Reader skill.",
-        "Do not open repository validation-runs, stored ledgers, result files, regression manifests, tests/real-paper-judgment-baseline.json, or scorer output.",
+        "Do not inspect repository answer keys, prior audit artifacts, regression expectations, or scorer output.",
         "Return JSON only.",
         "",
         f"Packet path: {packet_path}",
