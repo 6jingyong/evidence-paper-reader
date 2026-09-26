@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Abstract; Fig. 5; fast-charging results",
         "support_level": "sufficient",
         "reason": "The bounded charging-time result is directly measured in the tested full-cell configuration.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -58,7 +63,12 @@
         "source_location": "SEI characterization; Fig. 2; EIS Fig. 4",
         "support_level": "sufficient",
         "reason": "The composition and resistance differences are direct characterization results.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -95,7 +105,12 @@
         "source_location": "Discussion/Conclusion; mechanism and transfer statements",
         "support_level": "partial",
         "reason": "The mechanism is plausible and supported by correlated characterization, but not uniquely isolated; the paper itself notes γ-ray processing is not immediately adoptable in current manufacturing and other-electrode applicability remains a proposed direction.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "partial",
+          "summary": "The authors note that γ-ray processing is not directly adoptable in current LIB manufacturing and present applicability to other electrodes as a future direction; this acknowledges the transfer/manufacturing boundary but not the full unique-mechanism concern.",
+          "source_location": "Discussion/Conclusion; manufacturing applicability and future directions"
+        }
       }
     }
   ],
