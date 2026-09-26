@@ -10,14 +10,15 @@ Source-to-Audit 10 tests that stronger path.
 
 The repository does not commit full copyrighted paper text merely to make the benchmark convenient.
 
-For each run, an operator materializes a reviewable text/Markdown representation of the public source outside the repository, then the benchmark records:
+For each run, an operator materializes UTF-8 text components outside the repository. The case's `acquisition-profiles.json` entry decides which components are required and in what order. The benchmark then deterministically builds one review bundle and records:
 
 - case ID
 - canonical source URL and stable ID
-- acquisition timestamp
-- acquisition method
-- normalization/extraction method
-- SHA-256 and byte count of the exact review material
+- acquisition timestamp and acquisition method
+- acquisition-profile SHA-256
+- exact component IDs, roles, URLs, byte counts, and SHA-256 values
+- deterministic bundle format
+- SHA-256 and byte count of the exact combined review material
 - optional SHA-256 of a raw downloaded source when one was retained locally
 
 The reviewer receives the materialized source file in an isolated workspace. It does not receive the stored ledger, semantic route, module checks, reasoning graph, regression contract, or hidden scorer.
@@ -42,15 +43,26 @@ A completed result should be persisted under `validation-runs/real-papers/source
 
 ## Local flow
 
-Prepare a fingerprinted input:
+Prepare a fingerprinted single-component input:
 
 ```bash
 python benchmarks/source-to-audit-10/prepare_source.py \
   attention-is-all-you-need-2017 \
-  /path/to/normalized-paper.txt \
-  --acquisition-method "downloaded from canonical public URL" \
-  --normalization-method "HTML-to-text preserving headings/tables" \
+  /path/to/primary-article.txt \
+  --acquisition-method "arXiv HTML converted to UTF-8 text with headings/tables preserved" \
   --output /tmp/source-run/attention
 ```
 
-The resulting directory contains a local `source-material.txt` copy plus `source-input.json`. Do not commit the source material unless its license and repository policy explicitly permit redistribution.
+For a multi-component integrity/provenance case, provide every required component explicitly:
+
+```bash
+python benchmarks/source-to-audit-10/prepare_source.py \
+  surgisphere-hcq-2020 \
+  --component primary=/path/to/article.txt \
+  --component retraction=/path/to/retraction.txt \
+  --component post-publication-record=/path/to/provenance.txt \
+  --acquisition-method "public HTML pages converted separately to UTF-8 text" \
+  --output /tmp/source-run/surgisphere
+```
+
+The script normalizes only line endings and terminal newline, then inserts deterministic component boundaries with role and URL. It does not summarize, paraphrase, reorder, or silently drop result-bearing tables/captions. The resulting directory contains local `source-material.txt` plus `source-input.json`. Do not commit the source material unless its license and repository policy explicitly permit redistribution.
