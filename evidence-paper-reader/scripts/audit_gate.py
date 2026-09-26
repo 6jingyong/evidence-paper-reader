@@ -78,6 +78,7 @@ CRITICAL_GUARDS = {
     "G123": "recomputed route preserves raw semantic requirements independently",
     "G124": "generated context structurally matches route independently",
     "G125": "generated context embeds exact routed reference bodies independently",
+    "G126": "raw semantic obligations reach execution artifacts independently",
 }
 
 
@@ -314,6 +315,70 @@ def validate_context_structure(context_bundle: str, route: dict) -> list[str]:
     return errors
 
 
+def validate_semantic_execution(
+    semantic: dict,
+    module_checks: dict | None,
+    inventory: dict | None,
+    context_bundle: str | None,
+) -> list[str]:
+    """Check raw semantic obligations directly against execution artifacts."""
+    errors: list[str] = []
+    checks_by_claim: dict[str, set[str]] = {}
+    if isinstance(module_checks, dict):
+        claims = module_checks.get("claims")
+        if isinstance(claims, list):
+            for item in claims:
+                if not isinstance(item, dict):
+                    continue
+                claim_id = item.get("claim_id")
+                checks = item.get("checks")
+                if not isinstance(claim_id, str) or not isinstance(checks, list):
+                    continue
+                checks_by_claim[claim_id] = {
+                    check.get("module")
+                    for check in checks
+                    if isinstance(check, dict) and isinstance(check.get("module"), str)
+                }
+
+    claims = semantic.get("claims", [])
+    inventory_required = False
+    for claim in claims:
+        if not isinstance(claim, dict):
+            continue
+        claim_id = claim.get("claim_id")
+        routes = claim.get("routes")
+        if isinstance(routes, dict):
+            required = {
+                module
+                for module, decision in routes.items()
+                if decision == "required"
+            }
+            if required:
+                actual = checks_by_claim.get(claim_id, set())
+                missing = sorted(required - actual)
+                if missing:
+                    errors.append(
+                        f"{claim_id}: semantic required module(s) missing from execution checks: "
+                        + ", ".join(missing)
+                    )
+                if context_bundle is not None:
+                    for module in sorted(required):
+                        marker = f"## BEGIN REFERENCE: {module}"
+                        if context_bundle.count(marker) != 1:
+                            errors.append(
+                                f"{claim_id}: semantic required module missing from execution context: {module}"
+                            )
+        if claim.get("inventory") == "required":
+            inventory_required = True
+
+    if inventory_required and inventory is None:
+        errors.append(
+            "semantic required evidence inventory is missing from execution artifacts"
+        )
+
+    return errors
+
+
 def validate_context_reference_bodies(context_bundle: str, route: dict) -> list[str]:
     """Verify embedded routed reference bodies without calling the renderer."""
     errors: list[str] = []
@@ -328,6 +393,9 @@ def validate_context_reference_bodies(context_bundle: str, route: dict) -> list[
         begin = f"## BEGIN REFERENCE: {name}\n\n"
         end = f"\n\n## END REFERENCE: {name}"
         if context_bundle.count(begin) != 1 or context_bundle.count(end) != 1:
+            errors.append(
+                f"routed reference markers missing or duplicated: {name}"
+            )
             continue
         embedded = context_bundle.split(begin, 1)[1].split(end, 1)[0]
         path = SKILL_ROOT / "references" / name
@@ -462,6 +530,17 @@ def validate_gate(
         errors.extend(
             _guard("G123", f"semantic commitments: {x}")
             for x in validate_semantic_commitments(semantic, recomputed_route)
+        )
+
+    if claim_audit and semantic is not None:
+        errors.extend(
+            _guard("G126", f"semantic execution: {x}")
+            for x in validate_semantic_execution(
+                semantic,
+                module_checks,
+                inventory,
+                context_bundle,
+            )
         )
 
     effective_route = recomputed_route if recomputed_route is not None else route
