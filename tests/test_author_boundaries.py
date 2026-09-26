@@ -153,6 +153,42 @@ class AuthorBoundaryTests(unittest.TestCase):
             errors,
         )
 
+    def test_all_source_backed_ledgers_are_v4_and_author_boundary_closed(self):
+        ledgers = []
+        for round_root in sorted(RUN_ROOT.glob("*-round-*")):
+            manifest = json.loads(
+                (round_root / "manifest.json").read_text(encoding="utf-8")
+            )
+            for case in manifest["cases"]:
+                path = round_root / case["id"] / "ledger.json"
+                ledgers.append(
+                    (case["id"], json.loads(path.read_text(encoding="utf-8")))
+                )
+
+        self.assertEqual(len(ledgers), 30)
+        for case_id, ledger in ledgers:
+            with self.subTest(case_id=case_id):
+                self.assertEqual(ledger.get("ledger_schema_version"), 4)
+                self.assertEqual(render.validate_ledger(ledger), [])
+                self.assertEqual(gate.validate_author_boundary_closure(ledger), [])
+                for claim in ledger.get("claims", []):
+                    boundary = claim["support"].get("author_boundary")
+                    self.assertIsInstance(boundary, dict)
+                    if claim["support"]["support_level"] in {
+                        "partial",
+                        "insufficient",
+                        "unclear",
+                    }:
+                        self.assertNotEqual(
+                            boundary["status"],
+                            "not-applicable",
+                        )
+                    if boundary["status"] in {"explicit", "partial"}:
+                        self.assertNotEqual(
+                            boundary["source_location"],
+                            "none",
+                        )
+
     def test_reference_cases_capture_partial_and_explicit_author_acknowledgment(self):
         cases = {
             "photochemical-sei-fast-charge-2021": (
