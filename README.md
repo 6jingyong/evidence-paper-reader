@@ -278,15 +278,24 @@ python evidence-paper-reader/scripts/suggest_modules.py paper.txt --json
 
 The helper searches for cheap lexical cues and proposes candidate references. It is not the final router. Core claims are confirmed with `semantic-router-card.md`, then `merge_route.py` combines semantic decisions with lexical candidates. A cue never declares a bias or flaw.
 
+## Evidence base
+
+Every real-paper test is treated as a durable repository evidence asset. See [EVIDENCE.md](EVIDENCE.md) for the generated, source-backed evidence catalog and the explicitly lower-provenance legacy regression set.
+
+The catalog follows a record-first rule: future real-paper tests must leave source identity and replayable repository artifacts before they count toward project evidence. Multiple runs or benchmark surfaces on one paper do not inflate the independent-paper count. CI regenerates the expected catalog from repository state and fails if the published evidence page becomes stale.
+
+The detailed policy is in `validation-runs/real-papers/EVIDENCE_POLICY.md`.
+
 ## Benchmarks
 
-Five non-core benchmark suites live under `benchmarks/`:
+Six non-core benchmark suites live under `benchmarks/`:
 
 - `tiered-source-40/`: 10 domains × 4 source/attention tiers; checks whether bounded evidence judgments can remain distinct from source prestige.
 - `metadata-halo-12/`: paired anonymous A/B packets with identical scientific content and metadata hidden vs visible; designed for isolated-context causal testing of prestige/attention halo.
 - `claim-selection-12/`: tests the pre-audit stage—core-claim recall, distractor selection, evidence-viability decisions, and especially silent narrowing of strong author claims into safer claims before support judgment.
 - `router-adversarial-24/`: 12 semantic-only routing cases plus 12 lexical decoys; measures required-module recall, irrelevant keyword suppression, inventory routing, and lexical+semantic merge behavior.
 - `stability-crossdomain-8/`: eight real-paper domains × five isolated repeats; separates repeated-run stability from reference correctness across viability, claim selection, routing, inventory choice, and support. It also includes a runner-neutral batch executor for one-packet-per-process fresh-context runs.
+- `blind-real-paper-10/`: ten source-backed papers re-audited from answer-key-free source packets in fresh contexts; reviewer prompts cannot see stored ledgers or regression contracts, while a separate hidden scorer compares viability and bounded support judgments after the response exists.
 
 The second benchmark must be run in fresh independent model contexts. The development conversation itself is contaminated by knowing the pair mapping and reference expectations, so repository setup is not reported as a model result.
 
@@ -395,6 +404,7 @@ Decision-critical flags include:
 - proprietary black boxes
 - dominant external dependencies
 - promotional evidence asymmetry
+- documented source-integrity failure that blocks trust in the central evidence substrate
 
 This is not a prestige filter. A blog, preprint, vendor white paper, or tiny pilot can be auditable. A polished or prestigious article can be non-auditable for a specific central claim.
 
