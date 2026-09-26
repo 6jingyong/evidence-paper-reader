@@ -23,7 +23,14 @@
         "source_location": "Abstract; fMRI results; beauty-rating analysis",
         "support_level": "sufficient",
         "reason": "The within-study fMRI analysis directly links subject-specific mathematical-beauty ratings with parametric mOFC activity in the scanned sample.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The within-study parametric fMRI result directly supports the bounded association in the scanned mathematicians."
+          }
+        ]
       }
     },
     {
@@ -48,7 +55,19 @@
         "source_location": "Abstract; Introduction; Discussion comparing field A1 with prior beauty studies",
         "support_level": "partial",
         "reason": "The mathematical-beauty activation is paper-local, but the cross-domain sameness depends on prior visual and musical studies and coordinate/region comparison rather than a single experiment testing all domains.",
-        "external_dependency": "Prior visual and musical beauty fMRI studies cited by the paper."
+        "external_dependency": "Prior visual and musical beauty fMRI studies cited by the paper.",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The paper-local mathematical-beauty activation identifies the mOFC region used in the cross-domain comparison."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The cited visual and musical beauty findings bear in favor of regional overlap across the compared domains."
+          }
+        ]
       }
     },
     {
@@ -74,7 +93,19 @@
         "source_location": "Implications for future work; Discussion",
         "support_level": "insufficient",
         "reason": "The study scans 15 mathematically trained participants and demonstrates a neural correlate for rated formulae; that does not isolate culture and learning or establish independence from them across populations and aesthetic domains.",
-        "external_dependency": "Prior visual, musical, and other beauty studies cited for the cross-domain comparison."
+        "external_dependency": "Prior visual, musical, and other beauty studies cited for the cross-domain comparison.",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "contextual",
+            "reason": "The mathematical-beauty neural correlate establishes the local phenomenon but does not directly bear on independence from culture or learning."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "Cross-domain regional overlap is compatible with a shared abstract component, but it does not isolate or exclude cultural learning and expertise."
+          }
+        ]
       }
     }
   ],
@@ -95,7 +126,7 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "The scanned sample is small and highly selected, beauty is operationalized by subjective ratings, and the culture/learning interpretation is not experimentally isolated. A stronger test would compare populations, expertise levels, and multiple aesthetic domains under one design.",
-  "ledger_schema_version": 2,
+  "ledger_schema_version": 3,
   "reasoning_edges": [
     {
       "edge_id": "R1",
