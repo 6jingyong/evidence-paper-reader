@@ -138,7 +138,7 @@ The model still handles:
 - support level
 - reasons and uncertainty
 
-Rendering is mechanical. Scientific judgment is not.
+Rendering is mechanical. Claim–evidence–reasoning judgment is not.
 
 Cross-stage consistency is also mechanical where possible. `audit_gate.py` therefore rejects:
 - a claim audit with no raw semantic-route artifact
