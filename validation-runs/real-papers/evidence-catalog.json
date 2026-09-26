@@ -1,14 +1,17 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "policy": {
-    "record_first": "Every future real-paper test must resolve to a source-backed recorded case before it counts as repository evidence.",
+    "record_first": "Future full real-paper audits must become source-backed recorded cases; named benchmark-only sources remain explicitly lower provenance until promoted.",
+    "benchmark_boundary": "A public source used only in a benchmark is preserved as benchmark-source evidence and is not described as a full replay.",
     "legacy_boundary": "Legacy fixtures preserve earlier regression evidence but do not claim missing historical source metadata.",
-    "counting_boundary": "Multiple test surfaces on one paper do not count as multiple independent papers."
+    "counting_boundary": "Multiple benchmark or replay surfaces on one source do not count as multiple independent sources."
   },
   "counts": {
     "source_backed_papers": 10,
+    "benchmark_only_sources": 38,
     "legacy_fixtures": 24,
-    "evidence_entries": 34,
+    "evidence_entries": 72,
+    "tiered_source_cases": 40,
     "blind_protocol_papers": 10
   },
   "entries": [
@@ -134,6 +137,12 @@
           "kind": "full-replay",
           "path": "validation-runs/real-papers/2026-09-26-round-01/echinacea-2010",
           "status": "pass"
+        },
+        {
+          "kind": "claim-selection-12",
+          "path": "benchmarks/claim-selection-12/case_specs.json",
+          "case_id": "CS03",
+          "status": "benchmark-spec"
         },
         {
           "kind": "blind-re-audit",
@@ -274,6 +283,30 @@
           "status": "pass"
         },
         {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "cardiology-flagship",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH03",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "stability-crossdomain-8",
+          "path": "benchmarks/stability-crossdomain-8/case_specs.json",
+          "case_id": "ST01",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "claim-selection-12",
+          "path": "benchmarks/claim-selection-12/case_specs.json",
+          "case_id": "CS12",
+          "status": "benchmark-spec"
+        },
+        {
           "kind": "blind-re-audit",
           "path": "benchmarks/blind-real-paper-10",
           "status": "protocol-ready"
@@ -356,6 +389,1180 @@
       }
     },
     {
+      "evidence_id": "benchmark:tiered-source-40:battery-flagship",
+      "identity_status": "benchmark-source",
+      "title": "Ultrahigh power and energy density in partially ordered lithium-ion cathode materials",
+      "authors": "",
+      "year": 2020,
+      "stable_id": "",
+      "source_url": "https://www.nature.com/articles/s41560-020-0573-1",
+      "domain": "battery materials",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Nature Energy",
+      "tier": "flagship_high_attention",
+      "access": "abstract/metadata in screening pass",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "battery-flagship",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH01",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Reported energy/rate performance is direct; the broad material-design mechanism and transfer beyond tested compositions require more than headline performance."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:battery-low",
+      "identity_status": "benchmark-source",
+      "title": "Dry Electrode Architecture Design for Pushing Energy Density Limits at Cell Level",
+      "authors": "",
+      "year": 2025,
+      "stable_id": "",
+      "source_url": "https://chemrxiv.org/engage/chemrxiv/article-details/68e714035dd091524f7cddc7",
+      "domain": "battery materials",
+      "round_ids": [],
+      "source_kind": "preprint",
+      "venue": "ChemRxiv",
+      "tier": "low_attention_nontraditional",
+      "access": "public preprint",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "battery-low",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH02",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "A preprint can still earn sufficient support for its tested electrode/cell result; cell-level technology generality remains bounded by tested architectures and conditions."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:battery-ordinary-a",
+      "identity_status": "benchmark-source",
+      "title": "Layered-rocksalt intergrown cathode for high-capacity zero-strain battery operation",
+      "authors": "",
+      "year": 2021,
+      "stable_id": "",
+      "source_url": "https://www.nature.com/articles/s41467-021-22527-z",
+      "domain": "battery materials",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Nature Communications",
+      "tier": "ordinary_a",
+      "access": "public full text available",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "battery-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "The tested zero-strain/high-capacity behavior is well supported; a general design principle across the wider composition space remains a broader inference."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:battery-ordinary-b",
+      "identity_status": "benchmark-source",
+      "title": "Photochemically driven solid electrolyte interphase for extremely fast-charging lithium-ion batteries",
+      "authors": "",
+      "year": 2021,
+      "stable_id": "",
+      "source_url": "https://www.nature.com/articles/s41467-021-27095-w",
+      "domain": "battery materials",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Nature Communications",
+      "tier": "ordinary_b",
+      "access": "public full text available",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "battery-ordinary-b",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Fast-charge performance in the tested graphite full cell is direct; attributing the whole improvement to a LiF-rich SEI and projecting to practical deployments adds mechanistic/generalization reach."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:cardiology-low",
+      "identity_status": "benchmark-source",
+      "title": "Feasibility and Preliminary Effects of the BESMILE-HF Program on Chronic Heart Failure Patients: A Pilot Randomized Controlled Trial",
+      "authors": "",
+      "year": 2021,
+      "stable_id": "",
+      "source_url": "https://www.frontiersin.org/journals/cardiovascular-medicine/articles/10.3389/fcvm.2021.715207/full",
+      "domain": "clinical cardiology",
+      "round_ids": [],
+      "source_kind": "small pilot randomized trial",
+      "venue": "Frontiers in Cardiovascular Medicine",
+      "tier": "low_attention_nontraditional",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "cardiology-low",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH04",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "insufficient",
+        "main_boundary": "Feasibility/adherence is directly supported; clinical efficacy is not established by an 18-person pilot and the paper itself calls for a larger, longer trial."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:cardiology-ordinary-a",
+      "identity_status": "benchmark-source",
+      "title": "Effects of a Narrative-Based Psychoeducational Intervention to Prepare Patients for Responding to Acute Myocardial Infarction: A Randomized Clinical Trial",
+      "authors": "",
+      "year": 2022,
+      "stable_id": "",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9617174/",
+      "domain": "clinical cardiology",
+      "round_ids": [],
+      "source_kind": "peer-reviewed randomized trial",
+      "venue": "JAMA Network Open",
+      "tier": "ordinary_a",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "cardiology-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "The intervention improves measured care-seeking intention/attitudes; actual emergency care-seeking behavior and clinical outcomes are stronger downstream claims."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:cardiology-ordinary-b",
+      "identity_status": "benchmark-source",
+      "title": "Effect of a Multicomponent Intervention Delivered on a Web-Based Platform on Hypertension Control: A Cluster Randomized Clinical Trial",
+      "authors": "",
+      "year": 2022,
+      "stable_id": "",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9856259/",
+      "domain": "clinical cardiology",
+      "round_ids": [],
+      "source_kind": "peer-reviewed cluster randomized trial",
+      "venue": "JAMA Network Open",
+      "tier": "ordinary_b",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "cardiology-ordinary-b",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Improved BP control in the studied communities is direct; broad public-health transfer across diverse populations extends beyond the enrolled clusters."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:catalysis-flagship",
+      "identity_status": "benchmark-source",
+      "title": "A scalable method for preparing Cu electrocatalysts that convert CO2 into C2+ products",
+      "authors": "",
+      "year": 2020,
+      "stable_id": "",
+      "source_url": "https://www.nature.com/articles/s41467-020-16998-9",
+      "domain": "catalysis",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Nature Communications",
+      "tier": "flagship_high_attention",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "catalysis-flagship",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH07",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "stability-crossdomain-8",
+          "path": "benchmarks/stability-crossdomain-8/case_specs.json",
+          "case_id": "ST08",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "C2+ Faradaic efficiency and preparation performance are direct; identifying defect density/low roughness as the required active causal explanation is a stronger mechanistic claim."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:catalysis-low",
+      "identity_status": "benchmark-source",
+      "title": "Pitfalls in identifying active catalyst species",
+      "authors": "",
+      "year": 2020,
+      "stable_id": "",
+      "source_url": "https://www.nature.com/articles/s41467-020-18192-3",
+      "domain": "catalysis",
+      "round_ids": [],
+      "source_kind": "Matters Arising",
+      "venue": "Nature Communications",
+      "tier": "low_attention_nontraditional",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "catalysis-low",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH08",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "partially in scope",
+        "narrow_claim_support": "partial",
+        "broad_claim_support": "insufficient",
+        "main_boundary": "As a critique of another article, its strongest conclusions structurally depend on the target paper and characterization logic; venue prestige does not remove that external dependency."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:catalysis-ordinary-a",
+      "identity_status": "benchmark-source",
+      "title": "Iodide-mediated Cu catalyst restructuring during CO2 electroreduction",
+      "authors": "",
+      "year": 2022,
+      "stable_id": "",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9255670/",
+      "domain": "catalysis",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Journal of Materials Chemistry A",
+      "tier": "ordinary_a",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "catalysis-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Observed restructuring and selectivity shifts are direct; assigning a unique active species/pathway from dynamic morphology remains mechanistically harder."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:catalysis-ordinary-b",
+      "identity_status": "benchmark-source",
+      "title": "Experimental and numerical investigation of NO oxidation on Pt/Al2O3- and NOx storage on Pt/BaO/Al2O3-catalysts",
+      "authors": "",
+      "year": 2022,
+      "stable_id": "",
+      "source_url": "https://pubs.rsc.org/en/content/articlehtml/2022/cy/d2cy00572g",
+      "domain": "catalysis",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Catalysis Science & Technology",
+      "tier": "ordinary_b",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "catalysis-ordinary-b",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Measured spatial/temporal NO behavior is direct; fitted kinetic mechanisms reproduce the data but are not equivalent to independently validated unique mechanisms."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:climate-flagship",
+      "identity_status": "benchmark-source",
+      "title": "Assessing the observed impact of anthropogenic climate change",
+      "authors": "",
+      "year": 2016,
+      "stable_id": "",
+      "source_url": "https://www.nature.com/articles/nclimate2896",
+      "domain": "climate science",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Nature Climate Change",
+      "tier": "flagship_high_attention",
+      "access": "abstract/metadata in screening pass",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "climate-flagship",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Attribution is stronger for temperature-related impacts than precipitation impacts; the paper itself reports that asymmetry, so a uniform all-impact conclusion would overreach."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:climate-low",
+      "identity_status": "benchmark-source",
+      "title": "Surface Infrared Forcing as a Primary Driver of Contemporary Global Warming: A Synthesis of Biophysical, Spectral, and Land-Use Evidence",
+      "authors": "",
+      "year": 2026,
+      "stable_id": "",
+      "source_url": "https://eartharxiv.org/repository/view/13410/",
+      "domain": "climate science",
+      "round_ids": [],
+      "source_kind": "preprint synthesis",
+      "venue": "EarthArXiv",
+      "tier": "low_attention_nontraditional",
+      "access": "public preprint",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "climate-low",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "partially in scope",
+        "narrow_claim_support": "partial",
+        "broad_claim_support": "insufficient",
+        "main_boundary": "Most support is imported from heterogeneous cited literature; the synthesis does not independently establish the strong claim that land-surface infrared forcing is a co-primary global warming driver."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:climate-ordinary-a",
+      "identity_status": "benchmark-source",
+      "title": "Anthropogenic climate change has driven over 5 million km2 of drylands towards desertification",
+      "authors": "",
+      "year": 2020,
+      "stable_id": "",
+      "source_url": "https://www.nature.com/articles/s41467-020-17710-7",
+      "domain": "climate science",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Nature Communications",
+      "tier": "ordinary_a",
+      "access": "public full text available",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "climate-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "The modeled attribution within the study's dryland framework is supportable; extrapolating to all desertification mechanisms or regions is broader."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:climate-ordinary-b",
+      "identity_status": "benchmark-source",
+      "title": "Attribution of 2020 hurricane season extreme rainfall to human-induced climate change",
+      "authors": "",
+      "year": 2022,
+      "stable_id": "",
+      "source_url": "https://www.nature.com/articles/s41467-022-29379-1",
+      "domain": "climate science",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Nature Communications",
+      "tier": "ordinary_b",
+      "access": "public full text available",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "climate-ordinary-b",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "The counterfactual hindcast supports a bounded attribution of 2020-season extreme rainfall; it does not by itself establish every hurricane hazard or future-season effect."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:ecology-flagship",
+      "identity_status": "benchmark-source",
+      "title": "Accelerated modern human-induced species losses: Entering the sixth mass extinction",
+      "authors": "",
+      "year": 2015,
+      "stable_id": "",
+      "source_url": "https://www.science.org/doi/10.1126/sciadv.1400253",
+      "domain": "ecology",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Science Advances",
+      "tier": "flagship_high_attention",
+      "access": "public full text available",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "ecology-flagship",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Observed extinction rates under conservative background assumptions are directly analyzable; the broader 'sixth mass extinction' label adds scale and definitional reach."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:ecology-low",
+      "identity_status": "benchmark-source",
+      "title": "Ecoacoustics as a novel tool for assessing pond restoration success: Results of a pilot study",
+      "authors": "",
+      "year": 2021,
+      "stable_id": "",
+      "source_url": "https://discovery.ucl.ac.uk/id/eprint/10128919/",
+      "domain": "ecology",
+      "round_ids": [],
+      "source_kind": "small pilot peer-reviewed study",
+      "venue": "Aquatic Conservation: Marine and Freshwater Ecosystems",
+      "tier": "low_attention_nontraditional",
+      "access": "public repository full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "ecology-low",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "partial",
+        "broad_claim_support": "partial",
+        "main_boundary": "Pilot soundscape differences may be useful locally, but treating acoustic indices as a general biodiversity/restoration proxy requires broader validation."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:ecology-ordinary-a",
+      "identity_status": "benchmark-source",
+      "title": "Microclimatic Warming Leads to a Decrease in Species and Growth Form Diversity: Insights From a Tropical Alpine Grassland",
+      "authors": "",
+      "year": 2021,
+      "stable_id": "",
+      "source_url": "https://www.frontiersin.org/journals/ecology-and-evolution/articles/10.3389/fevo.2021.673655/full",
+      "domain": "ecology",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Frontiers in Ecology and Evolution",
+      "tier": "ordinary_a",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "ecology-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Seven-year OTC effects in the study site are direct; long-term transition to shrub-dominated ecosystems is explicitly a further projection."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:ecology-ordinary-b",
+      "identity_status": "benchmark-source",
+      "title": "Impact of round goby on native invertebrate communities - An experimental field study",
+      "authors": "",
+      "year": 2021,
+      "stable_id": "",
+      "source_url": "https://www.sciencedirect.com/science/article/pii/S0022098121000617",
+      "domain": "ecology",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Journal of Experimental Marine Biology and Ecology",
+      "tier": "ordinary_b",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "ecology-ordinary-b",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "stability-crossdomain-8",
+          "path": "benchmarks/stability-crossdomain-8/case_specs.json",
+          "case_id": "ST07",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "The 12-cage local predation effect is direct; claims about trophic cascades, ecosystem functioning, and other invaded areas are downstream generalization."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:education-flagship",
+      "identity_status": "benchmark-source",
+      "title": "Experimental Estimates of Education Production Functions",
+      "authors": "",
+      "year": 1999,
+      "stable_id": "",
+      "source_url": "https://academic.oup.com/qje/article-abstract/114/2/497/1844226",
+      "domain": "education",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Quarterly Journal of Economics",
+      "tier": "flagship_high_attention",
+      "access": "abstract plus accessible archived PDF",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "education-flagship",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Random assignment supports class-size effects in Project STAR; later-year/subgroup/general population claims depend on attrition, transitions, and external generality."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:education-low",
+      "identity_status": "benchmark-source",
+      "title": "Learning How to Order Imaging Tests and Make Subsequent Clinical Decisions: a Randomized Study of the Effectiveness of a Virtual Learning Environment for Medical Students",
+      "authors": "",
+      "year": 2021,
+      "stable_id": "",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8368962/",
+      "domain": "education",
+      "round_ids": [],
+      "source_kind": "small peer-reviewed randomized study",
+      "venue": "Medical Science Educator",
+      "tier": "low_attention_nontraditional",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "education-low",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "The blinded OSCE difference supports this course/cohort; 26 students cannot establish broad curricular generality."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:education-ordinary-a",
+      "identity_status": "benchmark-source",
+      "title": "Flipped learning enhances non-technical skill performance in simulation-based education: a randomised controlled trial",
+      "authors": "",
+      "year": 2021,
+      "stable_id": "",
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/34158030/",
+      "domain": "education",
+      "round_ids": [],
+      "source_kind": "peer-reviewed randomized trial",
+      "venue": "BMC Medical Education",
+      "tier": "ordinary_a",
+      "access": "public abstract/full text via BMC",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "education-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Measured NTS performance in this training context improved; transfer to clinical behavior or other educational settings is broader."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:education-ordinary-b",
+      "identity_status": "benchmark-source",
+      "title": "Not just words! Effects of a light-touch randomized encouragement intervention on students' exam grades, self-efficacy, motivation, and test anxiety",
+      "authors": "",
+      "year": 2021,
+      "stable_id": "",
+      "source_url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0256960",
+      "domain": "education",
+      "round_ids": [],
+      "source_kind": "peer-reviewed randomized field experiment",
+      "venue": "PLOS ONE",
+      "tier": "ordinary_b",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "education-ordinary-b",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "The null average exam-grade effect is informative; secondary self-efficacy patterns should not be laundered into a demonstrated achievement mechanism."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:finance-low",
+      "identity_status": "benchmark-source",
+      "title": "Does a stacked bid side actually mean support?",
+      "authors": "",
+      "year": 2026,
+      "stable_id": "",
+      "source_url": "https://quantumflow.tech/learn/order-book-imbalance/",
+      "domain": "financial market microstructure",
+      "round_ids": [],
+      "source_kind": "technical blog",
+      "venue": "QuantumFlow",
+      "tier": "low_attention_nontraditional",
+      "access": "public full article",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "finance-low",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH06",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "insufficient",
+        "main_boundary": "The five-market directional association can be supported despite blog status; the article's own return calculation shows it does not establish a tradeable strategy after costs."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:finance-ordinary-a",
+      "identity_status": "benchmark-source",
+      "title": "Queue Imbalance as a One-Tick-Ahead Price Predictor in a Limit Order Book",
+      "authors": "",
+      "year": 2016,
+      "stable_id": "",
+      "source_url": "https://papers.ssrn.com/sol3/Delivery.cfm/SSRN_ID2702117_code2353837.pdf?abstractid=2702117&mirid=1&type=2",
+      "domain": "financial market microstructure",
+      "round_ids": [],
+      "source_kind": "peer-reviewed/working paper",
+      "venue": "Market Microstructure and Liquidity",
+      "tier": "ordinary_a",
+      "access": "public working-paper PDF",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "finance-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "One-tick predictive association is supported in the selected stocks; economic/actionable trading value and market-wide persistence are different claims."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:finance-ordinary-b",
+      "identity_status": "benchmark-source",
+      "title": "Deep Limit Order Book Forecasting",
+      "authors": "",
+      "year": 2024,
+      "stable_id": "",
+      "source_url": "https://arxiv.org/abs/2403.09267",
+      "domain": "financial market microstructure",
+      "round_ids": [],
+      "source_kind": "preprint",
+      "venue": "arXiv",
+      "tier": "ordinary_b",
+      "access": "public preprint",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "finance-ordinary-b",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Forecast metrics can be strong while actionable trading performance remains weak; the paper itself explicitly separates those endpoints."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:hci-flagship",
+      "identity_status": "benchmark-source",
+      "title": "Why Johnny Can't Encrypt: A Usability Evaluation of PGP 5.0",
+      "authors": "",
+      "year": 1999,
+      "stable_id": "",
+      "source_url": "https://www.usenix.org/conference/8th-usenix-security-symposium/why-johnny-cant-encrypt-usability-evaluation-pgp-50",
+      "domain": "human-computer interaction",
+      "round_ids": [],
+      "source_kind": "peer-reviewed conference paper",
+      "venue": "USENIX Security Symposium",
+      "tier": "flagship_high_attention",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "hci-flagship",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "The lab study strongly supports usability failure for the tested novices/tasks; 'most computer users' and general security-interface theory extend beyond the small case study."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:hci-low",
+      "identity_status": "benchmark-source",
+      "title": "Adaptive User Interface Generation Through Reinforcement Learning: A Data-Driven Approach to Personalization and Optimization",
+      "authors": "",
+      "year": 2024,
+      "stable_id": "",
+      "source_url": "https://arxiv.org/abs/2412.16837",
+      "domain": "human-computer interaction",
+      "round_ids": [],
+      "source_kind": "preprint",
+      "venue": "arXiv",
+      "tier": "low_attention_nontraditional",
+      "access": "public preprint",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "hci-low",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "partial",
+        "broad_claim_support": "insufficient",
+        "main_boundary": "Dataset-level CTR/retention evaluation may support bounded benchmark performance; claims about real users and continuously personalized interfaces require real deployment/user evidence."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:hci-ordinary-a",
+      "identity_status": "benchmark-source",
+      "title": "Adapting User Interfaces with Model-based Reinforcement Learning",
+      "authors": "",
+      "year": 2021,
+      "stable_id": "",
+      "source_url": "https://doi.org/10.1145/3411764.3445497",
+      "domain": "human-computer interaction",
+      "round_ids": [],
+      "source_kind": "peer-reviewed conference paper",
+      "venue": "CHI 2021",
+      "tier": "ordinary_a",
+      "access": "abstract/metadata plus public author copies may be available",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "hci-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "The adaptive-menu comparison supports tested policies; broad claims about adaptive interfaces across tasks/users require external validation."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:hci-ordinary-b",
+      "identity_status": "benchmark-source",
+      "title": "The Image of the Interface: How People Use Landmarks to Develop Spatial Memory of Commands in Graphical Interfaces",
+      "authors": "",
+      "year": 2021,
+      "stable_id": "",
+      "source_url": "https://samicit06.github.io/publication/chi21Sami/index.html",
+      "domain": "human-computer interaction",
+      "round_ids": [],
+      "source_kind": "peer-reviewed conference paper",
+      "venue": "CHI 2021",
+      "tier": "ordinary_b",
+      "access": "public author page/full paper link",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "hci-ordinary-b",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Observed reliance on landmarks in four GUIs is direct; prescriptive guidelines for future GUI memorability are broader design generalization."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:nlp-flagship",
+      "identity_status": "benchmark-source",
+      "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+      "authors": "",
+      "year": 2019,
+      "stable_id": "",
+      "source_url": "https://aclanthology.org/N19-1423/",
+      "domain": "natural language processing",
+      "round_ids": [],
+      "source_kind": "peer-reviewed conference paper",
+      "venue": "NAACL-HLT",
+      "tier": "flagship_high_attention",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "nlp-flagship",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH09",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Eleven-task benchmark gains are direct; the label 'language understanding' and general superiority outside tested tasks/models have broader construct/generality reach."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:nlp-low",
+      "identity_status": "benchmark-source",
+      "title": "Let's talk about LLM evaluation",
+      "authors": "",
+      "year": 2024,
+      "stable_id": "",
+      "source_url": "https://huggingface.co/blog/clefourrier/llm-evaluation",
+      "domain": "natural language processing",
+      "round_ids": [],
+      "source_kind": "technical community blog",
+      "venue": "Hugging Face Blog",
+      "tier": "low_attention_nontraditional",
+      "access": "public full article",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "nlp-low",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH10",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "partially in scope",
+        "narrow_claim_support": "partial",
+        "broad_claim_support": "unclear",
+        "main_boundary": "The article contains useful evaluation heuristics and examples, but many prescriptions are experiential/synthetic and are not organized as a single paper-local empirical evidence chain."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:nlp-ordinary-a",
+      "identity_status": "benchmark-source",
+      "title": "Are All the Datasets in Benchmark Necessary? A Pilot Study of Dataset Evaluation for Text Classification",
+      "authors": "",
+      "year": 2022,
+      "stable_id": "",
+      "source_url": "https://aclanthology.org/2022.naacl-main.213/",
+      "domain": "natural language processing",
+      "round_ids": [],
+      "source_kind": "peer-reviewed conference paper",
+      "venue": "NAACL-HLT",
+      "tier": "ordinary_a",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "nlp-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Discrimination differences among 9 datasets/36 systems are direct; predicting benchmark usefulness for unseen datasets is explicitly preliminary."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:nlp-ordinary-b",
+      "identity_status": "benchmark-source",
+      "title": "StructEval: Deepen and Broaden Large Language Model Assessment via Structured Evaluation",
+      "authors": "",
+      "year": 2024,
+      "stable_id": "",
+      "source_url": "https://aclanthology.org/2024.findings-acl.314/",
+      "domain": "natural language processing",
+      "round_ids": [],
+      "source_kind": "peer-reviewed conference paper",
+      "venue": "Findings of ACL",
+      "tier": "ordinary_b",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "nlp-ordinary-b",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Results on three benchmarks can support local robustness/consistency; broad resistance to contamination/bias across LLM evaluation regimes is a wider claim."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:sensor-flagship",
+      "identity_status": "benchmark-source",
+      "title": "The BErkeley Atmospheric CO2 Observation Network: field calibration and evaluation of low-cost air quality sensors",
+      "authors": "",
+      "year": 2018,
+      "stable_id": "",
+      "source_url": "https://amt.copernicus.org/articles/11/1937/2018/",
+      "domain": "sensor engineering",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Atmospheric Measurement Techniques",
+      "tier": "flagship_high_attention",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "sensor-flagship",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH11",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Field co-location/calibration performance is direct; transfer to new sensor lots, environments, and long-term drift regimes needs independent validation."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:sensor-low",
+      "identity_status": "benchmark-source",
+      "title": "A temporal deep learning framework for calibration of low-cost air quality sensors",
+      "authors": "",
+      "year": 2026,
+      "stable_id": "",
+      "source_url": "https://arxiv.org/abs/2604.21527",
+      "domain": "sensor engineering",
+      "round_ids": [],
+      "source_kind": "preprint",
+      "venue": "arXiv",
+      "tier": "low_attention_nontraditional",
+      "access": "public preprint",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "sensor-low",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH12",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Unseen temporal-window results and regulatory uncertainty checks support local calibration performance; one network does not establish general compliance across devices/cities."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:sensor-ordinary-a",
+      "identity_status": "benchmark-source",
+      "title": "Calibration of SO2 and NO2 Electrochemical Sensors via a Training and Testing Method in an Industrial Coastal Environment",
+      "authors": "",
+      "year": 2022,
+      "stable_id": "",
+      "source_url": "https://www.mdpi.com/1424-8220/22/19/7281",
+      "domain": "sensor engineering",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Sensors",
+      "tier": "ordinary_a",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "sensor-ordinary-a",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Relocated field test supports the studied environment; 'replicable in similar environments' remains conditional on temperature/humidity and sensor-context transfer."
+      }
+    },
+    {
+      "evidence_id": "benchmark:tiered-source-40:sensor-ordinary-b",
+      "identity_status": "benchmark-source",
+      "title": "Development and Calibration of a Low-Cost, Piezoelectric Rainfall Sensor through Machine Learning",
+      "authors": "",
+      "year": 2022,
+      "stable_id": "",
+      "source_url": "https://www.mdpi.com/1424-8220/22/17/6638",
+      "domain": "sensor engineering",
+      "round_ids": [],
+      "source_kind": "peer-reviewed journal",
+      "venue": "Sensors",
+      "tier": "ordinary_b",
+      "access": "public full text",
+      "test_surfaces": [
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "sensor-ordinary-b",
+          "status": "benchmark-spec"
+        }
+      ],
+      "current_judgment": {
+        "scope_status": "in scope",
+        "narrow_claim_support": "sufficient",
+        "broad_claim_support": "partial",
+        "main_boundary": "Co-located prototype calibration supports feasibility in tested rainfall events; operational-network accuracy and environmental transfer require broader validation."
+      }
+    },
+    {
       "evidence_id": "legacy:ablationbench",
       "identity_status": "legacy-fixture",
       "title": "ablationbench",
@@ -389,6 +1596,12 @@
           "kind": "legacy-regression",
           "path": "tests/fixtures/adversarial-care-coordination-before-after-2009-audit.md",
           "status": "contract-pass"
+        },
+        {
+          "kind": "claim-selection-12",
+          "path": "benchmarks/claim-selection-12/case_specs.json",
+          "case_id": "CS07",
+          "status": "benchmark-spec"
         }
       ],
       "current_judgment": null
@@ -484,6 +1697,18 @@
           "kind": "legacy-regression",
           "path": "tests/fixtures/air-quality-cfd-audit.md",
           "status": "contract-pass"
+        },
+        {
+          "kind": "stability-crossdomain-8",
+          "path": "benchmarks/stability-crossdomain-8/case_specs.json",
+          "case_id": "ST04",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "claim-selection-12",
+          "path": "benchmarks/claim-selection-12/case_specs.json",
+          "case_id": "CS06",
+          "status": "benchmark-spec"
         }
       ],
       "current_judgment": null
@@ -579,6 +1804,18 @@
           "kind": "legacy-regression",
           "path": "tests/fixtures/hea-aluminum-audit.md",
           "status": "contract-pass"
+        },
+        {
+          "kind": "stability-crossdomain-8",
+          "path": "benchmarks/stability-crossdomain-8/case_specs.json",
+          "case_id": "ST02",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "claim-selection-12",
+          "path": "benchmarks/claim-selection-12/case_specs.json",
+          "case_id": "CS02",
+          "status": "benchmark-spec"
         }
       ],
       "current_judgment": null
@@ -617,6 +1854,12 @@
           "kind": "legacy-regression",
           "path": "tests/fixtures/historical-bmd-gwas-replication-2010-audit.md",
           "status": "contract-pass"
+        },
+        {
+          "kind": "claim-selection-12",
+          "path": "benchmarks/claim-selection-12/case_specs.json",
+          "case_id": "CS08",
+          "status": "benchmark-spec"
         }
       ],
       "current_judgment": null
@@ -636,6 +1879,12 @@
           "kind": "legacy-regression",
           "path": "tests/fixtures/historical-brain-beauty-2011-audit.md",
           "status": "contract-pass"
+        },
+        {
+          "kind": "claim-selection-12",
+          "path": "benchmarks/claim-selection-12/case_specs.json",
+          "case_id": "CS04",
+          "status": "benchmark-spec"
         }
       ],
       "current_judgment": null
@@ -712,6 +1961,24 @@
           "kind": "legacy-regression",
           "path": "tests/fixtures/historical-order-book-2010-audit.md",
           "status": "contract-pass"
+        },
+        {
+          "kind": "tiered-source-40",
+          "path": "benchmarks/tiered-source-40/cases.json",
+          "case_id": "finance-flagship",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "metadata-halo-12",
+          "path": "benchmarks/metadata-halo-12/packet_specs.json",
+          "case_id": "MH05",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "stability-crossdomain-8",
+          "path": "benchmarks/stability-crossdomain-8/case_specs.json",
+          "case_id": "ST06",
+          "status": "benchmark-spec"
         }
       ],
       "current_judgment": null
@@ -788,6 +2055,18 @@
           "kind": "legacy-regression",
           "path": "tests/fixtures/resnet-smoke-audit.md",
           "status": "contract-pass"
+        },
+        {
+          "kind": "stability-crossdomain-8",
+          "path": "benchmarks/stability-crossdomain-8/case_specs.json",
+          "case_id": "ST03",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "claim-selection-12",
+          "path": "benchmarks/claim-selection-12/case_specs.json",
+          "case_id": "CS05",
+          "status": "benchmark-spec"
         }
       ],
       "current_judgment": null
@@ -807,6 +2086,18 @@
           "kind": "legacy-regression",
           "path": "tests/fixtures/social-hyperconnection-audit.md",
           "status": "contract-pass"
+        },
+        {
+          "kind": "stability-crossdomain-8",
+          "path": "benchmarks/stability-crossdomain-8/case_specs.json",
+          "case_id": "ST05",
+          "status": "benchmark-spec"
+        },
+        {
+          "kind": "claim-selection-12",
+          "path": "benchmarks/claim-selection-12/case_specs.json",
+          "case_id": "CS01",
+          "status": "benchmark-spec"
         }
       ],
       "current_judgment": null
