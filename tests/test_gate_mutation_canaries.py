@@ -194,6 +194,7 @@ def special_canary_passes(
         artifacts = sabotage.pristine_workflow("simple", inventory_fixture)
 
         if scenario == "recompute_returns_none":
+            artifacts["route"] = None
             patcher = mock.patch.object(
                 gate_module.build_context,
                 "recompute_route",
