@@ -27,6 +27,9 @@ ALLOWED = markdown.evidence_labels((REFS / "evidence-types.md").read_text(encodi
 
 def v2_ledger():
     data = copy.deepcopy(render.TEMPLATE)
+    data["ledger_schema_version"] = 2
+    for claim in data["claims"]:
+        claim["support"].pop("evidence_relations", None)
     data["paper_type"] = "controlled empirical study"
     data["reader_conclusion"] = "Three bounded claims are separated from their inferential reach."
     for index, claim in enumerate(data["claims"], start=1):
@@ -235,7 +238,7 @@ class ReasoningGraphTests(unittest.TestCase):
             all(edge["reasoning_status"] == "qualified" for edge in acc_c3)
         )
 
-    def test_all_source_backed_ledgers_are_v2_and_reasoning_closed(self):
+    def test_all_source_backed_ledgers_are_v3_and_reasoning_closed(self):
         ledgers = []
         for round_root in sorted(RUN_ROOT.glob("*-round-*")):
             manifest = json.loads(
@@ -248,9 +251,10 @@ class ReasoningGraphTests(unittest.TestCase):
         self.assertGreaterEqual(len(ledgers), 10)
         for case_id, data in ledgers:
             with self.subTest(case_id=case_id):
-                self.assertEqual(data.get("ledger_schema_version"), 2)
+                self.assertEqual(data.get("ledger_schema_version"), 3)
                 self.assertEqual(render.validate_ledger(data), [])
                 self.assertEqual(gate.validate_reasoning_closure(data), [])
+                self.assertEqual(gate.validate_evidence_relation_closure(data), [])
                 if data["evidence_viability"] == "non-auditable":
                     self.assertEqual(data.get("reasoning_edges"), [])
                 else:
