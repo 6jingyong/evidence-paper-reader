@@ -101,6 +101,13 @@ class BlindRealPaperBenchmarkTests(unittest.TestCase):
                     "claim_type": "observational",
                     "conclusion_strength": "medium",
                     "evidence_nodes": [f"E{index}"],
+                    "evidence_relations": [
+                        {
+                            "evidence_node": f"E{index}",
+                            "relation": "supports",
+                            "reason": "The evidence node bears on this bounded claim.",
+                        }
+                    ],
                     "upstream_claims": [],
                     "support_level": "partial",
                     "source_location": f"Results section {index}",
@@ -113,6 +120,13 @@ class BlindRealPaperBenchmarkTests(unittest.TestCase):
                     "edge_id": f"R{index}",
                     "target_claim": index,
                     "evidence_nodes": [f"E{index}"],
+                    "evidence_relations": [
+                        {
+                            "evidence_node": f"E{index}",
+                            "relation": "supports",
+                            "reason": "The evidence node bears on this bounded claim.",
+                        }
+                    ],
                     "upstream_claims": [],
                     "inference_type": "direct-result",
                     "reasoning_status": "qualified",
@@ -147,6 +161,13 @@ class BlindRealPaperBenchmarkTests(unittest.TestCase):
                     "claim_type": "observational",
                     "conclusion_strength": "medium",
                     "evidence_nodes": [f"E{index}"],
+                    "evidence_relations": [
+                        {
+                            "evidence_node": f"E{index}",
+                            "relation": "supports",
+                            "reason": "The evidence node bears on this bounded claim.",
+                        }
+                    ],
                     "upstream_claims": [],
                     "support_level": "sufficient",
                     "source_location": f"Results {index}",
@@ -159,6 +180,13 @@ class BlindRealPaperBenchmarkTests(unittest.TestCase):
                     "edge_id": f"R{index}",
                     "target_claim": index,
                     "evidence_nodes": [f"E{index}"],
+                    "evidence_relations": [
+                        {
+                            "evidence_node": f"E{index}",
+                            "relation": "supports",
+                            "reason": "The evidence node bears on this bounded claim.",
+                        }
+                    ],
                     "upstream_claims": [],
                     "inference_type": "direct-result",
                     "reasoning_status": "direct",
