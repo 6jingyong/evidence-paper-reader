@@ -1,4 +1,3 @@
-import hashlib
 import importlib.util
 import json
 import tempfile
@@ -7,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
 VALIDATOR = ROOT / "validation-runs" / "real-papers" / "validate_source_runs.py"
+PREPARE = ROOT / "benchmarks" / "source-to-audit-10" / "prepare_source.py"
 
 
 def load_module(name: str, path: Path):
@@ -18,6 +18,7 @@ def load_module(name: str, path: Path):
 
 
 validator = load_module("durable_source_validator", VALIDATOR)
+prepare = load_module("durable_source_prepare", PREPARE)
 
 
 def write_valid_run(root: Path):
@@ -43,19 +44,25 @@ def write_valid_run(root: Path):
     }
     (run_dir / "run.json").write_text(json.dumps(run), encoding="utf-8")
 
-    payload = b"normalized source bytes used by the reviewer"
-    source_input = {
-        "case_id": case_id,
-        "canonical_source_url": "https://arxiv.org/html/1706.03762v7",
-        "stable_id": "arXiv:1706.03762",
-        "acquired_at": "2026-09-26T00:00:00+00:00",
-        "acquisition_method": "test fixture",
-        "normalization_method": "identity text",
-        "review_material": {
-            "sha256": hashlib.sha256(payload).hexdigest(),
-            "bytes": len(payload),
-        },
-    }
+    primary = root / "attention-primary.txt"
+    primary.write_text(
+        "normalized source bytes used by the reviewer",
+        encoding="utf-8",
+    )
+    bundle, components = prepare.build_bundle(
+        case_id,
+        {"primary": primary},
+    )
+    material = root / "attention-bundle.txt"
+    material.write_bytes(bundle)
+    source_input = prepare.build_manifest(
+        case_id,
+        material,
+        acquisition_method="test fixture",
+        normalization_method="utf8-source-bundle-v1",
+        acquired_at="2026-09-26T00:00:00+00:00",
+        components=components,
+    )
     (source_inputs / f"{case_id}.json").write_text(
         json.dumps(source_input),
         encoding="utf-8",
@@ -137,6 +144,33 @@ class DurableSourceRunTests(unittest.TestCase):
             errors = validator.validate_run(run_dir)
             self.assertTrue(
                 any("repository_answer_keys_accessible must be false" in e for e in errors),
+                errors,
+            )
+
+    def test_source_profile_hash_must_match_current_contract(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            run_dir = write_valid_run(Path(tmp))
+            path = run_dir / "source-inputs" / "attention-is-all-you-need-2017.json"
+            data = json.loads(path.read_text(encoding="utf-8"))
+            data["acquisition_profile"]["profile_sha256"] = "0" * 64
+            path.write_text(json.dumps(data), encoding="utf-8")
+            errors = validator.validate_run(run_dir)
+            self.assertTrue(
+                any("acquisition_profile does not match" in e for e in errors),
+                errors,
+            )
+
+    def test_required_source_component_cannot_be_dropped(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            run_dir = write_valid_run(root)
+            path = run_dir / "source-inputs" / "attention-is-all-you-need-2017.json"
+            data = json.loads(path.read_text(encoding="utf-8"))
+            data["components"] = []
+            path.write_text(json.dumps(data), encoding="utf-8")
+            errors = validator.validate_run(run_dir)
+            self.assertTrue(
+                any("missing required id" in e for e in errors),
                 errors,
             )
 
