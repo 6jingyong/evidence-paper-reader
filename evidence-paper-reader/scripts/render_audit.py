@@ -35,7 +35,7 @@ DEPENDENCE = {
     "unclear",
 }
 VALUE_LEVELS = {"high", "medium", "low", "unclear"}
-LEDGER_SCHEMA_VERSION = 2
+LEDGER_SCHEMA_VERSION = 3
 INFERENCE_TYPES = {
     "direct-result",
     "comparison",
@@ -48,6 +48,7 @@ INFERENCE_TYPES = {
     "external-import",
 }
 REASONING_STATUSES = {"direct", "supported", "qualified", "unsupported", "unclear"}
+EVIDENCE_RELATIONS = {"supports", "undermines", "mixed", "contextual"}
 
 VALUE_KEYS = [
     ("result", "result value"),
@@ -73,6 +74,13 @@ TEMPLATE = {
                 "evidence_type": [],
                 "evidence_provenance": "paper-local",
                 "evidence_nodes": ["E1"],
+                "evidence_relations": [
+                    {
+                        "evidence_node": "E1",
+                        "relation": "supports",
+                        "reason": "The evidence node bears directly on the bounded claim."
+                    }
+                ],
                 "upstream_claims": [],
                 "evidence_dependence": "single-source",
                 "source_location": "",
@@ -89,6 +97,13 @@ TEMPLATE = {
                 "evidence_type": [],
                 "evidence_provenance": "paper-local",
                 "evidence_nodes": ["E2"],
+                "evidence_relations": [
+                    {
+                        "evidence_node": "E2",
+                        "relation": "supports",
+                        "reason": "The evidence node bears directly on the bounded claim."
+                    }
+                ],
                 "upstream_claims": [],
                 "evidence_dependence": "single-source",
                 "source_location": "",
@@ -105,6 +120,13 @@ TEMPLATE = {
                 "evidence_type": [],
                 "evidence_provenance": "paper-local",
                 "evidence_nodes": ["E3"],
+                "evidence_relations": [
+                    {
+                        "evidence_node": "E3",
+                        "relation": "supports",
+                        "reason": "The evidence node bears directly on the bounded claim."
+                    }
+                ],
                 "upstream_claims": [],
                 "evidence_dependence": "single-source",
                 "source_location": "",
@@ -210,6 +232,15 @@ def validate_ledger(data: dict) -> list[str]:
 
     no_claim_audit = scope == "out of scope" or viability == "non-auditable"
 
+    schema_version = data.get("ledger_schema_version", 1)
+    if not isinstance(schema_version, int) or schema_version < 1:
+        errors.append("ledger_schema_version must be a positive integer")
+        schema_version = 1
+    if schema_version > LEDGER_SCHEMA_VERSION:
+        errors.append(
+            f"ledger_schema_version {schema_version} is newer than supported version {LEDGER_SCHEMA_VERSION}"
+        )
+
     if no_claim_audit:
         if claims:
             errors.append("out-of-scope or non-auditable ledgers must use an empty claims list")
@@ -269,6 +300,45 @@ def validate_ledger(data: dict) -> list[str]:
             if node in normalized_nodes:
                 errors.append(f"claim {index}: duplicate evidence node {node}")
             normalized_nodes.append(node)
+
+        if schema_version >= 3:
+            relations = support.get("evidence_relations")
+            if not isinstance(relations, list):
+                errors.append(
+                    f"claim {index}.support.evidence_relations must be a list for schema v3"
+                )
+                relations = []
+            relation_nodes = []
+            for relation_index, relation in enumerate(relations, start=1):
+                if not isinstance(relation, dict):
+                    errors.append(
+                        f"claim {index}.support.evidence_relations[{relation_index}] must be an object"
+                    )
+                    continue
+                node = relation.get("evidence_node")
+                if not isinstance(node, str):
+                    errors.append(
+                        f"claim {index}.support.evidence_relations[{relation_index}].evidence_node must be a string"
+                    )
+                    continue
+                relation_nodes.append(node)
+                _choice(
+                    relation.get("relation"),
+                    EVIDENCE_RELATIONS,
+                    f"claim {index}.support.evidence_relations[{relation_index}].relation",
+                    errors,
+                )
+                _text(
+                    relation.get("reason"),
+                    f"claim {index}.support.evidence_relations[{relation_index}].reason",
+                    errors,
+                )
+            if len(relation_nodes) != len(set(relation_nodes)):
+                errors.append(f"claim {index}: duplicate evidence relation node")
+            if set(relation_nodes) != set(normalized_nodes):
+                errors.append(
+                    f"claim {index}: evidence_relations must cover exactly the claim evidence_nodes"
+                )
 
         upstream = support.get("upstream_claims", [])
         if not isinstance(upstream, list) or not all(isinstance(x, int) for x in upstream):
@@ -330,15 +400,6 @@ def validate_ledger(data: dict) -> list[str]:
                 f"claim {index}: downstream claim cannot be sufficient without new evidence "
                 "when a required upstream claim is not sufficient"
             )
-
-    schema_version = data.get("ledger_schema_version", 1)
-    if not isinstance(schema_version, int) or schema_version < 1:
-        errors.append("ledger_schema_version must be a positive integer")
-        schema_version = 1
-    if schema_version > LEDGER_SCHEMA_VERSION:
-        errors.append(
-            f"ledger_schema_version {schema_version} is newer than supported version {LEDGER_SCHEMA_VERSION}"
-        )
 
     reasoning_edges = data.get("reasoning_edges")
     if schema_version >= 2 and not no_claim_audit:
@@ -574,6 +635,14 @@ def render(data: dict) -> str:
                 f"- evidence type: {' + '.join(x.strip() for x in support['evidence_type'])}",
                 f"- evidence provenance: {support['evidence_provenance']}",
                 f"- evidence nodes: {_join_nodes(support['evidence_nodes'])}",
+            ])
+            if data.get("ledger_schema_version", 1) >= 3:
+                relation_text = " | ".join(
+                    f"{item['evidence_node']}={item['relation']} ({item['reason'].strip()})"
+                    for item in support.get("evidence_relations", [])
+                )
+                lines.append(f"- evidence relations: {relation_text}")
+            lines.extend([
                 f"- upstream claims: {_join_upstream(support.get('upstream_claims', []))}",
                 f"- evidence dependence: {support['evidence_dependence']}",
                 f"- source location: {support['source_location'].strip()}",
