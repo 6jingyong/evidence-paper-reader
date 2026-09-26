@@ -511,7 +511,8 @@
     "G108",
     "G123",
     "G124",
-    "G125"
+    "G125",
+    "G126"
   ],
   "mutation_site_canaries": [
     {
@@ -538,6 +539,11 @@
       "guard": "G125",
       "site": 1,
       "scenario": "shared_reference_body_corruption"
+    },
+    {
+      "guard": "G126",
+      "site": 1,
+      "scenario": "semantic_execution_missing"
     }
   ],
   "logic_weakening_mutations": [
