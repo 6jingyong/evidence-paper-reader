@@ -36,6 +36,7 @@ VIABILITY_FLAGS = {
     "proprietary-black-box",
     "external-dependency-dominant",
     "promotional-asymmetry",
+    "source-integrity-failure",
 }
 EVIDENCE_NODES_PATTERN = re.compile(r"^E[1-9]\d*(?: \+ E[1-9]\d*)*$")
 UPSTREAM_CLAIMS_PATTERN = re.compile(r"^C[1-9]\d*(?: \+ C[1-9]\d*)*$")
