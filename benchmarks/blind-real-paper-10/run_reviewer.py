@@ -40,6 +40,7 @@ INFERENCE_TYPES = {
     "external-import",
 }
 REASONING_STATUS = {"direct", "supported", "qualified", "unsupported", "unclear"}
+EVIDENCE_RELATIONS = {"supports", "undermines", "mixed", "contextual"}
 MODULES = {
     "figure-and-table-traps.md",
     "statistical-traps.md",
@@ -116,6 +117,37 @@ def validate_response(path: Path, case_id: str) -> None:
             raise ValueError(f"claim {index}: evidence_nodes must be a non-empty E-node list")
         if len(nodes) != len(set(nodes)):
             raise ValueError(f"claim {index}: duplicate evidence_nodes")
+
+        relations = claim.get("evidence_relations")
+        if not isinstance(relations, list):
+            raise ValueError(f"claim {index}: evidence_relations must be a list")
+        relation_nodes = []
+        for relation_index, relation in enumerate(relations, start=1):
+            if not isinstance(relation, dict):
+                raise ValueError(
+                    f"claim {index}: evidence relation {relation_index} must be an object"
+                )
+            node = relation.get("evidence_node")
+            if not isinstance(node, str):
+                raise ValueError(
+                    f"claim {index}: evidence relation {relation_index} requires evidence_node"
+                )
+            relation_nodes.append(node)
+            if relation.get("relation") not in EVIDENCE_RELATIONS:
+                raise ValueError(
+                    f"claim {index}: invalid evidence relation for {node}"
+                )
+            reason = relation.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                raise ValueError(
+                    f"claim {index}: evidence relation {node} requires a non-empty reason"
+                )
+        if len(relation_nodes) != len(set(relation_nodes)):
+            raise ValueError(f"claim {index}: duplicate evidence relation nodes")
+        if set(relation_nodes) != set(nodes):
+            raise ValueError(
+                f"claim {index}: evidence_relations must exactly cover evidence_nodes"
+            )
 
         upstream = claim.get("upstream_claims")
         if not isinstance(upstream, list) or not all(isinstance(x, int) for x in upstream):
