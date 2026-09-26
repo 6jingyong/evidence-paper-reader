@@ -1,0 +1,99 @@
+{
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [
+    "selective-success-only",
+    "promotional-asymmetry"
+  ],
+  "paper_type": "tiny randomized diet intervention with many measured outcomes and promotional interpretation",
+  "reader_conclusion": "The article is unusually useful as a stress test because its basic intervention and many measurements are visible, so it should not be rejected merely for being a notorious hoax. The paper reports very small groups, numerous physiological and subjective outcomes, selective emphasis on favorable findings, and a sweeping 'weight loss turbo' conclusion over only three weeks. The narrow reported measurements remain auditable; the broad weight-loss and long-term claims do not follow from them.",
+  "claims": [
+    {
+      "content": "Over the 21-day intervention, the paper reports mean body-weight reductions of about 3.2% in the chocolate-plus-low-carb group and 3.1% in the low-carb-only group, while the unrestricted control group gained weight.",
+      "claim_type": "intervention",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Methods; Results section III.a; Figures 1 and 2",
+        "support_level": "sufficient",
+        "reason": "The article directly reports these group-level weight changes over the short intervention, although the between-diet difference is tiny and the groups are extremely small.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "The paper reports several favorable secondary differences for the chocolate group across ketones, lipid measures, and subjective well-being.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2",
+          "E3"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Methods section II.e-f; Results sections III.b-f; Table 1; Figure 4",
+        "support_level": "sufficient",
+        "reason": "The article visibly reports multiple secondary outcomes and highlights some favorable p-values, but the many measured variables and very small analyzable groups make these findings selection-sensitive.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "Adding high-cocoa chocolate significantly increases the success of weight-loss diets and makes long-term weight loss easier and more successful.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2",
+          "E3"
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Abstract conclusion; Conclusion section IV",
+        "support_level": "insufficient",
+        "reason": "Three weeks of data from tiny groups with many measured outcomes do not establish durable or general weight-loss benefit. The paper's conclusion selectively amplifies favorable signals far beyond the precision and duration of the experiment.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "usable": {
+    "results": "The reported short-term group weight trajectories and listed secondary measurements can be inspected as a worked example of how many outcomes behave in a tiny diet experiment.",
+    "methods_or_design": "The article is valuable as an adversarial example for multiplicity, selective emphasis, tiny-n inference, and the gap between a randomized-looking setup and a durable general conclusion.",
+    "materials_or_documentation": "Diet instructions, chocolate dose, three-week duration, measured variables, repeated weight recording, and some group sizes are exposed well enough to reconstruct the core inferential problem."
+  },
+  "downweight": {
+    "worth_noticing": "The article's visible measurements are useful precisely because the central failure is not missing prose or missing graphs; it is the inferential use of a tiny, many-outcome dataset.",
+    "cautious_or_ignore": "Treat claims of a 'weight loss turbo,' long-term benefit, broad metabolic improvement, or coronary-risk reduction as unsupported by this experiment. Later disclosure that the study was deliberately engineered as a journalism hoax reinforces the need to separate inspectable measurements from persuasive packaging."
+  },
+  "value_breakdown": {
+    "result": "low",
+    "method": "medium",
+    "theory_or_insight": "low",
+    "research_design": "low",
+    "material_or_documentation": "medium"
+  },
+  "uncertainty_and_follow_up": "A credible efficacy test would prespecify a primary endpoint, use an adequately powered sample, correct or control multiplicity, report all outcomes consistently, and follow weight maintenance long enough to test the claimed long-term effect."
+}
