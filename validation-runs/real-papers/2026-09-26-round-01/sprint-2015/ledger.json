@@ -1,0 +1,89 @@
+{
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "large randomized controlled clinical trial",
+  "reader_conclusion": "Within the enrolled high-cardiovascular-risk population without diabetes, the trial directly supports lower rates of the prespecified primary cardiovascular composite and lower all-cause mortality under the intensive systolic-blood-pressure target, while also showing higher rates of several serious adverse events. The benefit claim should therefore be read together with the harm profile and the trial's eligibility boundaries.",
+  "claims": [
+    {
+      "content": "Among the SPRINT participants, targeting systolic blood pressure below 120 mm Hg rather than below 140 mm Hg reduced the rate of the prespecified primary cardiovascular composite outcome.",
+      "claim_type": "intervention",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Methods; Results; Table 2; Figure 3A",
+        "support_level": "sufficient",
+        "reason": "Random assignment and the reported primary-outcome hazard ratio of 0.75 (95% CI 0.64–0.89) directly support the bounded intervention claim.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "Among the SPRINT participants, intensive blood-pressure treatment reduced all-cause mortality relative to standard treatment during the reported follow-up.",
+      "claim_type": "intervention",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results; Table 2; Figure 3B",
+        "support_level": "sufficient",
+        "reason": "The randomized comparison reports 155 versus 210 deaths and a hazard ratio of 0.73 (95% CI 0.60–0.90).",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "Intensive treatment increased several serious adverse events, including hypotension, syncope, electrolyte abnormalities, and acute kidney injury or failure.",
+      "claim_type": "intervention",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E3"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results; serious-adverse-event analysis",
+        "support_level": "sufficient",
+        "reason": "The trial reports higher rates of these prespecified serious adverse-event categories in the intensive-treatment group.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "usable": {
+    "results": "The randomized treatment contrasts for the primary outcome, mortality, and serious adverse events are directly usable for the trial population.",
+    "methods_or_design": "Random assignment, prespecified outcomes, large sample size, and explicit treatment targets provide a strong intervention design.",
+    "materials_or_documentation": "Eligibility criteria, treatment targets, outcome definitions, follow-up, and major event counts are reported sufficiently to reconstruct the central benefit-harm comparison."
+  },
+  "downweight": {
+    "worth_noticing": "Early stopping followed a clear observed benefit and is part of the evidentiary context when interpreting effect sizes and follow-up duration.",
+    "cautious_or_ignore": "Do not generalize the trial result without qualification to people with diabetes, lower cardiovascular risk, nursing-home populations, or treatment settings that do not reproduce SPRINT's blood-pressure measurement and management procedures."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "high",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "The trial establishes a treatment-target effect in its enrolled population, not a context-free optimum for every patient. Longer follow-up, implementation details, and the balance between cardiovascular benefit and treatment-related adverse events remain important for transfer."
+}
