@@ -111,6 +111,188 @@ class DeleteGuardEmission(ast.NodeTransformer):
         return self.generic_visit(node)
 
 
+def call_path(node: ast.AST) -> str | None:
+    parts = []
+    current = node
+    while isinstance(current, ast.Attribute):
+        parts.append(current.attr)
+        current = current.value
+    if isinstance(current, ast.Name):
+        parts.append(current.id)
+        return ".".join(reversed(parts))
+    return None
+
+
+class LogicWeakeningMutator(ast.NodeTransformer):
+    CALL_TO_EMPTY = {
+        "skip_ledger_validation": "render_audit.validate_ledger",
+        "skip_semantic_validation": "merge_route.validate_semantic",
+        "skip_route_validation": "validate_route_result",
+        "skip_module_check_validation": "module_checks_mod.validate",
+        "skip_support_alignment": "module_checks_mod.check_support_alignment",
+        "skip_inventory_validation": "inventory_mod.validate_inventory",
+        "skip_inventory_alignment": "inventory_mod.check_audit_alignment",
+        "skip_public_validation": "markdown_validator.validate",
+    }
+
+    def __init__(self, mutation_id: str):
+        self.mutation_id = mutation_id
+        self.mutations = 0
+
+    def visit_Call(self, node: ast.Call):
+        node = self.generic_visit(node)
+        path = call_path(node.func)
+
+        target = self.CALL_TO_EMPTY.get(self.mutation_id)
+        if target is not None and path == target:
+            self.mutations += 1
+            return ast.copy_location(ast.List(elts=[], ctx=ast.Load()), node)
+
+        if (
+            self.mutation_id == "trust_cached_recompute"
+            and path == "build_context.recompute_route"
+        ):
+            self.mutations += 1
+            return ast.copy_location(ast.Name(id="route", ctx=ast.Load()), node)
+
+        if (
+            self.mutation_id == "trust_supplied_context"
+            and path == "build_context.render_bundle"
+        ):
+            self.mutations += 1
+            return ast.copy_location(ast.Name(id="context_bundle", ctx=ast.Load()), node)
+
+        return node
+
+    def visit_Assign(self, node: ast.Assign):
+        node = self.generic_visit(node)
+        if self.mutation_id == "disable_claim_audit":
+            if any(
+                isinstance(target, ast.Name) and target.id == "claim_audit"
+                for target in node.targets
+            ):
+                self.mutations += 1
+                node.value = ast.Constant(False)
+        return node
+
+    def visit_Compare(self, node: ast.Compare):
+        node = self.generic_visit(node)
+        if len(node.ops) != 1 or len(node.comparators) != 1:
+            return node
+
+        left_name = node.left.id if isinstance(node.left, ast.Name) else None
+        right = node.comparators[0]
+        right_name = right.id if isinstance(right, ast.Name) else None
+
+        if self.mutation_id == "ignore_route_drift":
+            if (
+                left_name == "route"
+                and isinstance(node.ops[0], ast.NotEq)
+                and right_name == "recomputed_route"
+            ):
+                self.mutations += 1
+                return ast.copy_location(ast.Constant(False), node)
+
+        if self.mutation_id == "ignore_claim_text_drift":
+            if left_name == "semantic_text" and right_name == "audit_text":
+                if isinstance(node.ops[0], ast.NotEq):
+                    self.mutations += 1
+                    return ast.copy_location(ast.Constant(False), node)
+                if isinstance(node.ops[0], ast.Eq):
+                    self.mutations += 1
+                    return ast.copy_location(ast.Constant(True), node)
+
+        if self.mutation_id == "allow_missing_inventory":
+            if (
+                left_name == "use_inventory"
+                and isinstance(node.ops[0], ast.Is)
+                and isinstance(right, ast.Constant)
+                and right.value is True
+            ):
+                self.mutations += 1
+                return ast.copy_location(ast.Constant(False), node)
+
+        if self.mutation_id == "allow_forbidden_inventory":
+            if (
+                left_name == "use_inventory"
+                and isinstance(node.ops[0], ast.Is)
+                and isinstance(right, ast.Constant)
+                and right.value is False
+            ):
+                self.mutations += 1
+                return ast.copy_location(ast.Constant(False), node)
+
+        if self.mutation_id == "ignore_inventory_claim_drift":
+            if (
+                left_name == "inventory_claims"
+                and isinstance(node.ops[0], ast.NotEq)
+                and right_name == "audit_claims"
+            ):
+                self.mutations += 1
+                return ast.copy_location(ast.Constant(False), node)
+
+        if self.mutation_id == "ignore_inventory_viability":
+            if (
+                isinstance(node.left, ast.Call)
+                and call_path(node.left.func) == "inventory.get"
+                and node.left.args
+                and isinstance(node.left.args[0], ast.Constant)
+                and node.left.args[0].value == "evidence_viability"
+                and isinstance(node.ops[0], ast.NotEq)
+                and right_name == "viability"
+            ):
+                self.mutations += 1
+                return ast.copy_location(ast.Constant(False), node)
+
+        return node
+
+    def visit_BoolOp(self, node: ast.BoolOp):
+        node = self.generic_visit(node)
+        if self.mutation_id != "allow_missing_module_checks":
+            return node
+        if not isinstance(node.op, ast.And):
+            return node
+
+        names = {
+            child.id
+            for child in ast.walk(node)
+            if isinstance(child, ast.Name)
+        }
+        has_none_check = any(
+            isinstance(child, ast.Compare)
+            and isinstance(child.left, ast.Name)
+            and child.left.id == "module_checks"
+            and len(child.ops) == 1
+            and isinstance(child.ops[0], ast.Is)
+            and len(child.comparators) == 1
+            and isinstance(child.comparators[0], ast.Constant)
+            and child.comparators[0].value is None
+            for child in ast.walk(node)
+        )
+        if "has_required_checks" in names and has_none_check:
+            self.mutations += 1
+            return ast.copy_location(ast.Constant(False), node)
+        return node
+
+
+def load_logic_mutant(source: str, mutation: dict):
+    tree = ast.parse(source)
+    transformer = LogicWeakeningMutator(mutation["operator"])
+    tree = transformer.visit(tree)
+    ast.fix_missing_locations(tree)
+    expected = mutation.get("expected_sites", 1)
+    if transformer.mutations != expected:
+        raise AssertionError(
+            f"{mutation['id']} expected {expected} source mutation(s), "
+            f"got {transformer.mutations}"
+        )
+
+    module = types.ModuleType(f"audit_gate_logic_mutant_{mutation['id']}")
+    module.__file__ = str(AUDIT_GATE)
+    exec(compile(tree, str(AUDIT_GATE), "exec"), module.__dict__)
+    return module
+
+
 def load_guard_mutant(source: str, guard: str, lineno: int):
     tree = ast.parse(source)
     transformer = DeleteGuardEmission(guard, lineno)
@@ -301,6 +483,56 @@ class GateMutationCanaryTests(unittest.TestCase):
         self.assertFalse(
             survivors,
             "gate deletion mutant(s) survived the sabotage contract: "
+            + json.dumps(survivors, sort_keys=True),
+        )
+
+    def test_logic_weakening_mutants_are_killed_by_existing_sabotage_cases(self):
+        cases = {case["id"]: case for case in self.matrix["cases"]}
+        mutations = self.matrix.get("logic_weakening_mutations", [])
+        self.assertGreaterEqual(len(mutations), 15)
+
+        seen = set()
+        survivors = []
+        for mutation in mutations:
+            self.assertNotIn(mutation["id"], seen)
+            seen.add(mutation["id"])
+            designated = mutation.get("cases", [])
+            self.assertTrue(designated, mutation["id"])
+
+            mutant = load_logic_mutant(self.source, mutation)
+            killed_by = []
+            for case_id in designated:
+                self.assertIn(case_id, cases)
+                case = cases[case_id]
+                self.assertTrue(
+                    case_contract_passes(
+                        self.real_gate,
+                        copy.deepcopy(case),
+                        self.inventory_fixture,
+                        self.evidence_types,
+                    ),
+                    f"baseline contract is invalid for {mutation['id']} via {case_id}",
+                )
+                if not case_contract_passes(
+                    mutant,
+                    copy.deepcopy(case),
+                    self.inventory_fixture,
+                    self.evidence_types,
+                ):
+                    killed_by.append(case_id)
+
+            if not killed_by:
+                survivors.append(
+                    {
+                        "id": mutation["id"],
+                        "operator": mutation["operator"],
+                        "designated_cases": designated,
+                    }
+                )
+
+        self.assertFalse(
+            survivors,
+            "logic-weakening mutant(s) survived the fail-closed contract: "
             + json.dumps(survivors, sort_keys=True),
         )
 
