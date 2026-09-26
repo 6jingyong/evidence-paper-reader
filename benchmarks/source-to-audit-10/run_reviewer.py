@@ -18,6 +18,7 @@ ROOT = Path(__file__).parent
 CASE_INDEX = ROOT / "case_index.json"
 BLIND_RUNNER = ROOT.parent / "blind-real-paper-10" / "run_reviewer.py"
 BLIND_FORMAT = ROOT.parent / "blind-real-paper-10" / "response-format.md"
+PREPARE_SOURCE = ROOT / "prepare_source.py"
 
 
 def load_module(name: str, path: Path):
@@ -29,6 +30,7 @@ def load_module(name: str, path: Path):
 
 
 blind = load_module("source_to_audit_blind_validator", BLIND_RUNNER)
+prepare = load_module("source_to_audit_prepare_contract", PREPARE_SOURCE)
 
 
 def sha256(path: Path) -> str:
@@ -52,6 +54,12 @@ def verify_prepared(case_id: str, root: Path) -> tuple[Path, dict]:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if manifest.get("case_id") != case_id:
         raise ValueError(f"{case_id}: source-input case_id mismatch")
+    contract_errors = prepare.validate_manifest_contract(case_id, manifest)
+    if contract_errors:
+        raise ValueError(
+            f"{case_id}: source-input profile contract failed: "
+            + "; ".join(contract_errors)
+        )
     expected = manifest.get("review_material", {})
     actual_hash = sha256(material)
     actual_bytes = material.stat().st_size
