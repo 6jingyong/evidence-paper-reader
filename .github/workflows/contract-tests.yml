@@ -45,3 +45,23 @@ jobs:
           python validation-runs/real-papers/validate_judgments.py --root .
           python tests/test_real_paper_run_records.py -v
           python tests/test_real_paper_judgment_mutations.py -v
+      - name: Validate blind real-paper benchmark isolation
+        shell: bash
+        run: |
+          test -f benchmarks/blind-real-paper-10/case_index.json
+          test -f benchmarks/blind-real-paper-10/generate_packets.py
+          test -f benchmarks/blind-real-paper-10/run_reviewer.py
+          test -f benchmarks/blind-real-paper-10/score_blind.py
+          test -f tests/test_blind_real_paper_benchmark.py
+          rm -rf /tmp/epr-blind-real-paper-10
+          python benchmarks/blind-real-paper-10/generate_packets.py \
+            --output /tmp/epr-blind-real-paper-10/packets \
+            --check
+          python benchmarks/blind-real-paper-10/run_reviewer.py \
+            --packet-dir /tmp/epr-blind-real-paper-10/packets \
+            --response-dir /tmp/epr-blind-real-paper-10/responses \
+            --workspace-dir /tmp/epr-blind-real-paper-10/workspaces \
+            --command 'isolated-reviewer {prompt} {output}' \
+            --limit 2 \
+            --dry-run
+          python tests/test_blind_real_paper_benchmark.py -v
