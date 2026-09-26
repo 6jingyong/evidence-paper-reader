@@ -512,7 +512,8 @@
     "G123",
     "G124",
     "G125",
-    "G126"
+    "G126",
+    "G127"
   ],
   "mutation_site_canaries": [
     {
@@ -544,6 +545,11 @@
       "guard": "G126",
       "site": 1,
       "scenario": "semantic_execution_missing"
+    },
+    {
+      "guard": "G127",
+      "site": 1,
+      "scenario": "reasoning_graph_common_mode"
     }
   ],
   "logic_weakening_mutations": [
