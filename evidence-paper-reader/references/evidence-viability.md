@@ -152,11 +152,13 @@ This can still have documentation or conceptual value.
 
 ### Source integrity failure
 
-The central evidence depends on records, datasets, measurements, or provenance that can no longer be treated as a trustworthy inspectable substrate because a documented integrity failure blocks verification.
+The central evidence depends on records, datasets, measurements, or provenance that can no longer be treated as a reliably inspectable substrate because a documented source/provenance problem blocks verification.
 
-Examples include a retracted paper whose authors or journal state that the underlying data cannot be independently verified, fabricated or materially misdescribed source records, or an unavailable dataset whose provenance is the reason for retraction.
+Examples include a retracted paper whose authors, journal, or independent audit states that the underlying data cannot be verified; documented mismatches between published records and source records; or an unavailable dataset whose provenance problem is itself material to the retraction or correction.
 
-Do not set this flag merely because a paper is controversial, contradicted, corrected, or retracted for a reason that does not undermine the evidence chain. Record the documented integrity problem and its source. When the integrity failure reaches the central evidence substrate, `non-auditable` is appropriate even if the prose, tables, and statistical outputs remain fully visible.
+This flag is about evidence usability, not culpability. Evidence Paper Reader does not independently determine fabrication, falsification, misconduct, deception, or author intent. It may record such findings only when an identified external source explicitly documents them, and even then the audit question remains: what happens to the claim-evidence chain?
+
+Do not set this flag merely because a paper is controversial, contradicted, corrected, or retracted for a reason that does not undermine the evidence chain. Record the documented source problem and its consequence. When that problem reaches the central evidence substrate, `non-auditable` is appropriate even if the prose, tables, and statistical outputs remain fully visible.
 
 ### Promotional asymmetry
 
