@@ -49,6 +49,7 @@ jobs:
         shell: bash
         run: |
           test -f benchmarks/source-to-audit-10/case_index.json
+          test -f benchmarks/source-to-audit-10/acquisition-profiles.json
           test -f benchmarks/source-to-audit-10/prepare_source.py
           test -f benchmarks/source-to-audit-10/run_reviewer.py
           test -f benchmarks/source-to-audit-10/score_source.py
