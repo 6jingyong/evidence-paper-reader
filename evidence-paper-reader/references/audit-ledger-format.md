@@ -8,7 +8,7 @@ The ledger is an intermediate representation. It contains semantic judgments but
 
 ```json
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -40,7 +40,12 @@ The ledger is an intermediate representation. It contains semantic judgments but
         "source_location": "Results; Table 2",
         "support_level": "sufficient",
         "reason": "Random assignment and the primary comparison directly support the bounded claim.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     }
   ],
@@ -80,7 +85,17 @@ The ledger is an intermediate representation. It contains semantic judgments but
 
 The renderer assigns claim numbers from list order. Do not put claim numbers in claim content.
 
-Ledger schema v2 introduced a top-level `reasoning_edges` graph for auditable and partially-auditable work. Ledger schema v3 additionally requires claim-local `evidence_relations`; load `evidence-relations.md` and `reasoning-graph.md`. Every declared E-node must appear exactly once in that claim's relation list, and every claim must be reached by at least one reasoning edge whose union accounts for exactly the claim's declared evidence nodes and upstream claims. Legacy structured ledgers remain supported at their declared schema version; new ledgers should use v3.
+Ledger schema v2 introduced a top-level `reasoning_edges` graph for auditable and partially-auditable work. Ledger schema v3 additionally requires claim-local `evidence_relations`; load `evidence-relations.md` and `reasoning-graph.md`. Every declared E-node must appear exactly once in that claim's relation list, and every claim must be reached by at least one reasoning edge whose union accounts for exactly the claim's declared evidence nodes and upstream claims.
+
+Ledger schema v4 additionally requires `support.author_boundary` so non-sufficient judgments record whether the source authors themselves acknowledge the same or a materially overlapping boundary:
+
+- `status`: `explicit | partial | absent | unclear | not-applicable`
+- `summary`: a faithful short summary of the authors' own limitation/boundary; do not invent or strengthen it
+- `source_location`: concrete Discussion/Limitations/Conclusion/Future-work location for `explicit` or `partial`; `none` is allowed for `absent`, `unclear`, or `not-applicable`
+
+For `partial`, `insufficient`, or `unclear` support, `not-applicable` is forbidden. If the audit did not verify whether authors acknowledge the same boundary, use `unclear`. Author acknowledgment improves fairness and explanatory context; it is not evidence for the claim and does not change support level by itself.
+
+Legacy structured ledgers remain supported at their declared schema version; new ledgers should use v4.
 
 ## Structured fields
 
