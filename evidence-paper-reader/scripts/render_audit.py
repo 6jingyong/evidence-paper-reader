@@ -35,6 +35,19 @@ DEPENDENCE = {
     "unclear",
 }
 VALUE_LEVELS = {"high", "medium", "low", "unclear"}
+LEDGER_SCHEMA_VERSION = 2
+INFERENCE_TYPES = {
+    "direct-result",
+    "comparison",
+    "statistical-inference",
+    "causal",
+    "mechanistic",
+    "generalization",
+    "proxy-to-construct",
+    "aggregation",
+    "external-import",
+}
+REASONING_STATUSES = {"direct", "supported", "qualified", "unsupported", "unclear"}
 
 VALUE_KEYS = [
     ("result", "result value"),
@@ -45,6 +58,7 @@ VALUE_KEYS = [
 ]
 
 TEMPLATE = {
+    "ledger_schema_version": LEDGER_SCHEMA_VERSION,
     "scope_status": "in scope",
     "evidence_viability": "auditable",
     "viability_flags": [],
@@ -98,6 +112,38 @@ TEMPLATE = {
                 "reason": "",
                 "external_dependency": "none"
             }
+        }
+    ],
+    "reasoning_edges": [
+        {
+            "edge_id": "R1",
+            "target_claim": 1,
+            "evidence_nodes": ["E1"],
+            "upstream_claims": [],
+            "inference_type": "direct-result",
+            "reasoning_status": "direct",
+            "added_reach": "none",
+            "assumptions": []
+        },
+        {
+            "edge_id": "R2",
+            "target_claim": 2,
+            "evidence_nodes": ["E2"],
+            "upstream_claims": [],
+            "inference_type": "direct-result",
+            "reasoning_status": "direct",
+            "added_reach": "none",
+            "assumptions": []
+        },
+        {
+            "edge_id": "R3",
+            "target_claim": 3,
+            "evidence_nodes": ["E3"],
+            "upstream_claims": [],
+            "inference_type": "direct-result",
+            "reasoning_status": "direct",
+            "added_reach": "none",
+            "assumptions": []
         }
     ],
     "usable": {
@@ -283,6 +329,154 @@ def validate_ledger(data: dict) -> list[str]:
                 "when a required upstream claim is not sufficient"
             )
 
+    schema_version = data.get("ledger_schema_version", 1)
+    if not isinstance(schema_version, int) or schema_version < 1:
+        errors.append("ledger_schema_version must be a positive integer")
+        schema_version = 1
+    if schema_version > LEDGER_SCHEMA_VERSION:
+        errors.append(
+            f"ledger_schema_version {schema_version} is newer than supported version {LEDGER_SCHEMA_VERSION}"
+        )
+
+    reasoning_edges = data.get("reasoning_edges")
+    if schema_version >= 2 and not no_claim_audit:
+        if not isinstance(reasoning_edges, list) or not reasoning_edges:
+            errors.append("schema v2 claim audits require a non-empty reasoning_edges list")
+            reasoning_edges = []
+    elif reasoning_edges is None:
+        reasoning_edges = []
+    elif not isinstance(reasoning_edges, list):
+        errors.append("reasoning_edges must be a list")
+        reasoning_edges = []
+
+    parsed_edges = []
+    seen_edge_ids = set()
+    for edge_index, edge in enumerate(reasoning_edges, start=1):
+        if not isinstance(edge, dict):
+            errors.append(f"reasoning edge {edge_index} must be an object")
+            continue
+        edge_id = edge.get("edge_id")
+        if (
+            not isinstance(edge_id, str)
+            or not edge_id.startswith("R")
+            or not edge_id[1:].isdigit()
+            or int(edge_id[1:]) < 1
+        ):
+            errors.append(f"reasoning edge {edge_index}: invalid edge_id {edge_id!r}")
+            edge_id = ""
+        elif edge_id in seen_edge_ids:
+            errors.append(f"duplicate reasoning edge_id: {edge_id}")
+        seen_edge_ids.add(edge_id)
+
+        target = edge.get("target_claim")
+        if not isinstance(target, int) or target < 1 or target > len(claims):
+            errors.append(f"{edge_id or f'reasoning edge {edge_index}'}: invalid target_claim")
+            target = None
+
+        edge_nodes = edge.get("evidence_nodes")
+        if not isinstance(edge_nodes, list) or not all(isinstance(x, str) for x in edge_nodes):
+            errors.append(f"{edge_id or f'reasoning edge {edge_index}'}: evidence_nodes must be a string list")
+            edge_nodes = []
+        if len(edge_nodes) != len(set(edge_nodes)):
+            errors.append(f"{edge_id or f'reasoning edge {edge_index}'}: duplicate evidence node")
+
+        edge_upstream = edge.get("upstream_claims")
+        if not isinstance(edge_upstream, list) or not all(isinstance(x, int) for x in edge_upstream):
+            errors.append(f"{edge_id or f'reasoning edge {edge_index}'}: upstream_claims must be an integer list")
+            edge_upstream = []
+        if len(edge_upstream) != len(set(edge_upstream)):
+            errors.append(f"{edge_id or f'reasoning edge {edge_index}'}: duplicate upstream claim")
+
+        if not edge_nodes and not edge_upstream:
+            errors.append(f"{edge_id or f'reasoning edge {edge_index}'}: reasoning edge must have at least one input")
+
+        inference_type = _choice(
+            edge.get("inference_type"),
+            INFERENCE_TYPES,
+            f"{edge_id or f'reasoning edge {edge_index}'}.inference_type",
+            errors,
+        )
+        reasoning_status = _choice(
+            edge.get("reasoning_status"),
+            REASONING_STATUSES,
+            f"{edge_id or f'reasoning edge {edge_index}'}.reasoning_status",
+            errors,
+        )
+        added_reach = _text(
+            edge.get("added_reach"),
+            f"{edge_id or f'reasoning edge {edge_index}'}.added_reach",
+            errors,
+        )
+        assumptions = edge.get("assumptions")
+        if not isinstance(assumptions, list) or not all(
+            isinstance(x, str) and x.strip() for x in assumptions
+        ):
+            errors.append(f"{edge_id or f'reasoning edge {edge_index}'}: assumptions must be a string list")
+            assumptions = []
+        if len(assumptions) != len(set(assumptions)):
+            errors.append(f"{edge_id or f'reasoning edge {edge_index}'}: duplicate assumption")
+        if reasoning_status == "direct" and added_reach and added_reach != "none":
+            errors.append(f"{edge_id}: direct reasoning must use added_reach 'none'")
+
+        if target is not None and target <= len(rendered_support):
+            support_item = rendered_support[target - 1]
+            if not set(edge_nodes).issubset(support_item["nodes"]):
+                errors.append(f"{edge_id}: reasoning evidence_nodes must be a subset of target claim evidence_nodes")
+            if not set(edge_upstream).issubset(set(support_item["upstream"])):
+                errors.append(f"{edge_id}: reasoning upstream_claims must be a subset of target claim upstream_claims")
+            if any(ref >= target or ref < 1 for ref in edge_upstream):
+                errors.append(f"{edge_id}: reasoning upstream claims must reference earlier claims only")
+
+        parsed_edges.append({
+            "edge_id": edge_id,
+            "target": target,
+            "nodes": set(edge_nodes),
+            "upstream": set(edge_upstream),
+            "status": reasoning_status,
+            "inference_type": inference_type,
+        })
+
+    if schema_version >= 2 and not no_claim_audit:
+        expected_ids = [f"R{i}" for i in range(1, len(parsed_edges) + 1)]
+        actual_ids = [edge["edge_id"] for edge in parsed_edges]
+        if actual_ids != expected_ids:
+            errors.append("reasoning edge IDs must be sequential from R1 in list order")
+
+        for claim_index, support_item in enumerate(rendered_support, start=1):
+            edges = [edge for edge in parsed_edges if edge["target"] == claim_index]
+            if not edges:
+                errors.append(f"claim {claim_index}: schema v2 requires at least one reasoning edge")
+                continue
+            edge_nodes = set().union(*(edge["nodes"] for edge in edges))
+            edge_upstream = set().union(*(edge["upstream"] for edge in edges))
+            if edge_nodes != support_item["nodes"]:
+                errors.append(
+                    f"claim {claim_index}: reasoning edges must cover exactly the claim evidence_nodes"
+                )
+            if edge_upstream != set(support_item["upstream"]):
+                errors.append(
+                    f"claim {claim_index}: reasoning edges must cover exactly the claim upstream_claims"
+                )
+
+            statuses = {edge["status"] for edge in edges}
+            level = support_item["level"]
+            if level == "sufficient" and not statuses.issubset({"direct", "supported"}):
+                errors.append(
+                    f"claim {claim_index}: sufficient support cannot contain qualified/unsupported/unclear reasoning"
+                )
+            elif level == "partial" and statuses.issubset({"direct", "supported"}):
+                errors.append(
+                    f"claim {claim_index}: partial support requires at least one qualified/unsupported/unclear reasoning edge"
+                )
+            elif level == "insufficient" and "unsupported" not in statuses:
+                errors.append(
+                    f"claim {claim_index}: insufficient support requires at least one unsupported reasoning edge"
+                )
+            elif level == "unclear" and "unclear" not in statuses:
+                errors.append(
+                    f"claim {claim_index}: unclear support requires at least one unclear reasoning edge"
+                )
+
     usable = data.get("usable")
     if not isinstance(usable, dict):
         errors.append("usable must be an object")
@@ -366,8 +560,13 @@ def render(data: dict) -> str:
                 "",
             ])
         lines.extend(["## 3. evidence and support", ""])
+        edges_by_claim = {}
+        for edge in data.get("reasoning_edges", []):
+            if isinstance(edge, dict) and isinstance(edge.get("target_claim"), int):
+                edges_by_claim.setdefault(edge["target_claim"], []).append(edge)
         for index, claim in enumerate(data["claims"], start=1):
             support = claim["support"]
+            claim_edges = edges_by_claim.get(index, [])
             lines.extend([
                 f"### claim {index}",
                 f"- evidence type: {' + '.join(x.strip() for x in support['evidence_type'])}",
@@ -379,8 +578,25 @@ def render(data: dict) -> str:
                 f"- support level: {support['support_level']}",
                 f"- reason: {support['reason'].strip()}",
                 f"- external dependency: {support['external_dependency'].strip()}",
-                "",
             ])
+            if claim_edges:
+                lines.append(
+                    "- reasoning edges: " + " + ".join(edge["edge_id"] for edge in claim_edges)
+                )
+                for edge in claim_edges:
+                    evidence_inputs = _join_nodes(edge.get("evidence_nodes", [])) or "none"
+                    upstream_inputs = _join_upstream(edge.get("upstream_claims", []))
+                    assumptions = "none" if not edge.get("assumptions") else " | ".join(
+                        item.strip() for item in edge["assumptions"]
+                    )
+                    lines.extend([
+                        f"- {edge['edge_id']} inputs: evidence={evidence_inputs}; upstream={upstream_inputs}",
+                        f"- {edge['edge_id']} inference type: {edge['inference_type']}",
+                        f"- {edge['edge_id']} reasoning status: {edge['reasoning_status']}",
+                        f"- {edge['edge_id']} added reach: {edge['added_reach'].strip()}",
+                        f"- {edge['edge_id']} assumptions: {assumptions}",
+                    ])
+            lines.append("")
 
     lines.extend([
         "## 4. what is usable",
