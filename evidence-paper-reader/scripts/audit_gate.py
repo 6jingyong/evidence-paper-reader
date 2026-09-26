@@ -49,6 +49,7 @@ CONTEXT_BASE_REFERENCES = [
     "core-contract.md",
     "evidence-viability.md",
     "evidence-types.md",
+    "evidence-relations.md",
     "reasoning-graph.md",
     "audit-ledger-format.md",
 ]
@@ -81,6 +82,7 @@ CRITICAL_GUARDS = {
     "G125": "generated context embeds exact routed reference bodies independently",
     "G126": "raw semantic obligations reach execution artifacts independently",
     "G127": "reasoning graph closes claim-evidence-reasoning inputs independently",
+    "G128": "claim-local evidence relations close exactly over evidence nodes independently",
 }
 
 
@@ -414,6 +416,81 @@ def validate_context_reference_bodies(context_bundle: str, route: dict) -> list[
     return errors
 
 
+def validate_evidence_relation_closure(audit: dict) -> list[str]:
+    """Independent minimum oracle for ledger-v3 claim-local evidence relations."""
+    if audit.get("ledger_schema_version", 1) < 3:
+        return []
+
+    scope = audit.get("scope_status")
+    viability = audit.get("evidence_viability")
+    if scope == "out of scope" or viability == "non-auditable":
+        return []
+
+    claims = audit.get("claims")
+    if not isinstance(claims, list):
+        return ["schema v3 claim audit requires a claims list"]
+
+    allowed = {"supports", "undermines", "mixed", "contextual"}
+    errors: list[str] = []
+    for claim_index, claim in enumerate(claims, start=1):
+        if not isinstance(claim, dict):
+            continue
+        support = claim.get("support")
+        if not isinstance(support, dict):
+            continue
+
+        nodes = support.get("evidence_nodes")
+        if not isinstance(nodes, list):
+            nodes = []
+        expected = {
+            node for node in nodes
+            if isinstance(node, str)
+        }
+
+        relations = support.get("evidence_relations")
+        if not isinstance(relations, list):
+            errors.append(
+                f"claim {claim_index}: schema v3 requires evidence_relations"
+            )
+            continue
+
+        seen: list[str] = []
+        for position, relation in enumerate(relations, start=1):
+            if not isinstance(relation, dict):
+                errors.append(
+                    f"claim {claim_index}: evidence relation {position} is not an object"
+                )
+                continue
+            node = relation.get("evidence_node")
+            if not isinstance(node, str):
+                errors.append(
+                    f"claim {claim_index}: evidence relation {position} lacks a string evidence_node"
+                )
+                continue
+            seen.append(node)
+            label = relation.get("relation")
+            if label not in allowed:
+                errors.append(
+                    f"claim {claim_index}: invalid evidence relation {label!r} for {node}"
+                )
+            reason = relation.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                errors.append(
+                    f"claim {claim_index}: evidence relation {node} requires a non-empty reason"
+                )
+
+        if len(seen) != len(set(seen)):
+            errors.append(
+                f"claim {claim_index}: evidence relation nodes contain duplicates"
+            )
+        if set(seen) != expected:
+            errors.append(
+                f"claim {claim_index}: evidence relations do not exactly cover claim evidence_nodes"
+            )
+
+    return errors
+
+
 def validate_reasoning_closure(audit: dict) -> list[str]:
     """Independent minimum oracle for ledger-v2 reasoning closure.
 
@@ -561,6 +638,10 @@ def validate_gate(
     errors.extend(
         _guard("G127", f"reasoning graph: {x}")
         for x in validate_reasoning_closure(audit)
+    )
+    errors.extend(
+        _guard("G128", f"evidence relations: {x}")
+        for x in validate_evidence_relation_closure(audit)
     )
 
     recomputed_route = None
