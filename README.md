@@ -292,7 +292,7 @@ The detailed policy is in `validation-runs/real-papers/EVIDENCE_POLICY.md`.
 
 ## Benchmarks
 
-Six non-core benchmark suites live under `benchmarks/`:
+Eight non-core benchmark suites live under `benchmarks/`:
 
 - `tiered-source-40/`: 10 domains × 4 source/attention tiers; checks whether bounded evidence judgments can remain distinct from source prestige.
 - `metadata-halo-12/`: paired anonymous A/B packets with identical scientific content and metadata hidden vs visible; designed for isolated-context causal testing of prestige/attention halo.
@@ -300,8 +300,10 @@ Six non-core benchmark suites live under `benchmarks/`:
 - `router-adversarial-24/`: 12 semantic-only routing cases plus 12 lexical decoys; measures required-module recall, irrelevant keyword suppression, inventory routing, and lexical+semantic merge behavior.
 - `stability-crossdomain-8/`: eight real-paper domains × five isolated repeats; separates repeated-run stability from reference correctness across viability, claim selection, routing, inventory choice, and support. It also includes a runner-neutral batch executor for one-packet-per-process fresh-context runs.
 - `blind-real-paper-10/`: ten source-backed papers re-audited from answer-key-free source packets in fresh contexts; reviewer prompts cannot see stored ledgers or regression contracts, while a separate hidden scorer compares viability and bounded support judgments after the response exists.
+- `source-to-audit-10/`: ten source-backed papers reviewed again from fingerprinted source bundles rather than stored audit artifacts; per-case acquisition profiles define required primary/provenance components and deterministic bundling before isolated review.
+- `carrier-neutral-12/`: twelve synthetic non-paper carriers—datasheet, vendor report, marketing page, benchmark, case study, survey, policy brief, postmortem, engineering blog, backtest, security whitepaper, and A/B memo—used to test support, evidence direction, and reasoning reach without paper-specific assumptions.
 
-The second benchmark must be run in fresh independent model contexts. The development conversation itself is contaminated by knowing the pair mapping and reference expectations, so repository setup is not reported as a model result.
+Benchmarks whose purpose depends on reviewer independence—especially `metadata-halo-12`, `blind-real-paper-10`, `source-to-audit-10`, and real model runs of `carrier-neutral-12`—must be run in fresh isolated model contexts. Repository setup, dry runs, and scorer construction are not reported as model results.
 
 ## Contract tests
 
@@ -337,6 +339,8 @@ The tests verify, among other things, that:
 - convergence labels require at least two evidence nodes
 - claim-stacking regressions preserve evidence reuse instead of renaming the same result
 - every support block declares upstream claim dependencies
+- schema-v2+ reasoning edges explicitly connect evidence/upstream claims to target claims and cannot hide unsupported logical reach
+- schema-v3 evidence relations distinguish supports, undermines, mixed, and contextual evidence claim-locally rather than assigning one global polarity
 - forward/self dependencies are rejected and uncertainty cannot disappear without new evidence
 - figure/table interpretation traps remain present as bounded methodological knowledge
 - statistical, measurement, and study-design trap references remain modular and explicitly bounded from domain-fact priors
@@ -347,6 +351,8 @@ The tests verify, among other things, that:
 - evidence-inventory tests prevent duplicate result promotion, cross-result E-node merges, repeated R promotion, invisible claim-retrieval gaps, and false independent convergence over shared U units
 - router-adversarial tests require a perfect semantic route to recover keyword-hidden modules and suppress incidental lexical decoys without weakening conservative `unclear` behavior
 - cross-domain stability tests verify 8 unique domains × 5 repeats, separate optional-claim omission from support error, and make single-run drift visible at the layer where it occurs
+- source-to-audit tests fingerprint exact review bytes, enforce per-case acquisition profiles, and require provenance components where viability depends on later source records
+- carrier-neutral tests keep synthetic non-paper cases out of the real-source evidence registry while independently scoring support, reasoning-bridge type, and evidence direction
 
 GitHub Actions runs the same checks on pushes and pull requests.
 
