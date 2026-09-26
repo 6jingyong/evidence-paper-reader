@@ -7,6 +7,7 @@ import argparse
 import itertools
 import json
 import re
+from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -122,6 +123,30 @@ def reasoning_edges_for_claim(data: dict, claim_number: int) -> list[dict]:
     ]
 
 
+def multiset_overlap(a: list[str], b: list[str]) -> float:
+    left = Counter(a)
+    right = Counter(b)
+    keys = set(left) | set(right)
+    if not keys:
+        return 1.0
+    intersection = sum(min(left[key], right[key]) for key in keys)
+    union = sum(max(left[key], right[key]) for key in keys)
+    return intersection / union if union else 1.0
+
+
+def evidence_relation_labels(claim: dict) -> list[str]:
+    relations = claim.get("support", {}).get("evidence_relations")
+    if relations is None:
+        relations = claim.get("evidence_relations", [])
+    if not isinstance(relations, list):
+        return []
+    return [
+        item.get("relation")
+        for item in relations
+        if isinstance(item, dict) and isinstance(item.get("relation"), str)
+    ]
+
+
 def set_overlap(a: set[str], b: set[str]) -> float:
     if not a and not b:
         return 1.0
@@ -193,15 +218,23 @@ def score_case(case: dict, response: dict, threshold: float) -> dict:
             for edge in fresh_edges
             if isinstance(edge.get("reasoning_status"), str)
         }
+        ref_relations = evidence_relation_labels(ref_claims[ri])
+        fresh_relations = evidence_relation_labels(fresh_claims[fi])
         matched_reasoning.append({
             "reference_claim": ri + 1,
             "fresh_claim": fi + 1,
             "inference_type_overlap": round(set_overlap(ref_types, fresh_types), 4),
             "reasoning_status_overlap": round(set_overlap(ref_status, fresh_status), 4),
+            "evidence_relation_overlap": round(
+                multiset_overlap(ref_relations, fresh_relations),
+                4,
+            ),
             "reference_inference_types": sorted(ref_types),
             "fresh_inference_types": sorted(fresh_types),
             "reference_reasoning_statuses": sorted(ref_status),
             "fresh_reasoning_statuses": sorted(fresh_status),
+            "reference_evidence_relations": sorted(ref_relations),
+            "fresh_evidence_relations": sorted(fresh_relations),
         })
 
     confidently_matched = len(matched_support)
@@ -226,6 +259,12 @@ def score_case(case: dict, response: dict, threshold: float) -> dict:
     )
     reasoning_status_overlap = (
         sum(item["reasoning_status_overlap"] for item in matched_reasoning)
+        / len(matched_reasoning)
+        if matched_reasoning
+        else (1.0 if not ref_claims else 0.0)
+    )
+    evidence_relation_overlap = (
+        sum(item["evidence_relation_overlap"] for item in matched_reasoning)
         / len(matched_reasoning)
         if matched_reasoning
         else (1.0 if not ref_claims else 0.0)
@@ -261,6 +300,7 @@ def score_case(case: dict, response: dict, threshold: float) -> dict:
         "reasoning": {
             "inference_type_overlap": round(reasoning_type_overlap, 4),
             "reasoning_status_overlap": round(reasoning_status_overlap, 4),
+            "evidence_relation_overlap": round(evidence_relation_overlap, 4),
             "matched": matched_reasoning,
             "advisory_only": True,
         },
@@ -310,6 +350,10 @@ def main() -> int:
             sum(row["reasoning"]["reasoning_status_overlap"] for row in rows) / len(rows)
             if rows else 0.0
         ),
+        "mean_evidence_relation_overlap": (
+            sum(row["reasoning"]["evidence_relation_overlap"] for row in rows) / len(rows)
+            if rows else 0.0
+        ),
         "cases": rows,
     }
 
@@ -322,7 +366,8 @@ def main() -> int:
             f"claim_alignment={result['mean_claim_alignment_coverage']:.3f}; "
             f"support={result['mean_support_within_tolerance']:.3f}; "
             f"reasoning_type={result['mean_reasoning_inference_type_overlap']:.3f}; "
-            f"reasoning_status={result['mean_reasoning_status_overlap']:.3f}"
+            f"reasoning_status={result['mean_reasoning_status_overlap']:.3f}; "
+            f"evidence_relation={result['mean_evidence_relation_overlap']:.3f}"
         )
         for row in rows:
             print(
@@ -331,6 +376,7 @@ def main() -> int:
                 f"support={row['support']['within_tolerance_rate']:.3f}; "
                 f"reasoning_type={row['reasoning']['inference_type_overlap']:.3f}; "
                 f"reasoning_status={row['reasoning']['reasoning_status_overlap']:.3f}; "
+                f"evidence_relation={row['reasoning']['evidence_relation_overlap']:.3f}; "
                 f"adjudicate={len(row['claim_alignment']['needs_adjudication'])}"
             )
         if missing:
