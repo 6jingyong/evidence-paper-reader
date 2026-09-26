@@ -674,5 +674,143 @@
       ],
       "description": "Make routed methodological execution records optional."
     }
+  ],
+  "dependency_mutations": [
+    {
+      "id": "DM01",
+      "module": "build_context",
+      "operator": "ignore_lexical_cache_mismatch",
+      "cases": [
+        "SB04"
+      ],
+      "description": "Accept a stale lexical cache even when router text recomputes differently."
+    },
+    {
+      "id": "DM02",
+      "module": "build_context",
+      "operator": "allow_cached_lexical_without_router_text",
+      "cases": [
+        "SB18"
+      ],
+      "description": "Allow cached lexical routing to substitute for raw router text."
+    },
+    {
+      "id": "DM03",
+      "module": "build_context",
+      "operator": "allow_unclear_without_router_text",
+      "cases": [
+        "SB19"
+      ],
+      "description": "Resolve semantic unclear decisions without source router text."
+    },
+    {
+      "id": "DM04",
+      "module": "build_context",
+      "operator": "omit_routed_modules",
+      "pristine": [
+        "simple"
+      ],
+      "description": "Generate context without routed methodological modules."
+    },
+    {
+      "id": "DM05",
+      "module": "build_context",
+      "operator": "omit_inventory_reference",
+      "pristine": [
+        "inventory"
+      ],
+      "description": "Generate inventory-routed context without the inventory contract reference."
+    },
+    {
+      "id": "DM06",
+      "module": "merge_route",
+      "operator": "ignore_semantic_required_module",
+      "expected_sites": 2,
+      "pristine": [
+        "simple"
+      ],
+      "description": "Treat semantic required module decisions as optional during merge."
+    },
+    {
+      "id": "DM07",
+      "module": "merge_route",
+      "operator": "ignore_semantic_required_inventory",
+      "pristine": [
+        "inventory"
+      ],
+      "description": "Treat semantic required inventory decisions as optional during merge."
+    },
+    {
+      "id": "DM08",
+      "module": "evidence_inventory",
+      "operator": "allow_cross_result_merge",
+      "cases": [
+        "SB09"
+      ],
+      "description": "Allow one evidence node to merge records from different result keys."
+    },
+    {
+      "id": "DM09",
+      "module": "evidence_inventory",
+      "operator": "allow_split_result_nodes",
+      "cases": [
+        "SB10"
+      ],
+      "description": "Allow one result key to be split across multiple evidence nodes."
+    },
+    {
+      "id": "DM10",
+      "module": "evidence_inventory",
+      "operator": "allow_uncovered_claim",
+      "cases": [
+        "SB12"
+      ],
+      "description": "Allow a claim with neither promoted evidence nor an explicit unresolved entry."
+    },
+    {
+      "id": "DM11",
+      "module": "evidence_inventory",
+      "operator": "allow_shared_unit_convergence",
+      "cases": [
+        "SB11"
+      ],
+      "description": "Allow independent-convergence claims to reuse the same evidence unit."
+    },
+    {
+      "id": "DM12",
+      "module": "module_checks",
+      "operator": "ignore_mitigation_check",
+      "cases": [
+        "SB25"
+      ],
+      "description": "Allow trap-module checks without false-positive mitigation confirmation."
+    },
+    {
+      "id": "DM13",
+      "module": "module_checks",
+      "operator": "ignore_module_order",
+      "cases": [
+        "SB26"
+      ],
+      "description": "Allow routed module checks to omit or reorder required modules."
+    },
+    {
+      "id": "DM14",
+      "module": "module_checks",
+      "operator": "ignore_source_locations",
+      "cases": [
+        "SB28"
+      ],
+      "description": "Allow routed checks without a source trace."
+    },
+    {
+      "id": "DM15",
+      "module": "module_checks",
+      "operator": "ignore_unresolved_support",
+      "cases": [
+        "SB27"
+      ],
+      "description": "Allow sufficient support while a routed methodological check remains unclear."
+    }
   ]
 }
