@@ -2,7 +2,9 @@
 
 An open-source **Agent Skill** for **ChatGPT**, **Codex**, and other tools that support the open `SKILL.md` format.
 
-This skill reads **evidence-driven research papers** from the **reader's** point of view. Instead of praising prose or imitating editorial peer review, it separates:
+This skill reads **evidence-driven research papers** from the **reader's** point of view. The paper interface is one concrete implementation of a more general **claim–evidence–reasoning audit**: identify what a source claims, what evidence it exposes, how far that evidence actually reaches, where additional inference enters, and what remains usable or uncertain.
+
+It separates:
 
 - evidence viability (`auditable`, `partially auditable`, or `non-auditable`)
 - core claims
@@ -12,7 +14,9 @@ This skill reads **evidence-driven research papers** from the **reader's** point
 - analysis that should be downweighted
 - uncertainty and follow-up dependencies
 
-It is designed for users who want to know **what in a paper is actually trustworthy** and **what is mostly narrative overreach**.
+It is designed for users who want to know **what a source actually establishes and where its reasoning outruns its evidence**.
+
+It is **not** a scientific-truth arbiter, fraud detector, misconduct investigation, author-intent classifier, paper scoring tool, or peer-review simulator. A documented retraction or provenance problem can change whether an evidence chain is usable; the skill does not independently infer why that problem happened or who is at fault.
 
 ## What this skill is for
 
@@ -538,7 +542,7 @@ Suggested repository name:
 - `evidence-paper-reader`
 
 Suggested repository description:
-- `Reader-side paper audit skill for evidence, support strength, usable results, and overreach in research papers.`
+- `Claim–evidence–reasoning audit skill for what research sources establish, what remains usable, and where inference outruns evidence.`
 
 Suggested GitHub topics:
 - `agent-skill`
