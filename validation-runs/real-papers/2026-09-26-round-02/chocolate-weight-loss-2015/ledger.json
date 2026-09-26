@@ -26,7 +26,14 @@
         "source_location": "Methods; Results section III.a; Figures 1 and 2",
         "support_level": "sufficient",
         "reason": "The article directly reports these group-level weight changes over the short intervention, although the between-diet difference is tiny and the groups are extremely small.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The short intervention directly reports the stated group-level weight changes, including the very small chocolate-versus-low-carb difference."
+          }
+        ]
       }
     },
     {
@@ -48,7 +55,19 @@
         "source_location": "Methods section II.e-f; Results sections III.b-f; Table 1; Figure 4",
         "support_level": "sufficient",
         "reason": "The article visibly reports multiple secondary outcomes and highlights some favorable p-values, but the many measured variables and very small analyzable groups make these findings selection-sensitive.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The paper reports favorable secondary biomarker differences for the chocolate group."
+          },
+          {
+            "evidence_node": "E3",
+            "relation": "supports",
+            "reason": "The paper reports favorable subjective or related secondary outcomes for the chocolate group."
+          }
+        ]
       }
     },
     {
@@ -75,7 +94,24 @@
         "source_location": "Abstract conclusion; Conclusion section IV",
         "support_level": "insufficient",
         "reason": "Three weeks of data from tiny groups with many measured outcomes do not establish durable or general weight-loss benefit. The paper's conclusion selectively amplifies favorable signals far beyond the precision and duration of the experiment.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "undermines",
+            "reason": "The reported chocolate and low-carb groups lost nearly the same percentage of body weight, which counts against a strong incremental chocolate benefit claim."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "Selected favorable secondary biomarkers point in the claimed direction, but the many-outcome tiny-sample design makes them weak evidence for durable weight-loss success."
+          },
+          {
+            "evidence_node": "E3",
+            "relation": "mixed",
+            "reason": "Selected favorable subjective/secondary outcomes point in the claimed direction but do not establish long-term weight-loss efficacy."
+          }
+        ]
       }
     }
   ],
@@ -96,7 +132,7 @@
     "material_or_documentation": "medium"
   },
   "uncertainty_and_follow_up": "A credible efficacy test would prespecify a primary endpoint, use an adequately powered sample, correct or control multiplicity, report all outcomes consistently, and follow weight maintenance long enough to test the claimed long-term effect.",
-  "ledger_schema_version": 2,
+  "ledger_schema_version": 3,
   "reasoning_edges": [
     {
       "edge_id": "R1",
