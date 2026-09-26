@@ -508,7 +508,9 @@
     }
   ],
   "code_canary_guards": [
-    "G108"
+    "G108",
+    "G123",
+    "G124"
   ],
   "mutation_site_canaries": [
     {
@@ -520,6 +522,16 @@
       "guard": "G108",
       "site": 1,
       "scenario": "render_bundle_raises"
+    },
+    {
+      "guard": "G123",
+      "site": 1,
+      "scenario": "semantic_required_module_dropped"
+    },
+    {
+      "guard": "G124",
+      "site": 1,
+      "scenario": "shared_context_renderer_manifest_bug"
     }
   ],
   "logic_weakening_mutations": [
