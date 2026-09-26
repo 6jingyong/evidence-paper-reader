@@ -62,6 +62,15 @@ def names_in(node: ast.AST) -> set[str]:
     }
 
 
+def direct_body_strings(node: ast.If) -> set[str]:
+    values = set()
+    for statement in node.body:
+        if isinstance(statement, (ast.If, ast.For, ast.While, ast.Try, ast.With)):
+            continue
+        values.update(strings_in(statement))
+    return values
+
+
 class DependencyMutator(ast.NodeTransformer):
     def __init__(self, operator: str):
         self.operator = operator
@@ -107,38 +116,59 @@ class DependencyMutator(ast.NodeTransformer):
     def visit_If(self, node: ast.If):
         node = self.generic_visit(node)
         strings = strings_in(node)
+        direct_strings = direct_body_strings(node)
         names = names_in(node)
 
         if self.operator == "allow_cached_lexical_without_router_text":
-            if any("cached lexical route cannot substitute for router text" in x for x in strings):
+            if (
+                isinstance(node.test, ast.Compare)
+                and isinstance(node.test.left, ast.Name)
+                and node.test.left.id == "lexical"
+                and len(node.test.ops) == 1
+                and isinstance(node.test.ops[0], ast.IsNot)
+                and len(node.test.comparators) == 1
+                and isinstance(node.test.comparators[0], ast.Constant)
+                and node.test.comparators[0].value is None
+                and any(
+                    "cached lexical route cannot substitute for router text" in x
+                    for x in direct_strings
+                )
+            ):
                 self.mutations += 1
                 node.test = ast.Constant(False)
                 return node
 
         if self.operator == "allow_unclear_without_router_text":
-            if any("semantic route contains unclear decisions" in x for x in strings):
+            if (
+                isinstance(node.test, ast.Call)
+                and call_path(node.test.func) == "_semantic_has_unclear"
+                and any(
+                    "semantic route contains unclear decisions" in x
+                    for x in direct_strings
+                )
+            ):
                 self.mutations += 1
                 node.test = ast.Constant(False)
                 return node
 
         if self.operator == "omit_inventory_reference":
-            if "evidence-inventory-format.md" in strings:
+            if "evidence-inventory-format.md" in direct_strings:
                 self.mutations += 1
                 node.test = ast.Constant(False)
                 return node
 
         if self.operator == "ignore_semantic_required_inventory":
-            assigns_true = any(
-                isinstance(child, ast.Assign)
-                and any(
-                    isinstance(target, ast.Name) and target.id == "use_inventory"
-                    for target in child.targets
-                )
-                and isinstance(child.value, ast.Constant)
-                and child.value.value is True
-                for child in node.body
+            required_test = (
+                isinstance(node.test, ast.Compare)
+                and isinstance(node.test.left, ast.Constant)
+                and node.test.left.value == "required"
+                and len(node.test.ops) == 1
+                and isinstance(node.test.ops[0], ast.In)
+                and len(node.test.comparators) == 1
+                and isinstance(node.test.comparators[0], ast.Name)
+                and node.test.comparators[0].id == "inventory_decisions"
             )
-            if assigns_true and "inventory_decisions" in names:
+            if required_test:
                 self.mutations += 1
                 node.test = ast.Constant(False)
                 return node
@@ -154,7 +184,7 @@ class DependencyMutator(ast.NodeTransformer):
             "ignore_unresolved_support": "sufficient support conflicts with unresolved routed",
         }
         needle = message_operators.get(self.operator)
-        if needle is not None and any(needle in x for x in strings):
+        if needle is not None and any(needle in x for x in direct_strings):
             self.mutations += 1
             node.test = ast.Constant(False)
             return node
