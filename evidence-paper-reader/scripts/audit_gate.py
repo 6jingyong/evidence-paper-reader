@@ -84,6 +84,7 @@ CRITICAL_GUARDS = {
     "G126": "raw semantic obligations reach execution artifacts independently",
     "G127": "reasoning graph closes claim-evidence-reasoning inputs independently",
     "G128": "claim-local evidence relations close exactly over evidence nodes independently",
+    "G129": "author-acknowledged boundary metadata is source-located and support-neutral independently",
 }
 
 
@@ -492,6 +493,82 @@ def validate_evidence_relation_closure(audit: dict) -> list[str]:
     return errors
 
 
+def validate_author_boundary_closure(audit: dict) -> list[str]:
+    """Independent minimum oracle for ledger-v4 author-boundary metadata."""
+    if audit.get("ledger_schema_version", 1) < 4:
+        return []
+
+    scope = audit.get("scope_status")
+    viability = audit.get("evidence_viability")
+    if scope == "out of scope" or viability == "non-auditable":
+        return []
+
+    claims = audit.get("claims")
+    if not isinstance(claims, list):
+        return ["schema v4 claim audit requires a claims list"]
+
+    allowed = {"explicit", "partial", "absent", "unclear", "not-applicable"}
+    errors: list[str] = []
+
+    for claim_index, claim in enumerate(claims, start=1):
+        if not isinstance(claim, dict):
+            continue
+        support = claim.get("support")
+        if not isinstance(support, dict):
+            continue
+        boundary = support.get("author_boundary")
+        if not isinstance(boundary, dict):
+            errors.append(
+                f"claim {claim_index}: schema v4 requires author_boundary"
+            )
+            continue
+
+        status = boundary.get("status")
+        summary = boundary.get("summary")
+        location = boundary.get("source_location")
+        if status not in allowed:
+            errors.append(
+                f"claim {claim_index}: invalid author boundary status {status!r}"
+            )
+            continue
+        if not isinstance(summary, str) or not summary.strip():
+            errors.append(
+                f"claim {claim_index}: author boundary requires a non-empty summary"
+            )
+            summary = ""
+        else:
+            summary = summary.strip()
+        if not isinstance(location, str) or not location.strip():
+            errors.append(
+                f"claim {claim_index}: author boundary requires a non-empty source_location"
+            )
+            location = ""
+        else:
+            location = location.strip()
+
+        level = support.get("support_level")
+        if level in {"partial", "insufficient", "unclear"} and status == "not-applicable":
+            errors.append(
+                f"claim {claim_index}: non-sufficient support cannot use not-applicable author boundary"
+            )
+        if status in {"explicit", "partial"} and location == "none":
+            errors.append(
+                f"claim {claim_index}: {status} author boundary requires a concrete source location"
+            )
+        if status == "not-applicable" and (
+            summary != "none" or location != "none"
+        ):
+            errors.append(
+                f"claim {claim_index}: not-applicable author boundary must use summary/source_location 'none'"
+            )
+        if status in {"absent", "unclear"} and summary == "none":
+            errors.append(
+                f"claim {claim_index}: {status} author boundary requires an explanatory summary"
+            )
+
+    return errors
+
+
 def validate_reasoning_closure(audit: dict) -> list[str]:
     """Independent minimum oracle for ledger-v2 reasoning closure.
 
@@ -643,6 +720,10 @@ def validate_gate(
     errors.extend(
         _guard("G128", f"evidence relations: {x}")
         for x in validate_evidence_relation_closure(audit)
+    )
+    errors.extend(
+        _guard("G129", f"author boundary: {x}")
+        for x in validate_author_boundary_closure(audit)
     )
 
     recomputed_route = None
