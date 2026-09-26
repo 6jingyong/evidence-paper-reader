@@ -185,7 +185,7 @@ class EvidenceRelationTests(unittest.TestCase):
                 )
                 count += 1
                 with self.subTest(case=case["id"]):
-                    self.assertGreaterEqual(data.get("ledger_schema_version", 0), 3)
+                    self.assertEqual(data.get("ledger_schema_version"), 4)
                     self.assertEqual(render.validate_ledger(data), [])
                     self.assertEqual(gate.validate_evidence_relation_closure(data), [])
                     if data["evidence_viability"] == "non-auditable":
