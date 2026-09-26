@@ -98,6 +98,29 @@ def build():
             "status": "protocol-ready",
         })
 
+    blind_runs_root = RUN_ROOT / "blind-runs"
+    if blind_runs_root.is_dir():
+        for run_dir in sorted(p for p in blind_runs_root.iterdir() if p.is_dir()):
+            if run_dir.name.startswith("."):
+                continue
+            run_file = run_dir / "run.json"
+            if not run_file.is_file():
+                continue
+            run = load(run_file)
+            for cid in run.get("case_ids", []):
+                if cid not in recorded:
+                    raise ValueError(
+                        f"durable blind run references unrecorded paper: {cid}"
+                    )
+                recorded[cid]["test_surfaces"].append({
+                    "kind": "blind-result",
+                    "path": str(run_dir.relative_to(ROOT)),
+                    "status": "completed",
+                    "run_id": run["run_id"],
+                    "reviewer": run["reviewer"],
+                    "runtime": run["runtime"],
+                })
+
     legacy = discover_legacy()
     entries = sorted(
         list(recorded.values()) + legacy,
