@@ -1,0 +1,31 @@
+{
+  "scope_status": "in scope",
+  "evidence_viability": "non-auditable",
+  "viability_flags": [
+    "source-integrity-failure",
+    "proprietary-black-box"
+  ],
+  "paper_type": "retracted multinational observational registry analysis",
+  "reader_conclusion": "The article presents a highly detailed observational analysis of 96,032 hospitalized patients from 671 hospitals, but the central evidentiary substrate cannot now be treated as an inspectable registry dataset. The paper was retracted after concerns about data veracity and provenance; the non-Surgisphere coauthors stated that an independent peer-review audit could not access the full dataset and that they could no longer vouch for the veracity of the primary data sources. Because the data source itself is the basis of every headline estimate, visible tables and regression outputs are not enough to reconstruct a trustworthy evidence chain.",
+  "claims": [],
+  "not_applicable_reason": "The central registry data provenance and validity could not be independently verified after publication, so the numerical treatment associations cannot be audited as trustworthy evidence from the available source.",
+  "usable": {
+    "results": "The published estimates remain useful as a historical record of what the article claimed and of how a polished large-n analysis can fail at the data-provenance layer; they should not be reused as validated clinical evidence.",
+    "methods_or_design": "The nominal cohort definitions, treatment groups, covariates, and outcomes are useful for studying how observational registry analyses are presented and where provenance checks must sit upstream of statistical sophistication.",
+    "materials_or_documentation": "The article, expression of concern, retraction notice, and subsequent Lancet discussion provide a documented publication-integrity case."
+  },
+  "downweight": {
+    "worth_noticing": "The scale, geographic breadth, and adjusted analyses looked unusually persuasive, which is precisely why independent source-data verification is decision-critical.",
+    "cautious_or_ignore": "Do not treat the reported mortality or ventricular-arrhythmia hazard ratios as usable evidence while the underlying registry provenance and primary data cannot be independently verified."
+  },
+  "value_breakdown": {
+    "result": "low",
+    "method": "medium",
+    "theory_or_insight": "low",
+    "research_design": "low",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "A substantive reanalysis would require independently accessible source data, identifiable contributing institutions or equivalent provenance, and a reproducible audit of extraction and analysis. Without that substrate, more elaborate statistical re-reading cannot repair the evidence chain.",
+  "ledger_schema_version": 4,
+  "reasoning_edges": []
+}

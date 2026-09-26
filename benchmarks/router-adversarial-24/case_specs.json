@@ -1,0 +1,323 @@
+{
+  "benchmark_id": "router-adversarial-24-v1",
+  "purpose": "Measure semantic routing recall and lexical false positives without treating keyword presence as a methodological finding.",
+  "cases": [
+    {
+      "case_id": "RA01",
+      "kind": "semantic_positive",
+      "domain": "biomedicine",
+      "claim": "The treatment selectively improves the reported endpoints.",
+      "text": "Twenty-four outcomes were examined. The discussion focuses on the two whose probability values crossed the conventional 0.05 threshold; the remaining outcomes are not emphasized.",
+      "required_modules": [
+        "statistical-traps.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": false,
+      "rationale": "Multiplicity and selected findings matter even though canonical multiple-comparison vocabulary is absent."
+    },
+    {
+      "case_id": "RA02",
+      "kind": "semantic_positive",
+      "domain": "analytical chemistry",
+      "claim": "The analyte is absent from samples with reported zero readings.",
+      "text": "The instrument cannot distinguish concentrations smaller than 3 units. Readings in that range were entered as zero before group averages were calculated.",
+      "required_modules": [
+        "measurement-traps.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": false,
+      "rationale": "A quantification floor and threshold coding materially affect the absence claim."
+    },
+    {
+      "case_id": "RA03",
+      "kind": "semantic_positive",
+      "domain": "health services",
+      "claim": "The new service caused the reduction in hospital use.",
+      "text": "Clients entered the service after a year in which their hospital use was unusually high. Their use during the following year was lower, and the difference was attributed to the service. No contemporaneous comparison population is shown.",
+      "required_modules": [
+        "study-design-traps.md",
+        "statistical-traps.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": false,
+      "rationale": "Counterfactual identification and regression-to-the-mean reasoning are decision-critical without canonical pre/post terminology."
+    },
+    {
+      "case_id": "RA04",
+      "kind": "semantic_positive",
+      "domain": "battery materials",
+      "claim": "The formulation strategy gives durable long-cycle performance.",
+      "text": "Fifty compositions were screened for day-1 capacity. Only the five with the largest initial values were advanced to the 1000-cycle experiment, and long-term robustness is inferred from those five.",
+      "required_modules": [
+        "evidence-topology.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": false,
+      "rationale": "Selection-conditioned evidence matters without using filtered/best-configuration vocabulary."
+    },
+    {
+      "case_id": "RA05",
+      "kind": "semantic_positive",
+      "domain": "microscopy",
+      "claim": "The treatment changes cell morphology with strong statistical evidence.",
+      "text": "Five animals were used per condition. One hundred image fields were taken from each animal, and the inferential analysis counted the 500 image fields as 500 observations.",
+      "required_modules": [
+        "evidence-dependence.md",
+        "statistical-traps.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": false,
+      "rationale": "Nested observations share biological source units and affect uncertainty."
+    },
+    {
+      "case_id": "RA06",
+      "kind": "semantic_positive",
+      "domain": "engineering",
+      "claim": "The two systems differ dramatically in reliability.",
+      "text": "The displayed vertical scale runs from 99.2% to 100.0%. The two traces differ by about 0.25 percentage points, but the display fills most of the panel height with that separation.",
+      "required_modules": [
+        "figure-and-table-traps.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": false,
+      "rationale": "Visual scale materially amplifies the apparent effect without explicit figure/table keywords."
+    },
+    {
+      "case_id": "RA07",
+      "kind": "semantic_positive",
+      "domain": "cell biology",
+      "claim": "The observed phenotype is caused through receptor pathway Z.",
+      "text": "The mechanism paragraph assumes that receptor R binds ligand Z. The only support for that premise is reference 32; the binding experiments are not reproduced in the supplied article.",
+      "required_modules": [
+        "follow-up-boundaries.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": false,
+      "rationale": "A decisive premise depends on an uninspected external work."
+    },
+    {
+      "case_id": "RA08",
+      "kind": "semantic_positive",
+      "domain": "economics",
+      "claim": "Receiving the program caused higher earnings.",
+      "text": "Applicants with an eligibility index of 70 or above received the program, while those just below 70 did not. The outcome changes sharply around that threshold and is interpreted causally.",
+      "required_modules": [
+        "study-design-traps.md",
+        "statistical-traps.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": false,
+      "rationale": "Threshold-based quasi-experimental identification needs design and inference checks without naming the design."
+    },
+    {
+      "case_id": "RA09",
+      "kind": "semantic_positive",
+      "domain": "HCI",
+      "claim": "The system increases user trust.",
+      "text": "The study defines an Engagement Integrity Index by weighting dwell time, click latency, and return visits. Higher index values are interpreted as greater trust; no independently measured trust outcome is collected.",
+      "required_modules": [
+        "measurement-traps.md",
+        "evidence-topology.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": false,
+      "rationale": "Author-defined measurement and proxy-to-construct transfer matter without score/proxy vocabulary."
+    },
+    {
+      "case_id": "RA10",
+      "kind": "semantic_positive",
+      "domain": "clinical trial",
+      "claim": "The primary endpoint is supported by several converging pieces of evidence.",
+      "text": "The same primary estimate is stated in the abstract, repeated in the Results prose, listed in the main outcome display, and restated again in supplementary material and the conclusion.",
+      "required_modules": [
+        "claim-evidence-links.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": true,
+      "rationale": "Repeated presentations of one result require inventory deduplication and evidence-reuse discipline."
+    },
+    {
+      "case_id": "RA11",
+      "kind": "semantic_positive",
+      "domain": "clinical epidemiology",
+      "claim": "The treatment effect is larger in younger than older participants.",
+      "text": "The younger stratum crosses the conventional significance threshold while the older stratum does not. The paper treats this difference in separate significance status as evidence that age changes the treatment effect; no direct comparison of the two effect estimates is reported.",
+      "required_modules": [
+        "statistical-traps.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": false,
+      "rationale": "Difference-in-significance is not significance-of-difference even without subgroup/interaction wording."
+    },
+    {
+      "case_id": "RA12",
+      "kind": "semantic_positive",
+      "domain": "oncology",
+      "claim": "Treatment improves the 12-month quality-of-life outcome.",
+      "text": "The 12-month analysis includes only participants who were alive and still completing questionnaires. Mortality before month 12 differs between treatment arms.",
+      "required_modules": [
+        "study-design-traps.md",
+        "statistical-traps.md"
+      ],
+      "forbidden_modules": [],
+      "inventory_required": false,
+      "rationale": "Outcome availability depends on post-treatment survival and retention."
+    },
+    {
+      "case_id": "RA13",
+      "kind": "lexical_decoy",
+      "domain": "descriptive epidemiology",
+      "claim": "The registry contained 4,812 eligible cases in 2024.",
+      "text": "The limitations section says that no subgroup analyses were performed because the study was descriptive.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "statistical-traps.md"
+      ],
+      "inventory_required": false,
+      "rationale": "The word subgroup is incidental and no claim depends on subgroup inference."
+    },
+    {
+      "case_id": "RA14",
+      "kind": "lexical_decoy",
+      "domain": "materials testing",
+      "claim": "The specimen lost 2.1 mg after the stated abrasion cycle.",
+      "text": "The balance calibration certificate is listed in the equipment appendix. The claim is simply the recorded mass difference under the specified cycle.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "measurement-traps.md"
+      ],
+      "inventory_required": false,
+      "rationale": "Routine equipment metadata is not a decision-critical calibration issue for this bounded record claim."
+    },
+    {
+      "case_id": "RA15",
+      "kind": "lexical_decoy",
+      "domain": "software systems",
+      "claim": "The service handled 18,000 requests per second on the stated hardware.",
+      "text": "Traffic reached the benchmark host through a proxy server. The reported claim concerns throughput on that exact setup.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "evidence-topology.md"
+      ],
+      "inventory_required": false,
+      "rationale": "Proxy refers to networking infrastructure, not a proxy construct."
+    },
+    {
+      "case_id": "RA16",
+      "kind": "lexical_decoy",
+      "domain": "distributed systems",
+      "claim": "The job completed in 41 seconds on the stated hardware configuration.",
+      "text": "The workload ran on a cluster of eight servers. No participant or sampling clusters are involved.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "study-design-traps.md"
+      ],
+      "inventory_required": false,
+      "rationale": "Cluster is a computing noun, not clustered assignment."
+    },
+    {
+      "case_id": "RA17",
+      "kind": "lexical_decoy",
+      "domain": "history of science",
+      "claim": "The 2019 article introduced the terminology used in this review.",
+      "text": "The historical paragraph cites Bayes et al. (2019) as the source of the terminology. No Bayesian analysis is performed.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "statistical-traps.md"
+      ],
+      "inventory_required": false,
+      "rationale": "Bayes is an author name, not Bayesian inference."
+    },
+    {
+      "case_id": "RA18",
+      "kind": "lexical_decoy",
+      "domain": "methods note",
+      "claim": "The protocol consists of four preparation steps listed in the main text.",
+      "text": "The supplement contains author biographies and conference photographs; no protocol result or method detail is placed there.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "follow-up-boundaries.md"
+      ],
+      "inventory_required": false,
+      "rationale": "Supplement existence is irrelevant when no decision-critical material depends on it."
+    },
+    {
+      "case_id": "RA19",
+      "kind": "lexical_decoy",
+      "domain": "clinical trial",
+      "claim": "The primary outcome estimate is 0.72 on the stated scale.",
+      "text": "Figure 1 is only the participant-flow diagram. The numerical primary outcome is fully stated in the sentence above and does not require reading the display.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "figure-and-table-traps.md"
+      ],
+      "inventory_required": false,
+      "rationale": "A figure exists, but the claim does not materially depend on visual encoding."
+    },
+    {
+      "case_id": "RA20",
+      "kind": "lexical_decoy",
+      "domain": "software engineering",
+      "claim": "Compilation time fell from 12.0 to 9.8 seconds on the stated codebase.",
+      "text": "Before compilation, whitespace in source files was normalized to a canonical format. The timing claim is a direct recorded runtime comparison.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "figure-and-table-traps.md"
+      ],
+      "inventory_required": false,
+      "rationale": "Normalized describes text preprocessing, not visual normalization."
+    },
+    {
+      "case_id": "RA21",
+      "kind": "lexical_decoy",
+      "domain": "administrative research",
+      "claim": "The database contains 2,304 completed inspections.",
+      "text": "A sensor platform is mentioned in the background as a possible future data source, but the current count comes entirely from administrative inspection records.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "measurement-traps.md"
+      ],
+      "inventory_required": false,
+      "rationale": "Sensor is background context and not part of the evidence chain."
+    },
+    {
+      "case_id": "RA22",
+      "kind": "lexical_decoy",
+      "domain": "laboratory computing",
+      "claim": "The prototype processed 920 samples per hour in the laboratory setup.",
+      "text": "The introduction motivates future real-world deployment, but the reported claim is explicitly limited to the laboratory throughput measurement.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "evidence-topology.md"
+      ],
+      "inventory_required": false,
+      "rationale": "Real-world appears only in motivation; no transfer claim is being audited."
+    },
+    {
+      "case_id": "RA23",
+      "kind": "lexical_decoy",
+      "domain": "formal methods",
+      "claim": "The proof establishes termination for the stated algorithm under assumptions A and B.",
+      "text": "A prior machine-learning paper mentioned in Related Work used a validation set. The present claim is a formal derivation and uses no predictive dataset.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "study-design-traps.md"
+      ],
+      "inventory_required": false,
+      "rationale": "Validation-set language belongs to unrelated background work."
+    },
+    {
+      "case_id": "RA24",
+      "kind": "lexical_decoy",
+      "domain": "software engineering",
+      "claim": "Version 2 passes all 436 compatibility checks in the stated suite.",
+      "text": "The release process includes a regression test suite that reruns previously fixed software bugs. No statistical regression model is used.",
+      "required_modules": [],
+      "forbidden_modules": [
+        "statistical-traps.md"
+      ],
+      "inventory_required": false,
+      "rationale": "Regression is a software-testing term here."
+    }
+  ]
+}

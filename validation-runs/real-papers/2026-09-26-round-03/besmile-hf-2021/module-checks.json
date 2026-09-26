@@ -1,0 +1,123 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: feasibility/adherence and adverse events"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: feasibility/adherence and adverse events"
+          ],
+          "reason": "Checked sampling, assignment, comparator, and design limits before allowing causal or general claims.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: feasibility/adherence and adverse events"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: self-efficacy outcome"
+          ],
+          "reason": "Checked denominators, uncertainty, comparison structure, and null/secondary results before assigning support.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: self-efficacy outcome"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: self-efficacy outcome"
+          ],
+          "reason": "Checked sampling, assignment, comparator, and design limits before allowing causal or general claims.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: self-efficacy outcome"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: peak oxygen consumption; Discussion and Conclusion"
+          ],
+          "reason": "Checked denominators, uncertainty, comparison structure, and null/secondary results before assigning support.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: peak oxygen consumption; Discussion and Conclusion"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: peak oxygen consumption; Discussion and Conclusion"
+          ],
+          "reason": "Checked sampling, assignment, comparator, and design limits before allowing causal or general claims.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: peak oxygen consumption; Discussion and Conclusion"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: peak oxygen consumption; Discussion and Conclusion"
+          ],
+          "reason": "Separated what this source establishes from evidence needed for the stronger claim."
+        }
+      ]
+    }
+  ]
+}

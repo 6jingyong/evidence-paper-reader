@@ -1,0 +1,183 @@
+{
+  "ledger_schema_version": 4,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "cluster randomized clinical trial",
+  "reader_conclusion": "The 66-center cluster trial supports improved 12-month BP control and lower BP in the enrolled Chinese community population; claims about broad public-health benefit across diverse populations are a further transfer inference.",
+  "claims": [
+    {
+      "content": "After 12 months, BP control was higher in the web-based multicomponent intervention group than usual care (47.4% vs 30.2%; reported OR 1.18, 95% CI 1.13–1.24, p<0.001).",
+      "claim_type": "intervention",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The cluster-randomized primary-outcome comparison directly reports higher BP control after 12 months."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract/Results: primary BP-control outcome",
+        "support_level": "sufficient",
+        "reason": "The bounded claim matches the enrolled population, 12-month horizon, and reported primary outcome.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The intervention also reduced SBP by 10.1 mm Hg and DBP by 1.8 mm Hg relative to control over 12 months.",
+      "claim_type": "intervention",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The reported between-group BP changes directly support the bounded continuous-outcome claim."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract/Results: SBP and DBP change",
+        "support_level": "sufficient",
+        "reason": "The source directly reports both between-group BP differences with confidence intervals.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "This web-based program will generate similar public-health benefits across diverse populations and health systems.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The large multicenter Chinese community sample supports practical effectiveness in the studied setting."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "BP reductions strengthen the local effectiveness conclusion but do not independently establish cross-system transfer."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Conclusion/Discussion: public-health and diverse-population statements",
+        "support_level": "partial",
+        "reason": "The trial is large and pragmatic but occurred in 66 Chinese community health centers with one guideline-oriented intervention package; population, infrastructure, clinician workflow, and baseline treatment context may alter transfer.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "partial",
+          "summary": "The authors discuss study-setting and implementation limitations and frame broader scaling as a public-health opportunity rather than demonstrated cross-system transportability; this partially acknowledges the generalization boundary.",
+          "source_location": "Discussion/Limitations; implementation and generalizability discussion"
+        }
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Uses cluster randomization and the primary comparison to attribute the bounded improvement in BP control to the intervention package.",
+      "assumptions": [
+        "The modified intention-to-treat analysis and cluster design preserve the treatment contrast sufficiently for the enrolled population."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Uses the randomized cluster comparison to attribute the bounded BP-level differences to the intervention package.",
+      "assumptions": [
+        "Measurement and cluster analysis adequately handle baseline and within-center dependence."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends a large but setting-specific cluster trial to diverse populations and health systems.",
+      "assumptions": [
+        "Intervention uptake, care infrastructure, baseline treatment, and population response are sufficiently similar across external settings."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "Primary BP-control and continuous BP outcomes are directly useful for the enrolled communities.",
+    "methods_or_design": "The multicenter cluster-randomized telemedicine design is useful for pragmatic implementation studies.",
+    "materials_or_documentation": "Center count, sample, 12-month follow-up, intervention components, BP definitions, and effect estimates are reported."
+  },
+  "downweight": {
+    "worth_noticing": "The large pragmatic cluster design gives stronger implementation evidence than a small efficacy pilot.",
+    "cautious_or_ignore": "Do not equate within-country multicenter breadth with demonstrated transfer across diverse health systems."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "high",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Replication in different care systems, populations, digital-access contexts, and implementation structures would test transportability."
+}

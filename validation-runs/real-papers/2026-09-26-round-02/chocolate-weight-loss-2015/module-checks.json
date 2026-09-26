@@ -1,0 +1,166 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods; Results III.a; Figures 1 and 2"
+          ],
+          "reason": "The tiny groups and near-identical 3.2% versus 3.1% weight loss are kept distinct from the article's more dramatic temporal narrative.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods; Results III.a; Figures 1 and 2"
+          ],
+          "reason": "A three-week randomized diet assignment can support only a short-term comparison, not durable weight control.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods; Results III.a; Figures 1 and 2"
+          ],
+          "reason": "Repeated weights from the same tiny participants do not create independent replications.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods; Results III.a; Figures 1 and 2"
+          ],
+          "reason": "The claim uses the reported 21-day group changes rather than promotional wording."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods II.e-f; Results III.b-f; Table 1; Figure 4"
+          ],
+          "reason": "Many endpoints were measured and selectively highlighted; favorable p-values are not treated as independent discoveries without multiplicity control.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods II.e-f; Results III.b-f; Table 1; Figure 4"
+          ],
+          "reason": "Urine-strip ketones, blood lipids, and subjective complaints are different proxies and cannot be collapsed into one general health construct.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods II.e-f; Results III.b-f; Table 1; Figure 4"
+          ],
+          "reason": "Very small analyzable groups and short duration limit inference even when allocation is described as randomized.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods II.e-f; Results III.b-f; Table 1; Figure 4"
+          ],
+          "reason": "The favorable secondary outcomes reuse the same few participants and shared intervention.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods II.e-f; Results III.b-f; Table 1; Figure 4"
+          ],
+          "reason": "The bounded claim is only that the paper reports these favorable differences, not that each is a reliable population effect."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Conclusion IV"
+          ],
+          "reason": "The conclusion overweights selected favorable outcomes from a many-variable tiny-n study.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Conclusion IV"
+          ],
+          "reason": "Short-term weight and proxy biomarkers do not measure long-term weight maintenance or overall health benefit.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Conclusion IV"
+          ],
+          "reason": "Three weeks cannot establish long-term success or general dietary effectiveness.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Conclusion IV"
+          ],
+          "reason": "Multiple outcomes from one tiny experiment remain shared-source evidence.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Conclusion IV"
+          ],
+          "reason": "E1-E3 share participants, intervention, analysis choices, and selection process."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Conclusion IV"
+          ],
+          "reason": "The 'weight loss turbo' conclusion outruns the narrow measured contrasts."
+        },
+        {
+          "module": "claim-dependencies.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Conclusion IV"
+          ],
+          "reason": "The long-term claim depends on already fragile short-term and secondary findings."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; Conclusion IV"
+          ],
+          "reason": "Durability and generality require a longer, adequately powered, prospectively specified trial."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "ledger_schema_version": 4,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "security usability case study",
+  "reader_conclusion": "The walkthrough and novice lab test expose serious PGP 5.0 usability failures; the conclusion about most computer users extends beyond the small case study.",
+  "claims": [
+    {
+      "content": "A cognitive walkthrough of PGP 5.0 identified multiple interface design flaws that could contribute to security failures for novice users.",
+      "claim_type": "methodological",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "single-case illustration",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The structured walkthrough documents concrete interface/task mismatches relevant to novice secure-mail use."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Cognitive walkthrough analysis",
+        "support_level": "sufficient",
+        "reason": "The claim is limited to flaws identified by the explicit walkthrough procedure.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "In the laboratory user test, the majority of novice participants were unable within 90 minutes to successfully sign and encrypt a message using PGP 5.0.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The timed novice-user task directly supports the bounded observed usability-failure claim."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "User test; task completion results",
+        "support_level": "sufficient",
+        "reason": "The paper directly reports that most participants failed the task under the stated lab conditions.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "PGP 5.0 is not usable enough to provide effective security for most computer users.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "single-case illustration",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The walkthrough identifies security-relevant usability obstacles."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "The novice lab failures support serious concerns but the small selected sample does not represent most computer users."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Abstract/Conclusion; walkthrough and user test",
+        "support_level": "partial",
+        "reason": "The case-study evidence is coherent, but 'most computer users' is a population-level generalization beyond the limited sample and task.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "partial",
+          "summary": "The authors present the work as a case study combining a cognitive walkthrough with a small novice-user laboratory test, which acknowledges the empirical basis is limited, while still drawing a broader conclusion about most computer users.",
+          "source_location": "Method/User study framing; Conclusion"
+        }
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends a small novice case study and one secure-mail task to most computer users and effective security generally.",
+      "assumptions": [
+        "The selected novices and laboratory task represent broader users and security contexts."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "Task failures and walkthrough findings are usable evidence about PGP 5.0 novice usability.",
+    "methods_or_design": "Combining cognitive walkthrough with observed user tasks is a reusable security-usability approach.",
+    "materials_or_documentation": "Task goals, interface problems, and laboratory procedure are documented."
+  },
+  "downweight": {
+    "worth_noticing": "Walkthrough and user-test convergence strengthens the bounded PGP 5.0 diagnosis.",
+    "cautious_or_ignore": "Do not treat the case study as a direct population estimate for all computer users."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "medium",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Larger, more diverse users, tasks, and security interfaces would test population-level generality."
+}

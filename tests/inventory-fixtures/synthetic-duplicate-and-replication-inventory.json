@@ -1,0 +1,132 @@
+{
+  "evidence_viability": "auditable",
+  "claims": [
+    {
+      "claim_id": "C1",
+      "content": "The intervention reduces the primary outcome in the main cohort."
+    },
+    {
+      "claim_id": "C2",
+      "content": "A secondary endpoint changes in the same main cohort."
+    },
+    {
+      "claim_id": "C3",
+      "content": "The primary effect is reproduced in an independently sampled replication cohort."
+    }
+  ],
+  "materials": [
+    {
+      "material_id": "M1",
+      "kind": "main text",
+      "availability": "available",
+      "location": "Results section",
+      "notes": "Main cohort and replication prose are available."
+    },
+    {
+      "material_id": "M2",
+      "kind": "table",
+      "availability": "available",
+      "location": "Table 2",
+      "notes": "Primary and secondary endpoint estimates."
+    }
+  ],
+  "records": [
+    {
+      "record_id": "R1",
+      "claim_refs": [
+        "C1"
+      ],
+      "material_id": "M1",
+      "record_role": "direct result",
+      "provenance": "paper-local",
+      "location": "Results paragraph 1",
+      "summary": "Primary outcome is lower in the intervention arm.",
+      "sample_or_unit": "main randomized cohort",
+      "comparison_or_baseline": "intervention versus control",
+      "result_detail": "primary effect estimate reported in prose",
+      "result_key": "G1",
+      "unit_key": "U1",
+      "availability": "complete",
+      "selection_or_filtering": "primary analysis population"
+    },
+    {
+      "record_id": "R2",
+      "claim_refs": [
+        "C1"
+      ],
+      "material_id": "M2",
+      "record_role": "direct result",
+      "provenance": "paper-local",
+      "location": "Table 2 primary outcome row",
+      "summary": "Primary outcome is lower in the intervention arm.",
+      "sample_or_unit": "main randomized cohort",
+      "comparison_or_baseline": "intervention versus control",
+      "result_detail": "same primary effect estimate repeated in Table 2",
+      "result_key": "G1",
+      "unit_key": "U1",
+      "availability": "complete",
+      "selection_or_filtering": "primary analysis population"
+    },
+    {
+      "record_id": "R3",
+      "claim_refs": [
+        "C2"
+      ],
+      "material_id": "M2",
+      "record_role": "direct result",
+      "provenance": "paper-local",
+      "location": "Table 2 secondary outcome row",
+      "summary": "Secondary endpoint differs between groups.",
+      "sample_or_unit": "same main randomized cohort",
+      "comparison_or_baseline": "intervention versus control",
+      "result_detail": "secondary endpoint estimate",
+      "result_key": "G2",
+      "unit_key": "U1",
+      "availability": "complete",
+      "selection_or_filtering": "same primary analysis population"
+    },
+    {
+      "record_id": "R4",
+      "claim_refs": [
+        "C3"
+      ],
+      "material_id": "M1",
+      "record_role": "direct result",
+      "provenance": "paper-local",
+      "location": "Replication subsection",
+      "summary": "The primary directional effect is reproduced in a separately sampled cohort.",
+      "sample_or_unit": "independently recruited replication cohort",
+      "comparison_or_baseline": "intervention versus control",
+      "result_detail": "replication cohort primary estimate",
+      "result_key": "G3",
+      "unit_key": "U2",
+      "availability": "complete",
+      "selection_or_filtering": "replication analysis population"
+    }
+  ],
+  "promotions": [
+    {
+      "evidence_node": "E1",
+      "record_ids": [
+        "R1",
+        "R2"
+      ],
+      "reason": "R1 and R2 are two presentations of the same primary result."
+    },
+    {
+      "evidence_node": "E2",
+      "record_ids": [
+        "R3"
+      ],
+      "reason": "Distinct secondary endpoint from the same main cohort."
+    },
+    {
+      "evidence_node": "E3",
+      "record_ids": [
+        "R4"
+      ],
+      "reason": "Independent replication-cohort result."
+    }
+  ],
+  "unresolved_claims": []
+}

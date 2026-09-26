@@ -1,0 +1,138 @@
+{
+  "round_id": "2026-09-26-round-01",
+  "audited_on": "2026-09-26",
+  "reviewer": "GPT-5.6 Sol",
+  "base_head": "c6a3bd18a6b3ba0490c9808626d7e02137fdff9a",
+  "purpose": "Cross-domain real-paper replay after second-order mutation hardening.",
+  "cases": [
+    {
+      "id": "attention-is-all-you-need-2017",
+      "domain": "machine-learning",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "sprint-2015",
+      "domain": "clinical-medicine",
+      "inventory_expected": true,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "echinacea-2010",
+      "domain": "clinical-medicine-negative-result",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "acc-dic-2021",
+      "domain": "materials-measurement",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "mathematical-beauty-2014",
+      "domain": "neuroaesthetics",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

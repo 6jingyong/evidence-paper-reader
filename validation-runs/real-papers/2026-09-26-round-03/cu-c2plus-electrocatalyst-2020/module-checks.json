@@ -1,0 +1,139 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "figure-and-table-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; electrochemical results; Summary"
+          ],
+          "reason": "Checked the decision-critical table/figure values rather than relying on visual emphasis.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; electrochemical results; Summary"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; electrochemical results; Summary"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "figure-and-table-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Catalyst comparison; Summary"
+          ],
+          "reason": "Checked the decision-critical table/figure values rather than relying on visual emphasis.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Catalyst comparison; Summary"
+          ],
+          "reason": "Checked denominators, uncertainty, comparison structure, and null/secondary results before assigning support.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Catalyst comparison; Summary"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Catalyst comparison; Summary"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "figure-and-table-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Mechanistic discussion; characterization and Summary"
+          ],
+          "reason": "Checked the decision-critical table/figure values rather than relying on visual emphasis.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Mechanistic discussion; characterization and Summary"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Mechanistic discussion; characterization and Summary"
+          ],
+          "reason": "Checked whether multiple observations are independent or reused parts of one source/data stream.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Mechanistic discussion; characterization and Summary"
+          ],
+          "reason": "Kept reused or jointly generated evidence from being counted as independent confirmation."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Mechanistic discussion; characterization and Summary"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        },
+        {
+          "module": "claim-dependencies.md",
+          "status": "clear",
+          "source_locations": [
+            "Mechanistic discussion; characterization and Summary"
+          ],
+          "reason": "Checked that the broader claim inherits rather than erases uncertainty from upstream claims."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Mechanistic discussion; characterization and Summary"
+          ],
+          "reason": "Separated what this source establishes from evidence needed for the stronger claim."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "ledger_schema_version": 4,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "computational market-microstructure forecasting study",
+  "reader_conclusion": "The paper supports strong traditional forecast metrics for some stock/horizon settings and, importantly, directly shows that those metrics can correspond to very low probabilities of correctly executing complete transactions; actionable trading remains a different endpoint.",
+  "claims": [
+    {
+      "content": "Across 15 NASDAQ stocks, predictability depended strongly on microstructure; large-tick stocks achieved F1 scores above about 0.45 without probability thresholds and above 0.7 in some thresholded settings.",
+      "claim_type": "performance",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "administrative or transactional record",
+          "computational benchmark",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The multi-stock out-of-sample forecast experiments directly report the relationship between stock microstructure and traditional forecast metrics."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results 7.1; Figs. 13–14",
+        "support_level": "sufficient",
+        "reason": "The bounded claim stays with the tested 15 stocks, horizons, and DeepLOB-style forecasting setup.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "High F1/MCC forecasting scores did not reliably imply actionable transaction forecasts: the paper's transaction metric pT was often near zero even where F1 remained moderate or high.",
+      "claim_type": "methodological",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "administrative or transactional record",
+          "computational benchmark",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "Table 8 and the constructed transaction examples directly show large gaps between classification metrics and correct complete-transaction probability."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results 7.2; Fig. 11; Table 8",
+        "support_level": "sufficient",
+        "reason": "The paper explicitly evaluates forecast practicality separately from classification performance and shows the two can diverge sharply.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The proposed evaluation framework establishes generally actionable deep-learning trading decisions across markets and execution settings.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "administrative or transactional record",
+          "computational benchmark",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "mixed",
+            "reason": "The 15-stock sample gives heterogeneous NASDAQ coverage but not arbitrary markets or live execution."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "contextual",
+            "reason": "pT exposes a simulation-to-reality gap rather than demonstrating realized profitability or execution quality."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Conclusion and future work; framework generality statements",
+        "support_level": "partial",
+        "reason": "The framework is useful for the tested forecast-practicality question, but live trading, costs, queue position, slippage, different venues/assets, and strategy design remain outside the evidence.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The authors explicitly separate conventional forecast scores from transaction practicality, show that high F1 can coexist with very low pT, and leave realistic trading/execution use as a further problem.",
+          "source_location": "Results 7.2; Table 8; Conclusion and future work"
+        }
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "statistical-inference",
+      "reasoning_status": "supported",
+      "added_reach": "Links out-of-sample forecast performance to measured stock microstructural properties within the tested NASDAQ sample.",
+      "assumptions": [
+        "The temporal train/validation/test protocol provides a valid out-of-sample comparison for the studied stocks."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares traditional classification metrics with a chronological complete-transaction metric on the same forecasts.",
+      "assumptions": [
+        "The pT construction is a meaningful operational proxy for the specific forecast-practicality question being asked."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends one NASDAQ LOB forecasting framework to actionable trading decisions across markets and execution conditions.",
+      "assumptions": [
+        "The chosen pT metric and studied market microstructure transfer to other venues/assets and correspond to realized execution economics."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "Multi-stock forecast metrics and pT transaction-probability comparisons are directly useful.",
+    "methods_or_design": "LOBFrame, temporal splitting, microstructure stratification, and explicit practicality metrics are reusable evaluation ideas.",
+    "materials_or_documentation": "Data windows, stock universe, labels, model protocol, code, and transaction metric are documented."
+  },
+  "downweight": {
+    "worth_noticing": "The paper itself separates forecast accuracy from transaction practicality rather than selling F1 as profit.",
+    "cautious_or_ignore": "Do not reinterpret high classification scores or pT as demonstrated profitable live execution."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "high",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Live/realistic execution with costs, queue position, latency, strategy rules, other venues, and external periods is needed for trading claims."
+}

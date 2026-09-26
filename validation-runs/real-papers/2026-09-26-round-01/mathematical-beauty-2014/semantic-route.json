@@ -1,0 +1,55 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "claim_text": "In the scanned mathematicians, the experience ratings of mathematical beauty correlate parametrically with activity in medial orbitofrontal cortex field A1.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "not_required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "not_required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the methodological checks needed to audit C1's stated evidence and inference."
+    },
+    {
+      "claim_id": "C2",
+      "claim_text": "Mathematical beauty engages the same part of medial orbitofrontal cortex that has been associated with visual and musical beauty.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the methodological checks needed to audit C2's stated evidence and inference."
+    },
+    {
+      "claim_id": "C3",
+      "claim_text": "The neural result suggests that beauty has an abstract quality that is independent of culture and learning.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the methodological checks needed to audit C3's stated evidence and inference."
+    }
+  ]
+}

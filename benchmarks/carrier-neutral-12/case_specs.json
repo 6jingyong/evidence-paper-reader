@@ -1,0 +1,78 @@
+{
+  "benchmark_id": "carrier-neutral-12-v1",
+  "purpose": "Synthetic carrier-neutral logic benchmark. Claims are explicit so the benchmark isolates evidence direction, reasoning reach, and support across non-paper source types.",
+  "cases": [
+    {
+      "case_id": "CN01",
+      "source_kind": "vendor datasheet",
+      "carrier": "technical datasheet",
+      "source_text": "ThermaBond X6 datasheet. Test method ASTM D5470 reports thermal conductivity 6.5 W/m·K at 25 °C on cured specimens. A lap-shear test after 24 h cure at 25 °C reports 12 MPa on the listed aluminum coupon geometry. The headline says: \"The ideal adhesive for every EV inverter and aerospace mission.\" Claim 1: ThermaBond X6 measured 6.5 W/m·K under the stated test. Claim 2: The listed lap-shear configuration measured 12 MPa after the stated cure. Claim 3: ThermaBond X6 is ideal for every EV inverter and aerospace mission. No lifetime, vibration, radiation, thermal-cycling, or application-level qualification data are shown."
+    },
+    {
+      "case_id": "CN02",
+      "source_kind": "vendor laboratory report",
+      "carrier": "battery vendor report",
+      "source_text": "CellCo laboratory note. Twenty-five prototype cells were cycled at 25 °C under one stated charge/discharge protocol. Mean retained capacity after 1,000 cycles was 90%. Claim 1: These 25 prototype cells retained 90% mean capacity after 1,000 cycles under the stated protocol. Claim 2: The result indicates the cell can plausibly support long service life in similar controlled conditions. Claim 3: The cell will deliver ten years of service life in all climates and vehicle duty cycles. No hot/cold climate, calendar-aging, pack-level, abuse, or fleet data are reported."
+    },
+    {
+      "case_id": "CN03",
+      "source_kind": "product landing page",
+      "carrier": "marketing page",
+      "source_text": "TaskBoost product page. \"Customers get 47% more productive, make fewer mistakes, and recover ten hours per week. TaskBoost works for every knowledge team.\" The page shows three anonymous testimonials and animated counters. It gives no sample size, measurement definition, comparison baseline, study period, raw results, methods, or linked analysis."
+    },
+    {
+      "case_id": "CN04",
+      "source_kind": "vendor benchmark page",
+      "carrier": "software benchmark",
+      "source_text": "CloudFast benchmark page. On 20 internal API tasks run on the same listed hardware, CloudFast median latency was 88 ms and RivalStack median latency was 100 ms. Quality was not evaluated. Cost was not measured. Claim 1: CloudFast was 12% faster by median latency on these 20 internal tasks under the stated setup. Claim 2: CloudFast is the best AI serving platform overall. Claim 3: CloudFast reduces total serving cost by 30%."
+    },
+    {
+      "case_id": "CN05",
+      "source_kind": "customer case study",
+      "carrier": "vendor case study",
+      "source_text": "FactorySoft case study. One factory reports unplanned downtime fell from 100 hours in the prior quarter to 82 hours in the quarter after FactorySoft deployment. During the same quarter the factory also introduced a new preventive-maintenance schedule and replaced two high-failure machines. Claim 1: The factory's recorded unplanned downtime was 18% lower in the post-deployment quarter than in the prior quarter. Claim 2: FactorySoft caused the full 18% downtime reduction. Claim 3: Typical factories can expect an 18% downtime reduction from FactorySoft."
+    },
+    {
+      "case_id": "CN06",
+      "source_kind": "industry survey report",
+      "carrier": "industry report",
+      "source_text": "IndustryAI survey report. An opt-in online survey collected responses from 600 executives on the publisher's mailing list. 62% of respondents said they planned to increase AI spending next year. The report did not provide population weights or a probability-sampling frame. Claim 1: 62% of the 600 surveyed executives reported plans to increase AI spending next year. Claim 2: The survey suggests AI spending may rise across the broader industry. Claim 3: AI adoption is causing an industry-wide productivity boom. No productivity outcome was measured."
+    },
+    {
+      "case_id": "CN07",
+      "source_kind": "policy brief",
+      "carrier": "policy analysis",
+      "source_text": "City Clean-Air brief. After a low-emission-zone policy began, roadside NO2 at the monitored sites was 8% lower over the next year than in the prior year. Over the same period fuel prices rose and two major employers expanded remote-work policies. There is no concurrent untreated comparison area. Claim 1: Monitored roadside NO2 was 8% lower in the post-policy year than in the prior year. Claim 2: The low-emission zone caused the full 8% decline. Claim 3: National adoption of the same policy would reduce roadside NO2 by 8% everywhere."
+    },
+    {
+      "case_id": "CN08",
+      "source_kind": "incident postmortem",
+      "carrier": "engineering postmortem",
+      "source_text": "Service postmortem. A configuration deployment at 14:02 was followed by request failures at 14:04. Logs show the deployed file contained a malformed routing rule. Replaying that file in staging reproduced the failure, and reverting the file restored service. Claim 1: The outage began immediately after the malformed configuration was deployed. Claim 2: The malformed routing rule was the proximate cause of this outage. Claim 3: The same configuration-parser mechanism explains all previous outages in this service. No analysis of previous outages is presented."
+    },
+    {
+      "case_id": "CN09",
+      "source_kind": "engineering blog",
+      "carrier": "simulation blog",
+      "source_text": "FlowLab engineering blog. One CFD model of a redesigned duct at the stated Reynolds number reports 15% lower simulated pressure drop than the baseline geometry. Mesh-convergence checks are shown, but no physical prototype or wind-tunnel result is reported. Claim 1: The CFD model predicts 15% lower pressure drop for the redesigned duct at the stated condition. Claim 2: The physical redesigned duct will probably reduce pressure drop under a closely matched condition. Claim 3: The redesign reduces pressure drop by at least 15% across all operating Reynolds numbers."
+    },
+    {
+      "case_id": "CN10",
+      "source_kind": "trading strategy blog",
+      "carrier": "financial backtest",
+      "source_text": "QuantEdge strategy note. A strategy backtested on 2018–2025 data reports Sharpe 2.1 after transaction-cost assumptions. The note states that signal thresholds were selected after examining the full 2018–2025 period. No untouched holdout or live period is reported. Claim 1: The reported in-sample backtest has Sharpe 2.1 under the stated assumptions. Claim 2: The strategy should achieve a similar Sharpe live. Claim 3: The backtest proves the signal reflects a persistent causal market inefficiency."
+    },
+    {
+      "case_id": "CN11",
+      "source_kind": "security whitepaper",
+      "carrier": "security vendor whitepaper",
+      "source_text": "SecureGate whitepaper. In a vendor lab, 500 attacks drawn from a fixed known attack library were replayed against the product; 480 were blocked. No independent red team or novel attack family was evaluated. Claim 1: SecureGate blocked 96% of the 500 replayed attacks in the stated lab test. Claim 2: The result suggests SecureGate may reduce successful attacks in deployments similar to the tested environment. Claim 3: SecureGate is secure against novel attacks and will prevent 96% of real production breaches."
+    },
+    {
+      "case_id": "CN12",
+      "source_kind": "experiment memo",
+      "carrier": "product A/B memo",
+      "source_text": "Checkout experiment memo. 50,000 eligible users were randomly assigned 1:1 to the existing checkout or a new checkout. Purchase conversion was 8.0% in control and 9.2% in treatment; the reported 95% confidence interval for the +1.2 percentage-point difference was +0.7 to +1.7 points. Revenue per converted order and one-year retention were not measured. Claim 1: The new checkout increased purchase conversion by 1.2 percentage points in this randomized experiment. Claim 2: Deploying the new checkout will increase annual company revenue by at least 15%. Claim 3: The conversion effect will be the same in every customer segment and future season."
+    }
+  ]
+}

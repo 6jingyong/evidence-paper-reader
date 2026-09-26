@@ -1,0 +1,175 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Method; Results; Figures 3 and 4; footnote 2"
+          ],
+          "reason": "Checked small-n precision, multiple outcome families, covariate analyses, and disclosed hormone outlier exclusions.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Method; Results; Figures 3 and 4; footnote 2"
+          ],
+          "reason": "Salivary testosterone and cortisol are treated as measured short-term biomarkers, not as power itself.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Method; Results; Figures 3 and 4; footnote 2"
+          ],
+          "reason": "Random assignment supports a laboratory pose effect within the experiment but not long-term field outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Method; Results; Figures 3 and 4; footnote 2"
+          ],
+          "reason": "Testosterone and cortisol are two outcomes from the same participants and manipulation.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Method; Results; Figures 3 and 4; footnote 2"
+          ],
+          "reason": "The claim is bounded to the specific reported hormone analyses."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Risk-taking measure; Results"
+          ],
+          "reason": "The gamble result is a single binary choice with a p-value near the conventional threshold and is kept bounded to this task.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Risk-taking measure; Results"
+          ],
+          "reason": "A $2 gamble and a two-item feeling scale are proxies for risk tolerance and felt power, not general behavior.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Risk-taking measure; Results"
+          ],
+          "reason": "Random assignment supports the immediate laboratory contrast only.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Risk-taking measure; Results"
+          ],
+          "reason": "Gamble and self-report outcomes reuse the same participants and are not independent replications.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Risk-taking measure; Results"
+          ],
+          "reason": "The claim follows the exact task and self-report outcomes reported."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Discussion"
+          ],
+          "reason": "Several outcomes from one small experiment cannot be treated as high-precision evidence for broad benefits.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Discussion"
+          ],
+          "reason": "Hormones, one gamble, and self-report do not directly measure interviews, chronic health, or life outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Discussion"
+          ],
+          "reason": "No field performance or longitudinal design tested the real-world extrapolations.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Discussion"
+          ],
+          "reason": "All supporting outcomes come from one shared laboratory sample.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Discussion"
+          ],
+          "reason": "Consistent directions across outcomes are shared-source convergence, not independent replication."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Discussion"
+          ],
+          "reason": "The broad claim adds real-world outcomes absent from the measured evidence."
+        },
+        {
+          "module": "claim-dependencies.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Discussion"
+          ],
+          "reason": "The generalization depends on both bounded laboratory claims and inherits their uncertainty."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Discussion"
+          ],
+          "reason": "Actionable claims require direct field and replication evidence."
+        }
+      ]
+    }
+  ]
+}

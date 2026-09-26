@@ -1,0 +1,124 @@
+name: contract-tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run contract unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Run sabotage guard matrix
+        run: |
+          test -f tests/test_sabotage_guards.py
+          test -f tests/test_fail_closed_sabotage.py
+          test -f tests/test_gate_mutation_canaries.py
+          test -f tests/test_dependency_mutation_canaries.py
+          test -f tests/test_common_mode_oracles.py
+          test -f tests/test_cli_mutation_canaries.py
+          test -f tests/test_second_order_mutations.py
+          test -f tests/sabotage-matrix.json
+          python tests/test_sabotage_guards.py -v
+          python tests/test_fail_closed_sabotage.py -v
+          python tests/test_gate_mutation_canaries.py -v
+          python tests/test_dependency_mutation_canaries.py -v
+          python tests/test_common_mode_oracles.py -v
+          python tests/test_cli_mutation_canaries.py -v
+          python tests/test_second_order_mutations.py -v
+      - name: Validate all real-paper regression audits
+        shell: bash
+        run: |
+          for audit in tests/fixtures/*-audit.md; do
+            echo "Validating $audit"
+            python evidence-paper-reader/scripts/validate_audit.py "$audit"
+          done
+          test -f validation-runs/real-papers/2026-09-26-round-01/manifest.json
+          test -f validation-runs/real-papers/validate_judgments.py
+          test -f tests/real-paper-judgment-baseline.json
+          test -f tests/test_real_paper_judgment_mutations.py
+          python validation-runs/real-papers/validate_judgments.py --root .
+          python tests/test_real_paper_run_records.py -v
+          python tests/test_real_paper_judgment_mutations.py -v
+      - name: Validate carrier-neutral benchmark
+        shell: bash
+        run: |
+          test -f benchmarks/carrier-neutral-12/case_specs.json
+          test -f benchmarks/carrier-neutral-12/reference_expectations.json
+          test -f benchmarks/carrier-neutral-12/generate_packets.py
+          test -f benchmarks/carrier-neutral-12/run_reviewer.py
+          test -f benchmarks/carrier-neutral-12/score_carrier.py
+          test -f tests/test_carrier_neutral_benchmark.py
+          rm -rf /tmp/epr-carrier-neutral-12
+          python benchmarks/carrier-neutral-12/generate_packets.py \
+            --output /tmp/epr-carrier-neutral-12/packets \
+            --check
+          python benchmarks/carrier-neutral-12/run_reviewer.py \
+            --packet-dir /tmp/epr-carrier-neutral-12/packets \
+            --response-dir /tmp/epr-carrier-neutral-12/responses \
+            --workspace-dir /tmp/epr-carrier-neutral-12/workspaces \
+            --command 'isolated-reviewer {prompt} {output}' \
+            --limit 2 \
+            --dry-run
+          python tests/test_carrier_neutral_benchmark.py -v
+      - name: Validate source-to-audit protocol
+        shell: bash
+        run: |
+          test -f benchmarks/source-to-audit-10/case_index.json
+          test -f benchmarks/source-to-audit-10/acquisition-profiles.json
+          test -f benchmarks/source-to-audit-10/prepare_source.py
+          test -f benchmarks/source-to-audit-10/run_reviewer.py
+          test -f benchmarks/source-to-audit-10/score_source.py
+          test -f tests/test_source_to_audit_benchmark.py
+          python tests/test_source_to_audit_benchmark.py -v
+      - name: Validate durable source-to-audit evidence
+        shell: bash
+        run: |
+          test -f validation-runs/real-papers/validate_source_runs.py
+          test -f validation-runs/real-papers/source-runs/README.md
+          test -f tests/test_durable_source_runs.py
+          python validation-runs/real-papers/validate_source_runs.py
+          python tests/test_durable_source_runs.py -v
+      - name: Validate durable blind-run evidence
+        shell: bash
+        run: |
+          test -f validation-runs/real-papers/validate_blind_runs.py
+          test -f validation-runs/real-papers/blind-runs/README.md
+          test -f tests/test_durable_blind_runs.py
+          python validation-runs/real-papers/validate_blind_runs.py
+          python tests/test_durable_blind_runs.py -v
+      - name: Validate paper evidence registry
+        shell: bash
+        run: |
+          test -f validation-runs/real-papers/build_evidence_catalog.py
+          test -f validation-runs/real-papers/evidence-catalog.json
+          test -f validation-runs/real-papers/EVIDENCE_POLICY.md
+          test -f EVIDENCE.md
+          test -f tests/test_paper_evidence_catalog.py
+          python validation-runs/real-papers/build_evidence_catalog.py --check
+          python tests/test_paper_evidence_catalog.py -v
+      - name: Validate blind real-paper benchmark isolation
+        shell: bash
+        run: |
+          test -f benchmarks/blind-real-paper-10/case_index.json
+          test -f benchmarks/blind-real-paper-10/generate_packets.py
+          test -f benchmarks/blind-real-paper-10/run_reviewer.py
+          test -f benchmarks/blind-real-paper-10/score_blind.py
+          test -f tests/test_blind_real_paper_benchmark.py
+          rm -rf /tmp/epr-blind-real-paper-10
+          python benchmarks/blind-real-paper-10/generate_packets.py \
+            --output /tmp/epr-blind-real-paper-10/packets \
+            --check
+          python benchmarks/blind-real-paper-10/run_reviewer.py \
+            --packet-dir /tmp/epr-blind-real-paper-10/packets \
+            --response-dir /tmp/epr-blind-real-paper-10/responses \
+            --workspace-dir /tmp/epr-blind-real-paper-10/workspaces \
+            --command 'isolated-reviewer {prompt} {output}' \
+            --limit 2 \
+            --dry-run
+          python tests/test_blind_real_paper_benchmark.py -v

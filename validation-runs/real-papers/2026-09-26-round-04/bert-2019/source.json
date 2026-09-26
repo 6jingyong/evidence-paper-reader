@@ -1,0 +1,12 @@
+{
+  "record_id": "bert-2019",
+  "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+  "authors": "Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova",
+  "year": 2019,
+  "stable_id": "ACL:N19-1423",
+  "doi": "10.18653/v1/N19-1423",
+  "source_url": "https://aclanthology.org/N19-1423/",
+  "access_format": "ACL Anthology public paper page/full PDF; arXiv version available",
+  "retrieved_on": "2026-09-26",
+  "promoted_from_tiered_source": "nlp-flagship"
+}

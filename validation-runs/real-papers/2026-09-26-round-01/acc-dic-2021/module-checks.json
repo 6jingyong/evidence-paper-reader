@@ -1,0 +1,132 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Figure 8e; Results; Conclusions"
+          ],
+          "reason": "Checked whether the strain source includes machine-compliance displacement and whether DIC measures local specimen deformation.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Figure 8e; Results; Conclusions"
+          ],
+          "reason": "The two analysis methods are compared on the same tensile experiment, reducing specimen-to-specimen confounding.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Figure 8e; Results; Conclusions"
+          ],
+          "reason": "Machine and DIC outputs are not independent replications; they are two measurements/analyses of shared specimens and loads.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Figure 8e; Results; Conclusions"
+          ],
+          "reason": "The modulus and failure-strain claim is tied to the paired stress-strain curves and derived properties."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results around Figures 8 and 9; Conclusions"
+          ],
+          "reason": "Checked which derived properties are sensitive or insensitive to the displacement measurement method.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results around Figures 8 and 9; Conclusions"
+          ],
+          "reason": "The within-test comparison supports the bounded statement for the measured composites.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Results around Figures 8 and 9; Conclusions"
+          ],
+          "reason": "Agreement in tensile strength and disagreement in strain-derived properties arise from shared tests, not independent cohorts.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Results around Figures 8 and 9; Conclusions"
+          ],
+          "reason": "The claim distinguishes tensile strength from modulus/strain instead of collapsing all mechanical properties."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion; Conclusions"
+          ],
+          "reason": "The measurement mechanism provides a concrete reason literature values can differ when displacement methods differ.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion; Conclusions"
+          ],
+          "reason": "The study demonstrates the issue in one material/test setup rather than a survey of every literature system.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion; Conclusions"
+          ],
+          "reason": "The supporting curves are shared-source evidence, so repeated derived properties do not create independent confirmation.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion; Conclusions"
+          ],
+          "reason": "The literature-comparison warning is grounded in the demonstrated method sensitivity."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion; Conclusions"
+          ],
+          "reason": "The exact bias magnitude is not generalized beyond the tested setup."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "ledger_schema_version": 4,
+  "scope_status": "partially in scope",
+  "evidence_viability": "partially auditable",
+  "viability_flags": [
+    "external-dependency-dominant"
+  ],
+  "paper_type": "Matters Arising critique based primarily on another article's data",
+  "reader_conclusion": "The critique identifies concrete tensions in the target paper's own figures and plausible alternative explanations, but because its decisive evidence is imported from the original study and disputed in a published reply, it cannot by itself settle the active-site mechanism.",
+  "claims": [
+    {
+      "content": "The critique reads the target paper's NAP-XPS mass-spectrometry result as showing no CO2 at 50°C under pure CO for either catalyst, which conflicts with the proposed low-temperature ceria-reduction interpretation.",
+      "claim_type": "methodological",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "literature citation",
+          "author interpretation"
+        ],
+        "evidence_provenance": "external citation",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "mixed",
+            "reason": "The critique points to a specific figure in the target paper and a concrete contradiction, but the decisive data are external to the critique itself."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Opening analysis of NAP-XPS/CO-TPR evidence; target Supplementary Fig. 11",
+        "support_level": "partial",
+        "reason": "The logical contradiction is inspectable at the citation level, but full support requires independent inspection of the target experiment and its conditions.",
+        "external_dependency": "Pereira-Hernández et al., Nat Commun 2019, DOI:10.1038/s41467-019-09308-5",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The reported Pt/Ce ratios of about 0.030 for activated AT and 0.015 for SEA indicate higher Pt dispersion in AT, providing a plausible alternative explanation for the reactivity difference.",
+      "claim_type": "mechanistic",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "literature citation",
+          "author interpretation"
+        ],
+        "evidence_provenance": "external citation",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "The cited XPS ratios support a dispersion difference, but whether that difference explains the catalytic activity is an alternative causal interpretation rather than an isolated test."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Pt/Ce ratio and dispersion discussion; target Figs. 5–6",
+        "support_level": "partial",
+        "reason": "The source supports the existence of an alternative dispersion-related explanation, not a unique proof that dispersion is the cause.",
+        "external_dependency": "Pereira-Hernández et al., Nat Commun 2019, DOI:10.1038/s41467-019-09308-5",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The critique establishes that the target paper's support-redox mechanism and broader stability/industrial-use conclusions are wrong.",
+      "claim_type": "mechanistic",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "literature citation",
+          "author interpretation"
+        ],
+        "evidence_provenance": "external citation",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "mixed",
+            "reason": "The cited tension weakens one mechanistic interpretation but does not alone establish the correct mechanism."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "A plausible alternative explanation undermines uniqueness but does not prove the target conclusion false."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Overall critique and industrial/stability discussion",
+        "support_level": "insufficient",
+        "reason": "The critique is structurally dependent on another paper's data and the original authors published a reply defending their interpretation and presenting additional stability/repeatability evidence; this source alone cannot close the dispute.",
+        "external_dependency": "Target article plus published Reply, DOI:10.1038/s41467-020-18193-2",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "external-import",
+      "reasoning_status": "qualified",
+      "added_reach": "Imports the target paper's mass-spectrometry result into a critique of the target paper's mechanistic interpretation.",
+      "assumptions": [
+        "The cited target figure is interpreted under the same experimental state relevant to the disputed low-temperature mechanism."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "external-import",
+      "reasoning_status": "qualified",
+      "added_reach": "Moves from cited Pt/Ce ratios to an alternative causal explanation for catalyst activity.",
+      "assumptions": [
+        "The Pt/Ce ratio is an adequate indicator of relevant accessible Pt dispersion under reaction conditions."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "aggregation",
+      "reasoning_status": "unsupported",
+      "added_reach": "Aggregates externally sourced contradictions and alternatives into a definitive verdict on the disputed catalyst mechanism and broader applicability.",
+      "assumptions": [
+        "The critique's selected reinterpretations exhaust plausible readings and the target authors' counter-evidence does not restore the disputed mechanism."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "The critique is useful for locating concrete data/interpretation tensions and alternative explanations in the target article.",
+    "methods_or_design": "It is a useful example of separating observed catalyst data from active-site/mechanistic identification.",
+    "materials_or_documentation": "Specific target figures, Pt/Ce ratios, activity/stability issues, and a citable target article are identified."
+  },
+  "downweight": {
+    "worth_noticing": "A critique can expose real logical non-uniqueness even without generating new experiments.",
+    "cautious_or_ignore": "Do not treat a Matters Arising reinterpretation as self-contained proof of the final catalyst mechanism, especially when a published reply disputes it."
+  },
+  "value_breakdown": {
+    "result": "low",
+    "method": "medium",
+    "theory_or_insight": "high",
+    "research_design": "low",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Inspect the target article, reply, raw/complete characterization, and independent perturbation experiments before deciding the active species/mechanism."
+}

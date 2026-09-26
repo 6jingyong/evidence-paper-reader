@@ -14,6 +14,19 @@ Use these labels to describe where a paper's narrative goes beyond its evidence.
 - **correlation to causation jump**: associational evidence is narrated as causal support
 - **case to general law jump**: one or a few cases are narrated as if they establish a wider rule
 - **material to strong explanation jump**: documents, interviews, or field records are narrated as if they settle a stronger mechanism claim than they actually do
+- **internal inconsistency**: the abstract, results, figures/tables, discussion, or conclusion give incompatible values, trends, phase assignments, sample descriptions, or causal statements; expose the mismatch instead of silently selecting the favorable version
+- **non-independent validation**: calibration, tuning, selection, judging, or optimization uses a target or proxy that is then reused as the main evaluation target, so improved agreement demonstrates fit to that target but not independent external accuracy or generalization
+- **mechanical coupling**: an explanatory variable, score, exposure, or predictor is partly constructed from the same event or quantity that mechanically changes or defines the outcome, so a strong association may be partly structural or tautological rather than independent explanatory evidence
+- **null-result overreach**: failure to reach statistical significance is narrated as proof of no effect, equivalence, safety, or practical irrelevance without an appropriate confidence interval, equivalence/non-inferiority design, or sufficiently tight effect bound
+- **proxy reification**: an operational measure, rating, biomarker, benchmark, or neural correlate is treated as if it were identical to the broader construct it was chosen to represent
+- **selection-conditioned evidence**: performance or effect size is reported for a filtered, retained, optimal, complete-case, or otherwise selected subset and then narrated as if it applied to the full sample, all configurations, or normal operating conditions
+- **pseudo-triangulation**: multiple figures, endpoints, models, technical repeats, or evidence types that share the same underlying sample, specimens, dataset, target, or dominant error source are narrated as if they were independent confirmations or replications
+- **claim stacking / evidence double-spending**: the same evidence node is reused to support progressively stronger or distinct claims—such as performance, mechanism, causality, and generality—without additional direct evidence for the added reach
+- **inference-chain laundering**: an uncertain upstream claim is treated as settled when used as a premise for a later claim, so uncertainty disappears as the narrative moves from observation to mechanism, causality, or generality
+- **visual impression overreach**: axis range, transformation, normalization, aggregation, smoothing, color scale, selected window, representative image, or other presentation choice creates a stronger visual impression than the underlying numerical comparison supports
+- **self-referential construct loop**: an author-defined construct is operationalized by an author-defined score or proxy and then the same score is used as the main evidence that the broader construct exists, leaving no independent anchor
+- **evidence-shaped rhetoric**: technical presentation, named frameworks, diagrams, demonstrations, or numerical-looking claims create the form of empirical support while decision-critical methods or results needed to reconstruct the inference are absent
+- **promotional evidence substitution**: selected demonstrations, favorable product metrics, or weak/unnamed baselines are used in place of a reconstructable comparative evidence chain; use this for evidence structure, not as a claim about author motive
 
 ## Usage rule
 Use the label only after you state the concrete mismatch in plain language.

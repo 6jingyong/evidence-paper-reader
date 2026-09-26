@@ -1,0 +1,507 @@
+{
+  "benchmark_id": "stability-crossdomain-8-v1",
+  "repeats_per_case": 5,
+  "seed": 20260924,
+  "purpose": "Cross-domain repeated-run stability benchmark for viability, claim selection, routing, support judgment, and inventory over-trigger as a negative control.",
+  "cases": [
+    {
+      "case_id": "ST01",
+      "domain": "clinical cardiology",
+      "source": "A Randomized Trial of Intensive versus Standard Blood-Pressure Control (SPRINT)",
+      "packet": [
+        "High-risk adults without diabetes were randomized to intensive versus standard systolic blood-pressure targets.",
+        "The primary composite cardiovascular event rate was lower under intensive treatment (reported hazard ratio about 0.75, confidence interval excluding 1).",
+        "All-cause mortality was also lower during observed follow-up, while several treatment-related adverse events were more frequent.",
+        "Prespecified subgroup heterogeneity was assessed with interaction tests and multiplicity adjustment.",
+        "Interim monitoring used a prespecified group-sequential framework rather than ad hoc stopping."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "Intensive treatment reduced the primary cardiovascular outcome in the enrolled population."
+        },
+        {
+          "id": "K2",
+          "text": "The trial found no convincing evidence that the primary treatment effect differed across prespecified subgroups."
+        },
+        {
+          "id": "K3",
+          "text": "The presence of subgroup analyses and early stopping makes the primary result intrinsically unreliable."
+        },
+        {
+          "id": "K4",
+          "text": "The intensive target is established as preferable for essentially all adults with hypertension."
+        },
+        {
+          "id": "K5",
+          "text": "Treatment-related adverse events were more frequent under intensive treatment."
+        }
+      ],
+      "reference": {
+        "viability": "auditable",
+        "required_claims": [
+          "K1",
+          "K2",
+          "K5"
+        ],
+        "optional_claims": [
+          "K3"
+        ],
+        "forbidden_claims": [
+          "K4"
+        ],
+        "modules_required": [
+          "study-design-traps.md",
+          "statistical-traps.md"
+        ],
+        "modules_allowed_extra": [
+          "figure-and-table-traps.md"
+        ],
+        "inventory": false,
+        "support": {
+          "K1": "sufficient",
+          "K2": "sufficient",
+          "K3": "insufficient",
+          "K5": "sufficient"
+        }
+      }
+    },
+    {
+      "case_id": "ST02",
+      "domain": "materials science",
+      "source": "Effect of Al Content on Microstructure and Mechanical Properties of CoCrFeNiMn High-Entropy Alloy",
+      "packet": [
+        "Across increasing Al content, XRD changes from FCC toward an FCC+BCC mixture with greater BCC contribution.",
+        "Yield strength rises from about 281.9 to 358.1 MPa while elongation falls from about 0.52 to 0.12.",
+        "Reported hardness values are about 199.8, 196.8, 197.6, and 210.1 HV across the tested Al series.",
+        "Summary prose states that hardness continuously increases with Al content.",
+        "The paper attributes ductility loss primarily to formation of an ordered B2/NiAl brittle phase."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "Increasing Al changes the tested alloy toward an FCC+BCC dual-phase structure with greater BCC contribution."
+        },
+        {
+          "id": "K2",
+          "text": "Yield strength increases while ductility decreases across the tested alloys."
+        },
+        {
+          "id": "K3",
+          "text": "Hardness increases continuously across every tested Al composition."
+        },
+        {
+          "id": "K4",
+          "text": "An ordered B2/NiAl phase is uniquely established as the primary causal origin of embrittlement."
+        },
+        {
+          "id": "K5",
+          "text": "Every measured mechanical property improves monotonically as Al content increases."
+        }
+      ],
+      "reference": {
+        "viability": "auditable",
+        "required_claims": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ],
+        "optional_claims": [],
+        "forbidden_claims": [
+          "K5"
+        ],
+        "modules_required": [
+          "figure-and-table-traps.md",
+          "evidence-topology.md",
+          "measurement-traps.md"
+        ],
+        "modules_allowed_extra": [
+          "statistical-traps.md"
+        ],
+        "inventory": false,
+        "support": {
+          "K1": "sufficient",
+          "K2": "sufficient",
+          "K3": "insufficient",
+          "K4": "partial"
+        }
+      }
+    },
+    {
+      "case_id": "ST03",
+      "domain": "machine learning",
+      "source": "Deep Residual Learning for Image Recognition",
+      "packet": [
+        "Matched plain and residual convolutional networks are compared on ImageNet; the deeper residual model has lower training and validation error than its plain counterpart.",
+        "Residual models are also evaluated over several depths on CIFAR-10 and on detection tasks.",
+        "The paper argues that residual functions may be easier to optimize because they are closer to zero.",
+        "The broad discussion suggests residual learning is a generic principle beyond the demonstrated vision tasks.",
+        "The deepest tested CIFAR model does not monotonically outperform every shallower residual model."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "Residual connections make the tested deeper networks easier to optimize than matched plain networks."
+        },
+        {
+          "id": "K2",
+          "text": "Within tested residual families, increased depth can improve benchmark accuracy without the degradation seen in matched plain networks."
+        },
+        {
+          "id": "K3",
+          "text": "Residual functions being closer to zero is established as the causal reason optimization improves."
+        },
+        {
+          "id": "K4",
+          "text": "The paper establishes a generic residual-learning principle across non-vision domains."
+        },
+        {
+          "id": "K5",
+          "text": "More residual-network depth always monotonically improves accuracy."
+        }
+      ],
+      "reference": {
+        "viability": "auditable",
+        "required_claims": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ],
+        "optional_claims": [],
+        "forbidden_claims": [
+          "K5"
+        ],
+        "modules_required": [
+          "study-design-traps.md",
+          "evidence-topology.md",
+          "claim-dependencies.md"
+        ],
+        "modules_allowed_extra": [
+          "statistical-traps.md",
+          "figure-and-table-traps.md",
+          "claim-evidence-links.md"
+        ],
+        "inventory": false,
+        "support": {
+          "K1": "sufficient",
+          "K2": "sufficient",
+          "K3": "partial",
+          "K4": "insufficient"
+        }
+      }
+    },
+    {
+      "case_id": "ST04",
+      "domain": "environmental modeling",
+      "source": "Integrating Cost-Effective Measurements and CFD Modeling for Accurate Air Quality Assessment",
+      "packet": [
+        "The study combines low-cost air-quality sensors, high-quality monitoring stations, and CFD modeling for PM10 assessment in a 1.6 × 2 km urban area in Augsburg.",
+        "The CFD workflow incorporates traffic emissions, meteorological inputs, and an urban-background reference measurement, then compares model outputs with separate observed wind-speed data and two official air-quality stations.",
+        "During the representative 24 h period, modeled wind speed had R = 0.87 with about 7% average deviation, while modeled PM10 showed strong agreement with the two official stations.",
+        "Regression-based calibration of low-cost sensors improved their agreement with modeled values and with the two reference monitoring stations during the examined period.",
+        "The paper discusses broader uses of the method, but the demonstrated calibration is bounded to one urban deployment and a representative 24 h period."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "The CFD workflow reproduces observed wind and PM10 behavior with substantial agreement during the studied Augsburg period."
+        },
+        {
+          "id": "K2",
+          "text": "The model-assisted calibration improves the low-cost sensor datasets during the examined 24 h deployment."
+        },
+        {
+          "id": "K3",
+          "text": "The workflow is established as accurate across other buildings, cities, seasons, and sensor deployments."
+        },
+        {
+          "id": "K4",
+          "text": "Combining reference measurements with CFD can provide a bounded calibration aid for the studied low-cost sensor network."
+        },
+        {
+          "id": "K5",
+          "text": "CFD modeling is inherently invalid when measurement data are also incorporated into the workflow."
+        }
+      ],
+      "reference": {
+        "viability": "auditable",
+        "required_claims": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ],
+        "optional_claims": [],
+        "forbidden_claims": [
+          "K5"
+        ],
+        "modules_required": [
+          "measurement-traps.md",
+          "study-design-traps.md",
+          "evidence-topology.md"
+        ],
+        "modules_allowed_extra": [
+          "statistical-traps.md",
+          "evidence-dependence.md"
+        ],
+        "inventory": false,
+        "support": {
+          "K1": "sufficient",
+          "K2": "sufficient",
+          "K3": "insufficient",
+          "K4": "sufficient"
+        }
+      }
+    },
+    {
+      "case_id": "ST05",
+      "domain": "social science",
+      "source": "How Screen Time and Social Media Hyperconnection Have Harmed Adolescents’ Relational and Psychological Well-Being since the COVID-19 Pandemic",
+      "packet": [
+        "The study analyzes two representative cross-sectional surveys of Italian adolescents conducted in 2019 and 2022.",
+        "Screen-time and social-media hyperconnection measures are associated with relational and psychological outcomes.",
+        "The reported analyses state that hyperconnected adolescents were about 1.4 times more likely to experience negative psychological states than their peers.",
+        "The title and discussion use causal language such as harmed, although exposure was not randomized and the same individuals were not followed through controlled exposure changes."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "Greater screen time and social-media hyperconnection are associated with worse relational or psychological outcomes in the surveyed adolescents."
+        },
+        {
+          "id": "K2",
+          "text": "Screen time and social-media hyperconnection harmed adolescent relational and psychological well-being."
+        },
+        {
+          "id": "K3",
+          "text": "Reducing social-media exposure would improve an individual adolescent's mental health."
+        },
+        {
+          "id": "K4",
+          "text": "The pandemic itself caused the observed relationship between screen use and well-being."
+        },
+        {
+          "id": "K5",
+          "text": "Hyperconnected adolescents were about 1.4 times more likely to report negative psychological states in the reported analyses."
+        }
+      ],
+      "reference": {
+        "viability": "auditable",
+        "required_claims": [
+          "K1",
+          "K2",
+          "K5"
+        ],
+        "optional_claims": [],
+        "forbidden_claims": [
+          "K3",
+          "K4"
+        ],
+        "modules_required": [
+          "study-design-traps.md",
+          "statistical-traps.md",
+          "claim-dependencies.md"
+        ],
+        "modules_allowed_extra": [
+          "measurement-traps.md",
+          "evidence-topology.md"
+        ],
+        "inventory": false,
+        "support": {
+          "K1": "sufficient",
+          "K2": "insufficient",
+          "K5": "sufficient"
+        }
+      }
+    },
+    {
+      "case_id": "ST06",
+      "domain": "financial market microstructure",
+      "source": "The Price Impact of Order Book Events",
+      "packet": [
+        "The study analyzes order-book events for 50 US stocks over a defined historical period.",
+        "Over short intervals, price changes are strongly related to order-flow imbalance, and the empirical relation is approximately linear.",
+        "The estimated slope of the order-flow-imbalance relation is inversely proportional to market depth.",
+        "The reported relation is robust to intraday seasonality and stable across time scales and across the studied stocks.",
+        "The paper uses causal-sounding price-impact language, while the evidence is observational market microstructure data rather than randomized intervention."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "Order-flow imbalance is strongly associated with contemporaneous price changes in the studied stocks and period."
+        },
+        {
+          "id": "K2",
+          "text": "The estimated relation uniquely establishes that order-flow imbalance causally moves prices by the reported amount."
+        },
+        {
+          "id": "K3",
+          "text": "The slope of the order-flow-imbalance relation is inversely related to market depth in the reported analyses."
+        },
+        {
+          "id": "K4",
+          "text": "The reported order-flow-imbalance relation is stable across time scales and across the studied stocks."
+        },
+        {
+          "id": "K5",
+          "text": "The paper demonstrates a profitable trading strategy after transaction costs."
+        }
+      ],
+      "reference": {
+        "viability": "auditable",
+        "required_claims": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ],
+        "optional_claims": [],
+        "forbidden_claims": [
+          "K5"
+        ],
+        "modules_required": [
+          "statistical-traps.md",
+          "study-design-traps.md",
+          "evidence-topology.md"
+        ],
+        "modules_allowed_extra": [
+          "figure-and-table-traps.md"
+        ],
+        "inventory": false,
+        "support": {
+          "K1": "sufficient",
+          "K2": "partial",
+          "K3": "sufficient",
+          "K4": "sufficient"
+        }
+      }
+    },
+    {
+      "case_id": "ST07",
+      "domain": "ecology",
+      "source": "Impact of round goby on native invertebrate communities - An experimental field study",
+      "packet": [
+        "A field experiment uses 12 cages to examine effects of round goby on native invertebrate communities in a macrophyte habitat in the Åland Islands.",
+        "Round goby presence decreased overall invertebrate abundance, biomass, and taxon richness under the tested conditions.",
+        "Gobies also altered taxonomic and trait composition and were associated with lower overall invertebrate body size because larger individuals were preferentially consumed.",
+        "The paper discusses possible consequences for other trophic levels, trophic cascades, ecosystem functioning, and invaded areas beyond the local experiment."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "Round goby reduced native invertebrate abundance, biomass, or taxon richness in the tested field-cage experiment."
+        },
+        {
+          "id": "K2",
+          "text": "The experiment establishes a trophic cascade affecting ecosystem functioning in invaded ecosystems generally."
+        },
+        {
+          "id": "K3",
+          "text": "The local experimental effect can be generalized directly to other invaded areas."
+        },
+        {
+          "id": "K4",
+          "text": "Round goby altered trait composition and decreased overall invertebrate body size under the tested conditions."
+        },
+        {
+          "id": "K5",
+          "text": "Twelve cages are equivalent to twelve independent invaded ecosystems."
+        }
+      ],
+      "reference": {
+        "viability": "auditable",
+        "required_claims": [
+          "K1",
+          "K2",
+          "K4"
+        ],
+        "optional_claims": [
+          "K3"
+        ],
+        "forbidden_claims": [
+          "K5"
+        ],
+        "modules_required": [
+          "study-design-traps.md",
+          "evidence-dependence.md",
+          "evidence-topology.md"
+        ],
+        "modules_allowed_extra": [
+          "statistical-traps.md"
+        ],
+        "inventory": false,
+        "support": {
+          "K1": "sufficient",
+          "K2": "partial",
+          "K3": "partial",
+          "K4": "sufficient"
+        }
+      }
+    },
+    {
+      "case_id": "ST08",
+      "domain": "electrocatalysis",
+      "source": "A scalable method for preparing Cu electrocatalysts that convert CO2 into C2+ products",
+      "packet": [
+        "The study prepares copper electrocatalysts using a scalable route and measures CO2 electroreduction selectivity.",
+        "The tested catalysts show high Faradaic efficiency toward multi-carbon products under reported conditions.",
+        "Microscopy and structural characterization associate performance with morphology, roughness, and defect-related features.",
+        "The study does not directly observe one unique active site throughout operation.",
+        "The paper discusses transfer of the preparation-property relationship beyond the exact tested reactor/condition set."
+      ],
+      "candidates": [
+        {
+          "id": "K1",
+          "text": "The tested preparation method yields copper catalysts with high C2+ selectivity under the reported conditions."
+        },
+        {
+          "id": "K2",
+          "text": "A specific defect-density or roughness feature is uniquely established as the causal active origin of the high selectivity."
+        },
+        {
+          "id": "K3",
+          "text": "The preparation-property relationship is established as broadly transferable across CO2 electroreduction reactors and operating regimes."
+        },
+        {
+          "id": "K4",
+          "text": "The characterization is consistent with a structure-performance relationship."
+        },
+        {
+          "id": "K5",
+          "text": "High Faradaic efficiency proves a unique microscopic active-site mechanism."
+        }
+      ],
+      "reference": {
+        "viability": "auditable",
+        "required_claims": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ],
+        "optional_claims": [],
+        "forbidden_claims": [
+          "K5"
+        ],
+        "modules_required": [
+          "measurement-traps.md",
+          "figure-and-table-traps.md",
+          "evidence-topology.md"
+        ],
+        "modules_allowed_extra": [
+          "study-design-traps.md",
+          "claim-dependencies.md"
+        ],
+        "inventory": false,
+        "support": {
+          "K1": "sufficient",
+          "K2": "partial",
+          "K3": "partial",
+          "K4": "sufficient"
+        }
+      }
+    }
+  ]
+}

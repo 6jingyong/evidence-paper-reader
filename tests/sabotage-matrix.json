@@ -1,0 +1,858 @@
+{
+  "matrix_id": "fail-closed-sabotage-v1",
+  "purpose": "Mutate one trusted workflow artifact at a time and require the final audit gate to reject the sabotaged workflow.",
+  "required_layers": [
+    "claim_identity",
+    "semantic_route",
+    "lexical_cache",
+    "merged_route",
+    "generated_context",
+    "inventory",
+    "final_ledger",
+    "module_checks"
+  ],
+  "cases": [
+    {
+      "id": "SB01",
+      "layer": "claim_identity",
+      "baseline": "simple",
+      "target": "audit",
+      "op": "set",
+      "path": [
+        "claims",
+        1,
+        "content"
+      ],
+      "value": "A silently rewritten claim after routing.",
+      "expect": "semantic route: claim text/order must exactly match",
+      "guards": [
+        "G103"
+      ]
+    },
+    {
+      "id": "SB02",
+      "layer": "semantic_route",
+      "baseline": "simple",
+      "target": "semantic",
+      "op": "delete",
+      "path": [
+        "claims",
+        0,
+        "claim_text"
+      ],
+      "expect": "semantic route: C1: claim_text required",
+      "guards": [
+        "G120"
+      ]
+    },
+    {
+      "id": "SB03",
+      "layer": "semantic_route",
+      "baseline": "simple",
+      "target": "semantic",
+      "op": "set",
+      "path": [
+        "claims",
+        1,
+        "claim_id"
+      ],
+      "value": "C9",
+      "expect": "semantic route: claim IDs must exactly match",
+      "guards": [
+        "G102"
+      ]
+    },
+    {
+      "id": "SB04",
+      "layer": "lexical_cache",
+      "baseline": "lexical",
+      "target": "lexical",
+      "op": "toggle",
+      "path": [
+        "use_evidence_inventory"
+      ],
+      "expect": "cached lexical route does not match deterministic recomputation",
+      "guards": [
+        "G104"
+      ]
+    },
+    {
+      "id": "SB05",
+      "layer": "merged_route",
+      "baseline": "simple",
+      "target": "route",
+      "op": "remove_value",
+      "path": [
+        "modules"
+      ],
+      "value": "false-positive-guards.md",
+      "expect": "route artifact: route with trap modules must include false-positive-guards.md",
+      "guards": [
+        "G121"
+      ]
+    },
+    {
+      "id": "SB06",
+      "layer": "merged_route",
+      "baseline": "simple",
+      "target": "route",
+      "op": "set",
+      "path": [
+        "recommended_path"
+      ],
+      "value": "full",
+      "expect": "route artifact: route.recommended_path=full conflicts",
+      "guards": [
+        "G121"
+      ]
+    },
+    {
+      "id": "SB07",
+      "layer": "generated_context",
+      "baseline": "simple",
+      "target": "context",
+      "op": "append_text",
+      "value": "\\n<!-- hand-edited context -->\\n",
+      "expect": "context: supplied audit-context bundle does not match deterministic route materialization",
+      "guards": [
+        "G109"
+      ]
+    },
+    {
+      "id": "SB08",
+      "layer": "generated_context",
+      "baseline": "simple",
+      "target": "context",
+      "op": "replace_text",
+      "old": "## BEGIN REFERENCE: statistical-traps.md",
+      "value": "## BEGIN REFERENCE: OMITTED-statistical-traps.md",
+      "expect": "context: supplied audit-context bundle does not match deterministic route materialization",
+      "guards": [
+        "G109"
+      ]
+    },
+    {
+      "id": "SB09",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "set",
+      "path": [
+        "promotions",
+        0,
+        "record_ids"
+      ],
+      "value": [
+        "R1",
+        "R3"
+      ],
+      "expect": "one evidence node cannot merge different result keys",
+      "guards": [
+        "G122"
+      ]
+    },
+    {
+      "id": "SB10",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "append",
+      "path": [
+        "promotions"
+      ],
+      "value": {
+        "evidence_node": "E4",
+        "record_ids": [
+          "R2"
+        ],
+        "reason": "Sabotage: split one underlying result."
+      },
+      "also": [
+        {
+          "op": "set",
+          "path": [
+            "promotions",
+            0,
+            "record_ids"
+          ],
+          "value": [
+            "R1"
+          ]
+        }
+      ],
+      "expect": "inventory: result key G1 is promoted into multiple evidence nodes",
+      "guards": [
+        "G122"
+      ]
+    },
+    {
+      "id": "SB11",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "audit",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "support",
+        "evidence_nodes"
+      ],
+      "value": [
+        "E1",
+        "E2"
+      ],
+      "also": [
+        {
+          "op": "set",
+          "path": [
+            "claims",
+            0,
+            "support",
+            "evidence_dependence"
+          ],
+          "value": "independent convergence"
+        }
+      ],
+      "expect": "inventory alignment: audit claim 1: independent convergence shares evidence unit(s): U1",
+      "guards": [
+        "G114"
+      ]
+    },
+    {
+      "id": "SB12",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "delete_index",
+      "path": [
+        "promotions"
+      ],
+      "index": 2,
+      "expect": "inventory: C3: claim has neither promoted evidence nor an unresolved_claims entry",
+      "guards": [
+        "G122"
+      ]
+    },
+    {
+      "id": "SB13",
+      "layer": "final_ledger",
+      "baseline": "simple",
+      "target": "audit",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "support",
+        "evidence_type"
+      ],
+      "value": [
+        "imaginary evidence"
+      ],
+      "expect": "rendered audit: unknown evidence label(s): imaginary evidence",
+      "guards": [
+        "G115"
+      ]
+    },
+    {
+      "id": "SB14",
+      "layer": "final_ledger",
+      "baseline": "simple",
+      "target": "audit",
+      "op": "set",
+      "path": [
+        "claims",
+        2,
+        "support",
+        "support_level"
+      ],
+      "value": "sufficient",
+      "also": [
+        {
+          "op": "set",
+          "path": [
+            "claims",
+            0,
+            "support",
+            "support_level"
+          ],
+          "value": "partial"
+        },
+        {
+          "op": "set",
+          "path": [
+            "claims",
+            2,
+            "support",
+            "evidence_nodes"
+          ],
+          "value": [
+            "E1"
+          ]
+        }
+      ],
+      "expect": "ledger: claim 3: downstream claim cannot be sufficient without new evidence",
+      "guards": [
+        "G116"
+      ]
+    },
+    {
+      "id": "SB15",
+      "layer": "semantic_route",
+      "baseline": "simple",
+      "target": "semantic",
+      "op": "replace_artifact",
+      "value": null,
+      "expect": "requires the raw semantic-route artifact",
+      "guards": [
+        "G101",
+        "G105"
+      ]
+    },
+    {
+      "id": "SB16",
+      "layer": "generated_context",
+      "baseline": "simple",
+      "target": "context",
+      "op": "replace_artifact",
+      "value": null,
+      "expect": "requires the generated audit-context bundle",
+      "guards": [
+        "G107"
+      ]
+    },
+    {
+      "id": "SB17",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "replace_artifact",
+      "value": null,
+      "expect": "recomputed route requires evidence inventory",
+      "guards": [
+        "G110"
+      ]
+    },
+    {
+      "id": "SB18",
+      "layer": "lexical_cache",
+      "baseline": "lexical",
+      "target": "router_text",
+      "op": "replace_artifact",
+      "value": null,
+      "expect": "cached lexical route cannot substitute for router text",
+      "guards": [
+        "G104"
+      ]
+    },
+    {
+      "id": "SB19",
+      "layer": "semantic_route",
+      "baseline": "simple",
+      "target": "semantic",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "routes",
+        "measurement-traps.md"
+      ],
+      "value": "unclear",
+      "expect": "router text is required to recompute lexical routing deterministically",
+      "guards": [
+        "G104"
+      ]
+    },
+    {
+      "id": "SB20",
+      "layer": "merged_route",
+      "baseline": "simple",
+      "target": "route",
+      "op": "append",
+      "path": [
+        "modules"
+      ],
+      "value": "follow-up-boundaries.md",
+      "expect": "route artifact: supplied merged route does not match deterministic recomputation",
+      "guards": [
+        "G106"
+      ]
+    },
+    {
+      "id": "SB21",
+      "layer": "inventory",
+      "baseline": "simple",
+      "target": "inventory",
+      "op": "load_inventory_fixture",
+      "expect": "inventory: supplied inventory conflicts with recomputed route",
+      "guards": [
+        "G111"
+      ]
+    },
+    {
+      "id": "SB22",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "set",
+      "path": [
+        "evidence_viability"
+      ],
+      "value": "partially auditable",
+      "expect": "inventory: evidence_viability does not match the final audit ledger",
+      "guards": [
+        "G112"
+      ]
+    },
+    {
+      "id": "SB23",
+      "layer": "inventory",
+      "baseline": "inventory",
+      "target": "inventory",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "content"
+      ],
+      "value": "A drifted inventory-side claim.",
+      "expect": "inventory: claim contents/order drifted between evidence inventory and final audit ledger",
+      "guards": [
+        "G113"
+      ]
+    },
+    {
+      "id": "SB24",
+      "layer": "module_checks",
+      "baseline": "simple",
+      "target": "module_checks",
+      "op": "replace_artifact",
+      "value": null,
+      "expect": "module checks: routed methodological modules require module-checks.json",
+      "guards": [
+        "G117"
+      ]
+    },
+    {
+      "id": "SB25",
+      "layer": "module_checks",
+      "baseline": "simple",
+      "target": "module_checks",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "checks",
+        0,
+        "mitigation_checked"
+      ],
+      "value": false,
+      "expect": "mitigation_checked must be true after applying false-positive guards",
+      "guards": [
+        "G118"
+      ]
+    },
+    {
+      "id": "SB26",
+      "layer": "module_checks",
+      "baseline": "simple",
+      "target": "module_checks",
+      "op": "delete_index",
+      "path": [
+        "claims",
+        0,
+        "checks"
+      ],
+      "index": 0,
+      "expect": "checks modules/order must exactly match routed requirements",
+      "guards": [
+        "G118"
+      ]
+    },
+    {
+      "id": "SB27",
+      "layer": "module_checks",
+      "baseline": "simple",
+      "target": "module_checks",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "checks",
+        0,
+        "status"
+      ],
+      "value": "unclear",
+      "expect": "sufficient support conflicts with unresolved routed module check",
+      "guards": [
+        "G119"
+      ]
+    },
+    {
+      "id": "SB28",
+      "layer": "module_checks",
+      "baseline": "simple",
+      "target": "module_checks",
+      "op": "set",
+      "path": [
+        "claims",
+        0,
+        "checks",
+        0,
+        "source_locations"
+      ],
+      "value": [],
+      "expect": "source_locations must be a non-empty string list",
+      "guards": [
+        "G118"
+      ]
+    }
+  ],
+  "code_canary_guards": [
+    "G108",
+    "G123",
+    "G124",
+    "G125",
+    "G126",
+    "G127",
+    "G128",
+    "G129"
+  ],
+  "mutation_site_canaries": [
+    {
+      "guard": "G104",
+      "site": 2,
+      "scenario": "recompute_returns_none"
+    },
+    {
+      "guard": "G108",
+      "site": 1,
+      "scenario": "render_bundle_raises"
+    },
+    {
+      "guard": "G123",
+      "site": 1,
+      "scenario": "semantic_required_module_dropped"
+    },
+    {
+      "guard": "G124",
+      "site": 1,
+      "scenario": "shared_context_renderer_manifest_bug"
+    },
+    {
+      "guard": "G125",
+      "site": 1,
+      "scenario": "shared_reference_body_corruption"
+    },
+    {
+      "guard": "G126",
+      "site": 1,
+      "scenario": "semantic_execution_missing"
+    },
+    {
+      "guard": "G127",
+      "site": 1,
+      "scenario": "reasoning_graph_common_mode"
+    },
+    {
+      "guard": "G128",
+      "site": 1,
+      "scenario": "evidence_relation_common_mode"
+    },
+    {
+      "guard": "G129",
+      "site": 1,
+      "scenario": "author_boundary_common_mode"
+    }
+  ],
+  "logic_weakening_mutations": [
+    {
+      "id": "LM01",
+      "operator": "skip_ledger_validation",
+      "cases": [
+        "SB14"
+      ],
+      "description": "Pretend the structured ledger validator returned no errors."
+    },
+    {
+      "id": "LM02",
+      "operator": "skip_semantic_validation",
+      "cases": [
+        "SB02"
+      ],
+      "description": "Skip raw semantic-route schema validation."
+    },
+    {
+      "id": "LM03",
+      "operator": "skip_route_validation",
+      "cases": [
+        "SB05",
+        "SB06"
+      ],
+      "description": "Skip validation of the cached merged-route schema and invariants."
+    },
+    {
+      "id": "LM04",
+      "operator": "skip_module_check_validation",
+      "cases": [
+        "SB25",
+        "SB26",
+        "SB28"
+      ],
+      "description": "Accept malformed or incomplete routed module execution records."
+    },
+    {
+      "id": "LM05",
+      "operator": "skip_support_alignment",
+      "cases": [
+        "SB27"
+      ],
+      "description": "Do not propagate unresolved routed checks into support judgments."
+    },
+    {
+      "id": "LM06",
+      "operator": "skip_inventory_validation",
+      "cases": [
+        "SB09",
+        "SB10",
+        "SB12"
+      ],
+      "description": "Skip evidence-inventory schema and topology validation."
+    },
+    {
+      "id": "LM07",
+      "operator": "skip_inventory_alignment",
+      "cases": [
+        "SB11"
+      ],
+      "description": "Skip inventory-to-ledger evidence topology alignment."
+    },
+    {
+      "id": "LM08",
+      "operator": "skip_public_validation",
+      "cases": [
+        "SB13"
+      ],
+      "description": "Skip validation of the canonical rendered audit."
+    },
+    {
+      "id": "LM09",
+      "operator": "trust_cached_recompute",
+      "cases": [
+        "SB20"
+      ],
+      "description": "Use the supplied merged-route cache as if it were deterministic recomputation."
+    },
+    {
+      "id": "LM10",
+      "operator": "trust_supplied_context",
+      "cases": [
+        "SB07",
+        "SB08"
+      ],
+      "description": "Treat the supplied context bundle as its own deterministic rebuild."
+    },
+    {
+      "id": "LM11",
+      "operator": "disable_claim_audit",
+      "cases": [
+        "SB01"
+      ],
+      "description": "Turn off claim-audit stage enforcement for an otherwise auditable ledger."
+    },
+    {
+      "id": "LM12",
+      "operator": "ignore_route_drift",
+      "cases": [
+        "SB20"
+      ],
+      "description": "Ignore disagreement between supplied merged route and recomputed route."
+    },
+    {
+      "id": "LM13",
+      "operator": "ignore_claim_text_drift",
+      "expected_sites": 2,
+      "cases": [
+        "SB01"
+      ],
+      "description": "Ignore semantic-route versus final-ledger claim-text drift and continue recomputation."
+    },
+    {
+      "id": "LM14",
+      "operator": "allow_missing_inventory",
+      "cases": [
+        "SB17"
+      ],
+      "description": "Make a route-required evidence inventory optional."
+    },
+    {
+      "id": "LM15",
+      "operator": "allow_forbidden_inventory",
+      "cases": [
+        "SB21"
+      ],
+      "description": "Allow an inventory when deterministic routing says not to use one."
+    },
+    {
+      "id": "LM16",
+      "operator": "ignore_inventory_claim_drift",
+      "cases": [
+        "SB23"
+      ],
+      "description": "Ignore claim identity drift between inventory and final ledger."
+    },
+    {
+      "id": "LM17",
+      "operator": "ignore_inventory_viability",
+      "cases": [
+        "SB22"
+      ],
+      "description": "Ignore evidence-viability disagreement between inventory and final ledger."
+    },
+    {
+      "id": "LM18",
+      "operator": "allow_missing_module_checks",
+      "cases": [
+        "SB24"
+      ],
+      "description": "Make routed methodological execution records optional."
+    }
+  ],
+  "dependency_mutations": [
+    {
+      "id": "DM01",
+      "module": "build_context",
+      "operator": "ignore_lexical_cache_mismatch",
+      "cases": [
+        "SB04"
+      ],
+      "description": "Accept a stale lexical cache even when router text recomputes differently."
+    },
+    {
+      "id": "DM02",
+      "module": "build_context",
+      "operator": "allow_cached_lexical_without_router_text",
+      "cases": [
+        "SB18"
+      ],
+      "description": "Allow cached lexical routing to substitute for raw router text."
+    },
+    {
+      "id": "DM03",
+      "module": "build_context",
+      "operator": "allow_unclear_without_router_text",
+      "cases": [
+        "SB19"
+      ],
+      "description": "Resolve semantic unclear decisions without source router text."
+    },
+    {
+      "id": "DM04",
+      "module": "build_context",
+      "operator": "omit_routed_modules",
+      "pristine": [
+        "simple"
+      ],
+      "description": "Generate context without routed methodological modules."
+    },
+    {
+      "id": "DM05",
+      "module": "build_context",
+      "operator": "omit_inventory_reference",
+      "pristine": [
+        "inventory"
+      ],
+      "description": "Generate inventory-routed context without the inventory contract reference."
+    },
+    {
+      "id": "DM06",
+      "module": "merge_route",
+      "operator": "ignore_semantic_required_module",
+      "expected_sites": 2,
+      "pristine": [
+        "simple"
+      ],
+      "description": "Treat semantic required module decisions as optional during merge."
+    },
+    {
+      "id": "DM07",
+      "module": "merge_route",
+      "operator": "ignore_semantic_required_inventory",
+      "pristine": [
+        "inventory"
+      ],
+      "description": "Treat semantic required inventory decisions as optional during merge."
+    },
+    {
+      "id": "DM08",
+      "module": "evidence_inventory",
+      "operator": "allow_cross_result_merge",
+      "cases": [
+        "SB09"
+      ],
+      "description": "Allow one evidence node to merge records from different result keys."
+    },
+    {
+      "id": "DM09",
+      "module": "evidence_inventory",
+      "operator": "allow_split_result_nodes",
+      "cases": [
+        "SB10"
+      ],
+      "description": "Allow one result key to be split across multiple evidence nodes."
+    },
+    {
+      "id": "DM10",
+      "module": "evidence_inventory",
+      "operator": "allow_uncovered_claim",
+      "cases": [
+        "SB12"
+      ],
+      "description": "Allow a claim with neither promoted evidence nor an explicit unresolved entry."
+    },
+    {
+      "id": "DM11",
+      "module": "evidence_inventory",
+      "operator": "allow_shared_unit_convergence",
+      "cases": [
+        "SB11"
+      ],
+      "description": "Allow independent-convergence claims to reuse the same evidence unit."
+    },
+    {
+      "id": "DM12",
+      "module": "module_checks",
+      "operator": "ignore_mitigation_check",
+      "cases": [
+        "SB25"
+      ],
+      "description": "Allow trap-module checks without false-positive mitigation confirmation."
+    },
+    {
+      "id": "DM13",
+      "module": "module_checks",
+      "operator": "ignore_module_order",
+      "cases": [
+        "SB26"
+      ],
+      "description": "Allow routed module checks to omit or reorder required modules."
+    },
+    {
+      "id": "DM14",
+      "module": "module_checks",
+      "operator": "ignore_source_locations",
+      "cases": [
+        "SB28"
+      ],
+      "description": "Allow routed checks without a source trace."
+    },
+    {
+      "id": "DM15",
+      "module": "module_checks",
+      "operator": "ignore_unresolved_support",
+      "cases": [
+        "SB27"
+      ],
+      "description": "Allow sufficient support while a routed methodological check remains unclear."
+    }
+  ]
+}

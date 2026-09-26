@@ -1,0 +1,183 @@
+{
+  "ledger_schema_version": 4,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "seven-year field warming experiment",
+  "reader_conclusion": "The OTC experiment supports site-specific microclimate, biomass, and community-composition changes; the proposed transition toward shrub-dominated ecosystems remains a forward ecological projection.",
+  "claims": [
+    {
+      "content": "Open-top chambers altered the study-site microclimate: daily mean air temperature increased by 0.16°C and mean night temperature by 0.33°C, while daily mean soil temperature decreased by 0.08°C relative to controls.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The OTC-control temperature measurements directly report the bounded air and soil microclimate changes."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results: Microclimate; Table 2",
+        "support_level": "sufficient",
+        "reason": "The claim retains the measured site-specific temperature directions and magnitudes rather than treating OTCs as a simple uniform warming manipulation.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "By 2019, aboveground biomass was 27.9% higher in OTC plots, while diversity/evenness measures declined; species richness was not significantly different overall after accounting for sampling time.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The biomass and diversity analyses directly report the large 2019 biomass difference and the more qualified diversity/richness pattern."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results: AGB and Biodiversity; Figs. 3–4",
+        "support_level": "sufficient",
+        "reason": "The claim preserves both positive and null/qualified outcomes: biomass increased strongly in 2019, some diversity metrics declined, but species richness was not generally reduced.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The observed tussock increase and diversity shifts show that continued warming will drive this tropical alpine grassland toward a shrub-dominated ecosystem.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "contextual",
+            "reason": "The OTC manipulation changes microclimate but does not reproduce every future climate driver."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "Tussock dominance and diversity change are consistent with transition, but shrubs did not show the predicted significant increase in this experiment."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Discussion/Conclusion; transition-to-shrub interpretation",
+        "support_level": "partial",
+        "reason": "The authors present shrub dominance as a possible future step; the experiment directly observed tussock changes, not a completed shrub transition, and notes further research is needed.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The authors present shrub dominance as a possible future step rather than an observed endpoint and explicitly call for further research on long-term growth-form transitions.",
+          "source_location": "Discussion/Conclusion; future shrub-dominance interpretation and further-research statement"
+        }
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares the experimental OTC microclimate with controls at the study site.",
+      "assumptions": [
+        "The paired block/control design adequately represents the OTC treatment effect on the measured microclimate."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares multi-year plant-community outcomes under OTC warming with controls while retaining the time-adjusted null richness result.",
+      "assumptions": [
+        "The mixed-effects analyses adequately account for repeated sampling and block/time structure."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Projects a seven-year site-specific OTC response into a future shrub-dominated ecosystem transition.",
+      "assumptions": [
+        "The experimental microclimate trajectory and current growth-form shifts continue and translate into future shrub competitive dominance."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "The multi-year microclimate, AGB, diversity, evenness, richness, and growth-form measurements are useful at this site.",
+    "methods_or_design": "Long-duration OTC blocks provide a useful local warming perturbation with repeated community sampling.",
+    "materials_or_documentation": "Treatment layout, temperature metrics, biomass, diversity indices, and mixed-effects analyses are documented."
+  },
+  "downweight": {
+    "worth_noticing": "The study's nuanced result includes both strong biomass/community changes and non-significant overall richness effects.",
+    "cautious_or_ignore": "Do not turn the authors' possible shrub-transition scenario into an observed endpoint."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "high",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Longer monitoring, direct shrub recruitment/demography, and multiple tropical alpine sites would test the transition projection."
+}

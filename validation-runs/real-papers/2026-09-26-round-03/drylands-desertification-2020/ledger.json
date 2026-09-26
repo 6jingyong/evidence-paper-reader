@@ -1,0 +1,183 @@
+{
+  "ledger_schema_version": 4,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "observation-based climate attribution study",
+  "reader_conclusion": "The framework supports substantial climate-related dryland degradation and a bounded combined-driver result; title-level standalone causal wording is broader than the paper's own distinction between negative forcing and realized desertification.",
+  "claims": [
+    {
+      "content": "Within the study's 1982–2015 attribution framework, anthropogenic climate change had a desertifying effect across 12.55% of drylands, about 5.43 million km².",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "statistical analysis",
+          "numerical simulation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The attribution analysis directly reports the 12.55% / 5.43 million km² negative ACC forcing result."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results: impact of anthropogenic climate change; Fig. 2a",
+        "support_level": "sufficient",
+        "reason": "The claim preserves the study framework, period, and definition of a desertifying ACC effect.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The study estimated that 6% of global drylands underwent desertification driven by unsustainable land use compounded by anthropogenic climate change between 1982 and 2015.",
+      "claim_type": "mechanistic",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "statistical analysis",
+          "numerical simulation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The driver classification directly reports the bounded combined-driver estimate."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract; driver attribution and desertification classification",
+        "support_level": "sufficient",
+        "reason": "The claim is limited to the source's explicit combined-driver result and study period.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "Anthropogenic climate change itself has driven more than 5 million km² of drylands into desertification as a general global causal statement.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "statistical analysis",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "mixed",
+            "reason": "Negative ACC forcing supports climate-related degradation but does not mean every affected area experienced desertification."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "contextual",
+            "reason": "Realized desertification is often jointly structured by land use and climate."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Title; Abstract; Results distinction between negative forcing and significant desertification",
+        "support_level": "partial",
+        "reason": "The paper states that negative ACC forcing does not guarantee desertification; only a subset of negatively forced areas experienced significant desertification.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The paper itself states that negative anthropogenic-climate forcing does not guarantee realized desertification and distinguishes climate forcing from combined climate/land-use desertification.",
+          "source_location": "Results distinction between negative ACC forcing and significant desertification; Discussion"
+        }
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "statistical-inference",
+      "reasoning_status": "supported",
+      "added_reach": "Moves from attribution-model outputs to the bounded area estimate within that framework.",
+      "assumptions": [
+        "The attribution framework adequately separates modeled ACC contribution from other drivers."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Attributes the classified pattern to the study's combined land-use and ACC driver framework.",
+      "assumptions": [
+        "The attribution design sufficiently distinguishes modeled driver contributions."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "causal",
+      "reasoning_status": "qualified",
+      "added_reach": "Collapses negative ACC forcing and combined-driver desertification into a broad standalone causal statement.",
+      "assumptions": [
+        "Negative ACC forcing is equivalent to realized desertification attributable to ACC itself."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "Spatial attribution estimates and driver partitions are usable within the 1982–2015 framework.",
+    "methods_or_design": "Explicit separation of climate change, variability, CO2 fertilization, and land-use effects is useful.",
+    "materials_or_documentation": "Spatial areas, population exposure, significance handling, and driver classes are reported."
+  },
+  "downweight": {
+    "worth_noticing": "The 5.43 million km² negative-ACC-forcing result is substantial and directly reported.",
+    "cautious_or_ignore": "Do not equate every negatively forced area with desertification caused solely by ACC."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "high",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Alternative attribution formulations and regional validation would test sensitivity to modeling and classification assumptions."
+}

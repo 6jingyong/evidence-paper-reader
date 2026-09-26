@@ -1,0 +1,55 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "claim_text": "A graphite full cell using the γ-ray-driven photo-SEI reached 80% state of charge in 10.8 minutes at an areal capacity of 2.6 mAh cm−2.",
+      "routes": {
+        "figure-and-table-traps.md": "required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "not_required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "not_required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C1's disclosed evidence, logical bridge, and stated scope."
+    },
+    {
+      "claim_id": "C2",
+      "claim_text": "Photochemical treatment produced a substantially more inorganic/LiF-rich interphase and about tenfold lower interfacial ionic-transport resistance than the untreated/electrochemical comparison.",
+      "routes": {
+        "figure-and-table-traps.md": "required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "not_required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "not_required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C2's disclosed evidence, logical bridge, and stated scope."
+    },
+    {
+      "claim_id": "C3",
+      "claim_text": "The LiF-rich photo-SEI is the unique causal reason for the fast-charge improvement and the approach is broadly transferable to practical LIB manufacturing and other electrodes.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C3's disclosed evidence, logical bridge, and stated scope."
+    }
+  ]
+}

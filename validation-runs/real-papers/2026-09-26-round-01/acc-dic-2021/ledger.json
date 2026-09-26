@@ -1,0 +1,231 @@
+{
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "materials tensile-testing and measurement-method comparison study",
+  "reader_conclusion": "The paper provides direct within-specimen evidence that the displacement-measurement method can materially change inferred Young's modulus and strain-related properties even when tensile strength is similar. The strongest reusable result is methodological: machine compliance can contaminate machine-displacement strain estimates, so literature comparisons are unsafe when the elongation method is unspecified.",
+  "claims": [
+    {
+      "content": "For the tested all-cellulose composites, machine-sensor and DIC-derived nominal stress-strain curves differ enough to materially change inferred strain-to-failure and Young's modulus.",
+      "claim_type": "methodological",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Figure 8e; Results; Conclusions",
+        "support_level": "sufficient",
+        "reason": "The same tensile tests are analyzed through machine displacement and stereovision/DIC, and the reported curves show about a twofold difference in failure strain with materially different modulus.",
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The machine-displacement result supplies one side of the observed method-dependent stress-strain difference."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The paired DIC result supplies the contrasting strain/modulus estimate in the same tested setup."
+          }
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "For the tested composites, nominal tensile strength is approximately unchanged between the machine and DIC approaches even though modulus and strain-related quantities differ.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Results around Figures 8 and 9; Conclusions",
+        "support_level": "sufficient",
+        "reason": "The paper reports similar tensile-strength values across approaches while local-DIC modulus is higher and strain/toughness differ.",
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The machine-based analysis reports the tensile-strength estimate used in the comparison."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The DIC-based analysis reports a similar tensile-strength estimate while strain-derived quantities differ."
+          }
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The elongation-measurement method should be considered when comparing all-cellulose-composite mechanical properties across literature sources.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Discussion; Conclusions",
+        "support_level": "partial",
+        "reason": "The demonstrated within-study measurement bias justifies caution, but the magnitude of bias across other machines, geometries, and composite systems is not directly measured here.",
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The machine-displacement sensitivity is direct evidence that elongation method can matter for reported mechanical properties."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The paired DIC comparison supports the need to account for measurement method when interpreting literature values."
+          }
+        ],
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
+      }
+    }
+  ],
+  "usable": {
+    "results": "The paired machine-versus-DIC stress-strain comparisons and derived mechanical properties are directly usable as a measurement-method case study.",
+    "methods_or_design": "Simultaneous tensile-machine and stereovision/DIC measurements on the same specimens are particularly useful because specimen variability is not confused with measurement-method differences.",
+    "materials_or_documentation": "Sample geometry, strain rate, camera system, DIC subset/step/filter parameters, processing conditions, and analysis equations are reported."
+  },
+  "downweight": {
+    "worth_noticing": "The paper's specific bias magnitude is compelling for its setup, but the exact factor should not be transplanted to unrelated test frames or materials.",
+    "cautious_or_ignore": "Do not compare Young's modulus or failure strain across ACC literature as if machine-displacement, extensometer, and DIC methods were interchangeable when the elongation method is unspecified."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "high",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "A stronger general statement would require cross-machine and cross-material calibration with known compliance and independent strain references. The study itself also notes that DIC-location effects were minor here partly because the tested deformation was low.",
+  "ledger_schema_version": 4,
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "supported",
+      "added_reach": "Uses the machine-displacement stress-strain result as one side of the within-test measurement-method comparison.",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares the DIC-derived deformation result with the machine-derived result to attribute the material difference in inferred strain and modulus to measurement method within the tested setup.",
+      "assumptions": [
+        "The paired measurements refer to the same underlying tensile behavior and differ materially in displacement measurement rather than specimen identity."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R4",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares the paired method outputs to show that tensile strength remains approximately stable while strain-derived properties change.",
+      "assumptions": [
+        "The strength estimates are computed from comparable load/cross-section information across the two analysis approaches."
+      ]
+    },
+    {
+      "edge_id": "R5",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [
+        1
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends the demonstrated machine-compliance sensitivity in the tested setup to a caution about comparing mechanical properties across other literature sources.",
+      "assumptions": [
+        "Other literature measurements may contain analogous method-dependent displacement contributions."
+      ]
+    },
+    {
+      "edge_id": "R6",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Uses the paired DIC-versus-machine property pattern to justify method-aware literature comparison without assuming the same numerical bias across machines or materials.",
+      "assumptions": [
+        "The direction of method sensitivity is relevant beyond the exact specimen geometry while its magnitude remains setup-specific."
+      ]
+    }
+  ]
+}

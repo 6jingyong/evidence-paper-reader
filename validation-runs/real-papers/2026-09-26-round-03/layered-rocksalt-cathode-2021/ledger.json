@@ -1,0 +1,178 @@
+{
+  "ledger_schema_version": 4,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "experimental battery-materials study",
+  "reader_conclusion": "The tested intergrown cathode shows strong capacity/rate and near-zero-strain behavior; the broader design-space claim extends beyond the finite tested composition series.",
+  "claims": [
+    {
+      "content": "Li1.2Ni0.4Ru0.4O2 delivered 244 mAh g−1 and 904 Wh kg−1 between 4.6 and 2.5 V, with about 200 and 165 mAh g−1 at C/2 and 1C, respectively.",
+      "claim_type": "performance",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The galvanostatic tests directly report the bounded performance figures."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Electrochemical characterization; Fig. 2",
+        "support_level": "sufficient",
+        "reason": "The performance values are directly reported under explicit voltage and rate conditions.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The layered-rocksalt intergrown material exhibited nearly zero-strain structural evolution during high-capacity cycling.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "Structural characterization directly bears on the bounded zero-strain behavior."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Structural evolution results and figures",
+        "support_level": "sufficient",
+        "reason": "The source directly reports suppression of anisotropic structural change for the tested composition.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "Layered-rocksalt intergrowth is a broadly applicable cathode design principle opening a vast composition space for high-performance electrodes.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2",
+          "E3"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The focal material supplies one direct realization."
+          },
+          {
+            "evidence_node": "E3",
+            "relation": "mixed",
+            "reason": "Additional tested compositions extend the concept, but a finite series cannot establish the whole proposed design space."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Abstract; composition-series validation; Discussion",
+        "support_level": "partial",
+        "reason": "The composition series supports transfer beyond one formulation, but broad design-space performance remains a generalization.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E2",
+        "E3"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends successful behavior in the tested composition series to a broad cathode-design space.",
+      "assumptions": [
+        "The tested compositions adequately represent the wider design space."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "Capacity/rate and structural-strain measurements are reusable at the reported conditions.",
+    "methods_or_design": "Coupled electrochemical and structural characterization is useful for testing intergrowth hypotheses.",
+    "materials_or_documentation": "Composition, cycling windows, rates, and structural observations are explicit."
+  },
+  "downweight": {
+    "worth_noticing": "The additional composition series materially strengthens the design argument.",
+    "cautious_or_ignore": "Do not convert a finite successful series into proof of the whole proposed composition space."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "medium",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Broader composition coverage, longer cycling, and independent material systems would test generality."
+}

@@ -1,0 +1,134 @@
+{
+  "round_id": "2026-09-26-round-02",
+  "audited_on": "2026-09-26",
+  "reviewer": "GPT-5.6 Sol",
+  "base_head": "cde149cb846951194f09187b3e9b6f4a085b9ffd",
+  "purpose": "Adversarial real-paper round focused on dirty evidence chains, promotional overreach, selective analysis, proxy endpoints, and documented source-integrity failures.",
+  "cases": [
+    {
+      "id": "gautret-hcq-2020",
+      "domain": "clinical-nonrandomized-proxy-endpoint",
+      "inventory_expected": true,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": [
+            "selective-success-only"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "selective-success-only"
+          ],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "power-posing-2010",
+      "domain": "social-psychology-small-n-multi-outcome",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "chocolate-weight-loss-2015",
+      "domain": "nutrition-p-hacking-promotional",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": [
+            "selective-success-only",
+            "promotional-asymmetry"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "selective-success-only",
+            "promotional-asymmetry"
+          ],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "surgisphere-hcq-2020",
+      "domain": "registry-source-integrity",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "non-auditable",
+          "required_viability_flags": [
+            "source-integrity-failure"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "source-integrity-failure",
+            "proprietary-black-box"
+          ],
+          "support_levels": []
+        }
+      }
+    },
+    {
+      "id": "wakefield-mmr-1998",
+      "domain": "case-series-source-integrity",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "non-auditable",
+          "required_viability_flags": [
+            "source-integrity-failure"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "source-integrity-failure",
+            "selective-success-only"
+          ],
+          "support_levels": []
+        }
+      }
+    }
+  ]
+}

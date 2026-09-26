@@ -1,0 +1,183 @@
+{
+  "ledger_schema_version": 4,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "small randomized medical-education trial",
+  "reader_conclusion": "The 26-student randomized study supports better blinded OSCE performance, including transfer to new scenarios, in this course/cohort; broad curricular or real-clinical effectiveness remains a larger inference.",
+  "claims": [
+    {
+      "content": "Three weeks after the course, randomized e-course students scored higher than controls on the blinded evaluation (59.3±6.2 vs 41.8±10.2; p=0.0020).",
+      "claim_type": "intervention",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The randomized blinded post-course assessment directly reports the overall score difference."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract/Results: blinded OSCE overall score",
+        "support_level": "sufficient",
+        "reason": "The bounded claim preserves the 26-student sample, short follow-up, and simulated assessment endpoint.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The e-course group also outperformed controls on course-related items (about 1.7-fold; p=0.0034) and on new clinical scenarios (about 1.3-fold; p=0.0098).",
+      "claim_type": "intervention",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The prespecified subscale comparisons directly support both near-content learning and transfer to novel simulated scenarios."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract/Results: prespecified content and new-scenario subscales",
+        "support_level": "sufficient",
+        "reason": "The source directly reports significant performance differences on both subscales.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The course broadly improves medical students' real clinical imaging-ordering and downstream decision-making across curricula and institutions.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The overall blinded assessment supports learning in the enrolled cohort."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "Novel simulated scenarios support near transfer, but not real-patient behavior or other curricula/institutions."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Conclusion; OSCE/new-scenario interpretation",
+        "support_level": "partial",
+        "reason": "The trial has only 26 students, one course and institution context, a three-week follow-up, and simulated/OSCE outcomes rather than observed clinical practice.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The authors acknowledge the small sample, single educational context, short follow-up, and simulated assessment setting, and call for broader validation before general curricular or clinical conclusions.",
+          "source_location": "Discussion/Conclusion; study limitations and future validation"
+        }
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Uses randomized access to the course and blinded assessment to attribute the bounded score difference to the e-course in this cohort.",
+      "assumptions": [
+        "Randomization and blinded evaluation preserve the intended treatment contrast despite the small sample."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Attributes the bounded subscale differences to randomized course access in the studied cohort.",
+      "assumptions": [
+        "The prespecified subscales validly measure course-related performance and near transfer to new simulated scenarios."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends short-term simulated assessment gains in 26 students to real clinical behavior and broad curricular transfer.",
+      "assumptions": [
+        "OSCE/new-scenario performance predicts durable real-patient decisions and transfers across institutions and curricula."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "The randomized overall and subscale assessment differences are directly useful for this course/cohort.",
+    "methods_or_design": "Blinded evaluation with both trained-content and new-scenario subscales is a useful transfer-sensitive education design.",
+    "materials_or_documentation": "Randomization, cohort size, course structure, assessment timing, endpoints, and p-values are reported."
+  },
+  "downweight": {
+    "worth_noticing": "The new-scenario subscale provides stronger evidence than testing only memorized course content.",
+    "cautious_or_ignore": "Do not equate a small short-term simulated educational outcome with demonstrated real clinical behavior."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "medium",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Larger multicenter cohorts, longer retention, and real/simulated clinical behavior endpoints would test durability and transfer."
+}

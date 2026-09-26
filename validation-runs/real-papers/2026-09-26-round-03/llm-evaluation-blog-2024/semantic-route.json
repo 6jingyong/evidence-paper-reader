@@ -1,0 +1,55 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "claim_text": "Current LLM evaluation can be organized into three main modes: automated benchmarks, human judges, and model judges, each with distinct uses and limitations.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "not_required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C1's disclosed evidence and inferential reach."
+    },
+    {
+      "claim_id": "C2",
+      "claim_text": "Ranking stability is a more robust evaluation target than isolated absolute scores because benchmark and human-evaluation scores are susceptible to small methodological perturbations.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "not_required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C2's disclosed evidence and inferential reach."
+    },
+    {
+      "claim_id": "C3",
+      "claim_text": "General model capabilities cannot currently be evaluated because the field has not defined what those capabilities mean.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C3's disclosed evidence and inferential reach."
+    }
+  ]
+}

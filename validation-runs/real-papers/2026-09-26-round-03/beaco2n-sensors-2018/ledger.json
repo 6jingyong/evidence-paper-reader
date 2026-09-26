@@ -1,0 +1,183 @@
+{
+  "ledger_schema_version": 4,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "field calibration and validation study",
+  "reader_conclusion": "Field co-location and reference comparison support useful local calibration performance; transfer to new lots, locations, and long-term drift regimes remains conditional.",
+  "claims": [
+    {
+      "content": "After calibration, hourly BEACO2N measurements agreed with reference instruments with correlations of 0.88, 0.61, 0.69, and 0.74 for NO, NO2, O3, and CO and MAE of 3.63, 4.12, 5.04, and 54.93 ppb.",
+      "claim_type": "performance",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The field/reference comparison directly reports the bounded correlation and MAE values."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Calibration evaluation; Fig. 6 and Table 3",
+        "support_level": "sufficient",
+        "reason": "The performance values are directly reported after the stated calibration corrections.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "Correcting cross-sensitivity and temperature dependence materially improved low-cost electrochemical sensor calibration accuracy in the studied network.",
+      "claim_type": "methodological",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The calibration comparisons report lower error when cross-sensitivity and temperature terms are included."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Calibration procedure; Table 3",
+        "support_level": "sufficient",
+        "reason": "The paper directly evaluates these corrections within the network and reports error reduction.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The reported calibration approach can be transferred generally to new low-cost sensor lots, environments, and long-term deployments without local reference instrumentation.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "mixed",
+            "reason": "Field agreement supports the studied network but is specific to tested instruments and environment."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "contextual",
+            "reason": "Cross-sensitivity, temperature, offset, and drift corrections constrain transfer."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Discussion/Conclusions; calibration and drift sections",
+        "support_level": "partial",
+        "reason": "The study supports dense monitoring with calibrated sensors, but its performance depends on local/reference information and observed sensor/environment effects.",
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The authors explicitly discuss sensor-specific offsets, environmental cross-sensitivity, calibration transfer, and drift, so the need for local/reference calibration and continued drift management is already part of the paper's own boundary.",
+          "source_location": "Discussion/Conclusions; calibration transfer and drift sections"
+        }
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares calibrated low-cost sensor outputs with reference measurements.",
+      "assumptions": [
+        "The reference instruments and synchronization provide an adequate comparison target."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Attributes in-network calibration improvement to the added correction terms in the tested model.",
+      "assumptions": [
+        "The model comparison isolates the practical contribution of the correction terms."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends one calibrated field network to new sensor populations and environments without the reference infrastructure used to establish performance.",
+      "assumptions": [
+        "Response, offsets, and drift remain stable enough across lots, sites, and time."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "Reference comparison metrics and correction effects are reusable for the studied network.",
+    "methods_or_design": "The co-location and multivariate calibration workflow is useful.",
+    "materials_or_documentation": "Calibration equations, errors, reference instruments, and drift limits are documented."
+  },
+  "downweight": {
+    "worth_noticing": "The study shows low-cost sensors can become useful network instruments after careful calibration.",
+    "cautious_or_ignore": "Do not assume identical performance transfers without local references or drift management."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "high",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Independent cities, sensor lots, seasons, and long-term drift tests would establish transferability."
+}

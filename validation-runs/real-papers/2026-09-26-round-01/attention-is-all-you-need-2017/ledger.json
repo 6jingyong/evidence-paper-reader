@@ -1,0 +1,164 @@
+{
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "machine-learning architecture paper with computational benchmark evaluation",
+  "reader_conclusion": "The paper directly supports strong bounded performance claims on the reported WMT translation benchmarks and shows a successful transfer experiment to English constituency parsing. The evidence is much narrower than a universal claim that attention-only architectures generalize well to arbitrary tasks, modalities, or data regimes.",
+  "claims": [
+    {
+      "content": "On WMT 2014 English-to-German, the Transformer big model achieves 28.4 BLEU and exceeds the best previously reported models, including ensembles, by more than 2 BLEU.",
+      "claim_type": "performance",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "computational benchmark"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Section 6.1; Table 2",
+        "support_level": "sufficient",
+        "reason": "Table 2 directly reports 28.4 BLEU for Transformer big and lower scores for the listed prior systems and ensembles.",
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "Table 2 directly reports the stated English-to-German BLEU result and comparison."
+          }
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "On WMT 2014 English-to-French, the Transformer big model achieves a new single-model state-of-the-art result while using substantially less reported training computation than the prior single-model state of the art.",
+      "claim_type": "performance",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "computational benchmark"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Section 6.1; Table 2",
+        "support_level": "sufficient",
+        "reason": "The paper reports the Transformer big English-to-French benchmark result together with the compared systems and training-cost estimates; the bounded comparison is directly inspectable in the table.",
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The English-to-French benchmark and reported training-cost comparison directly bear in favor of the bounded claim."
+          }
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
+      }
+    },
+    {
+      "content": "The Transformer generalizes well to tasks beyond machine translation.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "computational benchmark",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E3"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Section 6.3; Table 4; Abstract",
+        "support_level": "partial",
+        "reason": "The English constituency-parsing experiment demonstrates transfer to one materially different task, but one additional task does not establish broad task-level generality.",
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E3",
+            "relation": "mixed",
+            "reason": "The constituency-parsing result supports transfer beyond translation, but one additional task supports only a narrower version of broad cross-task generality."
+          }
+        ],
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
+      }
+    }
+  ],
+  "usable": {
+    "results": "The reported WMT benchmark scores, training-computation comparisons, model-variation results, and constituency-parsing scores are usable as bounded benchmark evidence.",
+    "methods_or_design": "The architecture description and controlled model-variation table are useful for separating architectural choices from headline benchmark results.",
+    "materials_or_documentation": "Architecture hyperparameters, training schedule, benchmark tables, and a codebase reference are documented well enough for methodological inspection."
+  },
+  "downweight": {
+    "worth_noticing": "The constituency-parsing result is meaningful evidence that the architecture was not limited to translation, but it is still a single additional task family.",
+    "cautious_or_ignore": "Do not convert the 2017 benchmark wins into a timeless statement that Transformers are universally superior, cheaper, or better on arbitrary modern tasks; those claims would require evidence outside this paper."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "high",
+    "research_design": "medium",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "The benchmark comparisons depend on the contemporaneous systems, data processing, evaluation metrics, and reported compute accounting. Broader generalization requires independent tasks, modalities, scales, and later replications rather than inference from the paper's three evaluated task settings alone.",
+  "ledger_schema_version": 4,
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Moves from the listed measurements/results to the stated comparative conclusion.",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Moves from the listed measurements/results to the stated comparative conclusion.",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E3"
+      ],
+      "upstream_claims": [],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends the directly tested population, task, setting, time, or material to the broader scope stated in the claim.",
+      "assumptions": [
+        "The directly tested cases are informative about the broader scope named in the claim."
+      ]
+    }
+  ]
+}

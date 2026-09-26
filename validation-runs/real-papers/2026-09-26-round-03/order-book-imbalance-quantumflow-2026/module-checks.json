@@ -1,0 +1,88 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Direct answer; BTC decile analysis and block bootstrap"
+          ],
+          "reason": "Checked denominators, uncertainty, comparison structure, and null/secondary results before assigning support.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Direct answer; BTC decile analysis and block bootstrap"
+          ],
+          "reason": "Checked whether multiple observations are independent or reused parts of one source/data stream.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Direct answer; BTC decile analysis and block bootstrap"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Extreme-tail analysis"
+          ],
+          "reason": "Checked denominators, uncertainty, comparison structure, and null/secondary results before assigning support.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Extreme-tail analysis"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Direct answer; tradeability/cost discussion"
+          ],
+          "reason": "Checked denominators, uncertainty, comparison structure, and null/secondary results before assigning support.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Direct answer; tradeability/cost discussion"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Direct answer; tradeability/cost discussion"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    }
+  ]
+}

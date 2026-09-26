@@ -1,0 +1,114 @@
+{
+  "benchmark_id": "metadata-halo-12-v1",
+  "note": "Reference expectations are scoring metadata and must never be included in benchmark packets.",
+  "cases": [
+    {
+      "case_id": "MH01",
+      "scope_status": "in scope",
+      "anchors": {
+        "A1": "sufficient",
+        "A2": "partial",
+        "A3": "partial"
+      }
+    },
+    {
+      "case_id": "MH02",
+      "scope_status": "in scope",
+      "anchors": {
+        "A1": "sufficient",
+        "A2": "partial",
+        "A3": "partial"
+      }
+    },
+    {
+      "case_id": "MH03",
+      "scope_status": "in scope",
+      "anchors": {
+        "A1": "sufficient",
+        "A2": "partial",
+        "A3": "insufficient"
+      }
+    },
+    {
+      "case_id": "MH04",
+      "scope_status": "in scope",
+      "anchors": {
+        "A1": "sufficient",
+        "A2": "insufficient",
+        "A3": "insufficient"
+      }
+    },
+    {
+      "case_id": "MH05",
+      "scope_status": "in scope",
+      "anchors": {
+        "A1": "sufficient",
+        "A2": "partial",
+        "A3": "partial"
+      }
+    },
+    {
+      "case_id": "MH06",
+      "scope_status": "in scope",
+      "anchors": {
+        "A1": "sufficient",
+        "A2": "insufficient",
+        "A3": "partial"
+      }
+    },
+    {
+      "case_id": "MH07",
+      "scope_status": "in scope",
+      "anchors": {
+        "A1": "sufficient",
+        "A2": "partial",
+        "A3": "partial"
+      }
+    },
+    {
+      "case_id": "MH08",
+      "scope_status": "partially in scope",
+      "anchors": {
+        "A1": "partial",
+        "A2": "insufficient",
+        "A3": "insufficient"
+      }
+    },
+    {
+      "case_id": "MH09",
+      "scope_status": "in scope",
+      "anchors": {
+        "A1": "sufficient",
+        "A2": "insufficient",
+        "A3": "partial"
+      }
+    },
+    {
+      "case_id": "MH10",
+      "scope_status": "partially in scope",
+      "anchors": {
+        "A1": "partial",
+        "A2": "unclear",
+        "A3": "unclear"
+      }
+    },
+    {
+      "case_id": "MH11",
+      "scope_status": "in scope",
+      "anchors": {
+        "A1": "sufficient",
+        "A2": "partial",
+        "A3": "insufficient"
+      }
+    },
+    {
+      "case_id": "MH12",
+      "scope_status": "in scope",
+      "anchors": {
+        "A1": "sufficient",
+        "A2": "partial",
+        "A3": "insufficient"
+      }
+    }
+  ]
+}

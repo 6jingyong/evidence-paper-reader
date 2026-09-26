@@ -1,0 +1,398 @@
+{
+  "benchmark_id": "metadata-halo-12-v1",
+  "seed": 20260924,
+  "purpose": "Paired metadata-visible vs metadata-hidden test of prestige/attention halo. Scientific content is identical within each pair.",
+  "run_rules": [
+    "Run each packet in an independent fresh context with the same model/configuration.",
+    "Do not expose the paired packet or previous response.",
+    "Use the Evidence Paper Reader skill and return the benchmark response JSON only.",
+    "Do not infer missing source identity in the hidden condition.",
+    "Metadata is not evidence; judge anchor claims from the supplied evidence packet."
+  ],
+  "cases": [
+    {
+      "case_id": "MH01",
+      "source_case_id": "battery-flagship",
+      "domain": "battery materials",
+      "metadata": {
+        "title": "Ultrahigh power and energy density in partially ordered lithium-ion cathode materials",
+        "year": 2020,
+        "venue": "Nature Energy",
+        "source_kind": "peer-reviewed journal",
+        "attention": "flagship/high-attention"
+      },
+      "evidence": [
+        "The study evaluates partially ordered/disordered rocksalt-type lithium-ion cathode materials under reported electrochemical test conditions.",
+        "The reported measurements show a combination of high energy density and high-rate/power performance in the tested compositions and cells.",
+        "Structural/chemical characterization is used to argue that partial ordering enables favorable lithium transport while retaining high capacity.",
+        "The paper tests a bounded material family and laboratory cell configurations; it does not directly sample all cathode chemistries or practical pack-level deployments."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "The tested cathode compositions achieve the reported high energy and high-rate performance under the study conditions."
+        },
+        {
+          "id": "A2",
+          "claim": "Partial ordering is the causal material mechanism responsible for the observed performance advantage."
+        },
+        {
+          "id": "A3",
+          "claim": "The demonstrated design principle should generalize broadly to lithium-ion cathode materials beyond the tested compositions."
+        }
+      ]
+    },
+    {
+      "case_id": "MH02",
+      "source_case_id": "battery-low",
+      "domain": "battery materials",
+      "metadata": {
+        "title": "Dry Electrode Architecture Design for Pushing Energy Density Limits at Cell Level",
+        "year": 2025,
+        "venue": "ChemRxiv",
+        "source_kind": "preprint",
+        "attention": "low-attention/nontraditional"
+      },
+      "evidence": [
+        "The study reports dry-electrode architectures with high active-material loading and tests electrode/cell performance experimentally.",
+        "The reported configurations include areal capacity above 5 mAh/cm2 and active-material fractions above 99 wt% in selected designs.",
+        "A high-voltage NMC811||graphite pouch-cell configuration is reported to retain about 78% capacity after 1000 cycles under the stated protocol.",
+        "The work explores selected electrode architectures and process conditions; it does not independently validate manufacturing transfer across factories, chemistries, or pack designs."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "The tested dry-electrode architectures achieve the reported high-loading and cycling performance under the study conditions."
+        },
+        {
+          "id": "A2",
+          "claim": "Electrode architecture is the primary causal reason for the observed cell-level performance improvements."
+        },
+        {
+          "id": "A3",
+          "claim": "The approach is established as broadly transferable across commercial lithium-ion cell chemistries and manufacturing lines."
+        }
+      ]
+    },
+    {
+      "case_id": "MH03",
+      "source_case_id": "cardiology-flagship",
+      "domain": "clinical cardiology",
+      "metadata": {
+        "title": "A Randomized Trial of Intensive versus Standard Blood-Pressure Control",
+        "year": 2015,
+        "venue": "New England Journal of Medicine",
+        "source_kind": "peer-reviewed randomized trial",
+        "attention": "flagship/high-attention"
+      },
+      "evidence": [
+        "Participants at elevated cardiovascular risk without diabetes were randomized to intensive versus standard systolic blood-pressure targets.",
+        "The primary composite cardiovascular outcome occurred at lower rates in the intensive-treatment group; the reported hazard ratio was about 0.75 with a confidence interval excluding 1.",
+        "All-cause mortality was also lower during the observed follow-up, while several treatment-related adverse events were more frequent with intensive treatment.",
+        "The trial excluded some populations, including people with diabetes, and the intervention was stopped early under a prespecified group-sequential monitoring framework."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "Intensive blood-pressure treatment reduced the trial's primary cardiovascular outcome in the enrolled population."
+        },
+        {
+          "id": "A2",
+          "claim": "The trial establishes that the intensive target is preferable for essentially all adults with hypertension."
+        },
+        {
+          "id": "A3",
+          "claim": "The benefits can be interpreted without considering the higher frequency of treatment-related adverse events."
+        }
+      ]
+    },
+    {
+      "case_id": "MH04",
+      "source_case_id": "cardiology-low",
+      "domain": "clinical cardiology",
+      "metadata": {
+        "title": "Feasibility and Preliminary Effects of the BESMILE-HF Program on Chronic Heart Failure Patients: A Pilot Randomized Controlled Trial",
+        "year": 2021,
+        "venue": "Frontiers in Cardiovascular Medicine",
+        "source_kind": "small pilot randomized trial",
+        "attention": "low-attention/nontraditional"
+      },
+      "evidence": [
+        "The study randomized 18 participants with chronic heart failure to a Baduanjin-based self-management/cardiac-rehabilitation program or control.",
+        "The study reports recruitment, adherence, retention, acceptability, and preliminary physiological/quality-of-life outcomes.",
+        "The small pilot was designed primarily to establish feasibility and generate preliminary effect estimates rather than provide a definitive efficacy trial.",
+        "The authors call for a larger sample and longer follow-up before firm clinical-effect conclusions."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "The program was feasible enough in this pilot to justify a larger trial."
+        },
+        {
+          "id": "A2",
+          "claim": "The pilot establishes clinically reliable efficacy for chronic heart failure outcomes."
+        },
+        {
+          "id": "A3",
+          "claim": "The observed preliminary physiological differences can be generalized to the broader heart-failure population."
+        }
+      ]
+    },
+    {
+      "case_id": "MH05",
+      "source_case_id": "finance-flagship",
+      "domain": "financial market microstructure",
+      "metadata": {
+        "title": "The Price Impact of Order Book Events",
+        "year": 2014,
+        "venue": "Journal of Financial Econometrics",
+        "source_kind": "peer-reviewed/working-paper lineage",
+        "attention": "flagship/high-attention"
+      },
+      "evidence": [
+        "The study analyzes order-book events for 50 US stocks over a defined historical period.",
+        "Price changes are strongly related to order-flow imbalance constructed from order-book events, with a roughly linear empirical relation over the studied regime.",
+        "The predictor and outcome are contemporaneously linked through the same order-book event process, so part of the relation is mechanically close to the price-formation identity being measured.",
+        "The sampled period, assets, and market structure are limited relative to all markets and regimes."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "Order-flow imbalance is strongly associated with contemporaneous price changes in the studied stocks and period."
+        },
+        {
+          "id": "A2",
+          "claim": "The evidence establishes that order-flow imbalance causally moves prices by the estimated amount."
+        },
+        {
+          "id": "A3",
+          "claim": "The reported relationship should be treated as stable across markets, assets, and market regimes."
+        }
+      ]
+    },
+    {
+      "case_id": "MH06",
+      "source_case_id": "finance-low",
+      "domain": "financial market microstructure",
+      "metadata": {
+        "title": "Does a stacked bid side actually mean support?",
+        "year": 2026,
+        "venue": "QuantumFlow",
+        "source_kind": "technical blog",
+        "attention": "low-attention/nontraditional"
+      },
+      "evidence": [
+        "The analysis tests order-book imbalance across five liquid perpetual-futures markets using non-overlapping hourly observations.",
+        "Extreme bid-heavy versus ask-heavy states differ in the probability of a positive next-hour return; the reported directional gap is around nine percentage points for the highlighted comparison.",
+        "A day-level block bootstrap is used to preserve within-day dependence when assessing the directional difference.",
+        "Average gross return associated with the signal is reported to be very small relative to realistic taker fees, so the article itself distinguishes predictability from a profitable trading rule."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "Extreme order-book imbalance contains some next-hour directional information in the five tested markets."
+        },
+        {
+          "id": "A2",
+          "claim": "The observed directional edge establishes a practically profitable taker-fee trading strategy."
+        },
+        {
+          "id": "A3",
+          "claim": "The result is established as universal across crypto markets and future market regimes."
+        }
+      ]
+    },
+    {
+      "case_id": "MH07",
+      "source_case_id": "catalysis-flagship",
+      "domain": "catalysis",
+      "metadata": {
+        "title": "A scalable method for preparing Cu electrocatalysts that convert CO2 into C2+ products",
+        "year": 2020,
+        "venue": "Nature Communications",
+        "source_kind": "peer-reviewed journal",
+        "attention": "flagship/high-attention"
+      },
+      "evidence": [
+        "The study prepares copper electrocatalysts with a scalable fabrication route and measures CO2 electroreduction product selectivity.",
+        "The tested catalysts show high Faradaic efficiency toward multi-carbon products under the reported electrochemical conditions.",
+        "Microscopy/structural characterization and comparative experiments are used to associate performance with catalyst morphology, roughness, and defect-related features.",
+        "The characterization supports plausible structure-performance explanations but does not directly observe a single unique active site throughout operation."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "The tested preparation method yields copper catalysts with high C2+ selectivity under the reported conditions."
+        },
+        {
+          "id": "A2",
+          "claim": "A specific defect-density/roughness feature is uniquely established as the causal active origin of the high selectivity."
+        },
+        {
+          "id": "A3",
+          "claim": "The identified preparation-property relationship should transfer broadly across CO2 electroreduction reactors and operating regimes."
+        }
+      ]
+    },
+    {
+      "case_id": "MH08",
+      "source_case_id": "catalysis-low",
+      "domain": "catalysis",
+      "metadata": {
+        "title": "Pitfalls in identifying active catalyst species",
+        "year": 2020,
+        "venue": "Nature Communications",
+        "source_kind": "Matters Arising",
+        "attention": "low-attention despite prestigious venue"
+      },
+      "evidence": [
+        "The article is a technical critique of an earlier catalyst paper and argues that the original assignment of the active catalyst species is not uniquely supported by the reported characterization.",
+        "Its reasoning compares alternative interpretations of spectroscopy/characterization and points to ambiguities in assigning one active species.",
+        "Many decisive premises come from the target article's experiments and characterization rather than from a new independent catalyst-performance experiment in the critique itself.",
+        "A strong judgment about the original active species therefore structurally depends on inspecting the target paper and the relevant characterization chain."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "The critique identifies plausible ambiguity in the original paper's active-species assignment."
+        },
+        {
+          "id": "A2",
+          "claim": "The critique by itself establishes which catalyst species is actually active."
+        },
+        {
+          "id": "A3",
+          "claim": "The critique can be judged as a self-contained mechanistic demonstration without inspecting the target paper."
+        }
+      ]
+    },
+    {
+      "case_id": "MH09",
+      "source_case_id": "nlp-flagship",
+      "domain": "natural language processing",
+      "metadata": {
+        "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+        "year": 2019,
+        "venue": "NAACL-HLT",
+        "source_kind": "peer-reviewed conference paper",
+        "attention": "flagship/high-attention"
+      },
+      "evidence": [
+        "The paper introduces bidirectional Transformer pretraining followed by task-specific fine-tuning.",
+        "The model is evaluated across eleven natural-language-processing benchmark tasks and reports state-of-the-art or improved performance on the tested benchmarks at publication time.",
+        "The evidence is benchmark performance on specific datasets and tasks; it does not directly measure every construct that might be called general language understanding.",
+        "The study compares model variants and pretraining/fine-tuning choices but does not exhaustively test all architectures, domains, languages, or deployment settings."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "The proposed pretraining/fine-tuning method improved performance across the tested NLP benchmarks."
+        },
+        {
+          "id": "A2",
+          "claim": "The benchmark results establish that the model possesses general human-like language understanding."
+        },
+        {
+          "id": "A3",
+          "claim": "The method is established as superior across languages, domains, and downstream settings not tested in the paper."
+        }
+      ]
+    },
+    {
+      "case_id": "MH10",
+      "source_case_id": "nlp-low",
+      "domain": "natural language processing",
+      "metadata": {
+        "title": "Let's talk about LLM evaluation",
+        "year": 2024,
+        "venue": "Hugging Face Blog",
+        "source_kind": "technical community blog",
+        "attention": "low-attention/nontraditional"
+      },
+      "evidence": [
+        "The article explains practical concerns in large-language-model evaluation, including benchmark choice, contamination, aggregation, prompt sensitivity, and the distinction between benchmark scores and broader model quality.",
+        "It uses examples, practitioner experience, and references to external evaluation work rather than presenting one unified paper-local experiment with a single sampling frame.",
+        "Several recommendations are methodological heuristics intended to improve evaluation practice.",
+        "Because much support is synthetic or external, strong empirical claims about universal benchmark behavior would require following the cited evidence."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "The article provides useful methodological heuristics for interpreting LLM benchmark results."
+        },
+        {
+          "id": "A2",
+          "claim": "The article independently establishes the empirical magnitude of benchmark contamination across modern LLMs."
+        },
+        {
+          "id": "A3",
+          "claim": "Its recommendations are empirically validated as universally optimal across LLM evaluation settings."
+        }
+      ]
+    },
+    {
+      "case_id": "MH11",
+      "source_case_id": "sensor-flagship",
+      "domain": "sensor engineering",
+      "metadata": {
+        "title": "The BErkeley Atmospheric CO2 Observation Network: field calibration and evaluation of low-cost air quality sensors",
+        "year": 2018,
+        "venue": "Atmospheric Measurement Techniques",
+        "source_kind": "peer-reviewed journal",
+        "attention": "flagship/high-attention"
+      },
+      "evidence": [
+        "The study develops and field-calibrates a network of low-cost CO2 sensors using co-location/reference measurements and evaluates performance in deployed conditions.",
+        "Calibration models reduce sensor error over the observed calibration/evaluation periods and expose environmental and sensor-specific sources of variability.",
+        "The study provides field evidence rather than only laboratory calibration, but sensors share a specific hardware/network context and deployment environment.",
+        "Transfer to new hardware lots, climates, long-term drift periods, or independently operated networks is not directly established by the same calibration fit."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "The field-calibration procedure improves measurement performance for the tested sensor network."
+        },
+        {
+          "id": "A2",
+          "claim": "The same calibration is independently established to remain accurate across new sensor lots, climates, and long-term deployments."
+        },
+        {
+          "id": "A3",
+          "claim": "Good calibration fit in the studied network is equivalent to universal low-cost-sensor validity."
+        }
+      ]
+    },
+    {
+      "case_id": "MH12",
+      "source_case_id": "sensor-low",
+      "domain": "sensor engineering",
+      "metadata": {
+        "title": "A temporal deep learning framework for calibration of low-cost air quality sensors",
+        "year": 2026,
+        "venue": "arXiv",
+        "source_kind": "preprint",
+        "attention": "low-attention/nontraditional"
+      },
+      "evidence": [
+        "The study trains a temporal deep-learning calibration model for a low-cost air-quality-sensor network and evaluates it on temporal windows not used for model fitting.",
+        "The evaluation includes uncertainty/error analysis framed against regulatory-style performance criteria in the reported network.",
+        "Testing on unseen time windows gives stronger evidence than reporting fit on the calibration period alone.",
+        "The evidence still comes from one network/context and does not independently establish transfer across cities, sensor hardware families, or long-term operating regimes."
+      ],
+      "anchors": [
+        {
+          "id": "A1",
+          "claim": "The model improves calibration performance on unseen temporal windows from the studied sensor network."
+        },
+        {
+          "id": "A2",
+          "claim": "The study establishes regulatory-grade performance across low-cost air-quality sensor networks generally."
+        },
+        {
+          "id": "A3",
+          "claim": "Temporal holdout validation in one network is equivalent to independent cross-device and cross-city validation."
+        }
+      ]
+    }
+  ]
+}

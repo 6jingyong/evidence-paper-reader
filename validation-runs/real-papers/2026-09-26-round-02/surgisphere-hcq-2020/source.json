@@ -1,0 +1,17 @@
+{
+  "record_id": "surgisphere-hcq-2020",
+  "title": "Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis",
+  "authors": "Mandeep R. Mehra, Sapan S. Desai, Frank Ruschitzka, Amit N. Patel",
+  "year": 2020,
+  "stable_id": "PMID:32450107",
+  "doi": "10.1016/S0140-6736(20)31180-6",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7255293/",
+  "access_format": "PMC/Elsevier retracted article",
+  "retrieved_on": "2026-09-26",
+  "publication_status": "retracted June 2020",
+  "integrity_context": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7274621/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7498225/"
+  ],
+  "integrity_note": "The retraction followed inability to complete an independent audit of the Surgisphere dataset; the remaining authors stated they could no longer vouch for the veracity of the primary data sources."
+}

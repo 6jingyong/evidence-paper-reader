@@ -1,0 +1,100 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "How do we do LLM evaluation?"
+          ],
+          "reason": "Kept reused or jointly generated evidence from being counted as independent confirmation."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "How do we do LLM evaluation?"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "How do we do LLM evaluation?"
+          ],
+          "reason": "Separated what this source establishes from evidence needed for the stronger claim."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 2: Leaderboards and rankings"
+          ],
+          "reason": "Kept reused or jointly generated evidence from being counted as independent confirmation."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 2: Leaderboards and rankings"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 2: Leaderboards and rankings"
+          ],
+          "reason": "Separated what this source establishes from evidence needed for the stronger claim."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 3 and Conclusion"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 3 and Conclusion"
+          ],
+          "reason": "Kept reused or jointly generated evidence from being counted as independent confirmation."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 3 and Conclusion"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 3 and Conclusion"
+          ],
+          "reason": "Separated what this source establishes from evidence needed for the stronger claim."
+        }
+      ]
+    }
+  ]
+}

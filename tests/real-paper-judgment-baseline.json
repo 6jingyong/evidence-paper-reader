@@ -1,0 +1,625 @@
+{
+  "schema_version": 1,
+  "rounds": {
+    "2026-09-26-round-01": {
+      "attention-is-all-you-need-2017": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "sprint-2015": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ]
+          ]
+        }
+      },
+      "echinacea-2010": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "acc-dic-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "mathematical-beauty-2014": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      }
+    },
+    "2026-09-26-round-02": {
+      "gautret-hcq-2020": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": [
+            "selective-success-only"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "selective-success-only"
+          ],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "power-posing-2010": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "chocolate-weight-loss-2015": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": [
+            "selective-success-only",
+            "promotional-asymmetry"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "selective-success-only",
+            "promotional-asymmetry"
+          ],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "surgisphere-hcq-2020": {
+        "must_hold": {
+          "viability": "non-auditable",
+          "required_viability_flags": [
+            "source-integrity-failure"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "source-integrity-failure",
+            "proprietary-black-box"
+          ],
+          "support_levels": []
+        }
+      },
+      "wakefield-mmr-1998": {
+        "must_hold": {
+          "viability": "non-auditable",
+          "required_viability_flags": [
+            "source-integrity-failure"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "source-integrity-failure",
+            "selective-success-only"
+          ],
+          "support_levels": []
+        }
+      }
+    },
+    "2026-09-26-round-03": {
+      "layered-rocksalt-cathode-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "drylands-desertification-2020": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "sixth-mass-extinction-2015": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "besmile-hf-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "why-johnny-cant-encrypt-1999": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "beaco2n-sensors-2018": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "order-book-imbalance-quantumflow-2026": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ]
+          ]
+        }
+      },
+      "encouragement-exam-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "cu-c2plus-electrocatalyst-2020": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "llm-evaluation-blog-2024": {
+        "must_hold": {
+          "viability": "partially auditable",
+          "required_viability_flags": [
+            "external-dependency-dominant"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "external-dependency-dominant"
+          ],
+          "support_levels": [
+            [
+              "partial"
+            ],
+            [
+              "partial"
+            ],
+            [
+              "unclear"
+            ]
+          ]
+        }
+      }
+    },
+    "2026-09-26-round-04": {
+      "photochemical-sei-fast-charge-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "hurricane-rainfall-attribution-2022": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "microclimatic-warming-paramo-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "web-hypertension-cluster-rct-2022": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "adaptive-ui-model-based-rl-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "temporal-lstm-air-sensor-2026": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "deep-lob-forecasting-2024": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "virtual-imaging-education-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "active-catalyst-pitfalls-2020": {
+        "must_hold": {
+          "viability": "partially auditable",
+          "required_viability_flags": [
+            "external-dependency-dominant"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "external-dependency-dominant"
+          ],
+          "support_levels": [
+            [
+              "partial"
+            ],
+            [
+              "partial"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "bert-2019": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    }
+  }
+}

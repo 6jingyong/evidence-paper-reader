@@ -1,0 +1,132 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Results; primary global-severity comparison"
+          ],
+          "reason": "The estimate is interpreted with its confidence interval and not upgraded because the point estimate favors treatment.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Results; primary global-severity comparison"
+          ],
+          "reason": "Global severity is a repeated self-reported WURSS outcome; the claim remains at the level of that operational measure.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Results; primary global-severity comparison"
+          ],
+          "reason": "The blinded echinacea-placebo contrast is kept separate from the open-label and no-pill arms.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Results; primary global-severity comparison"
+          ],
+          "reason": "The 28-point statement is tied to the prespecified blinded comparison."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Results; illness-duration comparison"
+          ],
+          "reason": "The duration estimate is kept with its interval and p-value rather than treated as established efficacy.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Results; illness-duration comparison"
+          ],
+          "reason": "Illness duration depends on the trial's symptom-based resolution definition and is not treated as a direct virologic endpoint.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Results; illness-duration comparison"
+          ],
+          "reason": "The bounded claim uses the randomized blinded treatment-placebo comparison.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Results; illness-duration comparison"
+          ],
+          "reason": "The 0.53-day estimate is linked directly to the reported duration contrast."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; primary severity and duration results"
+          ],
+          "reason": "Non-significant primary comparisons and interval width block a strong substantive-effect conclusion.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; primary severity and duration results"
+          ],
+          "reason": "The outcome instruments measure symptom burden and duration rather than every possible biological effect.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; primary severity and duration results"
+          ],
+          "reason": "The conclusion is restricted to this formulation, dose, enrolled population, and trial design.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; primary severity and duration results"
+          ],
+          "reason": "The broad efficacy claim depends on the same two primary blinded outcomes rather than independent evidence."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract conclusion; primary severity and duration results"
+          ],
+          "reason": "The evidence cannot be generalized to all echinacea products, doses, or prevention use."
+        }
+      ]
+    }
+  ]
+}

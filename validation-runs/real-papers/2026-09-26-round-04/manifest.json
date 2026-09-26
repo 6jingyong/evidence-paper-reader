@@ -1,0 +1,263 @@
+{
+  "round_id": "2026-09-26-round-04",
+  "audited_on": "2026-09-26",
+  "reviewer": "GPT-5.6 Sol",
+  "base_head": "7000bb00972f081c82c1698a8bb53ec3218096df",
+  "purpose": "Promote a second ten-source cross-domain set chosen to create within-domain contrasts across source types and prestige while prioritizing stable public evidence access.",
+  "cases": [
+    {
+      "id": "photochemical-sei-fast-charge-2021",
+      "domain": "battery-fast-charging",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "hurricane-rainfall-attribution-2022",
+      "domain": "climate-hurricane-attribution",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "microclimatic-warming-paramo-2021",
+      "domain": "ecology-warming-field-experiment",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "web-hypertension-cluster-rct-2022",
+      "domain": "clinical-hypertension-cluster-rct",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "adaptive-ui-model-based-rl-2021",
+      "domain": "hci-adaptive-interfaces",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "temporal-lstm-air-sensor-2026",
+      "domain": "sensor-calibration-preprint",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "deep-lob-forecasting-2024",
+      "domain": "market-microstructure-deep-learning",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "virtual-imaging-education-2021",
+      "domain": "medical-education-small-rct",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "active-catalyst-pitfalls-2020",
+      "domain": "catalysis-commentary-external-data",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "partially auditable",
+          "required_viability_flags": [
+            "external-dependency-dominant"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "external-dependency-dominant"
+          ],
+          "support_levels": [
+            [
+              "partial"
+            ],
+            [
+              "partial"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "bert-2019",
+      "domain": "nlp-language-model-benchmark",
+      "inventory_expected": false,
+      "regression_contract": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

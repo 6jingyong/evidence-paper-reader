@@ -1,0 +1,17 @@
+{
+  "record_id": "chocolate-weight-loss-2015",
+  "title": "Chocolate with High Cocoa Content as a Weight-Loss Accelerator",
+  "authors": "Johannes Bohannon, Diana Koch, Peter Homm, Alexander Driehaus",
+  "year": 2015,
+  "stable_id": "DOI:10.3823/1654",
+  "doi": "10.3823/1654",
+  "source_url": "https://www.roma1.infn.it/~dagos/International_Archives_of_Medicine_CHOCOLATE_WITH_HIGH_COCOA_CONTENT_AS_A_WEIGHT-LOSS_ACCELERATOR.pdf",
+  "access_format": "archived PDF of the removed publication",
+  "retrieved_on": "2026-09-26",
+  "publication_status": "removed/retracted after disclosure as an intentional hoax",
+  "integrity_context": [
+    "https://commons.wikimedia.org/wiki/File:Chocolate_with_high_Cocoa_content_as_a_weight-loss_accelerator.pdf",
+    "https://www.propublica.org/podcast/meet-the-reporter-behind-that-bogus-chocolate-study"
+  ],
+  "integrity_note": "The later hoax disclosure is context. The audit still inspects what the paper itself exposes rather than using the disclosure as a substitute for methodological analysis."
+}
