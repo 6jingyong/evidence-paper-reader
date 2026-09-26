@@ -1,0 +1,93 @@
+{
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "four-arm randomized controlled treatment trial",
+  "reader_conclusion": "The blinded echinacea-placebo comparison shows point estimates in the direction of shorter and less severe illness, but the uncertainty intervals include no benefit and the prespecified comparisons were not statistically significant. The paper therefore supports the observed estimates and uncertainty, not a substantive treatment-effect claim for this formulation and dose.",
+  "claims": [
+    {
+      "content": "In the blinded comparison, the echinacea group had a 28-point lower mean global-severity score than the placebo group.",
+      "claim_type": "intervention",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract; Results; primary global-severity comparison",
+        "support_level": "sufficient",
+        "reason": "The randomized blinded comparison directly reports the 28-point point estimate; its 95% CI of -69 to 13 must remain attached to interpretation.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "In the blinded comparison, the echinacea group had a 0.53-day shorter mean illness duration than the placebo group.",
+      "claim_type": "intervention",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract; Results; illness-duration comparison",
+        "support_level": "sufficient",
+        "reason": "The trial directly reports the 0.53-day point estimate with a 95% CI from -1.25 to 0.19 days.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "This dose and formulation of echinacea substantively changes the course of the common cold.",
+      "claim_type": "intervention",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Abstract conclusion; primary severity and duration results",
+        "support_level": "insufficient",
+        "reason": "Both main point estimates trend toward benefit, but the confidence intervals include no benefit and the primary blinded comparisons do not establish a substantive treatment effect.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "usable": {
+    "results": "The blinded treatment-placebo point estimates, confidence intervals, illness duration, symptom severity, and biomarker results are usable as bounded trial results.",
+    "methods_or_design": "The four-group design separates blinded treatment effects from expectancy/open-label effects and no-pill natural history.",
+    "materials_or_documentation": "Formulation, dosing schedule, placebo construction, symptom instrument, participant count, and primary comparisons are documented."
+  },
+  "downweight": {
+    "worth_noticing": "The directionally favorable point estimates may motivate power calculations or later replication, but they should not be narrated as demonstrated efficacy.",
+    "cautious_or_ignore": "Do not convert p-values just above 0.05 into proof of either efficacy or exact zero effect; the intervals are compatible with a range of small benefits and no benefit."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "low",
+    "research_design": "high",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Higher-than-expected variability limited power for small effects. A later study would need enough precision to distinguish clinically meaningful benefit from the null while preserving blinding and the same formulation-specific interpretation."
+}
