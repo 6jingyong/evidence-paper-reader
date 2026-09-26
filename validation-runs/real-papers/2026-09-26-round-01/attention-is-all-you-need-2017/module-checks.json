@@ -1,0 +1,78 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 6.1; Table 2"
+          ],
+          "reason": "Checked that the claim is bounded to the exact WMT newstest2014 benchmark comparison rather than generalized beyond the evaluated task.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 6.1; Table 2"
+          ],
+          "reason": "The 28.4 BLEU claim is linked directly to Table 2 rather than to narrative reputation or later adoption."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 6.1; Table 2"
+          ],
+          "reason": "Checked that the state-of-the-art and compute statement is limited to the listed contemporaneous single-model comparison.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 6.1; Table 2"
+          ],
+          "reason": "The performance and training-cost claim is tied to the same table that reports the compared systems."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 6.3; Table 4; Abstract"
+          ],
+          "reason": "Checked the number and type of non-translation evaluations supporting the generalization claim.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 6.3; Table 4; Abstract"
+          ],
+          "reason": "The generalization claim is linked to the constituency-parsing experiment, not to later Transformer applications."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Section 6.3; Table 4; Abstract"
+          ],
+          "reason": "The evidence supports transfer to one additional task but not arbitrary tasks or modalities."
+        }
+      ]
+    }
+  ]
+}
