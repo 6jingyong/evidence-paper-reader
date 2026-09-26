@@ -29,7 +29,12 @@
             "relation": "supports",
             "reason": "Table 2 directly reports the stated English-to-German BLEU result and comparison."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -56,7 +61,12 @@
             "relation": "supports",
             "reason": "The English-to-French benchmark and reported training-cost comparison directly bear in favor of the bounded claim."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -84,7 +94,12 @@
             "relation": "mixed",
             "reason": "The constituency-parsing result supports transfer beyond translation, but one additional task supports only a narrower version of broad cross-task generality."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
       }
     }
   ],
@@ -105,7 +120,7 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "The benchmark comparisons depend on the contemporaneous systems, data processing, evaluation metrics, and reported compute accounting. Broader generalization requires independent tasks, modalities, scales, and later replications rather than inference from the paper's three evaluated task settings alone.",
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "reasoning_edges": [
     {
       "edge_id": "R1",

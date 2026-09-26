@@ -30,7 +30,12 @@
             "relation": "supports",
             "reason": "The blinded comparison directly reports the stated 28-point lower mean severity estimate."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -58,7 +63,12 @@
             "relation": "supports",
             "reason": "The blinded comparison directly reports the stated 0.53-day shorter mean illness duration."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -95,7 +105,12 @@
             "relation": "mixed",
             "reason": "The duration point estimate favors echinacea, but its uncertainty interval includes no benefit and does not establish a substantive course-changing effect."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The authors explicitly conclude that illness duration and overall severity were not significantly reduced and describe only trends toward benefit.",
+          "source_location": "Abstract conclusion; Discussion of primary duration and severity results"
+        }
       }
     }
   ],
@@ -116,7 +131,7 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "Higher-than-expected variability limited power for small effects. A later study would need enough precision to distinguish clinically meaningful benefit from the null while preserving blinding and the same formulation-specific interpretation.",
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "reasoning_edges": [
     {
       "edge_id": "R1",

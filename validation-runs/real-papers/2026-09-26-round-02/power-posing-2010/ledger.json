@@ -36,7 +36,12 @@
             "relation": "supports",
             "reason": "The reported cortisol analysis bears in favor of a short-term hormone difference under the laboratory pose manipulation."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -70,7 +75,12 @@
             "relation": "supports",
             "reason": "The self-reported power result directly bears in favor of the bounded laboratory feeling-of-power difference."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -119,7 +129,12 @@
             "relation": "mixed",
             "reason": "A short self-report of felt power supports a narrower subjective effect but not durable power, health, or well-being."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
       }
     }
   ],
@@ -140,7 +155,7 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "The key uncertainty is external and statistical robustness: larger preregistered replications with prespecified primary outcomes and real-world performance endpoints are needed before actionable claims follow.",
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "reasoning_edges": [
     {
       "edge_id": "R1",

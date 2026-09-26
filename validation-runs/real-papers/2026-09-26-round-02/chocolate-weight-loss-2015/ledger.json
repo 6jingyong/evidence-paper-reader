@@ -33,7 +33,12 @@
             "relation": "supports",
             "reason": "The short intervention directly reports the stated group-level weight changes, including the very small chocolate-versus-low-carb difference."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -67,7 +72,12 @@
             "relation": "supports",
             "reason": "The paper reports favorable subjective or related secondary outcomes for the chocolate group."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -111,7 +121,12 @@
             "relation": "mixed",
             "reason": "Selected favorable subjective/secondary outcomes point in the claimed direction but do not establish long-term weight-loss efficacy."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "absent",
+          "summary": "The audited abstract/conclusion amplifies favorable short-term signals; no comparable acknowledgment of the tiny groups, short duration, and multiple-outcome boundary was located in those sections.",
+          "source_location": "Abstract conclusion; Conclusion section IV"
+        }
       }
     }
   ],
@@ -132,7 +147,7 @@
     "material_or_documentation": "medium"
   },
   "uncertainty_and_follow_up": "A credible efficacy test would prespecify a primary endpoint, use an adequately powered sample, correct or control multiplicity, report all outcomes consistently, and follow weight maintenance long enough to test the claimed long-term effect.",
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "reasoning_edges": [
     {
       "edge_id": "R1",

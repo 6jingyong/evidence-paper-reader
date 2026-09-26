@@ -30,7 +30,12 @@
             "relation": "supports",
             "reason": "The within-study parametric fMRI result directly supports the bounded association in the scanned mathematicians."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -67,7 +72,12 @@
             "relation": "supports",
             "reason": "The cited visual and musical beauty findings bear in favor of regional overlap across the compared domains."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "partial",
+          "summary": "The authors explicitly frame the visual/music comparison through prior studies rather than a single experiment testing all beauty domains; this acknowledges the cross-study nature of the comparison but not its full inferential limitation.",
+          "source_location": "Introduction; Discussion comparing field A1 with prior visual and musical beauty studies"
+        }
       }
     },
     {
@@ -105,7 +115,12 @@
             "relation": "mixed",
             "reason": "Cross-domain regional overlap is compatible with a shared abstract component, but it does not isolate or exclude cultural learning and expertise."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "partial",
+          "summary": "The authors place broader implications about the abstract quality of beauty in an implications/future-work discussion, which acknowledges that culture- and learning-independence is not directly resolved by the present experiment.",
+          "source_location": "Implications for future work; Discussion"
+        }
       }
     }
   ],
@@ -126,7 +141,7 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "The scanned sample is small and highly selected, beauty is operationalized by subjective ratings, and the culture/learning interpretation is not experimentally isolated. A stronger test would compare populations, expertise levels, and multiple aesthetic domains under one design.",
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "reasoning_edges": [
     {
       "edge_id": "R1",

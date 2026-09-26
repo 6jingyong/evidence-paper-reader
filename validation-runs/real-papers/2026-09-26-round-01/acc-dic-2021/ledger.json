@@ -35,7 +35,12 @@
             "relation": "supports",
             "reason": "The paired DIC result supplies the contrasting strain/modulus estimate in the same tested setup."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -68,7 +73,12 @@
             "relation": "supports",
             "reason": "The DIC-based analysis reports a similar tensile-strength estimate while strain-derived quantities differ."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -105,7 +115,12 @@
             "relation": "supports",
             "reason": "The paired DIC comparison supports the need to account for measurement method when interpreting literature values."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
       }
     }
   ],
@@ -126,7 +141,7 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "A stronger general statement would require cross-machine and cross-material calibration with known compliance and independent strain references. The study itself also notes that DIC-location effects were minor here partly because the tested deformation was low.",
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "reasoning_edges": [
     {
       "edge_id": "R1",

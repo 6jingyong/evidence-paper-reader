@@ -38,7 +38,12 @@
             "relation": "contextual",
             "reason": "The treated-arm exclusions define who is missing from the analyzed denominator without changing what the published retained-cohort percentage numerically reports."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -72,7 +77,12 @@
             "relation": "contextual",
             "reason": "The allocation and exclusion context constrains interpretation of the tiny analyzed subgroup without disputing the reported subgroup counts."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -116,7 +126,12 @@
             "relation": "undermines",
             "reason": "Clinically important treated-arm exclusions and post-treatment attrition count against treating the analyzed comparison as an unbiased causal treatment effect."
           }
-        ]
+        ],
+        "author_boundary": {
+          "status": "partial",
+          "summary": "The paper frames its findings as preliminary and calls for further/larger study, acknowledging sample and design uncertainty, but that does not fully acknowledge the PCR-endpoint and treated-dropout problems used in this audit.",
+          "source_location": "Discussion/Conclusion; preliminary-study and further-study language"
+        }
       }
     }
   ],
@@ -137,7 +152,7 @@
     "material_or_documentation": "medium"
   },
   "uncertainty_and_follow_up": "A treatment claim requires randomized or otherwise credible comparative assignment, intention-to-treat handling, clinically meaningful outcomes, consistent virologic measurement, and independent replication. The 2025 retraction notice also documents unresolved ethics, PCR-method, methodology, and conclusion concerns.",
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "reasoning_edges": [
     {
       "edge_id": "R1",
