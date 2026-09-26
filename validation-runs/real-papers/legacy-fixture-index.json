@@ -1,0 +1,32 @@
+{
+  "index_version": 1,
+  "backfilled_on": "2026-09-26",
+  "status": "legacy-fixtures",
+  "provenance_note": "Backfilled from repository state. Original per-run model, source URL, and timestamp metadata are unavailable and are not reconstructed.",
+  "fixtures": [
+    "tests/fixtures/ablationbench-audit.md",
+    "tests/fixtures/adversarial-care-coordination-before-after-2009-audit.md",
+    "tests/fixtures/adversarial-collagen-dic-2021-audit.md",
+    "tests/fixtures/adversarial-organic-diet-biomarkers-2019-audit.md",
+    "tests/fixtures/adversarial-subgroup-aneurysm-2008-audit.md",
+    "tests/fixtures/adversarial-train-test-leakage-2022-audit.md",
+    "tests/fixtures/air-quality-cfd-audit.md",
+    "tests/fixtures/anti-trigger-difference-in-differences-2014-audit.md",
+    "tests/fixtures/anti-trigger-lod-multiple-imputation-2011-audit.md",
+    "tests/fixtures/anti-trigger-multisite-imaging-2023-audit.md",
+    "tests/fixtures/anti-trigger-sprint-2015-audit.md",
+    "tests/fixtures/hea-aluminum-audit.md",
+    "tests/fixtures/historical-akt-inos-2010-audit.md",
+    "tests/fixtures/historical-bmd-gwas-replication-2010-audit.md",
+    "tests/fixtures/historical-brain-beauty-2011-audit.md",
+    "tests/fixtures/historical-echinacea-2010-audit.md",
+    "tests/fixtures/historical-liblinear-2008-audit.md",
+    "tests/fixtures/historical-nanoparticle-mmc-2010-audit.md",
+    "tests/fixtures/historical-order-book-2010-audit.md",
+    "tests/fixtures/historical-trace-gas-2011-audit.md",
+    "tests/fixtures/historical-tv-eating-2012-audit.md",
+    "tests/fixtures/hyaluronic-hydrogel-audit.md",
+    "tests/fixtures/resnet-smoke-audit.md",
+    "tests/fixtures/social-hyperconnection-audit.md"
+  ]
+}
