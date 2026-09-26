@@ -1,0 +1,815 @@
+{
+  "schema_version": 1,
+  "policy": {
+    "record_first": "Every future real-paper test must resolve to a source-backed recorded case before it counts as repository evidence.",
+    "legacy_boundary": "Legacy fixtures preserve earlier regression evidence but do not claim missing historical source metadata.",
+    "counting_boundary": "Multiple test surfaces on one paper do not count as multiple independent papers."
+  },
+  "counts": {
+    "source_backed_papers": 10,
+    "legacy_fixtures": 24,
+    "evidence_entries": 34,
+    "blind_protocol_papers": 10
+  },
+  "entries": [
+    {
+      "evidence_id": "acc-dic-2021",
+      "identity_status": "source-backed",
+      "title": "Exploring digital image correlation technique for the analysis of the tensile properties of all-cellulose composites",
+      "authors": "Feng Chen et al.",
+      "year": 2021,
+      "stable_id": "DOI:10.1007/s10570-021-03807-9",
+      "source_url": "https://link.springer.com/article/10.1007/s10570-021-03807-9",
+      "domain": "materials-measurement",
+      "round_ids": [
+        "2026-09-26-round-01"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "full-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-01/acc-dic-2021",
+          "status": "pass"
+        },
+        {
+          "kind": "blind-re-audit",
+          "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "partial"
+        ]
+      }
+    },
+    {
+      "evidence_id": "attention-is-all-you-need-2017",
+      "identity_status": "source-backed",
+      "title": "Attention Is All You Need",
+      "authors": "Ashish Vaswani et al.",
+      "year": 2017,
+      "stable_id": "arXiv:1706.03762",
+      "source_url": "https://arxiv.org/html/1706.03762v7",
+      "domain": "machine-learning",
+      "round_ids": [
+        "2026-09-26-round-01"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "full-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-01/attention-is-all-you-need-2017",
+          "status": "pass"
+        },
+        {
+          "kind": "blind-re-audit",
+          "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "partial"
+        ]
+      }
+    },
+    {
+      "evidence_id": "chocolate-weight-loss-2015",
+      "identity_status": "source-backed",
+      "title": "Chocolate with High Cocoa Content as a Weight-Loss Accelerator",
+      "authors": "Johannes Bohannon, Diana Koch, Peter Homm, Alexander Driehaus",
+      "year": 2015,
+      "stable_id": "DOI:10.3823/1654",
+      "source_url": "https://www.roma1.infn.it/~dagos/International_Archives_of_Medicine_CHOCOLATE_WITH_HIGH_COCOA_CONTENT_AS_A_WEIGHT-LOSS_ACCELERATOR.pdf",
+      "domain": "nutrition-p-hacking-promotional",
+      "round_ids": [
+        "2026-09-26-round-02"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "full-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-02/chocolate-weight-loss-2015",
+          "status": "pass"
+        },
+        {
+          "kind": "blind-re-audit",
+          "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [
+          "selective-success-only",
+          "promotional-asymmetry"
+        ],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "insufficient"
+        ]
+      }
+    },
+    {
+      "evidence_id": "echinacea-2010",
+      "identity_status": "source-backed",
+      "title": "Echinacea for treating the common cold: a randomized controlled trial",
+      "authors": "Bruce Barrett et al.",
+      "year": 2010,
+      "stable_id": "PMID:21173411",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3056276/",
+      "domain": "clinical-medicine-negative-result",
+      "round_ids": [
+        "2026-09-26-round-01"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "full-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-01/echinacea-2010",
+          "status": "pass"
+        },
+        {
+          "kind": "blind-re-audit",
+          "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "insufficient"
+        ]
+      }
+    },
+    {
+      "evidence_id": "gautret-hcq-2020",
+      "identity_status": "source-backed",
+      "title": "Hydroxychloroquine and azithromycin as a treatment of COVID-19: results of an open-label non-randomized clinical trial",
+      "authors": "Philippe Gautret et al.",
+      "year": 2020,
+      "stable_id": "PMID:32205204",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7102549/",
+      "domain": "clinical-nonrandomized-proxy-endpoint",
+      "round_ids": [
+        "2026-09-26-round-02"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "full-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-02/gautret-hcq-2020",
+          "status": "pass"
+        },
+        {
+          "kind": "blind-re-audit",
+          "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [
+          "selective-success-only"
+        ],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "insufficient"
+        ]
+      }
+    },
+    {
+      "evidence_id": "mathematical-beauty-2014",
+      "identity_status": "source-backed",
+      "title": "The experience of mathematical beauty and its neural correlates",
+      "authors": "Semir Zeki, John Paul Romaya, Dionigi M. T. Benincasa, Michael F. Atiyah",
+      "year": 2014,
+      "stable_id": "PMID:24592230",
+      "source_url": "https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2014.00068/full",
+      "domain": "neuroaesthetics",
+      "round_ids": [
+        "2026-09-26-round-01"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "full-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-01/mathematical-beauty-2014",
+          "status": "pass"
+        },
+        {
+          "kind": "blind-re-audit",
+          "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "partial",
+          "insufficient"
+        ]
+      }
+    },
+    {
+      "evidence_id": "power-posing-2010",
+      "identity_status": "source-backed",
+      "title": "Power Posing: Brief Nonverbal Displays Affect Neuroendocrine Levels and Risk Tolerance",
+      "authors": "Dana R. Carney, Amy J. C. Cuddy, Andy J. Yap",
+      "year": 2010,
+      "stable_id": "PMID:20855902",
+      "source_url": "https://journals.sagepub.com/doi/10.1177/0956797610383437",
+      "domain": "social-psychology-small-n-multi-outcome",
+      "round_ids": [
+        "2026-09-26-round-02"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "full-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-02/power-posing-2010",
+          "status": "pass"
+        },
+        {
+          "kind": "blind-re-audit",
+          "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "insufficient"
+        ]
+      }
+    },
+    {
+      "evidence_id": "sprint-2015",
+      "identity_status": "source-backed",
+      "title": "A Randomized Trial of Intensive versus Standard Blood-Pressure Control",
+      "authors": "SPRINT Research Group",
+      "year": 2015,
+      "stable_id": "PMID:26551272",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4689591/",
+      "domain": "clinical-medicine",
+      "round_ids": [
+        "2026-09-26-round-01"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "full-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-01/sprint-2015",
+          "status": "pass"
+        },
+        {
+          "kind": "blind-re-audit",
+          "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "auditable",
+        "viability_flags": [],
+        "support_levels": [
+          "sufficient",
+          "sufficient",
+          "sufficient"
+        ]
+      }
+    },
+    {
+      "evidence_id": "surgisphere-hcq-2020",
+      "identity_status": "source-backed",
+      "title": "Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis",
+      "authors": "Mandeep R. Mehra, Sapan S. Desai, Frank Ruschitzka, Amit N. Patel",
+      "year": 2020,
+      "stable_id": "PMID:32450107",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7255293/",
+      "domain": "registry-source-integrity",
+      "round_ids": [
+        "2026-09-26-round-02"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "full-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-02/surgisphere-hcq-2020",
+          "status": "pass"
+        },
+        {
+          "kind": "blind-re-audit",
+          "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "non-auditable",
+        "viability_flags": [
+          "source-integrity-failure",
+          "proprietary-black-box"
+        ],
+        "support_levels": []
+      }
+    },
+    {
+      "evidence_id": "wakefield-mmr-1998",
+      "identity_status": "source-backed",
+      "title": "Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+      "authors": "A. J. Wakefield et al.",
+      "year": 1998,
+      "stable_id": "PMID:9500320",
+      "source_url": "https://www.sciencedirect.com/science/article/pii/S0140673697110960",
+      "domain": "case-series-source-integrity",
+      "round_ids": [
+        "2026-09-26-round-02"
+      ],
+      "test_surfaces": [
+        {
+          "kind": "full-replay",
+          "path": "validation-runs/real-papers/2026-09-26-round-02/wakefield-mmr-1998",
+          "status": "pass"
+        },
+        {
+          "kind": "blind-re-audit",
+          "path": "benchmarks/blind-real-paper-10",
+          "status": "protocol-ready"
+        }
+      ],
+      "current_judgment": {
+        "evidence_viability": "non-auditable",
+        "viability_flags": [
+          "source-integrity-failure",
+          "selective-success-only"
+        ],
+        "support_levels": []
+      }
+    },
+    {
+      "evidence_id": "legacy:ablationbench",
+      "identity_status": "legacy-fixture",
+      "title": "ablationbench",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/ablationbench-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:adversarial-care-coordination-before-after-2009",
+      "identity_status": "legacy-fixture",
+      "title": "adversarial care coordination before after 2009",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/adversarial-care-coordination-before-after-2009-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:adversarial-collagen-dic-2021",
+      "identity_status": "legacy-fixture",
+      "title": "adversarial collagen dic 2021",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/adversarial-collagen-dic-2021-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:adversarial-organic-diet-biomarkers-2019",
+      "identity_status": "legacy-fixture",
+      "title": "adversarial organic diet biomarkers 2019",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/adversarial-organic-diet-biomarkers-2019-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:adversarial-subgroup-aneurysm-2008",
+      "identity_status": "legacy-fixture",
+      "title": "adversarial subgroup aneurysm 2008",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/adversarial-subgroup-aneurysm-2008-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:adversarial-train-test-leakage-2022",
+      "identity_status": "legacy-fixture",
+      "title": "adversarial train test leakage 2022",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/adversarial-train-test-leakage-2022-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:air-quality-cfd",
+      "identity_status": "legacy-fixture",
+      "title": "air quality cfd",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/air-quality-cfd-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:anti-trigger-difference-in-differences-2014",
+      "identity_status": "legacy-fixture",
+      "title": "anti trigger difference in differences 2014",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/anti-trigger-difference-in-differences-2014-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:anti-trigger-lod-multiple-imputation-2011",
+      "identity_status": "legacy-fixture",
+      "title": "anti trigger lod multiple imputation 2011",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/anti-trigger-lod-multiple-imputation-2011-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:anti-trigger-multisite-imaging-2023",
+      "identity_status": "legacy-fixture",
+      "title": "anti trigger multisite imaging 2023",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/anti-trigger-multisite-imaging-2023-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:anti-trigger-sprint-2015",
+      "identity_status": "legacy-fixture",
+      "title": "anti trigger sprint 2015",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/anti-trigger-sprint-2015-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:hea-aluminum",
+      "identity_status": "legacy-fixture",
+      "title": "hea aluminum",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/hea-aluminum-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:historical-akt-inos-2010",
+      "identity_status": "legacy-fixture",
+      "title": "historical akt inos 2010",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/historical-akt-inos-2010-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:historical-bmd-gwas-replication-2010",
+      "identity_status": "legacy-fixture",
+      "title": "historical bmd gwas replication 2010",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/historical-bmd-gwas-replication-2010-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:historical-brain-beauty-2011",
+      "identity_status": "legacy-fixture",
+      "title": "historical brain beauty 2011",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/historical-brain-beauty-2011-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:historical-echinacea-2010",
+      "identity_status": "legacy-fixture",
+      "title": "historical echinacea 2010",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/historical-echinacea-2010-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:historical-liblinear-2008",
+      "identity_status": "legacy-fixture",
+      "title": "historical liblinear 2008",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/historical-liblinear-2008-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:historical-nanoparticle-mmc-2010",
+      "identity_status": "legacy-fixture",
+      "title": "historical nanoparticle mmc 2010",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/historical-nanoparticle-mmc-2010-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:historical-order-book-2010",
+      "identity_status": "legacy-fixture",
+      "title": "historical order book 2010",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/historical-order-book-2010-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:historical-trace-gas-2011",
+      "identity_status": "legacy-fixture",
+      "title": "historical trace gas 2011",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/historical-trace-gas-2011-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:historical-tv-eating-2012",
+      "identity_status": "legacy-fixture",
+      "title": "historical tv eating 2012",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/historical-tv-eating-2012-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:hyaluronic-hydrogel",
+      "identity_status": "legacy-fixture",
+      "title": "hyaluronic hydrogel",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/hyaluronic-hydrogel-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:resnet-smoke",
+      "identity_status": "legacy-fixture",
+      "title": "resnet smoke",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/resnet-smoke-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    },
+    {
+      "evidence_id": "legacy:social-hyperconnection",
+      "identity_status": "legacy-fixture",
+      "title": "social hyperconnection",
+      "authors": "",
+      "year": null,
+      "stable_id": "",
+      "source_url": "",
+      "domain": "legacy-regression",
+      "round_ids": [],
+      "test_surfaces": [
+        {
+          "kind": "legacy-regression",
+          "path": "tests/fixtures/social-hyperconnection-audit.md",
+          "status": "contract-pass"
+        }
+      ],
+      "current_judgment": null
+    }
+  ]
+}
