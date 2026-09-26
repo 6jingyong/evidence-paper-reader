@@ -8,6 +8,7 @@ The ledger is an intermediate representation. It contains semantic judgments but
 
 ```json
 {
+  "ledger_schema_version": 2,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -29,6 +30,18 @@ The ledger is an intermediate representation. It contains semantic judgments but
         "reason": "Random assignment and the primary comparison directly support the bounded claim.",
         "external_dependency": "none"
       }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": ["E1", "E2"],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Moves from the randomized treatment contrast to the bounded intervention-effect claim.",
+      "assumptions": ["The randomized comparison and reported endpoint preserve the stated causal contrast."]
     }
   ],
   "usable": {
@@ -55,6 +68,8 @@ The ledger is an intermediate representation. It contains semantic judgments but
 
 The renderer assigns claim numbers from list order. Do not put claim numbers in claim content.
 
+Ledger schema v2 also requires a top-level `reasoning_edges` graph for auditable and partially-auditable work. Load `reasoning-graph.md`. Every claim must be reached by at least one edge, and the union of its edges must account for exactly the claim's declared evidence nodes and upstream claims. Legacy structured ledgers without `ledger_schema_version` are treated as schema v1 for regression compatibility; new ledgers should use v2.
+
 ## Structured fields
 
 Use arrays for:
@@ -62,6 +77,9 @@ Use arrays for:
 - `evidence_type`
 - `evidence_nodes`
 - `upstream_claims`
+- `reasoning_edges[*].evidence_nodes`
+- `reasoning_edges[*].upstream_claims`
+- `reasoning_edges[*].assumptions`
 
 Examples:
 - `"evidence_nodes": ["E1", "E2"]`
@@ -135,6 +153,7 @@ The model still handles:
 - evidence-node identity
 - evidence dependence
 - upstream logical dependence
+- reasoning edges, inference types, added reach, and material assumptions
 - support level
 - reasons and uncertainty
 
@@ -153,5 +172,6 @@ Cross-stage consistency is also mechanical where possible. `audit_gate.py` there
 - evidence nodes or independence claims that conflict with the inventory
 - malformed route guard/path bookkeeping
 - controlled evidence labels that fail the final Markdown contract
+- schema-v2 reasoning graphs that omit claim inputs, invent new inputs, reference later claims, or conflict with support level
 
 When one of these fails, repair or rerun the relevant stage instead of bypassing the gate.
