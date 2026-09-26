@@ -463,6 +463,34 @@ def special_canary_passes(
                 "recompute_route",
                 return_value=bad_route,
             )
+        elif scenario == "reasoning_graph_common_mode":
+            audit = artifacts["audit"]
+            audit["ledger_schema_version"] = 2
+            audit["reasoning_edges"] = []
+            for index, claim in enumerate(audit["claims"], start=1):
+                level = claim["support"]["support_level"]
+                status = {
+                    "sufficient": "direct",
+                    "partial": "qualified",
+                    "insufficient": "unsupported",
+                    "unclear": "unclear",
+                }[level]
+                audit["reasoning_edges"].append({
+                    "edge_id": f"R{index}",
+                    "target_claim": index,
+                    "evidence_nodes": list(claim["support"]["evidence_nodes"]),
+                    "upstream_claims": list(claim["support"].get("upstream_claims", [])),
+                    "inference_type": "direct-result",
+                    "reasoning_status": status,
+                    "added_reach": "none" if status == "direct" else "The stated claim adds reach beyond the direct result.",
+                    "assumptions": [],
+                })
+            audit["reasoning_edges"][0]["evidence_nodes"] = ["E999"]
+            patcher = mock.patch.object(
+                gate_module.render_audit,
+                "validate_ledger",
+                return_value=[],
+            )
         else:
             raise AssertionError(f"unknown mutation canary scenario: {scenario}")
 
