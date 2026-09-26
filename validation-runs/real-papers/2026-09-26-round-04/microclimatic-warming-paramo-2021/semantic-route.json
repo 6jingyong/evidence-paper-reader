@@ -1,0 +1,55 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "claim_text": "Open-top chambers altered the study-site microclimate: daily mean air temperature increased by 0.16°C and mean night temperature by 0.33°C, while daily mean soil temperature decreased by 0.08°C relative to controls.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "not_required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "not_required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C1's disclosed evidence, logical bridge, and stated scope."
+    },
+    {
+      "claim_id": "C2",
+      "claim_text": "By 2019, aboveground biomass was 27.9% higher in OTC plots, while diversity/evenness measures declined; species richness was not significantly different overall after accounting for sampling time.",
+      "routes": {
+        "figure-and-table-traps.md": "required",
+        "statistical-traps.md": "required",
+        "measurement-traps.md": "not_required",
+        "study-design-traps.md": "required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "not_required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "not_required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C2's disclosed evidence, logical bridge, and stated scope."
+    },
+    {
+      "claim_id": "C3",
+      "claim_text": "The observed tussock increase and diversity shifts show that continued warming will drive this tropical alpine grassland toward a shrub-dominated ecosystem.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "required",
+        "evidence-topology.md": "required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C3's disclosed evidence, logical bridge, and stated scope."
+    }
+  ]
+}

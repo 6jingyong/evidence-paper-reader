@@ -1,0 +1,163 @@
+{
+  "ledger_schema_version": 3,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "experimental lithium-ion battery study",
+  "reader_conclusion": "The photo-SEI full cell directly demonstrates very fast charging and markedly lower interfacial resistance under tested conditions; assigning the whole effect uniquely to LiF-rich SEI chemistry and transferring it to practical manufacturing or other electrodes adds mechanistic and generalization reach.",
+  "claims": [
+    {
+      "content": "A graphite full cell using the γ-ray-driven photo-SEI reached 80% state of charge in 10.8 minutes at an areal capacity of 2.6 mAh cm−2.",
+      "claim_type": "performance",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The full-cell charging experiment directly reports the 10.8-minute 80% SOC result under the stated loading and charging conditions."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract; Fig. 5; fast-charging results",
+        "support_level": "sufficient",
+        "reason": "The bounded charging-time result is directly measured in the tested full-cell configuration.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "Photochemical treatment produced a substantially more inorganic/LiF-rich interphase and about tenfold lower interfacial ionic-transport resistance than the untreated/electrochemical comparison.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "XPS and impedance measurements directly report the composition shift and lower interfacial resistance."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "SEI characterization; Fig. 2; EIS Fig. 4",
+        "support_level": "sufficient",
+        "reason": "The composition and resistance differences are direct characterization results.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "The LiF-rich photo-SEI is the unique causal reason for the fast-charge improvement and the approach is broadly transferable to practical LIB manufacturing and other electrodes.",
+      "claim_type": "mechanistic",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "Fast charging is directly demonstrated in the tested full cell."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "Composition and impedance changes are consistent with the proposed mechanism but multiple coupled interphase changes occur together."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Discussion/Conclusion; mechanism and transfer statements",
+        "support_level": "partial",
+        "reason": "The mechanism is plausible and supported by correlated characterization, but not uniquely isolated; the paper itself notes γ-ray processing is not immediately adoptable in current manufacturing and other-electrode applicability remains a proposed direction.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "mechanistic",
+      "reasoning_status": "qualified",
+      "added_reach": "Moves from coupled interphase changes plus cell performance to a unique LiF-centered mechanism and broad manufacturing/chemistry transfer.",
+      "assumptions": [
+        "Other coupled SEI changes do not materially account for the charging improvement and the tested treatment transfers to other electrodes/manufacturing contexts."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "The charging-time, rate, impedance, and interphase-composition results are reusable at the stated cell conditions.",
+    "methods_or_design": "The non-electrochemical SEI-formation approach and coupled electrochemical/characterization workflow are useful.",
+    "materials_or_documentation": "Cell loading, charge protocol, EIS, XPS, and cycling conditions are explicit."
+  },
+  "downweight": {
+    "worth_noticing": "The full-cell 10.8-minute result and large resistance change are strong paper-local observations.",
+    "cautious_or_ignore": "Do not turn correlated LiF enrichment and improved kinetics into a uniquely isolated mechanism or immediate manufacturing readiness."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "medium",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Independent perturbations of SEI chemistry plus scale/manufacturing and other-electrode tests would establish mechanism and transferability."
+}

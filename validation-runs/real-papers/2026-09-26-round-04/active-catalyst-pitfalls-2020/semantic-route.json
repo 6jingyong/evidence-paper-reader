@@ -1,0 +1,55 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "claim_text": "The critique reads the target paper's NAP-XPS mass-spectrometry result as showing no CO2 at 50°C under pure CO for either catalyst, which conflicts with the proposed low-temperature ceria-reduction interpretation.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C1's disclosed evidence, logical bridge, and stated scope."
+    },
+    {
+      "claim_id": "C2",
+      "claim_text": "The reported Pt/Ce ratios of about 0.030 for activated AT and 0.015 for SEA indicate higher Pt dispersion in AT, providing a plausible alternative explanation for the reactivity difference.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C2's disclosed evidence, logical bridge, and stated scope."
+    },
+    {
+      "claim_id": "C3",
+      "claim_text": "The critique establishes that the target paper's support-redox mechanism and broader stability/industrial-use conclusions are wrong.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C3's disclosed evidence, logical bridge, and stated scope."
+    }
+  ]
+}

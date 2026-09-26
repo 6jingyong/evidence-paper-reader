@@ -1,0 +1,168 @@
+{
+  "ledger_schema_version": 3,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "preprint computational calibration study on co-located field sensor data",
+  "reader_conclusion": "The LSTM calibration improves on the RF baseline and meets the cited uncertainty thresholds on held-out OxAria data; regulatory/compliance transfer across devices, cities, and deployment regimes remains untested.",
+  "claims": [
+    {
+      "content": "The sequence-based LSTM calibration achieved higher R² than the Random Forest baseline across training, validation, and test splits for PM2.5, PM10, and NO2 in the OxAria data.",
+      "claim_type": "performance",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "computational benchmark",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The model comparison directly reports higher R² for the LSTM across the three pollutants and data splits."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract; model-comparison results",
+        "support_level": "sufficient",
+        "reason": "The bounded claim is a within-dataset model comparison on co-located OxAria data.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "On unseen calibrated values, expanded uncertainties were 22.11% for NO2, 12.42% for PM10, and 9.1% for PM2.5, meeting the cited Equivalence Spreadsheet Tool 3.1 thresholds.",
+      "claim_type": "performance",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "computational benchmark",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The reported held-out uncertainty values are directly compared with the stated regulatory data-quality thresholds."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract; EST 3.1 validation / appendix",
+        "support_level": "sufficient",
+        "reason": "The claim preserves the tool, pollutants, held-out evaluation, and threshold comparison reported by the preprint.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "The framework establishes regulatory-grade calibration generally across low-cost sensor devices, cities, seasons, and long-term deployment conditions.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "computational benchmark",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "mixed",
+            "reason": "The model comparison supports performance in one network and temporal split, not cross-device/city transfer."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "Threshold compliance is encouraging locally but remains tied to OxAria data and the evaluated holdout."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Abstract/Conclusion; transfer/compliance interpretation",
+        "support_level": "partial",
+        "reason": "The results support local temporal generalization in one Oxford network; device-to-device, spatial, seasonal, and long-term drift transfer are broader claims and are explicitly natural follow-up questions.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares the temporal LSTM with the static RF baseline on the same calibration task.",
+      "assumptions": [
+        "The train/validation/test partition and preprocessing preserve a fair model comparison."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares held-out expanded uncertainty against the cited regulatory-equivalence thresholds.",
+      "assumptions": [
+        "The EST 3.1 calculation and the cited thresholds are applicable to the reported calibration evaluation."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends one network's held-out temporal calibration and uncertainty compliance to other devices, cities, and deployment regimes.",
+      "assumptions": [
+        "Sensor response distributions, environmental interactions, drift, and regulatory data-quality calculations transfer across external deployments."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "Held-out R² and expanded-uncertainty results are usable for the OxAria evaluation.",
+    "methods_or_design": "Temporal windows, lagged/environmental features, and sequence modeling are useful calibration design choices.",
+    "materials_or_documentation": "Data partition, hyperparameter tuning, pollutant metrics, and uncertainty thresholds are documented."
+  },
+  "downweight": {
+    "worth_noticing": "Preprint status does not erase clear held-out calibration and uncertainty results.",
+    "cautious_or_ignore": "Do not relabel one-network temporal holdout compliance as proven cross-network regulatory equivalence."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "medium",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Independent sensor lots, cities, seasons, spatial transfer, and long-term drift evaluation would establish deployment generality."
+}

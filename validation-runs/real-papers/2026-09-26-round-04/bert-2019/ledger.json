@@ -1,0 +1,166 @@
+{
+  "ledger_schema_version": 3,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "NLP representation-learning benchmark study",
+  "reader_conclusion": "BERT directly supports broad benchmark gains across eleven tested NLP tasks with simple task heads; treating those benchmarks as a complete measure of 'language understanding' or universal model superiority adds construct and generalization reach.",
+  "claims": [
+    {
+      "content": "BERT pre-trains deep bidirectional Transformer representations by conditioning on both left and right context and can be fine-tuned for downstream tasks with only a small task-specific output layer.",
+      "claim_type": "methodological",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "computational benchmark",
+          "theoretical derivation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The architecture and fine-tuning procedure directly implement the stated bidirectional pretraining and lightweight task adaptation."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract; model and fine-tuning sections",
+        "support_level": "sufficient",
+        "reason": "This is a bounded description of the implemented model/training interface, not a claim of universal optimality.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "BERT reported new state-of-the-art results on eleven NLP tasks, including GLUE 80.5, MultiNLI 86.7%, SQuAD v1.1 test F1 93.2, and SQuAD v2.0 test F1 83.1.",
+      "claim_type": "performance",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "computational benchmark",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The paper's task tables and abstract directly report the benchmark values and comparisons."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract; Experiments on GLUE, SQuAD, SWAG and task tables",
+        "support_level": "sufficient",
+        "reason": "The claim remains tied to the eleven evaluated tasks, contemporaneous baselines, and reported metrics.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "These eleven benchmark results establish general language understanding and broad superiority of BERT beyond the tested tasks, datasets, and evaluation metrics.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "computational benchmark",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "contextual",
+            "reason": "The architecture is broadly reusable but does not itself define or measure general language understanding."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "Eleven diverse tasks provide broad benchmark evidence, but remain operational proxies over finite datasets and metrics."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Title/Abstract/Conclusion; 'language understanding' framing",
+        "support_level": "partial",
+        "reason": "The diverse benchmark suite supports broad empirical usefulness, but 'language understanding' is a wider construct and superiority outside the tested tasks/models cannot be inferred directly.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares BERT with contemporaneous systems on the reported benchmark metrics.",
+      "assumptions": [
+        "The benchmark leaderboards and evaluation protocols provide valid contemporaneous comparisons for the listed tasks."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "proxy-to-construct",
+      "reasoning_status": "qualified",
+      "added_reach": "Moves from finite NLP benchmark performance to the broader construct of general language understanding and universal task superiority.",
+      "assumptions": [
+        "The selected eleven benchmarks adequately operationalize the broader construct and transfer to untested tasks and distributions."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "The eleven-task benchmark results and specific GLUE/SQuAD/MultiNLI values are directly reusable historically.",
+    "methods_or_design": "Bidirectional pretraining plus simple downstream fine-tuning is a clear reusable modeling design.",
+    "materials_or_documentation": "Architecture, objectives, fine-tuning procedure, datasets, metrics, and experiment tables are documented."
+  },
+  "downweight": {
+    "worth_noticing": "The diversity of eleven tasks gives materially broader evidence than a single benchmark.",
+    "cautious_or_ignore": "Do not equate benchmark breadth with a complete operationalization of language understanding or universal superiority."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "high",
+    "research_design": "medium",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Out-of-distribution, untested-task, robustness, calibration, and construct-validity evaluations are needed for broader understanding claims."
+}

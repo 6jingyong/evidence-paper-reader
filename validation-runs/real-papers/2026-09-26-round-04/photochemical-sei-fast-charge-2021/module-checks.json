@@ -1,0 +1,121 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "figure-and-table-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Fig. 5; fast-charging results"
+          ],
+          "reason": "Checked the decision-critical table/figure values rather than relying on visual emphasis.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Fig. 5; fast-charging results"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs, mechanisms, or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Abstract; Fig. 5; fast-charging results"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "figure-and-table-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "SEI characterization; Fig. 2; EIS Fig. 4"
+          ],
+          "reason": "Checked the decision-critical table/figure values rather than relying on visual emphasis.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "SEI characterization; Fig. 2; EIS Fig. 4"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs, mechanisms, or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "SEI characterization; Fig. 2; EIS Fig. 4"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "measurement-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion/Conclusion; mechanism and transfer statements"
+          ],
+          "reason": "Kept the measured operational quantity separate from broader constructs, mechanisms, or deployment outcomes.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion/Conclusion; mechanism and transfer statements"
+          ],
+          "reason": "Checked whether observations are independent evidence or reused parts of one source/data stream.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion/Conclusion; mechanism and transfer statements"
+          ],
+          "reason": "Kept reused, imported, or jointly generated evidence from being counted as independent confirmation."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion/Conclusion; mechanism and transfer statements"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        },
+        {
+          "module": "claim-dependencies.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion/Conclusion; mechanism and transfer statements"
+          ],
+          "reason": "Checked that the broader claim inherits rather than erases uncertainty from upstream claims."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion/Conclusion; mechanism and transfer statements"
+          ],
+          "reason": "Separated what this source establishes from evidence needed for the stronger claim."
+        }
+      ]
+    }
+  ]
+}

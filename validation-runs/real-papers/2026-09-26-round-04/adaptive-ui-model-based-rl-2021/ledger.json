@@ -1,0 +1,167 @@
+{
+  "ledger_schema_version": 3,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "HCI model-based reinforcement-learning method with empirical and simulation evaluation",
+  "reader_conclusion": "The adaptive-menu case supports the proposed conservative planning policy versus two baselines; broad claims about adaptive interfaces across tasks, users, and UI classes require additional validation.",
+  "claims": [
+    {
+      "content": "The method uses model-based reinforcement learning to plan sequences of interface adaptations while predictive HCI models estimate user benefits and adaptation costs.",
+      "claim_type": "methodological",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "theoretical derivation",
+          "computational benchmark"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The algorithmic design directly specifies planning over adaptation sequences using predictive user/interface models."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Method description; author project page and paper abstract",
+        "support_level": "sufficient",
+        "reason": "This is a bounded description of the implemented method rather than a claim that the user model is universally accurate.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "In the adaptive-menu case, empirical and simulation results showed the proposed policy outperforming both a non-adaptive policy and a frequency-based adaptation policy.",
+      "claim_type": "performance",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "computational benchmark"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The reported empirical and simulation comparisons directly support the bounded adaptive-menu performance claim."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Abstract; adaptive-menu empirical and simulation results",
+        "support_level": "sufficient",
+        "reason": "The comparison is explicitly limited to the evaluated adaptive-menu setting and baselines.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "The approach generally improves usability for adaptive user interfaces across users, tasks, and interface classes by finding beneficial changes and avoiding harmful ones.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "direct experiment",
+          "computational benchmark",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "contextual",
+            "reason": "The planning formulation is general in form but depends on predictive user models."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "Adaptive-menu results support one application but not arbitrary interfaces, tasks, or populations."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Abstract/Discussion; conservative-policy framing beyond adaptive menus",
+        "support_level": "partial",
+        "reason": "The method's formulation is broader than the empirical evidence, which centers on adaptive menus and model assumptions; general UI effectiveness requires external validation.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares the proposed planning policy with non-adaptive and frequency-based policies in the evaluated menu setting.",
+      "assumptions": [
+        "The reported empirical/simulation setups are adequate to compare these policies for the studied adaptive-menu task."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends one adaptive-menu empirical/simulation case to adaptive interfaces generally.",
+      "assumptions": [
+        "Predictive HCI models remain accurate and the adaptation cost/benefit structure transfers across interface types and users."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "The adaptive-menu policy comparison is usable for the tested setting.",
+    "methods_or_design": "Planning adaptation sequences with explicit user-cost models is a reusable HCI/AI design pattern.",
+    "materials_or_documentation": "Open implementation and author copies improve inspectability of the method and evaluation."
+  },
+  "downweight": {
+    "worth_noticing": "The conservative objective explicitly models adaptation cost, not only immediate task reward.",
+    "cautious_or_ignore": "Do not treat a successful adaptive-menu case as proof of broad UI personalization effectiveness."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "high",
+    "research_design": "medium",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Independent user studies across interface classes, tasks, user populations, and misspecified user models would test generality and robustness."
+}

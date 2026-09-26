@@ -1,0 +1,55 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "claim_text": "BERT pre-trains deep bidirectional Transformer representations by conditioning on both left and right context and can be fine-tuned for downstream tasks with only a small task-specific output layer.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "not_required",
+        "evidence-dependence.md": "not_required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "not_required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C1's disclosed evidence, logical bridge, and stated scope."
+    },
+    {
+      "claim_id": "C2",
+      "claim_text": "BERT reported new state-of-the-art results on eleven NLP tasks, including GLUE 80.5, MultiNLI 86.7%, SQuAD v1.1 test F1 93.2, and SQuAD v2.0 test F1 83.1.",
+      "routes": {
+        "figure-and-table-traps.md": "required",
+        "statistical-traps.md": "required",
+        "measurement-traps.md": "not_required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "required",
+        "evidence-dependence.md": "not_required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "not_required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C2's disclosed evidence, logical bridge, and stated scope."
+    },
+    {
+      "claim_id": "C3",
+      "claim_text": "These eleven benchmark results establish general language understanding and broad superiority of BERT beyond the tested tasks, datasets, and evaluation metrics.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "required",
+        "evidence-topology.md": "required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C3's disclosed evidence, logical bridge, and stated scope."
+    }
+  ]
+}

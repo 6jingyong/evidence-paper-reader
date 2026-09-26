@@ -414,6 +414,212 @@
           ]
         }
       }
+    },
+    "2026-09-26-round-04": {
+      "photochemical-sei-fast-charge-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "hurricane-rainfall-attribution-2022": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "microclimatic-warming-paramo-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "web-hypertension-cluster-rct-2022": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "adaptive-ui-model-based-rl-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "temporal-lstm-air-sensor-2026": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "deep-lob-forecasting-2024": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "virtual-imaging-education-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      },
+      "active-catalyst-pitfalls-2020": {
+        "must_hold": {
+          "viability": "partially auditable",
+          "required_viability_flags": [
+            "external-dependency-dominant"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "external-dependency-dominant"
+          ],
+          "support_levels": [
+            [
+              "partial"
+            ],
+            [
+              "partial"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "bert-2019": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial"
+            ]
+          ]
+        }
+      }
     }
   }
 }

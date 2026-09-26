@@ -1,0 +1,55 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "claim_text": "Across 15 NASDAQ stocks, predictability depended strongly on microstructure; large-tick stocks achieved F1 scores above about 0.45 without probability thresholds and above 0.7 in some thresholded settings.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "required",
+        "measurement-traps.md": "not_required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "required",
+        "evidence-dependence.md": "not_required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "not_required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C1's disclosed evidence, logical bridge, and stated scope."
+    },
+    {
+      "claim_id": "C2",
+      "claim_text": "High F1/MCC forecasting scores did not reliably imply actionable transaction forecasts: the paper's transaction metric pT was often near zero even where F1 remained moderate or high.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "not_required",
+        "evidence-topology.md": "required",
+        "evidence-dependence.md": "not_required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "not_required",
+        "follow-up-boundaries.md": "not_required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C2's disclosed evidence, logical bridge, and stated scope."
+    },
+    {
+      "claim_id": "C3",
+      "claim_text": "The proposed evaluation framework establishes generally actionable deep-learning trading decisions across markets and execution settings.",
+      "routes": {
+        "figure-and-table-traps.md": "not_required",
+        "statistical-traps.md": "not_required",
+        "measurement-traps.md": "required",
+        "study-design-traps.md": "required",
+        "evidence-topology.md": "required",
+        "evidence-dependence.md": "required",
+        "claim-evidence-links.md": "required",
+        "claim-dependencies.md": "required",
+        "follow-up-boundaries.md": "required"
+      },
+      "inventory": "not_required",
+      "reason": "Route only the checks needed to audit C3's disclosed evidence, logical bridge, and stated scope."
+    }
+  ]
+}

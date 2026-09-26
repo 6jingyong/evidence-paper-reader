@@ -1,0 +1,12 @@
+{
+  "record_id": "temporal-lstm-air-sensor-2026",
+  "title": "A temporal deep learning framework for calibration of low-cost air quality sensors",
+  "authors": "Arindam Sengupta et al.",
+  "year": 2026,
+  "stable_id": "arXiv:2604.21527",
+  "doi": "10.48550/arXiv.2604.21527",
+  "source_url": "https://arxiv.org/abs/2604.21527",
+  "access_format": "public arXiv preprint; CC BY-SA full text mirrors available",
+  "retrieved_on": "2026-09-26",
+  "promoted_from_tiered_source": "sensor-low"
+}

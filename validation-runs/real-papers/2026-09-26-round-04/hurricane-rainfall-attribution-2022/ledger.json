@@ -1,0 +1,168 @@
+{
+  "ledger_schema_version": 3,
+  "scope_status": "in scope",
+  "evidence_viability": "auditable",
+  "viability_flags": [],
+  "paper_type": "counterfactual climate hindcast attribution study",
+  "reader_conclusion": "The actual-versus-counterfactual hindcasts support bounded attribution of 2020-season extreme hurricane rainfall; they do not directly establish all hurricane hazards, trajectories, or future-season effects.",
+  "claims": [
+    {
+      "content": "For observed 2020 storms of at least tropical-storm strength, the hindcast attribution estimated that human-induced warming increased the 99th-percentile 3-hour rainfall rate by 10.2% (95% CI 5.1–15.5%) and 3-day accumulated rainfall by 4.8% (95% CI 0.1–9.5%).",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "numerical simulation",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The actual-versus-counterfactual ensemble comparison directly reports the two extreme-rainfall attribution estimates and bootstrap intervals."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results: Attribution of hurricane season extreme rainfall; Fig. 4",
+        "support_level": "sufficient",
+        "reason": "The claim preserves the model, season, storm-strength threshold, percentile endpoint, and uncertainty intervals.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "For observed storms at hurricane strength, the corresponding estimated anthropogenic increases were 11.3% for extreme 3-hour rainfall rates and 7.8% for extreme 3-day rainfall accumulations.",
+      "claim_type": "observational",
+      "conclusion_strength": "medium",
+      "support": {
+        "evidence_type": [
+          "numerical simulation",
+          "statistical analysis"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The hurricane-strength subset analysis directly reports the 11.3% and 7.8% attribution estimates with confidence intervals."
+          }
+        ],
+        "upstream_claims": [],
+        "evidence_dependence": "single-source",
+        "source_location": "Results; Fig. 4 hurricane-strength subset",
+        "support_level": "sufficient",
+        "reason": "The bounded hurricane-strength estimates are directly reported within the same hindcast framework.",
+        "external_dependency": "none"
+      }
+    },
+    {
+      "content": "The study establishes that human-induced climate change increased hurricane hazards generally in 2020 and predicts similar effects across future hurricane seasons.",
+      "claim_type": "generality",
+      "conclusion_strength": "strong",
+      "support": {
+        "evidence_type": [
+          "numerical simulation",
+          "author interpretation"
+        ],
+        "evidence_provenance": "paper-local",
+        "evidence_nodes": [
+          "E1",
+          "E2"
+        ],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "mixed",
+            "reason": "The evidence supports extreme rainfall endpoints, not wind, surge, genesis, or all hurricane hazards."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "The hurricane subset strengthens the rainfall result but remains a single-season hindcast attribution."
+          }
+        ],
+        "upstream_claims": [
+          1,
+          2
+        ],
+        "evidence_dependence": "shared-source convergence",
+        "source_location": "Discussion; scope of 2020-season rainfall attribution",
+        "support_level": "partial",
+        "reason": "The source is strong for 2020 extreme rainfall under its hindcast design, but not for every hurricane hazard or future-season magnitude; dynamical fields were intentionally not adjusted in the counterfactual simulations.",
+        "external_dependency": "none"
+      }
+    }
+  ],
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Uses actual-versus-counterfactual hindcast ensembles to attribute a bounded extreme-rainfall difference to anthropogenic warming.",
+      "assumptions": [
+        "The counterfactual SST/thermodynamic adjustments and fixed dynamical setup provide an adequate attribution contrast for these rainfall endpoints."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Attributes the bounded hurricane-strength extreme-rainfall differences to anthropogenic warming in the model contrast.",
+      "assumptions": [
+        "The hurricane-strength subset and hindcast ensembles preserve the intended counterfactual comparison."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends a single-season extreme-rainfall attribution to all hurricane hazards and future seasons.",
+      "assumptions": [
+        "The thermodynamic rainfall signal transfers unchanged to other hazards and future seasonal storm dynamics."
+      ]
+    }
+  ],
+  "usable": {
+    "results": "The 2020 actual/counterfactual extreme-rainfall estimates and bootstrap intervals are directly usable.",
+    "methods_or_design": "The season-wide hindcast framework is useful for bounded attribution beyond single named storms.",
+    "materials_or_documentation": "Model configuration, initialization schedule, counterfactual construction, storm tracking, data, and code availability are documented."
+  },
+  "downweight": {
+    "worth_noticing": "The study moves attribution from selected individual storms to a full observed hurricane season.",
+    "cautious_or_ignore": "Do not broaden extreme-rainfall attribution into all hurricane hazards or unqualified future-season prediction."
+  },
+  "value_breakdown": {
+    "result": "high",
+    "method": "high",
+    "theory_or_insight": "medium",
+    "research_design": "high",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "Future seasons, alternative models, and hazard-specific counterfactuals would test generality beyond 2020 extreme rainfall."
+}

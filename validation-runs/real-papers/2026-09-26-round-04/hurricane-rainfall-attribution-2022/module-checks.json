@@ -1,0 +1,121 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: Attribution of hurricane season extreme rainfall; Fig. 4"
+          ],
+          "reason": "Checked uncertainty, comparison structure, denominators, and null/secondary results before assigning support.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: Attribution of hurricane season extreme rainfall; Fig. 4"
+          ],
+          "reason": "Checked sampling, assignment, comparator, and design limits before allowing causal or general claims.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Results: Attribution of hurricane season extreme rainfall; Fig. 4"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results; Fig. 4 hurricane-strength subset"
+          ],
+          "reason": "Checked uncertainty, comparison structure, denominators, and null/secondary results before assigning support.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results; Fig. 4 hurricane-strength subset"
+          ],
+          "reason": "Checked sampling, assignment, comparator, and design limits before allowing causal or general claims.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Results; Fig. 4 hurricane-strength subset"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion; scope of 2020-season rainfall attribution"
+          ],
+          "reason": "Checked sampling, assignment, comparator, and design limits before allowing causal or general claims.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-topology.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion; scope of 2020-season rainfall attribution"
+          ],
+          "reason": "Checked whether observations are independent evidence or reused parts of one source/data stream.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "evidence-dependence.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion; scope of 2020-season rainfall attribution"
+          ],
+          "reason": "Kept reused, imported, or jointly generated evidence from being counted as independent confirmation."
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion; scope of 2020-season rainfall attribution"
+          ],
+          "reason": "Bound the claim to the stated source location and evidence nodes at the same scope."
+        },
+        {
+          "module": "claim-dependencies.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion; scope of 2020-season rainfall attribution"
+          ],
+          "reason": "Checked that the broader claim inherits rather than erases uncertainty from upstream claims."
+        },
+        {
+          "module": "follow-up-boundaries.md",
+          "status": "clear",
+          "source_locations": [
+            "Discussion; scope of 2020-season rainfall attribution"
+          ],
+          "reason": "Separated what this source establishes from evidence needed for the stronger claim."
+        }
+      ]
+    }
+  ]
+}

@@ -12,7 +12,17 @@
     "finance-low": "order-book-imbalance-quantumflow-2026",
     "education-ordinary-b": "encouragement-exam-2021",
     "catalysis-flagship": "cu-c2plus-electrocatalyst-2020",
-    "nlp-low": "llm-evaluation-blog-2024"
+    "nlp-low": "llm-evaluation-blog-2024",
+    "battery-ordinary-b": "photochemical-sei-fast-charge-2021",
+    "climate-ordinary-b": "hurricane-rainfall-attribution-2022",
+    "ecology-ordinary-a": "microclimatic-warming-paramo-2021",
+    "cardiology-ordinary-b": "web-hypertension-cluster-rct-2022",
+    "hci-ordinary-a": "adaptive-ui-model-based-rl-2021",
+    "sensor-low": "temporal-lstm-air-sensor-2026",
+    "finance-ordinary-b": "deep-lob-forecasting-2024",
+    "education-low": "virtual-imaging-education-2021",
+    "catalysis-low": "active-catalyst-pitfalls-2020",
+    "nlp-flagship": "bert-2019"
   },
   "stability_crossdomain_8": {
     "ST01": "sprint-2015",
