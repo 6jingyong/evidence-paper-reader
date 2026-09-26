@@ -513,7 +513,8 @@
     "G124",
     "G125",
     "G126",
-    "G127"
+    "G127",
+    "G128"
   ],
   "mutation_site_canaries": [
     {
@@ -550,6 +551,11 @@
       "guard": "G127",
       "site": 1,
       "scenario": "reasoning_graph_common_mode"
+    },
+    {
+      "guard": "G128",
+      "site": 1,
+      "scenario": "evidence_relation_common_mode"
     }
   ],
   "logic_weakening_mutations": [
