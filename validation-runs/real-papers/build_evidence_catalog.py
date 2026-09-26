@@ -9,6 +9,7 @@ ROOT = Path(__file__).parents[2]
 RUN_ROOT = ROOT / "validation-runs" / "real-papers"
 LEGACY = RUN_ROOT / "legacy-fixture-index.json"
 BLIND = ROOT / "benchmarks" / "blind-real-paper-10" / "case_index.json"
+SOURCE_TO_AUDIT = ROOT / "benchmarks" / "source-to-audit-10" / "case_index.json"
 TIERED = ROOT / "benchmarks" / "tiered-source-40" / "cases.json"
 METADATA = ROOT / "benchmarks" / "metadata-halo-12" / "packet_specs.json"
 STABILITY = ROOT / "benchmarks" / "stability-crossdomain-8" / "case_specs.json"
@@ -222,6 +223,48 @@ def attach_blind_surfaces(entries: dict, recorded_ids: set[str]):
     return blind
 
 
+def attach_source_to_audit_surfaces(entries: dict, recorded_ids: set[str]):
+    cases = load(SOURCE_TO_AUDIT)["cases"]
+    source_ids = {case["case_id"] for case in cases}
+    missing = sorted(source_ids - recorded_ids)
+    if missing:
+        raise ValueError(
+            "source-to-audit benchmark paper lacks source-backed record: "
+            + ", ".join(missing)
+        )
+
+    for cid in sorted(source_ids):
+        add_surface(entries[cid], {
+            "kind": "source-to-audit",
+            "path": "benchmarks/source-to-audit-10",
+            "status": "protocol-ready",
+        })
+
+    source_runs_root = RUN_ROOT / "source-runs"
+    if source_runs_root.is_dir():
+        for run_dir in sorted(p for p in source_runs_root.iterdir() if p.is_dir()):
+            if run_dir.name.startswith("."):
+                continue
+            run_file = run_dir / "run.json"
+            if not run_file.is_file():
+                continue
+            run = load(run_file)
+            for cid in run.get("case_ids", []):
+                if cid not in recorded_ids:
+                    raise ValueError(
+                        f"durable source run references unrecorded paper: {cid}"
+                    )
+                add_surface(entries[cid], {
+                    "kind": "source-result",
+                    "path": str(run_dir.relative_to(ROOT)),
+                    "status": "completed",
+                    "run_id": run["run_id"],
+                    "reviewer": run["reviewer"],
+                    "runtime": run["runtime"],
+                })
+    return source_ids
+
+
 def build():
     recorded = discover_recorded()
     legacy = discover_legacy()
@@ -231,6 +274,7 @@ def build():
     tiered_to_evidence, benchmark_only = discover_tiered(entries, source_map)
     attach_named_benchmark_surfaces(entries, tiered_to_evidence, source_map)
     blind = attach_blind_surfaces(entries, set(recorded))
+    source_to_audit = attach_source_to_audit_surfaces(entries, set(recorded))
 
     ordered = sorted(
         entries.values(),
@@ -254,6 +298,7 @@ def build():
             "evidence_entries": len(ordered),
             "tiered_source_cases": len(tiered_to_evidence),
             "blind_protocol_papers": len(blind),
+            "source_to_audit_protocol_papers": len(source_to_audit),
         },
         "entries": ordered,
     }
@@ -274,6 +319,7 @@ def render(catalog):
         f"- total unique evidence entries: **{c['evidence_entries']}**",
         f"- tiered-source benchmark cases mapped to durable identities: **{c['tiered_source_cases']}**",
         f"- source-backed papers prepared for isolated blind re-audit: **{c['blind_protocol_papers']}**",
+        f"- source-backed papers prepared for source-to-audit replay: **{c['source_to_audit_protocol_papers']}**",
         "",
         "Source-backed entries have stable source identity plus replayable audit artifacts. Benchmark-source entries have explicit public source metadata and benchmark judgments but not a artifact replay. Legacy fixtures preserve older regression work whose original source/run metadata were not reconstructed.",
         "",
