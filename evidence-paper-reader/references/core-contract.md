@@ -162,7 +162,24 @@ Interpretation:
 
 Do not treat publication status, author confidence, figure complexity, or citation count as support strength.
 
-## 10. Direct evidence wins over narrative summary
+## 10. Author-acknowledged boundaries
+
+For every claim judged `partial`, `insufficient`, or `unclear`, check whether the source authors themselves acknowledge the same or a materially overlapping boundary.
+
+Use one status:
+- `explicit`: authors clearly state substantially the same limitation/boundary
+- `partial`: authors acknowledge only part of the audited boundary
+- `absent`: the relevant sections were inspected and no comparable acknowledgment was located
+- `unclear`: available material or inspection is insufficient to decide
+- `not-applicable`: allowed only when no non-sufficient boundary needs assessment
+
+For `explicit` or `partial`, record a concrete source location. Summarize the authors fairly; do not upgrade a vague future-work sentence into a stronger concession than they actually make.
+
+Author acknowledgment is not evidence for the claim and does not repair a broken inference. It changes the fairness and explanatory context of the audit: a boundary already acknowledged by the authors should be presented as such rather than framed as an adversarial discovery.
+
+Absence of acknowledgment does not imply deception, bad faith, or incompetence.
+
+## 11. Direct evidence wins over narrative summary
 
 Compare abstract, results, figures/tables, discussion, and conclusion.
 
@@ -171,7 +188,7 @@ When they conflict:
 - prefer the most direct and precisely located paper-local result for the bounded claim
 - do not let summary prose overwrite measured values, tables, figures, or documented procedures
 
-## 11. Reuse and inference reach
+## 12. Reuse and inference reach
 
 Evidence reuse is allowed.
 
@@ -187,7 +204,7 @@ Ask:
 - What extra reach is added by the claim?
 - Is there new direct evidence for that extra reach?
 
-## 12. Uncertainty and null results
+## 13. Uncertainty and null results
 
 Do not translate `not statistically significant` into:
 - no effect
@@ -199,7 +216,7 @@ Inspect effect size, uncertainty interval, and any equivalence/non-inferiority m
 
 If material needed for judgment is missing, say `unclear` rather than filling the gap.
 
-## 13. Methodological risk is not a verdict
+## 14. Methodological risk is not a verdict
 
 A risk cue starts a check.
 
@@ -212,7 +229,7 @@ Before downweighting:
 
 If a potential issue is adequately handled and leaves no decision-relevant residual concern, it does not need to appear in the final downweight section.
 
-## 14. Domain knowledge boundary
+## 15. Domain knowledge boundary
 
 Use bundled methodological knowledge to interpret evidence.
 
@@ -220,7 +237,7 @@ Do not inject expected domain values, normal ranges, treatment effects, material
 
 If external scientific context is needed, treat that as a separate literature-search task.
 
-## 15. Medical boundary
+## 16. Medical boundary
 
 A clinical paper may be audited for design, outcomes, uncertainty, and causal reach.
 
