@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Method description; author project page and paper abstract",
         "support_level": "sufficient",
         "reason": "This is a bounded description of the implemented method rather than a claim that the user model is universally accurate.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Abstract; adaptive-menu empirical and simulation results",
         "support_level": "sufficient",
         "reason": "The comparison is explicitly limited to the evaluated adaptive-menu setting and baselines.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -97,7 +107,12 @@
         "source_location": "Abstract/Discussion; conservative-policy framing beyond adaptive menus",
         "support_level": "partial",
         "reason": "The method's formulation is broader than the empirical evidence, which centers on adaptive menus and model assumptions; general UI effectiveness requires external validation.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "partial",
+          "summary": "The paper's empirical evaluation is presented through the adaptive-menu case and the broader method is framed as a general approach; this partially exposes the gap between the demonstrated application and wider UI generality, but does not itself validate arbitrary interface classes.",
+          "source_location": "Discussion/Future work; adaptive-menu evaluation versus broader framework"
+        }
       }
     }
   ],

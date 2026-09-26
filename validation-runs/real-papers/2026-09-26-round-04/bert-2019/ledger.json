@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Abstract; model and fine-tuning sections",
         "support_level": "sufficient",
         "reason": "This is a bounded description of the implemented model/training interface, not a claim of universal optimality.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Abstract; Experiments on GLUE, SQuAD, SWAG and task tables",
         "support_level": "sufficient",
         "reason": "The claim remains tied to the eleven evaluated tasks, contemporaneous baselines, and reported metrics.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -96,7 +106,12 @@
         "source_location": "Title/Abstract/Conclusion; 'language understanding' framing",
         "support_level": "partial",
         "reason": "The diverse benchmark suite supports broad empirical usefulness, but 'language understanding' is a wider construct and superiority outside the tested tasks/models cannot be inferred directly.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
       }
     }
   ],

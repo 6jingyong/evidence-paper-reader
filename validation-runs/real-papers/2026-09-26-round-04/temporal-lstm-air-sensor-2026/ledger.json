@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Abstract; model-comparison results",
         "support_level": "sufficient",
         "reason": "The bounded claim is a within-dataset model comparison on co-located OxAria data.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Abstract; EST 3.1 validation / appendix",
         "support_level": "sufficient",
         "reason": "The claim preserves the tool, pollutants, held-out evaluation, and threshold comparison reported by the preprint.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -96,7 +106,12 @@
         "source_location": "Abstract/Conclusion; transfer/compliance interpretation",
         "support_level": "partial",
         "reason": "The results support local temporal generalization in one Oxford network; device-to-device, spatial, seasonal, and long-term drift transfer are broader claims and are explicitly natural follow-up questions.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The authors frame broader device, spatial, seasonal, and long-term deployment transfer as follow-up validation rather than an established result, explicitly limiting the current evidence to the evaluated OxAria setting.",
+          "source_location": "Conclusion/Future work; transfer and deployment validation questions"
+        }
       }
     }
   ],

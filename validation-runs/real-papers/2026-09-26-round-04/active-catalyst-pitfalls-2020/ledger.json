@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "partially in scope",
   "evidence_viability": "partially auditable",
   "viability_flags": [
@@ -33,7 +33,12 @@
         "source_location": "Opening analysis of NAP-XPS/CO-TPR evidence; target Supplementary Fig. 11",
         "support_level": "partial",
         "reason": "The logical contradiction is inspectable at the citation level, but full support requires independent inspection of the target experiment and its conditions.",
-        "external_dependency": "Pereira-Hernández et al., Nat Commun 2019, DOI:10.1038/s41467-019-09308-5"
+        "external_dependency": "Pereira-Hernández et al., Nat Commun 2019, DOI:10.1038/s41467-019-09308-5",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -61,7 +66,12 @@
         "source_location": "Pt/Ce ratio and dispersion discussion; target Figs. 5–6",
         "support_level": "partial",
         "reason": "The source supports the existence of an alternative dispersion-related explanation, not a unique proof that dispersion is the cause.",
-        "external_dependency": "Pereira-Hernández et al., Nat Commun 2019, DOI:10.1038/s41467-019-09308-5"
+        "external_dependency": "Pereira-Hernández et al., Nat Commun 2019, DOI:10.1038/s41467-019-09308-5",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -98,7 +108,12 @@
         "source_location": "Overall critique and industrial/stability discussion",
         "support_level": "insufficient",
         "reason": "The critique is structurally dependent on another paper's data and the original authors published a reply defending their interpretation and presenting additional stability/repeatability evidence; this source alone cannot close the dispute.",
-        "external_dependency": "Target article plus published Reply, DOI:10.1038/s41467-020-18193-2"
+        "external_dependency": "Target article plus published Reply, DOI:10.1038/s41467-020-18193-2",
+        "author_boundary": {
+          "status": "unclear",
+          "summary": "This audit did not independently verify whether the authors explicitly acknowledge the same or a materially overlapping boundary.",
+          "source_location": "none"
+        }
       }
     }
   ],

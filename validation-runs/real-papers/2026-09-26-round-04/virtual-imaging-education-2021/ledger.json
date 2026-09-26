@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Abstract/Results: blinded OSCE overall score",
         "support_level": "sufficient",
         "reason": "The bounded claim preserves the 26-student sample, short follow-up, and simulated assessment endpoint.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Abstract/Results: prespecified content and new-scenario subscales",
         "support_level": "sufficient",
         "reason": "The source directly reports significant performance differences on both subscales.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -96,7 +106,12 @@
         "source_location": "Conclusion; OSCE/new-scenario interpretation",
         "support_level": "partial",
         "reason": "The trial has only 26 students, one course and institution context, a three-week follow-up, and simulated/OSCE outcomes rather than observed clinical practice.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The authors acknowledge the small sample, single educational context, short follow-up, and simulated assessment setting, and call for broader validation before general curricular or clinical conclusions.",
+          "source_location": "Discussion/Conclusion; study limitations and future validation"
+        }
       }
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -31,7 +31,12 @@
         "source_location": "Abstract/Results: primary BP-control outcome",
         "support_level": "sufficient",
         "reason": "The bounded claim matches the enrolled population, 12-month horizon, and reported primary outcome.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -59,7 +64,12 @@
         "source_location": "Abstract/Results: SBP and DBP change",
         "support_level": "sufficient",
         "reason": "The source directly reports both between-group BP differences with confidence intervals.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -96,7 +106,12 @@
         "source_location": "Conclusion/Discussion: public-health and diverse-population statements",
         "support_level": "partial",
         "reason": "The trial is large and pragmatic but occurred in 66 Chinese community health centers with one guideline-oriented intervention package; population, infrastructure, clinician workflow, and baseline treatment context may alter transfer.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "partial",
+          "summary": "The authors discuss study-setting and implementation limitations and frame broader scaling as a public-health opportunity rather than demonstrated cross-system transportability; this partially acknowledges the generalization boundary.",
+          "source_location": "Discussion/Limitations; implementation and generalizability discussion"
+        }
       }
     }
   ],
