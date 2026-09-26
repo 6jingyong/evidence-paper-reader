@@ -1,0 +1,97 @@
+{
+  "claims": [
+    {
+      "claim_id": "C1",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods; Results; Table 2; Figure 3A"
+          ],
+          "reason": "Checked the prespecified primary endpoint, hazard ratio, interval estimate, and event rates rather than relying on significance language alone.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods; Results; Table 2; Figure 3A"
+          ],
+          "reason": "Randomization directly supports the treatment-target contrast within the enrolled population; transfer beyond eligibility is kept separate.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Methods; Results; Table 2; Figure 3A"
+          ],
+          "reason": "The primary benefit claim is linked to the prespecified composite outcome and its reported event counts."
+        }
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results; Table 2; Figure 3B"
+          ],
+          "reason": "Checked the mortality estimate and confidence interval as a distinct endpoint rather than inferring it from the primary composite.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results; Table 2; Figure 3B"
+          ],
+          "reason": "Mortality is compared under the randomized target assignment, preserving the trial-level causal contrast.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Results; Table 2; Figure 3B"
+          ],
+          "reason": "The mortality claim uses the reported death counts and hazard ratio, not the primary endpoint as a proxy."
+        }
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "checks": [
+        {
+          "module": "statistical-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results; serious-adverse-event analysis"
+          ],
+          "reason": "Checked adverse-event categories as observed trial outcomes and did not collapse all harms into a single narrative label.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "study-design-traps.md",
+          "status": "clear",
+          "source_locations": [
+            "Results; serious-adverse-event analysis"
+          ],
+          "reason": "Harms are interpreted within the same randomized treatment strategy and follow-up.",
+          "mitigation_checked": true
+        },
+        {
+          "module": "claim-evidence-links.md",
+          "status": "clear",
+          "source_locations": [
+            "Results; serious-adverse-event analysis"
+          ],
+          "reason": "The harm claim is tied to the serious-adverse-event analysis rather than inferred from treatment intensity."
+        }
+      ]
+    }
+  ]
+}
