@@ -73,7 +73,7 @@ A cue triggers inspection, not automatic criticism.
 Follow the recomputed route's evidence-inventory decision. If inventory is not required, assign E-nodes directly. If it is required, load `evidence-inventory-format.md` and use `scripts/evidence_inventory.py` before support judgment.
 Inventory path: locate R records → deduplicate repeated presentations with G keys → group shared evidence-generating bases with U keys → promote decision-critical results to E-nodes.
 For each final E-node, record evidence type, provenance, upstream claims, evidence dependence, and the most precise source location available.
-Use the same E-node whenever the same underlying result is reused; record ledger-v3 claim-local evidence relations, then build reasoning edges that explicitly connect E-nodes/upstream claims to each target claim.
+Use the same E-node whenever the same underlying result is reused; record ledger-v4 claim-local evidence relations and author-boundary metadata, then build reasoning edges that explicitly connect E-nodes/upstream claims to each target claim.
 
 ### Phase D — support judgment
 For each claim, choose exactly one:
@@ -82,7 +82,7 @@ For each claim, choose exactly one:
 - insufficient
 - unclear
 
-Judge the claim as written.
+Judge the claim as written. For every partial/insufficient/unclear claim, check whether the source authors explicitly acknowledge the same boundary; record it without treating acknowledgment as evidence or as a change to support level.
 
 Do not silently narrow it first.
 Do not let upstream uncertainty disappear without new evidence.
