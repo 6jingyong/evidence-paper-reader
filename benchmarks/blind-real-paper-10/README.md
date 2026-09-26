@@ -1,6 +1,6 @@
 # Blind Real-Paper 10
 
-This benchmark tests whether a fresh reviewer can reconstruct the important Evidence Paper Reader judgments from public source material instead of merely preserving stored ledgers.
+This benchmark tests whether a fresh reviewer can reconstruct important claim–evidence–reasoning judgments from public source material instead of merely preserving stored ledgers. It does not test whether the reviewer can discover fraud or pronounce a paper scientifically true or false.
 
 ## Isolation boundary
 
