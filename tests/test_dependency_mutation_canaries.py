@@ -21,6 +21,24 @@ DEPENDENCIES = {
     "module_checks": SCRIPTS / "module_checks.py",
 }
 
+REQUIRED_DEPENDENCY_MUTATIONS = {
+    ("build_context", "ignore_lexical_cache_mismatch"),
+    ("build_context", "allow_cached_lexical_without_router_text"),
+    ("build_context", "allow_unclear_without_router_text"),
+    ("build_context", "omit_routed_modules"),
+    ("build_context", "omit_inventory_reference"),
+    ("merge_route", "ignore_semantic_required_module"),
+    ("merge_route", "ignore_semantic_required_inventory"),
+    ("evidence_inventory", "allow_cross_result_merge"),
+    ("evidence_inventory", "allow_split_result_nodes"),
+    ("evidence_inventory", "allow_uncovered_claim"),
+    ("evidence_inventory", "allow_shared_unit_convergence"),
+    ("module_checks", "ignore_mitigation_check"),
+    ("module_checks", "ignore_module_order"),
+    ("module_checks", "ignore_source_locations"),
+    ("module_checks", "ignore_unresolved_support"),
+}
+
 
 def load_module(name: str, path: Path):
     spec = importlib.util.spec_from_file_location(name, path)
@@ -311,7 +329,18 @@ class DependencyMutationCanaryTests(unittest.TestCase):
 
     def test_dependency_mutants_are_killed_by_existing_contracts(self):
         mutations = self.matrix.get("dependency_mutations", [])
-        self.assertGreaterEqual(len(mutations), 15)
+        self.assertEqual(len(mutations), len(REQUIRED_DEPENDENCY_MUTATIONS))
+        self.assertEqual(
+            {
+                (mutation["module"], mutation["operator"])
+                for mutation in mutations
+            },
+            REQUIRED_DEPENDENCY_MUTATIONS,
+        )
+        self.assertEqual(
+            {mutation["module"] for mutation in mutations},
+            set(DEPENDENCIES),
+        )
 
         seen = set()
         survivors = []
