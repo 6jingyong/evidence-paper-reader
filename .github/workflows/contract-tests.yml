@@ -39,4 +39,9 @@ jobs:
             python evidence-paper-reader/scripts/validate_audit.py "$audit"
           done
           test -f validation-runs/real-papers/2026-09-26-round-01/manifest.json
+          test -f validation-runs/real-papers/validate_judgments.py
+          test -f tests/real-paper-judgment-baseline.json
+          test -f tests/test_real_paper_judgment_mutations.py
+          python validation-runs/real-papers/validate_judgments.py --root .
           python tests/test_real_paper_run_records.py -v
+          python tests/test_real_paper_judgment_mutations.py -v
