@@ -51,6 +51,33 @@ class PaperEvidenceCatalogTests(unittest.TestCase):
             discovered.update(case["id"] for case in manifest["cases"])
         self.assertEqual(catalog_ids, discovered)
 
+    def test_source_to_audit_protocol_covers_only_source_backed_papers(self):
+        source_index = json.loads(
+            (
+                ROOT
+                / "benchmarks"
+                / "source-to-audit-10"
+                / "case_index.json"
+            ).read_text(encoding="utf-8")
+        )
+        source_backed = {
+            row["evidence_id"]
+            for row in self.catalog["entries"]
+            if row["identity_status"] == "source-backed"
+        }
+        case_ids = {case["case_id"] for case in source_index["cases"]}
+        self.assertEqual(case_ids, source_backed)
+        self.assertEqual(
+            self.catalog["counts"]["source_to_audit_protocol_papers"],
+            len(case_ids),
+        )
+        for row in self.catalog["entries"]:
+            if row["identity_status"] != "source-backed":
+                continue
+            kinds = {surface["kind"] for surface in row["test_surfaces"]}
+            self.assertIn("artifact-replay", kinds)
+            self.assertIn("source-to-audit", kinds)
+
     def test_blind_benchmark_cannot_introduce_unrecorded_paper(self):
         blind = json.loads(
             (
