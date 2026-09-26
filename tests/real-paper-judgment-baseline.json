@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "rounds": {
+    "2026-09-26-round-01": {
+      "attention-is-all-you-need-2017": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "sprint-2015": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ]
+          ]
+        }
+      },
+      "echinacea-2010": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "acc-dic-2021": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "mathematical-beauty-2014": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "partial",
+              "insufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      }
+    },
+    "2026-09-26-round-02": {
+      "gautret-hcq-2020": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": [
+            "selective-success-only"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "selective-success-only"
+          ],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "power-posing-2010": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": []
+        },
+        "allowed_range": {
+          "viability_flags": [],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "chocolate-weight-loss-2015": {
+        "must_hold": {
+          "viability": "auditable",
+          "required_viability_flags": [
+            "selective-success-only",
+            "promotional-asymmetry"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "selective-success-only",
+            "promotional-asymmetry"
+          ],
+          "support_levels": [
+            [
+              "sufficient"
+            ],
+            [
+              "sufficient"
+            ],
+            [
+              "insufficient"
+            ]
+          ]
+        }
+      },
+      "surgisphere-hcq-2020": {
+        "must_hold": {
+          "viability": "non-auditable",
+          "required_viability_flags": [
+            "source-integrity-failure"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "source-integrity-failure",
+            "proprietary-black-box"
+          ],
+          "support_levels": []
+        }
+      },
+      "wakefield-mmr-1998": {
+        "must_hold": {
+          "viability": "non-auditable",
+          "required_viability_flags": [
+            "source-integrity-failure"
+          ]
+        },
+        "allowed_range": {
+          "viability_flags": [
+            "source-integrity-failure",
+            "selective-success-only"
+          ],
+          "support_levels": []
+        }
+      }
+    }
+  }
+}
