@@ -45,6 +45,27 @@ jobs:
           python validation-runs/real-papers/validate_judgments.py --root .
           python tests/test_real_paper_run_records.py -v
           python tests/test_real_paper_judgment_mutations.py -v
+      - name: Validate carrier-neutral benchmark
+        shell: bash
+        run: |
+          test -f benchmarks/carrier-neutral-12/case_specs.json
+          test -f benchmarks/carrier-neutral-12/reference_expectations.json
+          test -f benchmarks/carrier-neutral-12/generate_packets.py
+          test -f benchmarks/carrier-neutral-12/run_reviewer.py
+          test -f benchmarks/carrier-neutral-12/score_carrier.py
+          test -f tests/test_carrier_neutral_benchmark.py
+          rm -rf /tmp/epr-carrier-neutral-12
+          python benchmarks/carrier-neutral-12/generate_packets.py \
+            --output /tmp/epr-carrier-neutral-12/packets \
+            --check
+          python benchmarks/carrier-neutral-12/run_reviewer.py \
+            --packet-dir /tmp/epr-carrier-neutral-12/packets \
+            --response-dir /tmp/epr-carrier-neutral-12/responses \
+            --workspace-dir /tmp/epr-carrier-neutral-12/workspaces \
+            --command 'isolated-reviewer {prompt} {output}' \
+            --limit 2 \
+            --dry-run
+          python tests/test_carrier_neutral_benchmark.py -v
       - name: Validate source-to-audit protocol
         shell: bash
         run: |
