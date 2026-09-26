@@ -5,11 +5,13 @@ This directory stores completed source-to-audit benchmark evidence.
 A completed run must preserve:
 
 - `run.json` — reviewer/model/runtime, source git head, case IDs, and isolation declaration
-- `source-inputs/<case_id>.json` — canonical source identity, acquisition/normalization method, exact review-material SHA-256 and byte count
+- `source-inputs/<case_id>.json` — canonical source identity, acquisition-profile hash, deterministic component list, acquisition method, and exact component/bundle SHA-256 + byte counts
 - `responses/<case_id>.json` — fresh ledger-v2 reviewer response
 - `score.json` — hidden scorer output for exactly those responses
 
 The normalized source text/PDF itself is **not** committed here by default. The durable record proves which bytes were reviewed through their cryptographic fingerprint without redistributing source material whose license may not permit repository inclusion.
+
+Every committed run is also pinned to the current per-case acquisition profile. For multi-component provenance cases, all required primary/provenance components must be present, ordered, and URL-matched before the run is accepted.
 
 Required isolation:
 
