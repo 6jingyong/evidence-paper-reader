@@ -49,6 +49,7 @@ CONTEXT_BASE_REFERENCES = [
     "core-contract.md",
     "evidence-viability.md",
     "evidence-types.md",
+    "reasoning-graph.md",
     "audit-ledger-format.md",
 ]
 
