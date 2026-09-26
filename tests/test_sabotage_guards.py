@@ -115,8 +115,12 @@ class SabotageGuardCanaryTests(unittest.TestCase):
         self.assertIn("Run sabotage guard matrix", workflow)
         self.assertIn("test -f tests/test_sabotage_guards.py", workflow)
         self.assertIn("python tests/test_sabotage_guards.py -v", workflow)
-        self.assertEqual(set(matrix["code_canary_guards"]), {"G108"})
-        self.assertIn("G108", gate.CRITICAL_GUARDS)
+        self.assertEqual(
+            set(matrix["code_canary_guards"]),
+            {"G108", "G123", "G124"},
+        )
+        for guard in matrix["code_canary_guards"]:
+            self.assertIn(guard, gate.CRITICAL_GUARDS)
 
     def test_g108_reference_materialization_failure_is_fail_closed(self):
         audit, semantic, route, context = pristine()
