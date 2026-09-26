@@ -85,5 +85,50 @@
     "research_design": "high",
     "material_or_documentation": "high"
   },
-  "uncertainty_and_follow_up": "The trial establishes a treatment-target effect in its enrolled population, not a context-free optimum for every patient. Longer follow-up, implementation details, and the balance between cardiovascular benefit and treatment-related adverse events remain important for transfer."
+  "uncertainty_and_follow_up": "The trial establishes a treatment-target effect in its enrolled population, not a context-free optimum for every patient. Longer follow-up, implementation details, and the balance between cardiovascular benefit and treatment-related adverse events remain important for transfer.",
+  "ledger_schema_version": 2,
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Moves from the observed treatment/exposure contrast to the stated intervention or causal conclusion.",
+      "assumptions": [
+        "The study design and measurement preserve the causal contrast required by the stated claim."
+      ]
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Moves from the observed treatment/exposure contrast to the stated intervention or causal conclusion.",
+      "assumptions": [
+        "The study design and measurement preserve the causal contrast required by the stated claim."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E3"
+      ],
+      "upstream_claims": [],
+      "inference_type": "causal",
+      "reasoning_status": "supported",
+      "added_reach": "Moves from the observed treatment/exposure contrast to the stated intervention or causal conclusion.",
+      "assumptions": [
+        "The study design and measurement preserve the causal contrast required by the stated claim."
+      ]
+    }
+  ]
 }
