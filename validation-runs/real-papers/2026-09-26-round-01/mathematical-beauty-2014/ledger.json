@@ -113,35 +113,62 @@
       "edge_id": "R2",
       "target_claim": 2,
       "evidence_nodes": [
-        "E1",
-        "E2"
+        "E1"
       ],
       "upstream_claims": [
         1
       ],
-      "inference_type": "generalization",
-      "reasoning_status": "qualified",
-      "added_reach": "Extends the directly tested population, task, setting, time, or material to the broader scope stated in the claim.",
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Uses the paper-local mathematical-beauty activation and C1 to identify the implicated mOFC region before comparing it with other beauty domains.",
       "assumptions": [
-        "The directly tested cases are informative about the broader scope named in the claim."
+        "The reported field-A1 localization is comparable at the regional level used by the cross-domain claim."
       ]
     },
     {
       "edge_id": "R3",
-      "target_claim": 3,
+      "target_claim": 2,
       "evidence_nodes": [
-        "E1",
         "E2"
       ],
+      "upstream_claims": [],
+      "inference_type": "external-import",
+      "reasoning_status": "qualified",
+      "added_reach": "Imports prior visual and musical beauty findings to support the claim that the same mOFC region is involved across domains.",
+      "assumptions": [
+        "The cited prior studies are sufficiently comparable in localization and task interpretation to support a same-region claim."
+      ]
+    },
+    {
+      "edge_id": "R4",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1"
+      ],
       "upstream_claims": [
-        1,
-        2
+        1
       ],
       "inference_type": "proxy-to-construct",
       "reasoning_status": "unsupported",
-      "added_reach": "Moves from the operational measurement/proxy to the broader construct named in the claim.",
+      "added_reach": "Moves from beauty ratings and mOFC BOLD activity in trained mathematicians to an abstract property of beauty itself.",
       "assumptions": [
-        "The operational measure is a valid bridge to the broader construct named in the claim."
+        "The operational rating/BOLD relationship is a valid bridge from a task-specific neural correlate to the broader construct of beauty."
+      ]
+    },
+    {
+      "edge_id": "R5",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [
+        2
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "unsupported",
+      "added_reach": "Extends cross-domain regional overlap to the claim that beauty is independent of culture and learning across populations.",
+      "assumptions": [
+        "Cross-domain mOFC overlap can isolate beauty from cultural learning and expertise despite those variables not being manipulated."
       ]
     }
   ]
