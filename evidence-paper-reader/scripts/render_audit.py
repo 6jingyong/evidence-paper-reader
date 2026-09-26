@@ -21,6 +21,7 @@ VIABILITY_FLAGS = {
     "proprietary-black-box",
     "external-dependency-dominant",
     "promotional-asymmetry",
+    "source-integrity-failure",
 }
 CLAIM_TYPES = {"observational", "methodological", "mechanistic", "performance", "generality", "intervention"}
 CONCLUSION_STRENGTHS = {"weak", "medium", "strong"}
