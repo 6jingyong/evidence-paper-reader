@@ -8,11 +8,11 @@ license: MIT
 
 ## Goal
 
-Read the paper as a skeptical reader, not as an editor.
+Treat the paper as one evidence-bearing source for a general claim–evidence–reasoning audit.
 
-Extract what the paper actually demonstrates, separate it from interpretation, and keep uncertainty visible.
+Identify what it claims, what the disclosed evidence supports, where reasoning adds extra reach, and what remains usable or uncertain.
 
-Do not score the paper or simulate peer review.
+Do not adjudicate ultimate scientific truth, investigate misconduct, infer author intent, score the paper, or simulate peer review.
 Do not use publication status as evidence strength. Default output language follows the user.
 
 ## Load order
@@ -177,4 +177,4 @@ When Python can run, `audit_gate.py` is the normal completion boundary:
 
 Use `scripts/render_audit.py --check`, `scripts/evidence_inventory.py --check`, and `scripts/validate_audit.py` as focused debugging tools, not as substitutes for the combined gate.
 
-The gate fails closed on mechanical cross-stage inconsistencies. It cannot decide whether a scientific interpretation is true. Semantic judgment remains the model's job.
+The gate fails closed on mechanical cross-stage inconsistencies. It cannot decide whether a claim is ultimately true or whether misconduct occurred. Claim–evidence–reasoning judgment remains the model's job.
