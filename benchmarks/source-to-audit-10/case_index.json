@@ -1,0 +1,45 @@
+{
+  "benchmark_id": "source-to-audit-10-v1",
+  "cases": [
+    {
+      "case_id": "attention-is-all-you-need-2017",
+      "round_id": "2026-09-26-round-01"
+    },
+    {
+      "case_id": "sprint-2015",
+      "round_id": "2026-09-26-round-01"
+    },
+    {
+      "case_id": "echinacea-2010",
+      "round_id": "2026-09-26-round-01"
+    },
+    {
+      "case_id": "acc-dic-2021",
+      "round_id": "2026-09-26-round-01"
+    },
+    {
+      "case_id": "mathematical-beauty-2014",
+      "round_id": "2026-09-26-round-01"
+    },
+    {
+      "case_id": "gautret-hcq-2020",
+      "round_id": "2026-09-26-round-02"
+    },
+    {
+      "case_id": "power-posing-2010",
+      "round_id": "2026-09-26-round-02"
+    },
+    {
+      "case_id": "chocolate-weight-loss-2015",
+      "round_id": "2026-09-26-round-02"
+    },
+    {
+      "case_id": "surgisphere-hcq-2020",
+      "round_id": "2026-09-26-round-02"
+    },
+    {
+      "case_id": "wakefield-mmr-1998",
+      "round_id": "2026-09-26-round-02"
+    }
+  ]
+}
