@@ -23,7 +23,19 @@
         "source_location": "Figure 8e; Results; Conclusions",
         "support_level": "sufficient",
         "reason": "The same tensile tests are analyzed through machine displacement and stereovision/DIC, and the reported curves show about a twofold difference in failure strain with materially different modulus.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The machine-displacement result supplies one side of the observed method-dependent stress-strain difference."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The paired DIC result supplies the contrasting strain/modulus estimate in the same tested setup."
+          }
+        ]
       }
     },
     {
@@ -44,7 +56,19 @@
         "source_location": "Results around Figures 8 and 9; Conclusions",
         "support_level": "sufficient",
         "reason": "The paper reports similar tensile-strength values across approaches while local-DIC modulus is higher and strain/toughness differ.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The machine-based analysis reports the tensile-strength estimate used in the comparison."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The DIC-based analysis reports a similar tensile-strength estimate while strain-derived quantities differ."
+          }
+        ]
       }
     },
     {
@@ -69,7 +93,19 @@
         "source_location": "Discussion; Conclusions",
         "support_level": "partial",
         "reason": "The demonstrated within-study measurement bias justifies caution, but the magnitude of bias across other machines, geometries, and composite systems is not directly measured here.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The machine-displacement sensitivity is direct evidence that elongation method can matter for reported mechanical properties."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The paired DIC comparison supports the need to account for measurement method when interpreting literature values."
+          }
+        ]
       }
     }
   ],
@@ -90,7 +126,7 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "A stronger general statement would require cross-machine and cross-material calibration with known compliance and independent strain references. The study itself also notes that DIC-location effects were minor here partly because the tested deformation was low.",
-  "ledger_schema_version": 2,
+  "ledger_schema_version": 3,
   "reasoning_edges": [
     {
       "edge_id": "R1",
