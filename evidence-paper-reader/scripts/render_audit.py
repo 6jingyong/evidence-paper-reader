@@ -208,7 +208,9 @@ def validate_ledger(data: dict) -> list[str]:
         errors.append("claims must be a list")
         claims = []
 
-    if scope == "out of scope" or viability == "non-auditable":
+    no_claim_audit = scope == "out of scope" or viability == "non-auditable"
+
+    if no_claim_audit:
         if claims:
             errors.append("out-of-scope or non-auditable ledgers must use an empty claims list")
         _text(data.get("not_applicable_reason"), "not_applicable_reason", errors)
