@@ -95,5 +95,53 @@
     "research_design": "low",
     "material_or_documentation": "medium"
   },
-  "uncertainty_and_follow_up": "A treatment claim requires randomized or otherwise credible comparative assignment, intention-to-treat handling, clinically meaningful outcomes, consistent virologic measurement, and independent replication. The 2025 retraction notice also documents unresolved ethics, PCR-method, methodology, and conclusion concerns."
+  "uncertainty_and_follow_up": "A treatment claim requires randomized or otherwise credible comparative assignment, intention-to-treat handling, clinically meaningful outcomes, consistent virologic measurement, and independent replication. The 2025 retraction notice also documents unresolved ethics, PCR-method, methodology, and conclusion concerns.",
+  "ledger_schema_version": 2,
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1",
+        "E3"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2",
+        "E3"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "causal",
+      "reasoning_status": "unsupported",
+      "added_reach": "Moves from the observed treatment/exposure contrast to the stated intervention or causal conclusion.",
+      "assumptions": [
+        "The study design and measurement preserve the causal contrast required by the stated claim."
+      ]
+    }
+  ]
 }
