@@ -94,6 +94,19 @@ A claim may not depend on itself or on a later claim.
 
 Uncertainty does not reset downstream. If a downstream claim adds no new evidence nodes beyond required upstream claims, it cannot become `sufficient` when a required upstream claim is not sufficient.
 
+### Claim-local evidence relations
+
+Ledger schema v3 requires every declared evidence node to have exactly one claim-local relation from `evidence-relations.md`:
+
+- `supports`
+- `undermines`
+- `mixed`
+- `contextual`
+
+The relation is not a global property of the E-node. The same result may support one claim, undermine a stronger claim, and merely contextualize another.
+
+Do not infer the final support level mechanically from these labels. Evidence relation and reasoning status are separate dimensions.
+
 ## 6. Reasoning edges
 
 Ledger schema v2 makes the logical bridge from evidence/upstream claims to each target claim explicit.
