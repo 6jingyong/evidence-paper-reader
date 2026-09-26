@@ -8,7 +8,7 @@ The ledger is an intermediate representation. It contains semantic judgments but
 
 ```json
 {
-  "ledger_schema_version": 2,
+  "ledger_schema_version": 3,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -23,6 +23,18 @@ The ledger is an intermediate representation. It contains semantic judgments but
         "evidence_type": ["direct experiment", "statistical analysis"],
         "evidence_provenance": "paper-local",
         "evidence_nodes": ["E1", "E2"],
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The primary treatment contrast bears in favor of the bounded claim."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "contextual",
+            "reason": "The secondary record constrains how the primary result should be interpreted."
+          }
+        ],
         "upstream_claims": [],
         "evidence_dependence": "shared-source convergence",
         "source_location": "Results; Table 2",
@@ -68,7 +80,7 @@ The ledger is an intermediate representation. It contains semantic judgments but
 
 The renderer assigns claim numbers from list order. Do not put claim numbers in claim content.
 
-Ledger schema v2 also requires a top-level `reasoning_edges` graph for auditable and partially-auditable work. Load `reasoning-graph.md`. Every claim must be reached by at least one edge, and the union of its edges must account for exactly the claim's declared evidence nodes and upstream claims. Legacy structured ledgers without `ledger_schema_version` are treated as schema v1 for regression compatibility; new ledgers should use v2.
+Ledger schema v2 introduced a top-level `reasoning_edges` graph for auditable and partially-auditable work. Ledger schema v3 additionally requires claim-local `evidence_relations`; load `evidence-relations.md` and `reasoning-graph.md`. Every declared E-node must appear exactly once in that claim's relation list, and every claim must be reached by at least one reasoning edge whose union accounts for exactly the claim's declared evidence nodes and upstream claims. Legacy structured ledgers remain supported at their declared schema version; new ledgers should use v3.
 
 ## Structured fields
 
@@ -76,6 +88,7 @@ Use arrays for:
 - `viability_flags`
 - `evidence_type`
 - `evidence_nodes`
+- `evidence_relations`
 - `upstream_claims`
 - `reasoning_edges[*].evidence_nodes`
 - `reasoning_edges[*].upstream_claims`
@@ -172,6 +185,7 @@ Cross-stage consistency is also mechanical where possible. `audit_gate.py` there
 - evidence nodes or independence claims that conflict with the inventory
 - malformed route guard/path bookkeeping
 - controlled evidence labels that fail the final Markdown contract
-- schema-v2 reasoning graphs that omit claim inputs, invent new inputs, reference later claims, or conflict with support level
+- schema-v2+ reasoning graphs that omit claim inputs, invent new inputs, reference later claims, or conflict with support level
+- schema-v3 evidence-relation lists that omit, duplicate, or invent claim evidence nodes
 
 When one of these fails, repair or rerun the relevant stage instead of bypassing the gate.
