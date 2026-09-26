@@ -96,21 +96,33 @@
       "edge_id": "R1",
       "target_claim": 1,
       "evidence_nodes": [
-        "E1",
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "supported",
+      "added_reach": "Uses the machine-displacement stress-strain result as one side of the within-test measurement-method comparison.",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 1,
+      "evidence_nodes": [
         "E2"
       ],
       "upstream_claims": [],
       "inference_type": "comparison",
       "reasoning_status": "supported",
-      "added_reach": "Moves from the listed measurements/results to the stated comparative conclusion.",
-      "assumptions": []
+      "added_reach": "Compares the DIC-derived deformation result with the machine-derived result to attribute the material difference in inferred strain and modulus to measurement method within the tested setup.",
+      "assumptions": [
+        "The paired measurements refer to the same underlying tensile behavior and differ materially in displacement measurement rather than specimen identity."
+      ]
     },
     {
-      "edge_id": "R2",
+      "edge_id": "R3",
       "target_claim": 2,
       "evidence_nodes": [
-        "E1",
-        "E2"
+        "E1"
       ],
       "upstream_claims": [],
       "inference_type": "direct-result",
@@ -119,21 +131,49 @@
       "assumptions": []
     },
     {
-      "edge_id": "R3",
+      "edge_id": "R4",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E2"
+      ],
+      "upstream_claims": [],
+      "inference_type": "comparison",
+      "reasoning_status": "supported",
+      "added_reach": "Compares the paired method outputs to show that tensile strength remains approximately stable while strain-derived properties change.",
+      "assumptions": [
+        "The strength estimates are computed from comparable load/cross-section information across the two analysis approaches."
+      ]
+    },
+    {
+      "edge_id": "R5",
       "target_claim": 3,
       "evidence_nodes": [
-        "E1",
+        "E1"
+      ],
+      "upstream_claims": [
+        1
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends the demonstrated machine-compliance sensitivity in the tested setup to a caution about comparing mechanical properties across other literature sources.",
+      "assumptions": [
+        "Other literature measurements may contain analogous method-dependent displacement contributions."
+      ]
+    },
+    {
+      "edge_id": "R6",
+      "target_claim": 3,
+      "evidence_nodes": [
         "E2"
       ],
       "upstream_claims": [
-        1,
         2
       ],
       "inference_type": "generalization",
       "reasoning_status": "qualified",
-      "added_reach": "Extends the directly tested population, task, setting, time, or material to the broader scope stated in the claim.",
+      "added_reach": "Uses the paired DIC-versus-machine property pattern to justify method-aware literature comparison without assuming the same numerical bias across machines or materials.",
       "assumptions": [
-        "The directly tested cases are informative about the broader scope named in the claim."
+        "The direction of method sensitivity is relevant beyond the exact specimen geometry while its magnitude remains setup-specific."
       ]
     }
   ]
