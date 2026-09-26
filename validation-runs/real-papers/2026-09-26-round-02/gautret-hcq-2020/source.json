@@ -1,0 +1,16 @@
+{
+  "record_id": "gautret-hcq-2020",
+  "title": "Hydroxychloroquine and azithromycin as a treatment of COVID-19: results of an open-label non-randomized clinical trial",
+  "authors": "Philippe Gautret et al.",
+  "year": 2020,
+  "stable_id": "PMID:32205204",
+  "doi": "10.1016/j.ijantimicag.2020.105949",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7102549/",
+  "access_format": "PMC full text with retraction banner",
+  "retrieved_on": "2026-09-26",
+  "publication_status": "retracted 2025",
+  "integrity_context": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11718083/"
+  ],
+  "integrity_note": "Retraction cited research-conduct, PCR-methodology, methodology, and conclusion concerns; several authors disputed the retraction grounds."
+}
