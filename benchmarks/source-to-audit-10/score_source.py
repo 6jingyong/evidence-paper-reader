@@ -66,6 +66,10 @@ def main() -> int:
             sum(row["reasoning"]["reasoning_status_overlap"] for row in rows) / len(rows)
             if rows else 0.0
         ),
+        "mean_evidence_relation_overlap": (
+            sum(row["reasoning"]["evidence_relation_overlap"] for row in rows) / len(rows)
+            if rows else 0.0
+        ),
         "cases": rows,
     }
 
@@ -78,7 +82,8 @@ def main() -> int:
             f"claim_alignment={result['mean_claim_alignment_coverage']:.3f}; "
             f"support={result['mean_support_within_tolerance']:.3f}; "
             f"reasoning_type={result['mean_reasoning_inference_type_overlap']:.3f}; "
-            f"reasoning_status={result['mean_reasoning_status_overlap']:.3f}"
+            f"reasoning_status={result['mean_reasoning_status_overlap']:.3f}; "
+            f"evidence_relation={result['mean_evidence_relation_overlap']:.3f}"
         )
     return 1 if missing else 0
 
