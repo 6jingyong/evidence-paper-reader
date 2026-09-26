@@ -94,5 +94,55 @@
     "research_design": "medium",
     "material_or_documentation": "high"
   },
-  "uncertainty_and_follow_up": "The scanned sample is small and highly selected, beauty is operationalized by subjective ratings, and the culture/learning interpretation is not experimentally isolated. A stronger test would compare populations, expertise levels, and multiple aesthetic domains under one design."
+  "uncertainty_and_follow_up": "The scanned sample is small and highly selected, beauty is operationalized by subjective ratings, and the culture/learning interpretation is not experimentally isolated. A stronger test would compare populations, expertise levels, and multiple aesthetic domains under one design.",
+  "ledger_schema_version": 2,
+  "reasoning_edges": [
+    {
+      "edge_id": "R1",
+      "target_claim": 1,
+      "evidence_nodes": [
+        "E1"
+      ],
+      "upstream_claims": [],
+      "inference_type": "direct-result",
+      "reasoning_status": "direct",
+      "added_reach": "none",
+      "assumptions": []
+    },
+    {
+      "edge_id": "R2",
+      "target_claim": 2,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1
+      ],
+      "inference_type": "generalization",
+      "reasoning_status": "qualified",
+      "added_reach": "Extends the directly tested population, task, setting, time, or material to the broader scope stated in the claim.",
+      "assumptions": [
+        "The directly tested cases are informative about the broader scope named in the claim."
+      ]
+    },
+    {
+      "edge_id": "R3",
+      "target_claim": 3,
+      "evidence_nodes": [
+        "E1",
+        "E2"
+      ],
+      "upstream_claims": [
+        1,
+        2
+      ],
+      "inference_type": "proxy-to-construct",
+      "reasoning_status": "unsupported",
+      "added_reach": "Moves from the operational measurement/proxy to the broader construct named in the claim.",
+      "assumptions": [
+        "The operational measure is a valid bridge to the broader construct named in the claim."
+      ]
+    }
+  ]
 }
