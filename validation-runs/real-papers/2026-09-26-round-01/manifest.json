@@ -8,27 +8,62 @@
     {
       "id": "attention-is-all-you-need-2017",
       "domain": "machine-learning",
-      "inventory_expected": false
+      "inventory_expected": false,
+      "expected_viability": "auditable",
+      "expected_viability_flags": [],
+      "expected_support_levels": [
+        "sufficient",
+        "sufficient",
+        "partial"
+      ]
     },
     {
       "id": "sprint-2015",
       "domain": "clinical-medicine",
-      "inventory_expected": true
+      "inventory_expected": true,
+      "expected_viability": "auditable",
+      "expected_viability_flags": [],
+      "expected_support_levels": [
+        "sufficient",
+        "sufficient",
+        "sufficient"
+      ]
     },
     {
       "id": "echinacea-2010",
       "domain": "clinical-medicine-negative-result",
-      "inventory_expected": false
+      "inventory_expected": false,
+      "expected_viability": "auditable",
+      "expected_viability_flags": [],
+      "expected_support_levels": [
+        "sufficient",
+        "sufficient",
+        "insufficient"
+      ]
     },
     {
       "id": "acc-dic-2021",
       "domain": "materials-measurement",
-      "inventory_expected": false
+      "inventory_expected": false,
+      "expected_viability": "auditable",
+      "expected_viability_flags": [],
+      "expected_support_levels": [
+        "sufficient",
+        "sufficient",
+        "partial"
+      ]
     },
     {
       "id": "mathematical-beauty-2014",
       "domain": "neuroaesthetics",
-      "inventory_expected": false
+      "inventory_expected": false,
+      "expected_viability": "auditable",
+      "expected_viability_flags": [],
+      "expected_support_levels": [
+        "sufficient",
+        "partial",
+        "insufficient"
+      ]
     }
   ]
 }
