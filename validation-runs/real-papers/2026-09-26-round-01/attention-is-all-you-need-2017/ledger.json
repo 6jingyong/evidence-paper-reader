@@ -22,7 +22,14 @@
         "source_location": "Section 6.1; Table 2",
         "support_level": "sufficient",
         "reason": "Table 2 directly reports 28.4 BLEU for Transformer big and lower scores for the listed prior systems and ensembles.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "Table 2 directly reports the stated English-to-German BLEU result and comparison."
+          }
+        ]
       }
     },
     {
@@ -42,7 +49,14 @@
         "source_location": "Section 6.1; Table 2",
         "support_level": "sufficient",
         "reason": "The paper reports the Transformer big English-to-French benchmark result together with the compared systems and training-cost estimates; the bounded comparison is directly inspectable in the table.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The English-to-French benchmark and reported training-cost comparison directly bear in favor of the bounded claim."
+          }
+        ]
       }
     },
     {
@@ -63,7 +77,14 @@
         "source_location": "Section 6.3; Table 4; Abstract",
         "support_level": "partial",
         "reason": "The English constituency-parsing experiment demonstrates transfer to one materially different task, but one additional task does not establish broad task-level generality.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E3",
+            "relation": "mixed",
+            "reason": "The constituency-parsing result supports transfer beyond translation, but one additional task supports only a narrower version of broad cross-task generality."
+          }
+        ]
       }
     }
   ],
@@ -84,7 +105,7 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "The benchmark comparisons depend on the contemporaneous systems, data processing, evaluation metrics, and reported compute accounting. Broader generalization requires independent tasks, modalities, scales, and later replications rather than inference from the paper's three evaluated task settings alone.",
-  "ledger_schema_version": 2,
+  "ledger_schema_version": 3,
   "reasoning_edges": [
     {
       "edge_id": "R1",
