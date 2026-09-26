@@ -47,6 +47,13 @@ def write_valid_run(root: Path):
                 "claim_type": "performance",
                 "conclusion_strength": "medium",
                 "evidence_nodes": [f"E{i}"],
+                "evidence_relations": [
+                    {
+                        "evidence_node": f"E{i}",
+                        "relation": "supports",
+                        "reason": "The evidence node bears on this bounded claim.",
+                    }
+                ],
                 "upstream_claims": [],
                 "support_level": "partial",
                 "source_location": f"Results {i}",
