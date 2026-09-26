@@ -100,9 +100,24 @@ class BlindRealPaperBenchmarkTests(unittest.TestCase):
                     "content": f"Source-facing claim {index}.",
                     "claim_type": "observational",
                     "conclusion_strength": "medium",
+                    "evidence_nodes": [f"E{index}"],
+                    "upstream_claims": [],
                     "support_level": "partial",
                     "source_location": f"Results section {index}",
                     "reason": "The disclosed evidence supports only this bounded statement.",
+                }
+                for index in range(1, 4)
+            ],
+            "reasoning_edges": [
+                {
+                    "edge_id": f"R{index}",
+                    "target_claim": index,
+                    "evidence_nodes": [f"E{index}"],
+                    "upstream_claims": [],
+                    "inference_type": "direct-result",
+                    "reasoning_status": "qualified",
+                    "added_reach": "The reported result supports only a narrower version of the claim.",
+                    "assumptions": [],
                 }
                 for index in range(1, 4)
             ],
@@ -118,6 +133,48 @@ class BlindRealPaperBenchmarkTests(unittest.TestCase):
             bad = dict(good)
             bad["claims"] = []
             path.write_text(json.dumps(bad), encoding="utf-8")
+            with self.assertRaises(ValueError):
+                runner.validate_response(path, "demo")
+
+    def test_response_validator_rejects_reasoning_input_drift(self):
+        response = {
+            "case_id": "demo",
+            "evidence_viability": "auditable",
+            "viability_flags": [],
+            "claims": [
+                {
+                    "content": f"Claim {index}.",
+                    "claim_type": "observational",
+                    "conclusion_strength": "medium",
+                    "evidence_nodes": [f"E{index}"],
+                    "upstream_claims": [],
+                    "support_level": "sufficient",
+                    "source_location": f"Results {index}",
+                    "reason": "Direct bounded result.",
+                }
+                for index in range(1, 4)
+            ],
+            "reasoning_edges": [
+                {
+                    "edge_id": f"R{index}",
+                    "target_claim": index,
+                    "evidence_nodes": [f"E{index}"],
+                    "upstream_claims": [],
+                    "inference_type": "direct-result",
+                    "reasoning_status": "direct",
+                    "added_reach": "none",
+                    "assumptions": [],
+                }
+                for index in range(1, 4)
+            ],
+            "modules": [],
+            "use_evidence_inventory": False,
+            "reader_conclusion": "Bounded results only.",
+        }
+        response["reasoning_edges"][0]["evidence_nodes"] = ["E999"]
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "demo.json"
+            path.write_text(json.dumps(response), encoding="utf-8")
             with self.assertRaises(ValueError):
                 runner.validate_response(path, "demo")
 
