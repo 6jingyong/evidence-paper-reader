@@ -20,11 +20,13 @@ jobs:
           test -f tests/test_fail_closed_sabotage.py
           test -f tests/test_gate_mutation_canaries.py
           test -f tests/test_dependency_mutation_canaries.py
+          test -f tests/test_common_mode_oracles.py
           test -f tests/sabotage-matrix.json
           python tests/test_sabotage_guards.py -v
           python tests/test_fail_closed_sabotage.py -v
           python tests/test_gate_mutation_canaries.py -v
           python tests/test_dependency_mutation_canaries.py -v
+          python tests/test_common_mode_oracles.py -v
       - name: Validate all real-paper regression audits
         shell: bash
         run: |
