@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "bundle_format": "utf8-source-bundle-v1",
+  "bundle_rules": {
+    "newline_normalization": "CRLF and CR become LF; component body otherwise preserved byte-for-byte after UTF-8 decoding; exactly one terminal LF is added.",
+    "component_order": "exactly the profile component order",
+    "delimiter_format": "===== BEGIN SOURCE COMPONENT: <component_id> ===== / ===== END SOURCE COMPONENT: <component_id> =====",
+    "forbidden_transformations": [
+      "summarization",
+      "paraphrase",
+      "LLM rewriting",
+      "dropping negative/null results",
+      "dropping tables or table text that bear on audited claims",
+      "dropping figure captions that bear on audited claims",
+      "merging later commentary into the primary article without a separate component boundary"
+    ]
+  },
+  "cases": {
+    "attention-is-all-you-need-2017": {
+      "representation": "html-full-text",
+      "required_preservation": [
+        "title",
+        "abstract",
+        "methods",
+        "results",
+        "tables",
+        "figure-captions",
+        "discussion",
+        "references"
+      ],
+      "components": [
+        {
+          "component_id": "primary",
+          "role": "primary-article",
+          "required": true,
+          "url": "https://arxiv.org/html/1706.03762v7"
+        }
+      ]
+    },
+    "sprint-2015": {
+      "representation": "html-full-text",
+      "required_preservation": [
+        "title",
+        "abstract",
+        "methods",
+        "results",
+        "tables",
+        "adverse-events",
+        "discussion",
+        "references"
+      ],
+      "components": [
+        {
+          "component_id": "primary",
+          "role": "primary-article",
+          "required": true,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4689591/"
+        }
+      ]
+    },
+    "echinacea-2010": {
+      "representation": "html-full-text",
+      "required_preservation": [
+        "title",
+        "abstract",
+        "methods",
+        "results",
+        "tables",
+        "confidence-intervals",
+        "discussion",
+        "references"
+      ],
+      "components": [
+        {
+          "component_id": "primary",
+          "role": "primary-article",
+          "required": true,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3056276/"
+        }
+      ]
+    },
+    "acc-dic-2021": {
+      "representation": "html-full-text",
+      "required_preservation": [
+        "title",
+        "abstract",
+        "methods",
+        "results",
+        "tables",
+        "figure-captions",
+        "measurement-comparison",
+        "discussion",
+        "references"
+      ],
+      "components": [
+        {
+          "component_id": "primary",
+          "role": "primary-article",
+          "required": true,
+          "url": "https://link.springer.com/article/10.1007/s10570-021-03807-9"
+        }
+      ]
+    },
+    "mathematical-beauty-2014": {
+      "representation": "html-full-text",
+      "required_preservation": [
+        "title",
+        "abstract",
+        "methods",
+        "results",
+        "figures-or-captions",
+        "sample-description",
+        "discussion",
+        "references"
+      ],
+      "components": [
+        {
+          "component_id": "primary",
+          "role": "primary-article",
+          "required": true,
+          "url": "https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2014.00068/full"
+        }
+      ]
+    },
+    "gautret-hcq-2020": {
+      "representation": "html-full-text",
+      "required_preservation": [
+        "title",
+        "abstract",
+        "methods",
+        "results",
+        "tables",
+        "participant-exclusions",
+        "discussion",
+        "references"
+      ],
+      "components": [
+        {
+          "component_id": "primary",
+          "role": "primary-article",
+          "required": true,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7102549/"
+        }
+      ]
+    },
+    "power-posing-2010": {
+      "representation": "publisher-full-text",
+      "required_preservation": [
+        "title",
+        "abstract",
+        "methods",
+        "results",
+        "figures-or-captions",
+        "outlier-or-exclusion-notes",
+        "discussion",
+        "references"
+      ],
+      "components": [
+        {
+          "component_id": "primary",
+          "role": "primary-article",
+          "required": true,
+          "url": "https://journals.sagepub.com/doi/10.1177/0956797610383437"
+        }
+      ]
+    },
+    "chocolate-weight-loss-2015": {
+      "representation": "pdf-text-extraction",
+      "required_preservation": [
+        "title",
+        "abstract",
+        "methods",
+        "results",
+        "tables",
+        "figure-captions",
+        "all-reported-outcomes",
+        "discussion",
+        "references"
+      ],
+      "components": [
+        {
+          "component_id": "primary",
+          "role": "primary-article",
+          "required": true,
+          "url": "https://www.roma1.infn.it/~dagos/International_Archives_of_Medicine_CHOCOLATE_WITH_HIGH_COCOA_CONTENT_AS_A_WEIGHT-LOSS_ACCELERATOR.pdf"
+        }
+      ]
+    },
+    "surgisphere-hcq-2020": {
+      "representation": "html-plus-provenance",
+      "required_preservation": [
+        "primary-title",
+        "primary-methods",
+        "primary-results",
+        "primary-tables",
+        "retraction-text",
+        "audit-access-limitation",
+        "data-provenance-statements"
+      ],
+      "components": [
+        {
+          "component_id": "primary",
+          "role": "primary-article",
+          "required": true,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7255293/"
+        },
+        {
+          "component_id": "retraction",
+          "role": "documented-provenance",
+          "required": true,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7274621/"
+        },
+        {
+          "component_id": "post-publication-record",
+          "role": "documented-provenance",
+          "required": true,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7498225/"
+        }
+      ]
+    },
+    "wakefield-mmr-1998": {
+      "representation": "article-plus-provenance",
+      "required_preservation": [
+        "primary-case-series-description",
+        "primary-exposure-timing-claims",
+        "full-retraction-record",
+        "record-based-discrepancy-documentation"
+      ],
+      "components": [
+        {
+          "component_id": "primary",
+          "role": "primary-article",
+          "required": true,
+          "url": "https://www.sciencedirect.com/science/article/pii/S0140673697110960"
+        },
+        {
+          "component_id": "retraction",
+          "role": "documented-provenance",
+          "required": true,
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20137807/"
+        },
+        {
+          "component_id": "record-review",
+          "role": "documented-provenance",
+          "required": true,
+          "url": "https://www.bmj.com/content/342/bmj.c5347"
+        }
+      ]
+    }
+  }
+}
