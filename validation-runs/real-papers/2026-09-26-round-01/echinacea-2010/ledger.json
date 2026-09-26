@@ -23,7 +23,14 @@
         "source_location": "Abstract; Results; primary global-severity comparison",
         "support_level": "sufficient",
         "reason": "The randomized blinded comparison directly reports the 28-point point estimate; its 95% CI of -69 to 13 must remain attached to interpretation.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "supports",
+            "reason": "The blinded comparison directly reports the stated 28-point lower mean severity estimate."
+          }
+        ]
       }
     },
     {
@@ -44,7 +51,14 @@
         "source_location": "Abstract; Results; illness-duration comparison",
         "support_level": "sufficient",
         "reason": "The trial directly reports the 0.53-day point estimate with a 95% CI from -1.25 to 0.19 days.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E2",
+            "relation": "supports",
+            "reason": "The blinded comparison directly reports the stated 0.53-day shorter mean illness duration."
+          }
+        ]
       }
     },
     {
@@ -69,7 +83,19 @@
         "source_location": "Abstract conclusion; primary severity and duration results",
         "support_level": "insufficient",
         "reason": "Both main point estimates trend toward benefit, but the confidence intervals include no benefit and the primary blinded comparisons do not establish a substantive treatment effect.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "evidence_relations": [
+          {
+            "evidence_node": "E1",
+            "relation": "mixed",
+            "reason": "The severity point estimate favors echinacea, but its uncertainty interval includes no benefit and does not establish a substantive course-changing effect."
+          },
+          {
+            "evidence_node": "E2",
+            "relation": "mixed",
+            "reason": "The duration point estimate favors echinacea, but its uncertainty interval includes no benefit and does not establish a substantive course-changing effect."
+          }
+        ]
       }
     }
   ],
@@ -90,7 +116,7 @@
     "material_or_documentation": "high"
   },
   "uncertainty_and_follow_up": "Higher-than-expected variability limited power for small effects. A later study would need enough precision to distinguish clinically meaningful benefit from the null while preserving blinding and the same formulation-specific interpretation.",
-  "ledger_schema_version": 2,
+  "ledger_schema_version": 3,
   "reasoning_edges": [
     {
       "edge_id": "R1",
