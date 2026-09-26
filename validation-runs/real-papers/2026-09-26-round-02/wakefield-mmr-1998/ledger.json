@@ -1,0 +1,29 @@
+{
+  "scope_status": "in scope",
+  "evidence_viability": "non-auditable",
+  "viability_flags": [
+    "source-integrity-failure",
+    "selective-success-only"
+  ],
+  "paper_type": "retracted referred pediatric case series with retrospective exposure timing",
+  "reader_conclusion": "The publication describes 12 referred children with gastrointestinal abnormalities and developmental regression and reports that parents or physicians temporally associated behavioral onset with MMR vaccination in eight cases. As a case series, that design could never establish an MMR-autism causal effect. More importantly for the present audit, the article was fully retracted and later investigations documented discrepancies between published case histories and underlying records, so the central temporal-trigger evidence cannot be treated as a trustworthy inspectable substrate merely because the published narrative remains readable.",
+  "claims": [],
+  "not_applicable_reason": "The central exposure-timing and case-history evidence has a documented source-integrity failure, and the referred case-series design supplies no independent comparator capable of rescuing the causal inference.",
+  "usable": {
+    "results": "The paper remains useful as a historical record of a 12-child referred case series and as an example of how temporal anecdotes can be presented alongside clinical findings.",
+    "methods_or_design": "It is a strong teaching case for why referred case series, retrospective exposure attribution, and temporal ordering cannot establish vaccine causation.",
+    "materials_or_documentation": "The published article, partial interpretation retraction, full retraction, and later record-based investigations form a well-documented integrity and inference case."
+  },
+  "downweight": {
+    "worth_noticing": "Some gastrointestinal and developmental observations were presented as clinical findings, but they do not create an epidemiologic comparison and cannot independently establish an MMR trigger.",
+    "cautious_or_ignore": "Do not reuse the reported MMR timing or the paper's trigger narrative as evidence for a causal MMR-autism association; the case-series design is inadequate and the relevant case-history substrate was later formally discredited."
+  },
+  "value_breakdown": {
+    "result": "low",
+    "method": "medium",
+    "theory_or_insight": "low",
+    "research_design": "low",
+    "material_or_documentation": "high"
+  },
+  "uncertainty_and_follow_up": "The causal question requires population-level comparative epidemiology with reliable vaccination and developmental records. That evidence must come from independent studies rather than attempting to repair this retracted case series."
+}
