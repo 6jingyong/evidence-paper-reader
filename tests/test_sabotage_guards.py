@@ -117,7 +117,7 @@ class SabotageGuardCanaryTests(unittest.TestCase):
         self.assertIn("python tests/test_sabotage_guards.py -v", workflow)
         self.assertEqual(
             set(matrix["code_canary_guards"]),
-            {"G108", "G123", "G124", "G125", "G126", "G127"},
+            {"G108", "G123", "G124", "G125", "G126", "G127", "G128"},
         )
         for guard in matrix["code_canary_guards"]:
             self.assertIn(guard, gate.CRITICAL_GUARDS)
