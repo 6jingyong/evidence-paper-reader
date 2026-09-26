@@ -1,3 +1,5 @@
+import copy
+import hashlib
 import importlib.util
 import json
 import unittest
@@ -9,6 +11,11 @@ SCRIPTS = SKILL / "scripts"
 RUN_ROOT = ROOT / "validation-runs" / "real-papers"
 ROUNDS = sorted(path for path in RUN_ROOT.glob("*-round-*") if path.is_dir())
 EVIDENCE_TYPES = SKILL / "references" / "evidence-types.md"
+JUDGMENT_BASELINE = ROOT / "tests" / "real-paper-judgment-baseline.json"
+JUDGMENT_BASELINE_SHA256 = "e44cf4d4efd2066f45aa72afe03b2e69baf1df4b46391e7c049e77f9ab25808c"
+VIABILITY = {"auditable", "partially auditable", "non-auditable"}
+SUPPORT_LEVELS = {"sufficient", "partial", "insufficient", "unclear"}
+ONLY_TOLERATED_SUPPORT_PAIR = {"partial", "insufficient"}
 
 
 def load_module(name: str, path: Path):
@@ -22,6 +29,56 @@ def load_module(name: str, path: Path):
 gate = load_module("real_run_gate", SCRIPTS / "audit_gate.py")
 
 
+def contract_errors(contract: dict) -> list[str]:
+    errors = []
+    if set(contract) != {"must_hold", "allowed_range"}:
+        return ["contract must contain exactly must_hold and allowed_range"]
+
+    must = contract["must_hold"]
+    allowed = contract["allowed_range"]
+    if set(must) != {"viability", "required_viability_flags"}:
+        errors.append("must_hold keys are not exact")
+    if set(allowed) != {"viability_flags", "support_levels"}:
+        errors.append("allowed_range keys are not exact")
+    if errors:
+        return errors
+
+    if must["viability"] not in VIABILITY:
+        errors.append("invalid hard viability")
+    required_flags = must["required_viability_flags"]
+    allowed_flags = allowed["viability_flags"]
+    if not isinstance(required_flags, list) or len(required_flags) != len(set(required_flags)):
+        errors.append("required viability flags must be a unique list")
+    if not isinstance(allowed_flags, list) or len(allowed_flags) != len(set(allowed_flags)):
+        errors.append("allowed viability flags must be a unique list")
+    if isinstance(required_flags, list) and isinstance(allowed_flags, list):
+        if not set(required_flags).issubset(set(allowed_flags)):
+            errors.append("required viability flags must be inside the allowed flag set")
+
+    support_ranges = allowed["support_levels"]
+    if not isinstance(support_ranges, list):
+        errors.append("support level ranges must be a list")
+        return errors
+    if must["viability"] == "non-auditable" and support_ranges:
+        errors.append("non-auditable contracts cannot allow claim support levels")
+
+    for index, choices in enumerate(support_ranges, start=1):
+        if not isinstance(choices, list) or not choices:
+            errors.append(f"claim {index}: support range must be a non-empty list")
+            continue
+        if len(choices) != len(set(choices)):
+            errors.append(f"claim {index}: duplicate support level in range")
+        if not set(choices).issubset(SUPPORT_LEVELS):
+            errors.append(f"claim {index}: unknown support level")
+        if len(choices) > 2:
+            errors.append(f"claim {index}: support tolerance is too broad")
+        if len(choices) == 2 and set(choices) != ONLY_TOLERATED_SUPPORT_PAIR:
+            errors.append(
+                f"claim {index}: the only permitted two-level tolerance is partial/insufficient"
+            )
+    return errors
+
+
 class RealPaperRunRecordTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -33,6 +90,8 @@ class RealPaperRunRecordTests(unittest.TestCase):
             for round_root in ROUNDS
         ]
         cls.evidence_types = EVIDENCE_TYPES.read_text(encoding="utf-8")
+        cls.baseline_bytes = JUDGMENT_BASELINE.read_bytes()
+        cls.baseline = json.loads(cls.baseline_bytes.decode("utf-8"))
 
     def test_legacy_fixture_index_is_honest_and_complete(self):
         legacy = json.loads(
@@ -44,21 +103,68 @@ class RealPaperRunRecordTests(unittest.TestCase):
         for rel in legacy["fixtures"]:
             self.assertTrue((ROOT / rel).is_file(), rel)
 
-    def test_round_manifests_are_nonempty_and_unique(self):
-        self.assertGreaterEqual(len(self.rounds), 2)
-        round_ids = [manifest["round_id"] for _, manifest in self.rounds]
-        self.assertEqual(len(round_ids), len(set(round_ids)))
+    def test_judgment_baseline_is_pinned_and_not_silently_widened(self):
+        self.assertEqual(
+            hashlib.sha256(self.baseline_bytes).hexdigest(),
+            JUDGMENT_BASELINE_SHA256,
+        )
+        self.assertEqual(self.baseline["schema_version"], 1)
+
+        baseline_rounds = self.baseline["rounds"]
+        self.assertEqual(
+            set(baseline_rounds),
+            {manifest["round_id"] for _, manifest in self.rounds},
+        )
         for round_root, manifest in self.rounds:
+            round_id = manifest["round_id"]
             cases = manifest["cases"]
             self.assertTrue(cases, round_root)
             self.assertEqual(len({case["id"] for case in cases}), len(cases))
+            self.assertEqual(
+                set(baseline_rounds[round_id]),
+                {case["id"] for case in cases},
+            )
             for case in cases:
-                self.assertIn(
-                    case["expected_viability"],
-                    {"auditable", "partially auditable", "non-auditable"},
+                contract = case["regression_contract"]
+                self.assertEqual(
+                    contract,
+                    baseline_rounds[round_id][case["id"]],
                 )
-                self.assertIsInstance(case["expected_viability_flags"], list)
-                self.assertIsInstance(case["expected_support_levels"], list)
+                self.assertEqual(contract_errors(contract), [])
+
+    def test_judgment_tolerance_schema_rejects_easy_escape_hatches(self):
+        base = {
+            "must_hold": {
+                "viability": "auditable",
+                "required_viability_flags": [],
+            },
+            "allowed_range": {
+                "viability_flags": [],
+                "support_levels": [["partial", "insufficient"]],
+            },
+        }
+        self.assertEqual(contract_errors(base), [])
+
+        too_wide = copy.deepcopy(base)
+        too_wide["allowed_range"]["support_levels"][0] = [
+            "sufficient",
+            "partial",
+            "insufficient",
+        ]
+        self.assertTrue(contract_errors(too_wide))
+
+        crosses_sufficient = copy.deepcopy(base)
+        crosses_sufficient["allowed_range"]["support_levels"][0] = [
+            "sufficient",
+            "partial",
+        ]
+        self.assertTrue(contract_errors(crosses_sufficient))
+
+        missing_required_flag = copy.deepcopy(base)
+        missing_required_flag["must_hold"]["required_viability_flags"] = [
+            "source-integrity-failure"
+        ]
+        self.assertTrue(contract_errors(missing_required_flag))
 
     def test_every_real_paper_record_replays_through_final_gate(self):
         full_paths = 0
@@ -84,21 +190,38 @@ class RealPaperRunRecordTests(unittest.TestCase):
                     self.assertTrue(source["source_url"].startswith("https://"))
                     self.assertEqual(result["expected_gate"], "pass")
                     self.assertEqual(result["reviewer"], manifest["reviewer"])
+                    contract = case["regression_contract"]
+                    must_hold = contract["must_hold"]
+                    allowed_range = contract["allowed_range"]
                     self.assertEqual(
                         ledger["evidence_viability"],
-                        case["expected_viability"],
+                        must_hold["viability"],
                     )
+                    actual_flags = set(ledger.get("viability_flags", []))
+                    self.assertTrue(
+                        set(must_hold["required_viability_flags"]).issubset(actual_flags)
+                    )
+                    self.assertTrue(
+                        actual_flags.issubset(set(allowed_range["viability_flags"]))
+                    )
+
+                    actual_support = [
+                        claim["support"]["support_level"]
+                        for claim in ledger.get("claims", [])
+                    ]
                     self.assertEqual(
-                        ledger.get("viability_flags", []),
-                        case["expected_viability_flags"],
+                        len(actual_support),
+                        len(allowed_range["support_levels"]),
                     )
-                    self.assertEqual(
-                        [
-                            claim["support"]["support_level"]
-                            for claim in ledger.get("claims", [])
-                        ],
-                        case["expected_support_levels"],
-                    )
+                    for index, (actual, choices) in enumerate(
+                        zip(actual_support, allowed_range["support_levels"]),
+                        start=1,
+                    ):
+                        self.assertIn(
+                            actual,
+                            choices,
+                            f"claim {index} support drifted outside its allowed judgment range",
+                        )
 
                     inventory_path = root / "inventory.json"
                     inventory = (
