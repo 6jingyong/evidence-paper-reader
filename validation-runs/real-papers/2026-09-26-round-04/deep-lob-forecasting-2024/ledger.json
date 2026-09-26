@@ -1,5 +1,5 @@
 {
-  "ledger_schema_version": 3,
+  "ledger_schema_version": 4,
   "scope_status": "in scope",
   "evidence_viability": "auditable",
   "viability_flags": [],
@@ -32,7 +32,12 @@
         "source_location": "Results 7.1; Figs. 13–14",
         "support_level": "sufficient",
         "reason": "The bounded claim stays with the tested 15 stocks, horizons, and DeepLOB-style forecasting setup.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -61,7 +66,12 @@
         "source_location": "Results 7.2; Fig. 11; Table 8",
         "support_level": "sufficient",
         "reason": "The paper explicitly evaluates forecast practicality separately from classification performance and shows the two can diverge sharply.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "not-applicable",
+          "summary": "none",
+          "source_location": "none"
+        }
       }
     },
     {
@@ -99,7 +109,12 @@
         "source_location": "Conclusion and future work; framework generality statements",
         "support_level": "partial",
         "reason": "The framework is useful for the tested forecast-practicality question, but live trading, costs, queue position, slippage, different venues/assets, and strategy design remain outside the evidence.",
-        "external_dependency": "none"
+        "external_dependency": "none",
+        "author_boundary": {
+          "status": "explicit",
+          "summary": "The authors explicitly separate conventional forecast scores from transaction practicality, show that high F1 can coexist with very low pT, and leave realistic trading/execution use as a further problem.",
+          "source_location": "Results 7.2; Table 8; Conclusion and future work"
+        }
       }
     }
   ],
