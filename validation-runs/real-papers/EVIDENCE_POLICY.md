@@ -18,6 +18,8 @@ Full replay, inventory stress, blind re-audit, model comparison, repeated stabil
 
 The generated EVIDENCE.md page is the source for factual project-adoption claims about tested papers. Source-backed papers can be traced to original sources and replay artifacts. Legacy fixtures demonstrate regression coverage but must not be described as if their missing source metadata had been reconstructed.
 
+These assets demonstrate claim–evidence–reasoning auditing behavior. They must not be marketed as proof that the skill detects fraud, establishes misconduct, adjudicates scientific truth, or identifies dishonest authors. Even source-integrity cases support only the narrower statement that a documented provenance problem changes what evidence can safely carry a claim.
+
 Protocol-ready blind cases are not completed blind-model results.
 
 ## Enforcement
