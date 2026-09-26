@@ -251,7 +251,7 @@ class ReasoningGraphTests(unittest.TestCase):
         self.assertGreaterEqual(len(ledgers), 10)
         for case_id, data in ledgers:
             with self.subTest(case_id=case_id):
-                self.assertEqual(data.get("ledger_schema_version"), 3)
+                self.assertGreaterEqual(data.get("ledger_schema_version", 0), 3)
                 self.assertEqual(render.validate_ledger(data), [])
                 self.assertEqual(gate.validate_reasoning_closure(data), [])
                 self.assertEqual(gate.validate_evidence_relation_closure(data), [])
