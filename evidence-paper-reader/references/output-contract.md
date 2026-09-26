@@ -47,6 +47,9 @@ Use the same claim numbers as section 2.
 - support level: sufficient | partial | insufficient | unclear
 - reason: ...
 - external dependency: none | <cited work title; DOI only if verified/available; why it matters>
+- author boundary: explicit | partial | absent | unclear | not-applicable
+- author acknowledgment: <faithful summary of the authors' own limitation/boundary; use none only when not-applicable>
+- author-boundary source: <Discussion/Limitations/Conclusion/Future work location; none allowed for absent/unclear/not-applicable>
 - reasoning edges: R1 | R1 + R2 | ...
 
 For ledger-v2 output, each listed reasoning edge is then rendered with:
@@ -110,6 +113,7 @@ Prefer short declarative sentences.
 
 Useful patterns:
 - `the paper shows ... but does not establish ...`
+- `the authors themselves also limit this point in ...; the audit preserves that boundary rather than treating it as a contradiction`
 - `usable content is limited to ...`
 - `the main overreach is ...`
 
