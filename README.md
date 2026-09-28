@@ -12,7 +12,7 @@ A forecasting paper can report strong F1/MCC and still fail to establish an acti
 
 That is the core behavior: **keep the result, expose the extra logical bridge, and say when the authors already limit the claim themselves.**
 
-**Start here:** [8 source-backed examples](SHOWCASE.md) · [evidence registry](EVIDENCE.md) · [the skill](evidence-paper-reader/SKILL.md)
+**Start here:** [audit your first paper](#first-paper-audit) · [8 source-backed examples](SHOWCASE.md) · [evidence registry](EVIDENCE.md) · [the skill](evidence-paper-reader/SKILL.md)
 
 Current public evidence base: **30 source-backed records**, **18 benchmark-only named sources**, **24 legacy regression fixtures**, **72 unique evidence identities**.
 
@@ -87,12 +87,13 @@ It should stay small enough to read in full.
 
 ### Layer 1 — core contract
 Every audit loads:
-- `references/core-contract.md`
+- `references/carrier-neutral-core.md` and `references/core-contract.md`
 - `references/evidence-viability.md`
-- `references/evidence-types.md`
+- `references/evidence-types.md` and `references/evidence-relations.md`
+- `references/reasoning-graph.md`
 
 For the output interface:
-- with Python: load `references/audit-ledger-format.md`, fill JSON, then use `scripts/render_audit.py`
+- with Python: load `references/audit-ledger-format.md`, fill the routed audit artifacts, then complete through `scripts/audit_gate.py`
 - without Python: load `references/output-contract.md` as the manual fallback
 
 This keeps Markdown formatting out of the model's working context whenever the runtime can own it.
@@ -118,7 +119,7 @@ Only load modules that matter to decision-critical claims or retrieval complexit
 `references/domain-profiles.md` adds domain-specific emphasis without changing the output format.
 
 ### Layer 4 — scripts and CI
-`scripts/render_audit.py` owns canonical Markdown generation and `scripts/validate_audit.py` checks the mechanical output/graph contract.
+`scripts/audit_gate.py` checks the route, generated context, completed module checks, ledger, and final Markdown together. `scripts/render_audit.py` and `scripts/validate_audit.py` are focused debugging tools, not the normal completion path.
 
 The regression suite tests semantic boundaries with historical, adversarial, and anti-trigger real-paper fixtures.
 
@@ -129,13 +130,13 @@ The validator cannot replace scientific judgment; it removes bookkeeping and con
 Flash path is the staged-loading route. It keeps context small without reducing the work required.
 
 1. Read `SKILL.md`.
-2. Load `core-contract.md`, `evidence-viability.md`, `evidence-types.md`, and `audit-ledger-format.md` when the renderer is available.
+2. Follow the `SKILL.md` load order; use `audit-ledger-format.md` when Python is available.
 3. Decide scope and evidence viability before claim extraction. Auditable material gets 3–5 claims; partially auditable material gets only the 1–5 reconstructable claims; non-auditable material does not manufacture claims.
-4. Run or consult the router.
-5. Load every matched module required by decision-critical claims.
+4. Run lexical routing where plain text is available, confirm the semantic route, and use `build_context.py` to generate the required reference bundle and module-check template.
+5. Use the generated bundle and complete every routed module check required by decision-critical claims.
 6. Audit one claim at a time and re-route when new cues appear.
-7. Fill the structured audit ledger and render it with `render_audit.py`.
-8. Run the packaged `validate_audit.py`.
+7. Fill the structured audit ledger, preserving the route, context bundle, completed checks, and any required evidence inventory.
+8. Run `audit_gate.py` to validate the complete path and render the final audit.
 
 Flash path never permits fewer claims for material classified `auditable`, missing fields, skipped routed modules, weaker support standards, or abstract-only support judgments.
 
@@ -200,6 +201,8 @@ The important distinction is execution strategy, not quality level: **Flash mean
     ├── agents/
     │   └── openai.yaml
     ├── scripts/
+    │   ├── audit_gate.py
+    │   ├── build_context.py
     │   ├── evidence_inventory.py
     │   ├── merge_route.py
     │   ├── render_audit.py
@@ -263,7 +266,7 @@ python evidence-paper-reader/scripts/evidence_inventory.py inventory.json --audi
 
 The last command can reject obvious contradictions such as an audit claiming `independent convergence` when the promoted E nodes share the same known U key.
 
-### Scripted output renderer
+### Scripted completion gate
 
 When Python is available, the model does not need to manually reproduce Markdown headings or field ordering.
 
@@ -273,15 +276,26 @@ Create a starter ledger:
 python evidence-paper-reader/scripts/render_audit.py --template > audit.json
 ```
 
-Fill semantic fields in `audit.json`, then:
+After the agent has extracted claims and written `semantic-route.json` following `references/semantic-router-card.md`, generate the routed context and checks template from the repository root:
 
 ```bash
-python evidence-paper-reader/scripts/render_audit.py audit.json --check
-python evidence-paper-reader/scripts/render_audit.py audit.json -o audit.md
-python evidence-paper-reader/scripts/validate_audit.py audit.md
+python evidence-paper-reader/scripts/build_context.py \
+  --semantic-route semantic-route.json \
+  -o audit-context.md \
+  --checks-template module-checks.json
 ```
 
-The renderer owns claim numbering, seven-section layout, field ordering, evidence-node/upstream-claim joining, out-of-scope placeholders, and value-breakdown ordering. The model still owns claim extraction, evidence identity, dependence, support judgment, reasons, and uncertainty.
+Use `audit-context.md` to fill `audit.json` and complete every applicable entry in `module-checks.json` with a status, a source location or specific missing material, and a reason. Then finish with:
+
+```bash
+python evidence-paper-reader/scripts/audit_gate.py audit.json \
+  --semantic-route semantic-route.json \
+  --context-bundle audit-context.md \
+  --module-checks module-checks.json \
+  -o audit.md
+```
+
+If lexical routing used extracted `paper.txt`, or any semantic route decision is `unclear`, pass `--router-text paper.txt` to **both** `build_context.py` and `audit_gate.py`. If the recomputed route requires an evidence inventory, complete it and add `--inventory inventory.json` to the gate. Trap-module checks must also record the mitigation pass described in `SKILL.md`. The gate fails if required route artifacts or checks are missing; fix the failing stage instead of rendering directly. `render_audit.py --check` and `validate_audit.py` remain useful for focused debugging, but neither substitutes for the gate. The agent still owns claim extraction, evidence identity, dependence, support judgment, reasons, and uncertainty.
 
 ### Optional routing helper
 
@@ -542,6 +556,14 @@ Copy `evidence-paper-reader/` into your Codex skills directory.
 
 ### Other tools that support the open SKILL.md / Agent Skills format
 Use the same folder directly if the tool supports this format.
+
+## First paper audit
+
+After installing the skill, attach a paper PDF (and any available supplement) or provide an accessible full-text source to a skill-enabled agent. For example:
+
+> Use `evidence-paper-reader` to audit this paper's central claims against its methods, results, figures, and tables. Follow `SKILL.md`'s Flash path, escalating to Full when its criteria apply. Show what remains usable and where a broader conclusion needs an additional reasoning bridge. If Python is available, complete through `audit_gate.py` and give me the resulting audit; if the gate fails, report the missing step rather than treating a rendered draft as finished.
+
+For a local scripted run, use the [completion-gate sequence](#scripted-completion-gate) above. A paper URL alone may not expose the full methods, figures, or supplement; the audit should state which material was actually inspected.
 
 ## Why this repo is marketplace-friendly
 
